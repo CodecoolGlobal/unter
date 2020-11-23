@@ -20,8 +20,9 @@ public class Accomodation {
     @GeneratedValue
     private Long id;
 
-    @Column(nullable = false)
-    private Long hostId;
+    @ManyToOne
+    @JoinColumn(name = "host_id")
+    private Host host;
 
     @Column(nullable = false)
     private String name;
@@ -36,10 +37,13 @@ public class Accomodation {
     @Column(nullable = false)
     private AccomodationType type;
 
-    @OneToMany(fetch = FetchType.LAZY, mappedBy = "accomodation")
+    @OneToMany(mappedBy = "accomodation")
     @Column(nullable = false)
     private List<Room> rooms;
 
     private String picture;
+
+    @Column(nullable = false)
+    private Integer maxNumberOfGuests;
 
 }

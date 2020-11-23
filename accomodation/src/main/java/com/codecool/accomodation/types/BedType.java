@@ -3,6 +3,9 @@ package com.codecool.accomodation.types;
 public enum BedType {
 
     SINGLE,
-    DOUBLE
+    DOUBLE,
+    KING,
+    COUCH,
+    TODDLER
 
 }

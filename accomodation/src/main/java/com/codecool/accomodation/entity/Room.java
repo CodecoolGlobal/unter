@@ -25,7 +25,6 @@ public class Room {
     @CollectionTable(name = "bed_quantity",
             joinColumns = { @JoinColumn(name = "room_id") })
     @MapKeyEnumerated(EnumType.STRING)
-
     @Column(name = "quantity")
     private Map<BedType, Integer> beds;
 

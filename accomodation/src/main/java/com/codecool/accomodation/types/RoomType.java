@@ -3,6 +3,7 @@ package com.codecool.accomodation.types;
 public enum RoomType {
 
     BEDROOM,
-    BATHROOM
+    BATHROOM,
+    LIVING_ROOM
 
 }
