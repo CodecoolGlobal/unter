@@ -4,9 +4,9 @@ import io.jsonwebtoken.*;
 import lombok.Data;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.apache.tomcat.util.net.openssl.ciphers.Authentication;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
+import org.springframework.security.core.Authentication;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
@@ -21,7 +21,7 @@ import java.util.stream.Collectors;
 @RequiredArgsConstructor
 @Service
 @Slf4j
-public class TokenService {
+public class JwtTokenServices {
     @Value("${security.jwt.token.secret-key:secret}")
     private String secretKey = "secret";
 
@@ -57,6 +57,17 @@ public class TokenService {
         return Arrays.stream(request.getCookies())
                 .filter(cookie -> "JWT".equals(cookie.getName()))
                 .findFirst();
+    }
+
+    Authentication parseUserFromTokenInfo(String token) throws UsernameNotFoundException {
+        Claims body = Jwts.parser().setSigningKey(secretKey).parseClaimsJws(token).getBody();
+        String username = body.getSubject();
+        List<String> roles = (List<String>) body.get(rolesFieldName);
+        List<SimpleGrantedAuthority> authorities = new LinkedList<>();
+        for (String role : roles) {
+            authorities.add(new SimpleGrantedAuthority(role));
+        }
+        return new UsernamePasswordAuthenticationToken(username, "", authorities);
     }
 
     public String getTokenFromRequest(HttpServletRequest request) {

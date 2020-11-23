@@ -13,24 +13,46 @@ import java.io.IOException;
 
 public class JwtTokenFilter extends GenericFilterBean {
 
-    private TokenService jwtTokenServices;
+    private JwtTokenServices jwtTokenServices;
 
-    JwtTokenFilter(TokenService jwtTokenServices) {
+    JwtTokenFilter(JwtTokenServices jwtTokenServices) {
         this.jwtTokenServices = jwtTokenServices;
     }
 
-    // this is called for every request that comes in (unless its filtered out before in the chain)
     @Override
     public void doFilter(ServletRequest req, ServletResponse res, FilterChain filterChain) throws IOException, ServletException {
         String token = jwtTokenServices.getTokenFromRequest((HttpServletRequest) req);
+
         if (token != null && jwtTokenServices.validateToken(token)) {
-            Authentication auth = jwtTokenServices.getUsernameFromToken(req);
-            // Marks the user as authenticated.
-            // If this code does not run, the request will fail for routes that are configured to need authentication
+            Authentication auth = jwtTokenServices.parseUserFromTokenInfo(token);
             SecurityContextHolder.getContext().setAuthentication(auth);
         }
-        // process the next filter.
-        filterChain.doFilter(req, res);
+
+//        HttpServletRequest request = (HttpServletRequest) req;
+//        HttpServletResponse response = (HttpServletResponse) res;
+
+//
+//        String origin = ((HttpServletRequest) req).getHeader("origin");
+//
+//
+//        ((HttpServletResponse) res).setHeader("Access-Control-Allow-Origin", origin);
+//        ((HttpServletResponse) res).setHeader("Access-Control-Allow-Credentials", "true");
+//        ((HttpServletResponse) res).setHeader("Access-Control-Allow-Methods", "POST, GET, OPTIONS, DELETE");
+//        ((HttpServletResponse) res).setHeader("Access-Control-Max-Age", "86400");
+//
+//
+//        response.addHeader("Access-Control-Allow-Headers", "authorization, content-type, xsrf-token");
+//        if ("OPTIONS".equals(request.getMethod())) {
+//            response.setStatus(HttpServletResponse.SC_OK);
+//            filterChain.doFilter(req, res);
+//        } else {
+//            filterChain.doFilter(req, res);
+//        }
+
+
+
+       filterChain.doFilter(req, res);
+
     }
 
 }

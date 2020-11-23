@@ -19,9 +19,9 @@ import java.util.Arrays;
 @Configuration
 public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
-    private final TokenService jwtTokenServices;
+    private final JwtTokenServices jwtTokenServices;
 
-    public SecurityConfig(TokenService jwtTokenServices) {
+    public SecurityConfig(JwtTokenServices jwtTokenServices) {
         this.jwtTokenServices = jwtTokenServices;
     }
 
