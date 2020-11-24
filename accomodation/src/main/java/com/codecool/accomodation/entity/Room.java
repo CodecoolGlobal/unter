@@ -1,7 +1,7 @@
 package com.codecool.accomodation.entity;
 
-import com.codecool.accomodation.types.BedType;
-import com.codecool.accomodation.types.RoomType;
+import com.codecool.accomodation.entity.types.BedType;
+import com.codecool.accomodation.entity.types.RoomType;
 import lombok.*;
 
 import javax.persistence.*;
@@ -23,13 +23,11 @@ public class Room {
 
     @ElementCollection
     @CollectionTable(name = "bed_quantity",
-            joinColumns = { @JoinColumn(name = "room_id") })
+        joinColumns = { @JoinColumn(name = "room_id") })
     @MapKeyEnumerated(EnumType.STRING)
-    @Column(name = "quantity")
     private Map<BedType, Integer> beds;
 
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "accomodation_id")
-    private Accomodation accomodation;
+    @ManyToOne
+    private Accommodation accommodation;
 
 }

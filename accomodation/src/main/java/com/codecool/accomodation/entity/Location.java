@@ -24,10 +24,11 @@ public class Location {
     @Column(nullable = false)
     private Double longitude;
 
-    private String city;
-
     private String description;
 
     @OneToOne(mappedBy = "location")
-    private Accomodation accomodation;
+    private Accommodation accommodation;
+
+    @OneToOne(cascade = CascadeType.ALL)
+    private Address address;
 }

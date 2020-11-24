@@ -1,5 +1,6 @@
 package com.codecool.accomodation.entity;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -7,6 +8,7 @@ import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
 import java.util.List;
+import java.util.Set;
 
 @Data
 @NoArgsConstructor
@@ -16,8 +18,7 @@ import java.util.List;
 public class Host {
 
     @Id
-    @GeneratedValue
-    @Column(name="host_id")
+    @GeneratedValue(strategy = GenerationType.AUTO)
     private Long hostId;
 
     @Column(nullable = false)
@@ -27,6 +28,6 @@ public class Host {
     private String phone;
 
     @OneToMany(mappedBy = "host")
-    @Column(nullable = false)
-    private List<Accomodation> accomodations;
+    @JsonBackReference
+    private Set<Accommodation> accommodations;
 }
