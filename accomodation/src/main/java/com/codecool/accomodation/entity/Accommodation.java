@@ -1,47 +1,44 @@
 package com.codecool.accomodation.entity;
 
-import com.codecool.accomodation.types.AccomodationType;
+import com.codecool.accomodation.entity.types.AccommodationType;
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
-import java.util.List;
+import java.util.Set;
 
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
 @Entity
-public class Accomodation {
+public class Accommodation {
 
     @Id
-    @GeneratedValue
+    @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
 
     @ManyToOne
-    @JoinColumn(name = "host_id")
     private Host host;
 
     @Column(nullable = false)
     private String name;
 
+    @Column
     private String description;
 
     @OneToOne(cascade = CascadeType.ALL)
-    @JoinColumn(name = "location_id", referencedColumnName = "id")
     private Location location;
 
     @Enumerated(EnumType.STRING)
-    @Column(nullable = false)
-    private AccomodationType type;
+    private AccommodationType type;
 
-    @OneToMany(mappedBy = "accomodation")
-    @Column(nullable = false)
-    private List<Room> rooms;
-
-    private String picture;
+    @OneToMany(mappedBy = "accommodation", cascade = CascadeType.ALL)
+    @JsonBackReference
+    private Set<Room> rooms;
 
     @Column(nullable = false)
     private Integer maxNumberOfGuests;
