@@ -1,6 +1,6 @@
-package com.codecool.accomodation.types;
+package com.codecool.accomodation.entity.types;
 
-public enum AccomodationType {
+public enum AccommodationType {
 
     APARTMENT,
     BED_AND_BREAKFAST,

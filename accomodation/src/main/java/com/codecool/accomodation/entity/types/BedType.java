@@ -1,4 +1,4 @@
-package com.codecool.accomodation.types;
+package com.codecool.accomodation.entity.types;
 
 public enum BedType {
 
