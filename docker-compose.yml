@@ -1,0 +1,32 @@
+version: '3'
+services:
+  eureka:
+    build:
+      dockerfile: Dockerfile.dev
+      context: ./eureka
+    volumes:
+      - ./eureka/target:/app/app/target
+    ports:
+    - "8761:8761"
+    restart: always
+    networks:
+      - airbnb-network
+
+  zuul-api-gateway:
+    build:
+      dockerfile: Dockerfile.dev
+      context: ./gateway
+    volumes:
+      - ./gateway/target:/app/app/target
+#    environment:
+#      -
+    ports:
+      - "8762:8762"
+    restart: always
+    depends_on:
+      - eureka
+    networks:
+      - airbnb-network
+
+networks:
+  airbnb-network:
