@@ -1,0 +1,32 @@
+.banner {
+    background: url(https://a0.muscache.com/im/pictures/18084f37-67e0-400f-bfd8-55eea0e89508.jpg?im_w=1920)
+        center center;
+    height: 80vh;
+    position: relative;
+}
+
+.banner__info {
+    font-weight: bold;
+    color: white;
+    padding-left: 50px;
+    padding-right: 80px;
+    padding-top: 25vh;
+    padding-bottom: 40px;
+    width: 280px;
+}
+
+.banner__info > button {
+    background-color: white;
+    color: black;
+    transform: inherit;
+    margin-top: 20px;
+    font-weight: 600;
+}
+
+.banner__info > h5 {
+    margin-top: 10px;
+}
+
+.banner__info > button:hover {
+    background-color: lightgray;
+}
