@@ -45,7 +45,7 @@ public class AccommodationDB implements AccommodationDAO {
     @Override
     public Accommodation findAccommodationById(Long accommodationId) {
         return repository.findById(accommodationId)
-            .orElseThrow(() -> new NoSuchElementException("No accommondation was found"));
+            .orElseThrow(() -> new NoSuchElementException("No accommodation was found"));
     }
 
     @Override
