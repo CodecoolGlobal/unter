@@ -18,7 +18,6 @@ public class Room {
     @GeneratedValue
     private Long id;
 
-    @Column(nullable = false)
     private RoomType type;
 
     @ElementCollection

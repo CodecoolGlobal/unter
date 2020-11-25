@@ -18,16 +18,16 @@ public class Address {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
 
-    @Column
+    @Column(nullable = false)
     private Integer houseNumber;
 
-    @Column
+    @Column(nullable = false)
     private String street;
 
-    @Column
+    @Column(nullable = false)
     private String city;
 
-    @Column
+    @Column(nullable = false)
     private String zipCode;
 
     @OneToOne(mappedBy = "address")

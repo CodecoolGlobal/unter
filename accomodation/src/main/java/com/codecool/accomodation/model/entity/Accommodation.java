@@ -2,10 +2,7 @@ package com.codecool.accomodation.model.entity;
 
 import com.codecool.accomodation.model.entity.types.AccommodationType;
 import com.fasterxml.jackson.annotation.JsonBackReference;
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import lombok.*;
 
 import javax.persistence.*;
 import java.util.Set;
@@ -37,7 +34,8 @@ public class Accommodation {
     private AccommodationType type;
 
     @OneToMany(mappedBy = "accommodation", cascade = CascadeType.ALL)
-    @JsonBackReference
+    @EqualsAndHashCode.Exclude
+    @ToString.Exclude
     private Set<Room> rooms;
 
     @Column(nullable = false)

@@ -1,10 +1,7 @@
 package com.codecool.accomodation.model.entity;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import lombok.*;
 
 import javax.persistence.*;
 import java.util.Set;
@@ -27,6 +24,7 @@ public class Host {
     private String phone;
 
     @OneToMany(mappedBy = "host")
-    @JsonBackReference
+    @EqualsAndHashCode.Exclude
+    @ToString.Exclude
     private Set<Accommodation> accommodations;
 }

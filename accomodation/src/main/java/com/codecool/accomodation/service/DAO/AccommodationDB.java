@@ -25,14 +25,14 @@ public class AccommodationDB implements AccommodationDAO {
     @Override
     public void saveNewAccommodation(AccommodationDTO accommodationDTO) {
         Accommodation accommodation = Accommodation.builder()
-            .host(accommodationDTO.getHost())
-            .name(accommodationDTO.getName())
-            .description(accommodationDTO.getDescription())
-            .location(accommodationDTO.getLocation())
-            .type((accommodationDTO.getType()))
-            .maxNumberOfGuests(accommodationDTO.getMaxNumberOfGuest())
-            .rooms(accommodationDTO.getRooms())
-            .build();
+                .host(accommodationDTO.getHost())
+                .name(accommodationDTO.getName())
+                .description(accommodationDTO.getDescription())
+                .location(accommodationDTO.getLocation())
+                .type((accommodationDTO.getType()))
+                .maxNumberOfGuests(accommodationDTO.getMaxNumberOfGuest())
+                .rooms(accommodationDTO.getRooms())
+                .build();
 
         repository.save(accommodation);
     }
@@ -45,7 +45,7 @@ public class AccommodationDB implements AccommodationDAO {
     @Override
     public Accommodation findAccommodationById(Long accommodationId) {
         return repository.findById(accommodationId)
-            .orElseThrow(() -> new NoSuchElementException("No accommodation was found"));
+                .orElseThrow(() -> new NoSuchElementException("No accommodation was found"));
     }
 
     @Override
