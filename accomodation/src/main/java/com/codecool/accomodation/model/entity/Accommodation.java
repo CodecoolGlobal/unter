@@ -1,6 +1,6 @@
-package com.codecool.accomodation.entity;
+package com.codecool.accomodation.model.entity;
 
-import com.codecool.accomodation.entity.types.AccommodationType;
+import com.codecool.accomodation.model.entity.types.AccommodationType;
 import com.fasterxml.jackson.annotation.JsonBackReference;
 import lombok.AllArgsConstructor;
 import lombok.Builder;

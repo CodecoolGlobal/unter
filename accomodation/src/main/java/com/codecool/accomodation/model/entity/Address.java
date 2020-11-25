@@ -1,4 +1,4 @@
-package com.codecool.accomodation.entity;
+package com.codecool.accomodation.model.entity;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;

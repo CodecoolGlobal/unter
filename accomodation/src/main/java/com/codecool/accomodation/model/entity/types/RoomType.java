@@ -1,4 +1,4 @@
-package com.codecool.accomodation.entity.types;
+package com.codecool.accomodation.model.entity.types;
 
 public enum RoomType {
 

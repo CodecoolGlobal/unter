@@ -1,7 +1,7 @@
-package com.codecool.accomodation.entity;
+package com.codecool.accomodation.model.entity;
 
-import com.codecool.accomodation.entity.types.BedType;
-import com.codecool.accomodation.entity.types.RoomType;
+import com.codecool.accomodation.model.entity.types.BedType;
+import com.codecool.accomodation.model.entity.types.RoomType;
 import lombok.*;
 
 import javax.persistence.*;
