@@ -6,11 +6,13 @@ using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.HttpsPolicy;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
 using Microsoft.OpenApi.Models;
+using PricingService.Data;
 using Steeltoe.Discovery.Client;
 
 namespace PricingService
@@ -26,6 +28,8 @@ namespace PricingService
 
         public void ConfigureServices(IServiceCollection services)
         {
+            services.AddDbContext<PricingContext>(options =>
+                options.UseInMemoryDatabase(databaseName: "testDb"));
             services.AddDiscoveryClient(Configuration);
             services.AddControllers();
             services.AddSwaggerGen(c =>
@@ -44,6 +48,7 @@ namespace PricingService
             }
 
             app.UseDiscoveryClient();
+
             app.UseHttpsRedirection();
 
             app.UseRouting();
