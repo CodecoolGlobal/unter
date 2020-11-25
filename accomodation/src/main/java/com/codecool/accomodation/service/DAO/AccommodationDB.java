@@ -49,8 +49,8 @@ public class AccommodationDB implements AccommodationDAO {
     }
 
     @Override
-    public void updateAccommodation(String accommodationId, AccommodationDTO accommodationDTO) {
-        Accommodation toEdit = findAccommodationById(Long.parseLong(accommodationId));
+    public void updateAccommodation(Long accommodationId, AccommodationDTO accommodationDTO) {
+        Accommodation toEdit = findAccommodationById(accommodationId);
 
         toEdit.setName(accommodationDTO.getName());
         toEdit.setDescription(accommodationDTO.getDescription());

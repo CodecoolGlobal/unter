@@ -11,5 +11,5 @@ public interface AccommodationDAO {
     void saveNewAccommodation(AccommodationDTO accommodationDTO);
     void deleteAccommodation(Long accommodationId);
     Accommodation findAccommodationById(Long accommodationId);
-    void updateAccommodation(String accommodationId, AccommodationDTO accommodationDTO);
+    void updateAccommodation(Long accommodationId, AccommodationDTO accommodationDTO);
 }

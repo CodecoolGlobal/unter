@@ -27,6 +27,6 @@ public class AccommodationService {
     }
 
     public void updateAccommodation(String accommodationId, AccommodationDTO accommodationDTO) {
-        dao.updateAccommodation(accommodationId, accommodationDTO);
+        dao.updateAccommodation(Long.parseLong(accommodationId), accommodationDTO);
     }
 }
