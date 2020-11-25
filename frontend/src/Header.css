@@ -1,6 +1,7 @@
 .header {
     display: flex;
     justify-content: space-between;
+    height: fit-content;
     align-items: center;
     position: sticky;
     top: 0;
@@ -11,7 +12,7 @@
 
 .header__icon {
     object-fit: contain;
-    height: 100px;
+    height: 80px;
     margin-left: 20px;
 }
 
@@ -21,22 +22,110 @@
     align-items: center;
     max-width: fit-content;
     padding: 10px;
-    height: 30px;
+    height: fit-content;
     border: 1px solid lightgray;
     border-radius: 999px;
 }
 
-.header__center > input {
+.header__center > button {
+    position: relative;
     border: none;
-    padding: 10px;
+    width: 300px;
+    padding: 20px;
     outline-width: 0;
+    text-transform: unset !important;
+    font-weight: 600;
     /* width: 250px; */
 }
 
+.header__center:hover{
+    box-shadow: 1px 1px 1px 1px lightgray;
+
+}
+.header__search{
+    position: absolute;
+    left: 0px;
+}
+.search__logo{
+    position: absolute;
+    right: 0;
+    background-color: rgba(236,76,96);
+    border-radius: 200px;
+    height: 4vh;
+    width: 4vh;
+}
+.search__logo> svg{
+    color: white;
+    position:absolute;
+    top: 50%;
+    right: 50%;
+    transform: translate(50%,-50%);
+}
 .header__right {
     display: flex;
     align-items: center;
     justify-content: space-between;
     width: 15vw;
     margin-right: 80px;
+}
+
+.header__right>p{
+    font-size: 15px;
+    font-weight: 400;
+    font-family: inherit;
+}
+
+.header__right>svg{
+    font-size: 20px;
+}
+.new__headerCenter{
+    display: flex;
+    flex-direction: column;
+    flex: 1;
+    align-items: center;
+    max-width: fit-content;
+    padding: 10px;
+    height: fit-content;
+    
+}
+
+.header__buttons{
+    display: flex;
+    flex-direction: row;
+    border-radius: 20px;
+    background-color: white;
+    justify-content: space-between;
+    height:fit-content;
+    width: fit-content;
+    border: 1px solid lightgray;
+    padding: 20px;
+    position: relative;
+    border-radius: 999px;
+}
+.header__button{
+    margin-left: 15px;
+    margin-right: 30px;
+    border-radius: 60px;
+    width: fit-content;
+    height: 6vh;
+}
+.header__button:hover{
+    background-color: lightgrey;
+    
+}
+
+.header__buttonSearch{
+    position: relative;
+    right: 0;
+    background-color: rgba(236,76,96);
+    border-radius: 200px;
+    height: 5vh;
+    width: 5vh;
+}
+.header__buttonSearch> svg{
+    position: absolute;
+    color: white;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%,-50%);
 }
