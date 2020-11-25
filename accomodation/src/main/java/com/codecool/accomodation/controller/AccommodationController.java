@@ -28,7 +28,7 @@ public class AccommodationController {
         service.deleteAccommodation(accommodationId);
     }
 
-    @PutMapping("/update-accommondaiton/{accommodationId}")
+    @PutMapping("/update-accommodation/{accommodationId}")
     public void updateAccommodation(@PathVariable(name = "accommodationId")String accommodationId, @RequestBody AccommodationDTO accommodationDTO) {
         service.updateAccommodation(accommodationId, accommodationDTO);
     }
