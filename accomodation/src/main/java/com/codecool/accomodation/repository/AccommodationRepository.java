@@ -7,6 +7,6 @@ import java.util.List;
 
 public interface AccommodationRepository extends JpaRepository<Accommodation, Long> {
 
-    List<Accommodation> findAccommodationsByHostHostId(Long hostId);
+    List<Accommodation> findAccommodationsByHostId(Long hostId);
     void deleteAccommodationById(Long accommodationId);
 }
