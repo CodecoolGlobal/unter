@@ -16,3 +16,20 @@
     text-transform: inherit;
     margin: 5px;
 }
+.searchResults{
+    display: flex;
+    flex-direction: column;
+    flex: 0.5;
+}
+.map{
+    position: fixed;
+    display: flex;
+    right: 0;
+    height: 90vh;
+    flex: 1;
+    align-self: flex-start;
+
+}
+.searchPage{
+    display: flex;
+}

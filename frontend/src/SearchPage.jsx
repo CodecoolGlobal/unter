@@ -2,10 +2,18 @@ import React from 'react'
 import "./SearchPage.css"
 import {Button} from '@material-ui/core'
 import SearchResult from './SearchResult'
+import GoogleMapReact from 'google-map-react';
 
 function SearchPage() {
+    const defaultProps = {
+        center: {lat: 59.95, lng: 30.33},
+        zoom: 11
+      };
+    
     return (
         <div className="searchPage">
+         
+        <div className="searchResults">
             <div className="searchPage__info">
                 <p>62 stays 26 august to 30 august 2 guest</p>
                 <h1>Stays nearby</h1>
@@ -15,6 +23,7 @@ function SearchPage() {
                 <Button variant="outlined">Rooms and beds</Button>
                 <Button variant="outlined">More filters</Button>
             </div>
+
             <SearchResult
                 img="https://encrypted-tbn0.gstatic.com/images?q=tbn%3AANd9GcQ_wbPYTxQPMcBh7SPzLFActXnP3uhifeVT_g&usqp=CAU"
                 location="Private room in center of London"
@@ -80,8 +89,17 @@ function SearchPage() {
                 price="£90 / night"
                 total="£650 total"
             />
-
         </div>
+
+        <div className="map">
+        <GoogleMapReact
+        //   bootstrapURLKeys={{ key: /* YOUR KEY HERE */ }}
+          defaultCenter={defaultProps.center}
+          defaultZoom={defaultProps.zoom}
+        >
+        </GoogleMapReact>
+        </div>
+    </div>
 
     )
 }
