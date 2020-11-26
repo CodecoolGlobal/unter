@@ -12,6 +12,7 @@ import org.springframework.test.annotation.DirtiesContext;
 import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
 
+import java.util.Arrays;
 import java.util.List;
 
 import static org.assertj.core.api.Assertions.assertThat;
@@ -67,6 +68,27 @@ public class AccommodationRepositoryTest {
         List<Accommodation> accommodations = accommodationRepository.findAll();
 
         assertThat(accommodations).hasSize(originalDataSize + 1);
+    }
+
+    @Test
+    public void test_saveSeveralAccommodations_persistAll() {
+        List<Accommodation> originalData = accommodationRepository.findAll();
+        Integer originalDataSize = originalData.size();
+
+        Accommodation accommodation1 = Accommodation.builder()
+                .name("One")
+                .maxNumberOfGuests(10)
+                .build();
+        Accommodation accommodation2 = Accommodation.builder()
+                .name("Two")
+                .maxNumberOfGuests(12)
+                .build();
+        List<Accommodation> newAccomodations = Arrays.asList(accommodation1, accommodation2);
+
+        accommodationRepository.saveAll(newAccomodations);
+        List<Accommodation> accommodations = accommodationRepository.findAll();
+
+        assertThat(accommodations).hasSize(originalDataSize + newAccomodations.size());
     }
 
     @Test
