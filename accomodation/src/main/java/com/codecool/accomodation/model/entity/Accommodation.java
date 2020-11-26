@@ -1,9 +1,7 @@
 package com.codecool.accomodation.model.entity;
 
 import com.codecool.accomodation.model.entity.types.AccommodationType;
-import com.fasterxml.jackson.annotation.JsonBackReference;
 import lombok.*;
-
 import javax.persistence.*;
 import java.util.Set;
 
@@ -29,6 +27,7 @@ public class Accommodation {
 
     @OneToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     @JoinColumn(name = "location_id")
+    @ToString.Exclude
     private Location location;
 
     @Enumerated(EnumType.STRING)
