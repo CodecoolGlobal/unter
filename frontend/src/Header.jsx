@@ -1,25 +1,21 @@
-import React, { useState } from "react";
+import React, { useState ,useContext} from "react";
 import "./Header.css";
 import SearchIcon from "@material-ui/icons/Search";
 import LanguageIcon from "@material-ui/icons/Language";
 import ExpandMoreIcon from "@material-ui/icons/ExpandMore";
 import { Avatar, Button } from "@material-ui/core";
 import SearchBar from "./SearchBar";
+import {HeaderContext} from './context/HeaderCloseContext';
 
 import { Link } from "react-router-dom";
 
 function Header() {
-    const [open, setOpen] = useState(false);
+    // const [open, setOpen] = useState(false);
+    const [show,setShow] = useContext(HeaderContext);
 
-    const handleOpen = () => {
-        setOpen(true);
-    };
-
-    const handleClose = () => {
-        setOpen(false);
-    };
     return (
         <div className="header">
+            <div className="headerLogo">
             <Link to="/">
                 <img
                     className="header__icon"
@@ -27,9 +23,10 @@ function Header() {
                     alt=""
                 />
             </Link>
-            {!open ? (
+            </div>
+            {!show ? (
                 <div className="header__center">
-                    <Button onClick={handleOpen}>
+                    <Button onClick={()=>setShow(!show)}>
                         <p className="header__search">Start your search</p>
                         {/* <input type="text" placeholder="Start your search" /> */}
                         <div className="search__logo">
