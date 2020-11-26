@@ -36,9 +36,9 @@ public class LocationRepositoryTest {
         Integer originalDataSize = originalData.size();
 
         Location location = Location.builder()
-            .latitude(23.23)
-            .longitude(42.42)
-            .build();
+                .latitude(23.23)
+                .longitude(42.42)
+                .build();
 
         repository.saveAndFlush(location);
         List<Location> locations = repository.findAll();
@@ -70,20 +70,116 @@ public class LocationRepositoryTest {
     @Test
     public void test_locationLongitudeShouldBeNotNull_ThrowsException() {
         Location location = Location.builder()
-            .latitude(23.23)
-            .build();
+                .latitude(23.23)
+                .build();
 
         assertThrows(DataIntegrityViolationException.class, () ->
-            repository.saveAndFlush(location));
+                repository.saveAndFlush(location));
     }
 
     @Test
     public void test_locationLatitudeShouldBeNotNull_ThrowsException() {
         Location location = Location.builder()
-            .longitude(23.23)
-            .build();
+                .longitude(23.23)
+                .build();
 
         assertThrows(DataIntegrityViolationException.class, () ->
-            repository.saveAndFlush(location));
+                repository.saveAndFlush(location));
+    }
+
+    @Test
+    public void test_findAllWithinCoordinatesExistingValue_positiveAndAllValuesOut() {
+        Double startLongitude = 9.0;
+        Double endLongitude = 12.10;
+        Double startLatitude = 9.0;
+        Double endLatitude = 12.10;
+
+        Location location1 = Location.builder()
+                .latitude(10.00)
+                .longitude(10.00)
+                .build();
+
+        Location location2 = Location.builder()
+                .latitude(12.00)
+                .longitude(12.00)
+                .build();
+
+        Location location3 = Location.builder()
+                .latitude(2.23)
+                .longitude(2.42)
+                .build();
+        List<Location> newLocations = Arrays.asList(location1, location2, location3);
+        repository.saveAll(newLocations);
+
+        List<Location> expectedLocations = Arrays.asList(location1, location2);
+
+        List<Location> actualLocations = repository.getAllByLongitudeBetweenAndLatitudeBetween(startLongitude, endLongitude, startLatitude, endLatitude);
+
+        assertThat(actualLocations).hasSize(expectedLocations.size());
+        assertThat(actualLocations).contains(location1);
+        assertThat(actualLocations).contains(location2);
+    }
+
+    @Test
+    public void test_findAllWithinCoordinatesExistingValue_negativeValuesAndValueBetween() {
+        Double startLongitude = 9.0;
+        Double endLongitude = 12.10;
+        Double startLatitude = -9.0;
+        Double endLatitude = 12.10;
+
+        Location location1 = Location.builder()
+                .latitude(10.00)
+                .longitude(10.00)
+                .build();
+
+        Location location2 = Location.builder()
+                .latitude(12.00)
+                .longitude(12.00)
+                .build();
+
+        Location location3 = Location.builder()
+                .latitude(2.23)
+                .longitude(2.42)
+                .build();
+        List<Location> newLocations = Arrays.asList(location1, location2, location3);
+        repository.saveAll(newLocations);
+
+        List<Location> expectedLocations = Arrays.asList(location1, location2);
+
+        List<Location> actualLocations = repository.getAllByLongitudeBetweenAndLatitudeBetween(startLongitude, endLongitude, startLatitude, endLatitude);
+
+        assertThat(actualLocations).hasSize(expectedLocations.size());
+        assertThat(actualLocations).contains(location1);
+        assertThat(actualLocations).contains(location2);
+    }
+
+    @Test
+    public void test_findAllWithinCoordinates_outsideValues() {
+        Double startLongitude = 9.0;
+        Double endLongitude = 12.10;
+        Double startLatitude = -12.10;
+        Double endLatitude = -9.00;
+        int expectedSize = 0;
+
+        Location location1 = Location.builder()
+                .latitude(10.00)
+                .longitude(10.00)
+                .build();
+
+        Location location2 = Location.builder()
+                .latitude(12.00)
+                .longitude(12.00)
+                .build();
+
+        Location location3 = Location.builder()
+                .latitude(2.23)
+                .longitude(2.42)
+                .build();
+        List<Location> newLocations = Arrays.asList(location1, location2, location3);
+        repository.saveAll(newLocations);
+
+        List<Location> actualLocations = repository.getAllByLongitudeBetweenAndLatitudeBetween(startLongitude, endLongitude, startLatitude, endLatitude);
+
+        assertThat(actualLocations).hasSize(expectedSize);
     }
 }
