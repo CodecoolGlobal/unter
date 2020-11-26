@@ -58,6 +58,17 @@ class AccommodationRepositoryTest {
     @Test
     public void test_accommodationNameShouldBeNotNull_ThrowsException() {
         Accommodation accommodation = Accommodation.builder()
+            .maxNumberOfGuests(4)
+            .build();
+
+        assertThrows(DataIntegrityViolationException.class,
+            () -> repository.save(accommodation));
+    }
+
+    @Test
+    public void test_accommodationNumberOfGuestsShouldBeNotNull_ThrowsException() {
+        Accommodation accommodation = Accommodation.builder()
+            .name("Your dream holiday house")
             .build();
 
         assertThrows(DataIntegrityViolationException.class,
