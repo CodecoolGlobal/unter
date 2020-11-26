@@ -30,5 +30,6 @@ public class Location {
     private Accommodation accommodation;
 
     @OneToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "address_id")
     private Address address;
 }
