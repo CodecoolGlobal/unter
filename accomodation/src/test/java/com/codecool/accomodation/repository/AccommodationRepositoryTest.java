@@ -75,6 +75,28 @@ public class AccommodationRepositoryTest {
             .build();
 
         assertThrows(DataIntegrityViolationException.class,
-            () -> repository.save(accommodation));
+            () -> accommodationRepository.save(accommodation));
+    }
+
+    @Test
+    public void test_locationIsPersistedWithAccommodation_hasSizeOne() {
+        Location location = Location.builder()
+            .longitude(23.23)
+            .latitude(23.23)
+            .build();
+
+        Accommodation accommodation = Accommodation.builder()
+            .name("accommodation test")
+            .maxNumberOfGuests(4)
+            .location(location)
+            .build();
+
+        location.setAccommodation(accommodation);
+        accommodationRepository.save(accommodation);
+
+        List<Location> locations = locationRepository.findAll();
+        assertThat(locations)
+            .hasSize(1)
+            .allMatch(location1 -> location.getId() > 0L);
     }
 }
