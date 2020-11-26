@@ -24,6 +24,9 @@ public class LocationRepositoryTest {
 
     @Test
     public void test_saveNewLocation_hasSizeOne() {
+        List<Location> originalData = repository.findAll();
+        Integer originalDataSize = originalData.size();
+
         Location location = Location.builder()
             .latitude(23.23)
             .longitude(42.42)
@@ -31,7 +34,7 @@ public class LocationRepositoryTest {
 
         repository.saveAndFlush(location);
         List<Location> locations = repository.findAll();
-        assertThat(locations).hasSize(1);
+        assertThat(locations).hasSize(originalDataSize + 1);
     }
 
     @Test
