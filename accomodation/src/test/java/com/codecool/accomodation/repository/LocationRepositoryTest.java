@@ -25,6 +25,11 @@ public class LocationRepositoryTest {
     private LocationRepository repository;
 
     @Test
+    public void smokeTest() {
+        assertThat(repository).isNotNull();
+    }
+
+    @Test
     public void test_saveNewLocation_hasSizeOne() {
         List<Location> originalData = repository.findAll();
         Integer originalDataSize = originalData.size();
