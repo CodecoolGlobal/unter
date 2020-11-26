@@ -2,6 +2,11 @@ package com.codecool.accomodation.repository;
 
 import static org.junit.jupiter.api.Assertions.*;
 
+import static org.assertj.core.api.Assertions.assertThat;
+import static org.junit.jupiter.api.Assertions.assertThrows;
+
+@ExtendWith(SpringExtension.class)
+@SpringBootTest
 public class LocationRepositoryTest {
 
     @Autowired
