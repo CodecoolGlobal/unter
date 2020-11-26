@@ -19,7 +19,7 @@ public class AccommodationDB implements AccommodationDAO {
 
     @Override
     public List<Accommodation> findAllByHost(Long hostId) {
-        return repository.findAccommodationsByHostHostId(hostId);
+        return repository.findAccommodationsByHostId(hostId);
     }
 
     @Override
