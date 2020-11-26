@@ -30,6 +30,12 @@ public class AccommodationRepositoryTest {
     private LocationRepository locationRepository;
 
     @Test
+    public void smokeTest() {
+        assertThat(accommodationRepository).isNotNull();
+        assertThat(locationRepository).isNotNull();
+    }
+
+    @Test
     public void test_saveNewAccommodation_hasSizeOne() {
 
         List<Accommodation> originalData = accommodationRepository.findAll();
