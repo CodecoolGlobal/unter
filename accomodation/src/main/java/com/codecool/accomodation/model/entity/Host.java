@@ -1,6 +1,5 @@
 package com.codecool.accomodation.model.entity;
 
-import com.fasterxml.jackson.annotation.JsonBackReference;
 import lombok.*;
 
 import javax.persistence.*;
@@ -15,7 +14,7 @@ public class Host {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    private Long hostId;
+    private Long id;
 
     @Column(nullable = false, unique = true)
     private String email;
