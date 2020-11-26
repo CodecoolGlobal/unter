@@ -10,6 +10,7 @@ import org.springframework.test.annotation.DirtiesContext;
 import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
 
+import java.util.Arrays;
 import java.util.List;
 
 import static org.assertj.core.api.Assertions.assertThat;
@@ -42,6 +43,28 @@ public class LocationRepositoryTest {
         repository.saveAndFlush(location);
         List<Location> locations = repository.findAll();
         assertThat(locations).hasSize(originalDataSize + 1);
+    }
+
+    @Test
+    public void test_saveSeveralLocations_persistAll() {
+        List<Location> originalData = repository.findAll();
+        Integer originalDataSize = originalData.size();
+
+        Location location1 = Location.builder()
+                .latitude(23.23)
+                .longitude(42.42)
+                .build();
+
+        Location location2 = Location.builder()
+                .latitude(23.23)
+                .longitude(42.42)
+                .build();
+
+        List<Location> newLocations = Arrays.asList(location1, location2);
+
+        repository.saveAll(newLocations);
+        List<Location> locations = repository.findAll();
+        assertThat(locations).hasSize(originalDataSize + newLocations.size());
     }
 
     @Test
