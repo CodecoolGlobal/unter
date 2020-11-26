@@ -28,5 +28,4 @@ public class Room {
 
     @ManyToOne
     private Accommodation accommodation;
-
 }
