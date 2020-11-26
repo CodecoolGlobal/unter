@@ -51,11 +51,11 @@ public class AccommodationRepositoryTest {
             .name("Házikó")
             .build();
 
-        repository.save(accommodation);
+        accommodationRepository.save(accommodation);
 
-        List<Accommodation> accommodations = repository.findAll();
+        List<Accommodation> accommodations = accommodationRepository.findAll();
 
-        assertThat(accommodations).hasSize(1);
+        assertThat(accommodations).hasSize(2);
     }
 
     @Test
