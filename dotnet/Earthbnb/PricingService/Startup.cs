@@ -6,6 +6,7 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.OpenApi.Models;
 using PricingService.Data;
+using PricingService.Utils;
 using Steeltoe.Discovery.Client;
 
 namespace PricingService
@@ -21,6 +22,7 @@ namespace PricingService
 
         public void ConfigureServices(IServiceCollection services)
         {
+            services.AddScoped<Calculator>();
             services.AddDbContext<PricingContext>(options =>
                 options.UseInMemoryDatabase(databaseName: "testDb"));
             services.AddDiscoveryClient(Configuration);

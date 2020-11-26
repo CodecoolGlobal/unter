@@ -6,6 +6,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using PricingService.Data;
 using PricingService.Models;
+using PricingService.Utils;
 
 // For more information on enabling Web API for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
 
@@ -16,10 +17,12 @@ namespace PricingService.Controllers
     public class PricingController : ControllerBase
     {
         private readonly PricingContext _context;
+        private readonly Calculator _calculator;
 
-        public PricingController(PricingContext context)
+        public PricingController(PricingContext context, Calculator calculator)
         {
             _context = context;
+            _calculator = calculator;
         }
 
         /// <summary>
@@ -38,6 +41,31 @@ namespace PricingService.Controllers
             var accommodationDTOs = accommodations.Select(x => Converter.ConvertModelToAccommodationDTO(x)).ToList();
             
             return accommodationDTOs;
+        }
+
+        [HttpGet("calc/{accommodationId}")]
+        public async Task<ActionResult> Get(string accommodationId, DateTime startDate, int daysReserved)
+        {
+            Console.WriteLine(startDate.Kind);
+            var accommodation = await _context.Accommodations.Include(a => a.PriceIntervals)
+                .Where(a => a.AccommodationId == accommodationId)
+                .SingleOrDefaultAsync();
+
+            decimal fee;
+
+            if (accommodation.PriceIntervals.Count == 0 || accommodation.PriceIntervals == null)
+            {
+                fee = accommodation.BasePrice * daysReserved;
+                return Ok(fee);
+            }
+            else
+            {
+                fee = _calculator.GetFee(accommodation, startDate, daysReserved);
+            }
+
+
+
+            return Ok(fee);
         }
 
         /// <summary>
