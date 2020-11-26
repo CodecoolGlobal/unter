@@ -17,7 +17,7 @@ public class Host {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long hostId;
 
-    @Column(nullable = false)
+    @Column(nullable = false, unique = true)
     private String email;
 
     @Column(nullable = false)
