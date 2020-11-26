@@ -65,7 +65,7 @@ public class AccommodationRepositoryTest {
             .build();
 
         assertThrows(DataIntegrityViolationException.class,
-            () -> repository.save(accommodation));
+            () -> accommodationRepository.save(accommodation));
     }
 
     @Test
