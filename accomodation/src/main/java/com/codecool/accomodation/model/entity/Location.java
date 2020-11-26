@@ -1,10 +1,6 @@
 package com.codecool.accomodation.model.entity;
 
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Data;
-import lombok.NoArgsConstructor;
-
+import lombok.*;
 import javax.persistence.*;
 
 @Data
@@ -27,6 +23,7 @@ public class Location {
     private String description;
 
     @OneToOne(mappedBy = "location")
+    @ToString.Exclude
     private Accommodation accommodation;
 
     @OneToOne(cascade = CascadeType.ALL)
