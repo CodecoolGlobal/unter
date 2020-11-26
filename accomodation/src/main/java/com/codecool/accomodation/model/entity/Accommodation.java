@@ -27,7 +27,8 @@ public class Accommodation {
     @Column
     private String description;
 
-    @OneToOne(cascade = CascadeType.ALL)
+    @OneToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    @JoinColumn(name = "location_id")
     private Location location;
 
     @Enumerated(EnumType.STRING)
