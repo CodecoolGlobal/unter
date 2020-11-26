@@ -8,6 +8,7 @@ import org.junit.jupiter.api.extension.ExtendWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.dao.DataIntegrityViolationException;
+import org.springframework.test.annotation.DirtiesContext;
 import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
 
@@ -19,6 +20,7 @@ import static org.junit.jupiter.api.Assertions.assertThrows;
 @ExtendWith(SpringExtension.class)
 @SpringBootTest
 @ActiveProfiles("test")
+@DirtiesContext(classMode = DirtiesContext.ClassMode.AFTER_EACH_TEST_METHOD)
 public class AccommodationRepositoryTest {
 
     @Autowired
@@ -29,6 +31,9 @@ public class AccommodationRepositoryTest {
 
     @Test
     public void test_saveNewAccommodation_hasSizeOne() {
+
+        List<Accommodation> originalData = accommodationRepository.findAll();
+        Integer originalDataSize = originalData.size();
 
         Address address = Address.builder()
             .city("Kazincbarcika")
@@ -55,7 +60,7 @@ public class AccommodationRepositoryTest {
 
         List<Accommodation> accommodations = accommodationRepository.findAll();
 
-        assertThat(accommodations).hasSize(2);
+        assertThat(accommodations).hasSize(originalDataSize + 1);
     }
 
     @Test
