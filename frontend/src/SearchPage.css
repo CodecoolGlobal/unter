@@ -1,35 +1,36 @@
-.searchPage__info{
+.searchPage__info {
     padding: 20px;
 }
 
-.searchPage__info > p{
+.searchPage__info > p {
     margin-bottom: 10px;
     font-size: 14px;
 }
 
-.searchPage__info>h1{
+.searchPage__info > h1 {
     margin-bottom: 30px;
 }
 
-.searchPage__info> button{
+.searchPage__info > button {
     border-radius: 30px;
     text-transform: inherit;
     margin: 5px;
 }
-.searchResults{
+.searchResults {
     display: flex;
     flex-direction: column;
     flex: 0.5;
 }
-.map{
+.map {
     position: fixed;
     display: flex;
     right: 0;
-    height: 90vh;
-    flex: 1;
+    height: 95%;
+    width: 50%;
+    flex: 0.5;
     align-self: flex-start;
-
 }
-.searchPage{
+
+.searchPage {
     display: flex;
 }
