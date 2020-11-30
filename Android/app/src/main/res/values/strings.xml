@@ -1,0 +1,9 @@
+<resources>
+    <string name="app_name">AirBnBClone</string>
+    <string name="covid_response">Get the latest on our COVID-19 response</string>
+    <string name="explore">Explore</string>
+    <string name="saved">Saved</string>
+    <string name="trips">Trips</string>
+    <string name="inbox">Inbox</string>
+    <string name="profile">Profile</string>
+</resources>
