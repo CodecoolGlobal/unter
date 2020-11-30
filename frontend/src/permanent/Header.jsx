@@ -1,32 +1,32 @@
-import React, { useState ,useContext} from "react";
-import "./Header.css";
+import React, { useContext } from "react";
+import "./Header.scss";
 import SearchIcon from "@material-ui/icons/Search";
 import LanguageIcon from "@material-ui/icons/Language";
 import ExpandMoreIcon from "@material-ui/icons/ExpandMore";
 import { Avatar, Button } from "@material-ui/core";
 import SearchBar from "./SearchBar";
-import {HeaderContext} from './context/HeaderCloseContext';
+import { HeaderContext } from "../context/HeaderCloseContext";
 
 import { Link } from "react-router-dom";
 
 function Header() {
     // const [open, setOpen] = useState(false);
-    const [show,setShow] = useContext(HeaderContext);
+    const [show, setShow] = useContext(HeaderContext);
 
     return (
         <div className="header">
             <div className="headerLogo">
-            <Link to="/">
-                <img
-                    className="header__icon"
-                    src="https://i.pinimg.com/originals/3c/bf/be/3cbfbe148597341fa56f2f87ade90956.png"
-                    alt=""
-                />
-            </Link>
+                <Link to="/">
+                    <img
+                        className="header__icon"
+                        src="https://i.pinimg.com/originals/3c/bf/be/3cbfbe148597341fa56f2f87ade90956.png"
+                        alt=""
+                    />
+                </Link>
             </div>
             {!show ? (
                 <div className="header__center">
-                    <Button onClick={()=>setShow(!show)}>
+                    <Button onClick={() => setShow(!show)}>
                         <p className="header__search">Start your search</p>
                         {/* <input type="text" placeholder="Start your search" /> */}
                         <div className="search__logo">

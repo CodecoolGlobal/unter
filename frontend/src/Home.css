@@ -1,9 +1,0 @@
-.home__section{
-    display: flex;
-    padding: 30px;
-}
-.blurry{
-    z-index: 100;
-    filter: blur(2px)
-
-}

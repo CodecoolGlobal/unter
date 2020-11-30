@@ -1,14 +1,13 @@
-import React from 'react'
-import "./Footer.css"
-
+import React from "react";
+import "./Footer.scss";
 
 function Footer() {
     return (
-        <div className='footer'>
+        <div className="footer">
             <p>© 2020 Airbnb clone! No rights reserved - this is a demo!</p>
             <p>Privacy · Terms · Sitemap · Company Details</p>
         </div>
-    )
+    );
 }
 
-export default Footer
+export default Footer;

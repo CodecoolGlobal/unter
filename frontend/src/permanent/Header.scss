@@ -1,8 +1,8 @@
+@import "./scss/mixins.scss";
+
 .header {
-    display: flex;
-    justify-content: space-between;
+    @include flex__alignCenter(space-between);
     height: fit-content;
-    align-items: center;
     position: sticky;
     top: 0;
     background-color: white;
@@ -22,94 +22,89 @@
 }
 
 .header__center {
-    display: flex;
+    @include flex__center;
     flex: 1 1 auto;
-    align-items: center;
-    justify-content: center;
     max-width: fit-content;
     padding: 10px;
     justify-self: center;
     height: fit-content;
     border: 1px solid lightgray;
     border-radius: 999px;
+
+    &:hover {
+        box-shadow: 1px 1px 1px 1px lightgray;
+    }
+
+    button {
+        position: relative;
+        border: none;
+        width: 300px;
+        padding: 20px;
+        outline-width: 0;
+        text-transform: unset !important;
+        font-weight: 600;
+    }
 }
 
-.header__center > button {
-    position: relative;
-    border: none;
-    width: 300px;
-    padding: 20px;
-    outline-width: 0;
-    text-transform: unset !important;
-    font-weight: 600;
-    /* width: 250px; */
-}
-
-.header__center:hover {
-    box-shadow: 1px 1px 1px 1px lightgray;
-}
 .header__search {
     position: absolute;
     left: 0px;
 }
-.headerLogo{
+
+.headerLogo {
     position: relative;
-    padding-left: 50px;    
+    padding-left: 50px;
     display: flex;
     flex: 0;
 }
 .search__logo {
     position: absolute;
     right: 0;
-    background-color: rgba(236, 76, 96);
+    background-color: rgb(236, 76, 96);
     border-radius: 200px;
     height: 4vh;
     width: 4vh;
+
+    svg {
+        color: white;
+        position: absolute;
+        top: 50%;
+        right: 50%;
+        transform: translate(50%, -50%);
+    }
 }
-.search__logo > svg {
-    color: white;
-    position: absolute;
-    top: 50%;
-    right: 50%;
-    transform: translate(50%, -50%);
-}
+
 .header__right {
-    display: flex;
+    @include flex__alignCenter(space-between);
     position: relative;
     flex: 0 0 25vh;
-    justify-content: space-between;
-    align-items: center;
-    padding-right: 50px
-;}
+    padding-right: 50px;
 
-.header__right > p {
-    font-size: 15px;
-    font-weight: 400;
-    font-family: inherit;
+    p {
+        font-size: 15px;
+        font-weight: 400;
+        font-family: inherit;
+    }
+
+    svg {
+        font-size: 20px;
+    }
 }
 
-.header__right > svg {
-    font-size: 20px;
-}
 .new__headerCenter {
-    display: flex;
-    flex: 1 1 auto;
+    @include flex__alignCenter(space-between);
     flex-direction: column;
-    justify-content: space-between;
-    align-items: center;
+    flex: 1 1 auto;
     max-width: fit-content;
     padding: 10px;
     height: fit-content;
-    
 }
 
 .header__buttons {
-    display: flex;
+    @include flex__alignCenter(space-between);
     flex-direction: row;
     border-radius: 20px;
     background-color: white;
-    justify-content: space-between;
-    align-items: center;
     height: fit-content;
     width: 100%;
     border: 1px solid lightgray;
@@ -125,41 +120,40 @@
     border-radius: 60px;
     width: fit-content;
     height: 8vh;
-}
 
-.location:hover {
-    background-color: rgb(235, 235, 235);
-}
+    &:hover {
+        background-color: rgb(235, 235, 235);
+    }
 
-.location__input {
-    padding-left: 2vh;
+    .location__input {
+        padding-left: 2vh;
+    }
 }
 
 .datePicker {
-    display: flex;
+    @include flex__center;
     float: left;
-    align-items: center;
-    justify-content: center;
     flex: 1;
     border-radius: 60px;
     width: 20vh;
     height: 8vh;
-}
 
-.datePicker:hover {
-    background-color: rgb(235, 235, 235);
+    &:hover {
+        background-color: rgb(235, 235, 235);
+    }
 }
 
 .guests {
-    display: flex;
+    @include flex__center;
     flex: 2;
-    justify-content: space-between;
-    justify-content: center;
-    align-items: center;
     padding-right: 24px;
     border-radius: 60px;
     width: fit-content;
     height: 8vh;
+
+    &:hover {
+        background-color: rgb(235, 235, 235);
+    }
 }
 
 input {
@@ -167,22 +161,16 @@ input {
     height: 2vh;
     background-color: inherit;
     border: none;
-}
+    display: block;
 
-input:focus {
-    outline: none;
+    &:focus {
+        outline: none;
+    }
 }
 
 label {
     font-weight: 700;
     font-size: 1.5vh;
-}
-
-.guests__input {
-}
-
-input,
-label {
     display: block;
 }
 
@@ -190,22 +178,19 @@ label {
     color: rgb(77, 74, 74);
 }
 
-.guests:hover {
-    background-color: rgb(235, 235, 235);
-}
-
 .header__buttonSearch {
     position: relative;
     right: 0;
-    background-color: rgba(236, 76, 96);
+    background-color: rgb(236, 76, 96);
     border-radius: 200px;
     height: 5vh;
     width: 5vh;
-}
-.header__buttonSearch > svg {
-    position: absolute;
-    color: white;
-    left: 50%;
-    top: 50%;
-    transform: translate(-50%, -50%);
+
+    svg {
+        position: absolute;
+        color: white;
+        left: 50%;
+        top: 50%;
+        transform: translate(-50%, -50%);
+    }
 }

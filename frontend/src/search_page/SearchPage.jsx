@@ -1,5 +1,5 @@
 import React from "react";
-import "./SearchPage.css";
+import "./SearchPage.scss";
 import { Button } from "@material-ui/core";
 import SearchResult from "./SearchResult";
 import GoogleMapReact from "google-map-react";
@@ -42,7 +42,6 @@ function SearchPage() {
                     price="£40 / night"
                     total="£157 total"
                 />
-
                 <SearchResult
                     img="https://www.smartertravel.com/uploads/2017/07/Untitled-design-8.jpg"
                     location="Private room in center of London"
@@ -93,7 +92,7 @@ function SearchPage() {
             <div className="map">
                 <GoogleMapReact
                     bootstrapURLKeys={{
-                        key: "AIzaSyCromJo4NvaEZWWDvPhDDPgoJw42dA1gHo",
+                        key: "",
                     }}
                     defaultCenter={defaultProps.center}
                     defaultZoom={defaultProps.zoom}

@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import Search from "./Search";
-import "./Header.css";
+import "./Header.scss";
 import SearchIcon from "@material-ui/icons/Search";
 
 function SearchBar() {
