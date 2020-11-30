@@ -2,16 +2,18 @@ package com.codecool.accomodation.controller;
 import com.codecool.accomodation.model.DTO.AccommodationDTO;
 import com.codecool.accomodation.model.entity.Accommodation;
 import com.codecool.accomodation.service.AccommodationService;
-import lombok.RequiredArgsConstructor;
+import lombok.AllArgsConstructor;
+import lombok.NoArgsConstructor;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
 @RestController
-@RequiredArgsConstructor
+@NoArgsConstructor
+@AllArgsConstructor
 public class AccommodationController {
 
-    private final AccommodationService service;
+    private AccommodationService service;
 
     @GetMapping("/get-all/{hostId}")
     public List<Accommodation> getAllAccommodation(@PathVariable(name = "hostId") String hostId) {
