@@ -5,12 +5,10 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import com.codecool.airbnbclone.ExploreFragment
-import com.codecool.airbnbclone.ProfileFragment
+import com.codecool.airbnbclone.explore.ExploreFragment
+import com.codecool.airbnbclone.profile.ProfileFragment
 import com.codecool.airbnbclone.R
-import com.codecool.airbnbclone.SavedFragment
-import kotlinx.android.synthetic.main.activity_main.view.*
-import kotlinx.android.synthetic.main.fragment_view_pager.*
+import com.codecool.airbnbclone.saved.SavedFragment
 import kotlinx.android.synthetic.main.fragment_view_pager.view.*
 
 class ViewPagerFragment : Fragment() {
@@ -28,14 +26,15 @@ class ViewPagerFragment : Fragment() {
             ProfileFragment()
         )
 
-        val adapter = MainPagerAdapter(
+        val myAdapter = MainPagerAdapter(
             fragmentList,
             requireActivity().supportFragmentManager,
             lifecycle
         )
 
-        view.viewPager.adapter = adapter
+        view.viewPager.adapter = myAdapter
 
         return view
     }
+
 }
