@@ -2,7 +2,7 @@ import React, { useContext } from "react";
 import "./Home.scss";
 import Banner from "./Banner";
 import Card from "./Card";
-import { HeaderContext } from "./context/HeaderCloseContext";
+import { HeaderContext } from "../context/HeaderCloseContext";
 
 function Home() {
     const [show, setShow] = useContext(HeaderContext);

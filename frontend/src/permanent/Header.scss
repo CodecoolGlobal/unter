@@ -1,4 +1,4 @@
-@import "./scss/mixins.scss";
+@import "../scss/mixins.scss";
 
 .header {
     @include flex__alignCenter(space-between);
