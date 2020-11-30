@@ -1,6 +1,8 @@
-package com.codecool.airbnbclone
+package com.codecool.airbnbclone.menu_bottom
 
-class MainPresenter : MainContract.MainPresenter{
+import com.codecool.airbnbclone.model.DataManager
+
+class MainPresenter : MainContract.MainPresenter {
 
     private var view: MainContract.MainView? = null
     private val dataManager = DataManager()

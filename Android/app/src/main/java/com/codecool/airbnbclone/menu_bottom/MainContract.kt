@@ -1,9 +1,9 @@
-package com.codecool.airbnbclone
+package com.codecool.airbnbclone.menu_bottom
 
 interface MainContract {
 
     interface MainPresenter {
-        fun onAttach(view:MainContract.MainView)
+        fun onAttach(view: MainView)
         fun onDetach()
         fun createSampleData()
     }

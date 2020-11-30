@@ -1,5 +1,7 @@
-package com.codecool.airbnbclone
+package com.codecool.airbnbclone.model
 
+import com.codecool.airbnbclone.Accommodation
+import com.codecool.airbnbclone.Location
 import com.google.firebase.database.FirebaseDatabase
 import java.util.*
 
