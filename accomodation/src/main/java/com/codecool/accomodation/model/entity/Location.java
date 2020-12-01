@@ -16,8 +16,8 @@ public class Location {
     @GeneratedValue
     private Long id;
 
-    @OneToOne(mappedBy = "location")
-    @ToString.Exclude
+    @OneToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "coordinate_id")
     @JsonManagedReference
     private Coordinate coordinate;
 
