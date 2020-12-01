@@ -23,7 +23,7 @@ import static org.junit.jupiter.api.Assertions.assertThrows;
 public class CoordinateRepositoryTest {
 
     @Autowired
-    CoordinateRepository coordinateRepository;
+    private CoordinateRepository coordinateRepository;
 
     @Test
     public void smokeTest() {
