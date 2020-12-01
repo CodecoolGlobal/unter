@@ -1,27 +1,30 @@
 package com.codecool.accomodation.controller;
 
-import com.codecool.accomodation.model.entity.Accommodation;
+import com.codecool.accomodation.model.Coordinates;
+import com.codecool.accomodation.model.DTO.DTOWrapper;
 import com.codecool.accomodation.service.SearchService;
-import lombok.AllArgsConstructor;
-import lombok.NoArgsConstructor;
+import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
-import java.util.List;
-
 @RestController
-@NoArgsConstructor
-@AllArgsConstructor
+@RequiredArgsConstructor
+@RequestMapping("/search")
 public class SearchController {
-    private SearchService searchService;
+    private final SearchService searchService;
 
     /**
      * TODO: rewrite to return wrapper class with List<SimpleSearchResultDTO> within it
-     * TODO: rewrite to take location parameters from the search query string
      * TODO: make coordinates a separate class! Coordinates should always go together.
      */
     @GetMapping
-    public List<Accommodation> simpleSearch(Double longitude, Double lattitude, Double radius) {
-        return searchService.getAllAccommodationInRadius(longitude, lattitude, radius);
+    public DTOWrapper simpleSearch(
+            @RequestParam Double longitude,
+            @RequestParam Double latitude,
+            @RequestParam Double radius
+    ) {
+        return searchService.getAllAccommodationInRadius(new Coordinates(latitude, longitude), radius);
     }
 }

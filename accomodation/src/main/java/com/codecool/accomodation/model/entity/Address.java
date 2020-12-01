@@ -1,5 +1,6 @@
 package com.codecool.accomodation.model.entity;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -31,5 +32,6 @@ public class Address {
     private String zipCode;
 
     @OneToOne(mappedBy = "address")
+    @JsonBackReference
     private Location location;
 }

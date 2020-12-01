@@ -1,5 +1,6 @@
 package com.codecool.accomodation.service.DAO;
 
+import com.codecool.accomodation.model.Coordinates;
 import com.codecool.accomodation.model.entity.Location;
 import com.codecool.accomodation.repository.LocationRepository;
 import lombok.Data;
@@ -15,12 +16,12 @@ public class LocationDB implements LocationDAO {
     private final LocationRepository repository;
 
     @Override
-    public List<Location> getLocationInDistance(Double latitude, Double longitude, Double radius) {
+    public List<Location> getLocationInDistance(Coordinates coordinates, Double searchRadius) {
         return repository.getAllByLongitudeBetweenAndLatitudeBetween(
-                longitude - radius,
-                longitude + radius,
-                latitude - radius,
-                latitude + radius
+                coordinates.getLongitude() - searchRadius,
+                coordinates.getLongitude() + searchRadius,
+                coordinates.getLatitude() - searchRadius,
+                coordinates.getLatitude() + searchRadius
         );
     }
 }
