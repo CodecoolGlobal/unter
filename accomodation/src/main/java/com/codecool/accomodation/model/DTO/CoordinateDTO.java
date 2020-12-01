@@ -1,13 +1,11 @@
-package com.codecool.accomodation.model;
+package com.codecool.accomodation.model.DTO;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
-import lombok.NoArgsConstructor;
 
 @Data
-@NoArgsConstructor
 @AllArgsConstructor
-public class Coordinates {
+public class CoordinateDTO {
     private Double latitude;
     private Double longitude;
 }

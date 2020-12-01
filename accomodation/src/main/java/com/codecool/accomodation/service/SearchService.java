@@ -1,11 +1,10 @@
 package com.codecool.accomodation.service;
 
-import com.codecool.accomodation.model.Coordinates;
+import com.codecool.accomodation.model.DTO.CoordinateDTO;
 import com.codecool.accomodation.model.DTO.DTOWrapper;
 import com.codecool.accomodation.model.entity.Accommodation;
-import com.codecool.accomodation.model.entity.Location;
-import com.codecool.accomodation.service.DAO.AccommodationDAO;
-import com.codecool.accomodation.service.DAO.LocationDAO;
+import com.codecool.accomodation.model.entity.Coordinate;
+import com.codecool.accomodation.service.DAO.CoordinateDAO;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
@@ -17,20 +16,15 @@ import java.util.List;
 @RequiredArgsConstructor
 public class SearchService {
     private final DTOCreator creator;
-    private final LocationDAO locationDAO;
-    private final AccommodationDAO accommodationDAO;
+    private final CoordinateDAO coordinateDAO;
 
-    // TODO: think through whether we need to get accommodation twice from this list! (If we separate services,
-    // the solution below might be needed. If not, it could be refactored
-    public DTOWrapper getAllAccommodationInRadius(Coordinates coordinates, Double searchRadius) {
-        List<Location> locationsInRadius = locationDAO.getLocationInDistance(coordinates, searchRadius);
-        if (locationsInRadius.isEmpty()) {
-            Accommodation emptyAccommodation = new Accommodation();
-            return creator.turnInputListToDTO(Arrays.asList(emptyAccommodation));
-        }
+    public DTOWrapper getAllAccommodationInRadius(CoordinateDTO coordinate, Double searchRadius) {
+        List<Coordinate> coordinatesWithinDistance = coordinateDAO.getAllByDistanceFromCoordinate(coordinate, searchRadius);
+        if (coordinatesWithinDistance.isEmpty()) return creator.turnInputListToDTO(Arrays.asList(new Accommodation()));
+
         List<Accommodation> allAccommodationsInRadius = new ArrayList<>();
-        for (Location actualLocation : locationsInRadius) {
-            allAccommodationsInRadius.add(actualLocation.getAccommodation());
+        for (Coordinate actualLocation : coordinatesWithinDistance) {
+            allAccommodationsInRadius.add(actualLocation.getLocation().getAccommodation());
         }
         return creator.turnInputListToDTO(allAccommodationsInRadius);
     }

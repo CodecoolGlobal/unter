@@ -16,11 +16,10 @@ public class Location {
     @GeneratedValue
     private Long id;
 
-    @Column(nullable = false)
-    private Double latitude;
-
-    @Column(nullable = false)
-    private Double longitude;
+    @OneToOne(mappedBy = "location")
+    @ToString.Exclude
+    @JsonManagedReference
+    private Coordinate coordinate;
 
     private String description;
 

@@ -1,7 +1,7 @@
 package com.codecool.accomodation.controller;
 
-import com.codecool.accomodation.model.Coordinates;
 import com.codecool.accomodation.model.DTO.DTOWrapper;
+import com.codecool.accomodation.model.DTO.CoordinateDTO;
 import com.codecool.accomodation.service.SearchService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -25,6 +25,6 @@ public class SearchController {
             @RequestParam Double latitude,
             @RequestParam Double radius
     ) {
-        return searchService.getAllAccommodationInRadius(new Coordinates(latitude, longitude), radius);
+        return searchService.getAllAccommodationInRadius(new CoordinateDTO(latitude, longitude), radius);
     }
 }
