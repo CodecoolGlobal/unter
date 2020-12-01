@@ -20,19 +20,22 @@ import static org.junit.jupiter.api.Assertions.assertThrows;
 public class HostRepositoryTest {
 
     @Autowired
-    private HostRepository repository;
+    private HostRepository hostRepository;
 
     @Test
     public void test_saveNewHost_hasSizeOne() {
+        List<Host> originalData = hostRepository.findAll();
+        Integer originalSize = originalData.size();
+
         Host host = Host.builder()
             .email("host1@earth.com")
             .phone("0690666999")
             .build();
 
-        repository.save(host);
+        hostRepository.save(host);
 
-        List<Host> hosts = repository.findAll();
-        assertThat(hosts).hasSize(1);
+        List<Host> hosts = hostRepository.findAll();
+        assertThat(hosts).hasSize(originalSize + 1);
     }
 
     @Test
@@ -42,7 +45,7 @@ public class HostRepositoryTest {
             .phone("0690666999")
             .build();
 
-        repository.saveAndFlush(host);
+        hostRepository.saveAndFlush(host);
 
         Host host2 = Host.builder()
             .email("host2@earth.com")
@@ -50,7 +53,7 @@ public class HostRepositoryTest {
             .build();
 
         assertThrows(DataIntegrityViolationException.class, () ->
-            repository.saveAndFlush(host2));
+            hostRepository.saveAndFlush(host2));
     }
 
     @Test
@@ -60,7 +63,7 @@ public class HostRepositoryTest {
             .build();
 
         assertThrows(DataIntegrityViolationException.class, () ->
-            repository.saveAndFlush(host));
+            hostRepository.saveAndFlush(host));
     }
 
     @Test
@@ -70,6 +73,6 @@ public class HostRepositoryTest {
             .build();
 
         assertThrows(DataIntegrityViolationException.class, () ->
-            repository.saveAndFlush(host));
+            hostRepository.saveAndFlush(host));
     }
 }
