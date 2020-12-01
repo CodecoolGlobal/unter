@@ -43,6 +43,11 @@
         outline-width: 0;
         text-transform: unset !important;
         font-weight: 600;
+        background-color: transparent !important;
+
+        &:active {
+            background-color: white;
+        }
     }
 }
 
@@ -131,9 +136,12 @@
 }
 
 .datePicker {
-    @include flex__center;
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
     float: left;
-    flex: 1;
+    flex: 2;
     border-radius: 60px;
     width: 20vh;
     height: 8vh;
@@ -141,18 +149,30 @@
     &:hover {
         background-color: rgb(235, 235, 235);
     }
+
+    .date__label {
+        position: absolute;
+        bottom: 3.9vh;
+    }
 }
 
 .guests {
     @include flex__center;
     flex: 2;
-    padding-right: 24px;
     border-radius: 60px;
     width: fit-content;
     height: 8vh;
 
     &:hover {
         background-color: rgb(235, 235, 235);
+    }
+
+    .guests__input {
+        margin-left: 1vw;
+
+        input {
+            margin-left: 0.1vw;
+        }
     }
 }
 
@@ -180,10 +200,12 @@ label {
 
 .header__buttonSearch {
     position: relative;
-    right: 0;
+    display: flex;
+    justify-self: flex-end;
+    right: 0.5vw;
     background-color: rgb(236, 76, 96);
-    border-radius: 200px;
-    height: 5vh;
+    border-radius: 50%;
+    height: 4.6vh;
     width: 5vh;
 
     svg {

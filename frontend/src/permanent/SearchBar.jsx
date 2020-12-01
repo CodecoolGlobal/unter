@@ -25,7 +25,7 @@ function SearchBar() {
                     onClick={() => setShowSearch(!showSearch)}
                     variant="outlined"
                 >
-                    <label>Date picker</label>
+                    <label className="date__label">Date picker</label>
                 </div>
                 {showSearch && <Search />}
                 <div className="guests">

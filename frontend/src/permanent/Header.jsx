@@ -26,7 +26,7 @@ function Header() {
             </div>
             {!show ? (
                 <div className="header__center">
-                    <Button onClick={() => setShow(!show)}>
+                    <Button onClick={() => setShow(!show)} disableRipple={true}>
                         <p className="header__search">Start your search</p>
                         {/* <input type="text" placeholder="Start your search" /> */}
                         <div className="search__logo">
