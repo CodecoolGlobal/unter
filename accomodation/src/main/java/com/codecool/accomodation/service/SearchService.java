@@ -1,5 +1,6 @@
 package com.codecool.accomodation.service;
 
+import com.codecool.accomodation.model.Coordinates;
 import com.codecool.accomodation.model.DTO.DTOWrapper;
 import com.codecool.accomodation.model.entity.Accommodation;
 import com.codecool.accomodation.model.entity.Location;
@@ -21,8 +22,8 @@ public class SearchService {
 
     // TODO: think through whether we need to get accommodation twice from this list! (If we separate services,
     // the solution below might be needed. If not, it could be refactored
-    public DTOWrapper getAllAccommodationInRadius(Double longitude, Double latitude, Double radius) {
-        List<Location> locationsInRadius = locationDAO.getLocationInDistance(latitude, longitude, radius);
+    public DTOWrapper getAllAccommodationInRadius(Coordinates coordinates, Double searchRadius) {
+        List<Location> locationsInRadius = locationDAO.getLocationInDistance(coordinates, searchRadius);
         if (locationsInRadius.isEmpty()) {
             Accommodation emptyAccommodation = new Accommodation();
             return creator.turnInputListToDTO(Arrays.asList(emptyAccommodation));
