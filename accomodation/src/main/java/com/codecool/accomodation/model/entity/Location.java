@@ -17,7 +17,7 @@ public class Location {
     private Long id;
 
     @OneToOne(cascade = CascadeType.ALL)
-    @JoinColumn(name = "coordinate_id")
+    @JoinColumn(name = "coordinate_id", nullable = false)
     @JsonManagedReference
     private Coordinate coordinate;
 
