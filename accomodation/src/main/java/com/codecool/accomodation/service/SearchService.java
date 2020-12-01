@@ -19,7 +19,7 @@ import java.util.List;
 public class SearchService {
     private final DTOCreator creator;
     private final CoordinateDAO coordinateDAO;
-    private final LocationDAO locatiionDAO;
+    private final LocationDAO locationDAO;
 
     public DTOWrapper getAllAccommodationInRadius(CoordinateDTO coordinate, Double searchRadius) {
         List<Coordinate> coordinatesWithinDistance = coordinateDAO.getAllByDistanceFromCoordinate(coordinate, searchRadius);
@@ -28,7 +28,7 @@ public class SearchService {
         List<Accommodation> allAccommodationsInRadius = new ArrayList<>();
         System.out.println(coordinatesWithinDistance);
         for (Coordinate actualCoordinate : coordinatesWithinDistance) {
-            Location actualLocation = locatiionDAO.getLocationByCoordinate(actualCoordinate);
+            Location actualLocation = locationDAO.getLocationByCoordinate(actualCoordinate);
 
             allAccommodationsInRadius.add(actualLocation.getAccommodation());
         }
