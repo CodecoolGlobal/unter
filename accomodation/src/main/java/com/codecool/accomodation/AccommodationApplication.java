@@ -61,5 +61,4 @@ public class AccommodationApplication {
             repository.save(accommodation);
         };
     }
-
 }
