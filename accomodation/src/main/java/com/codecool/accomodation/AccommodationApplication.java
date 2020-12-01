@@ -2,8 +2,10 @@ package com.codecool.accomodation;
 
 import com.codecool.accomodation.model.entity.Accommodation;
 import com.codecool.accomodation.model.entity.Address;
+import com.codecool.accomodation.model.entity.Coordinate;
 import com.codecool.accomodation.model.entity.Location;
 import com.codecool.accomodation.repository.AccommodationRepository;
+import com.codecool.accomodation.repository.CoordinateRepository;
 import lombok.RequiredArgsConstructor;
 import org.modelmapper.ModelMapper;
 import org.springframework.boot.CommandLineRunner;
@@ -19,6 +21,8 @@ import org.springframework.test.context.ActiveProfiles;
 @RequiredArgsConstructor
 public class AccommodationApplication {
     private final AccommodationRepository repository;
+    private final CoordinateRepository coordinateRepository;
+//    private final LocationRepository locationRepository;
 
     public static void main(String[] args) {
         SpringApplication.run(AccommodationApplication.class, args);
@@ -39,12 +43,20 @@ public class AccommodationApplication {
                     .houseNumber(12)
                     .build();
 
-            Location location = Location.builder()
-                    .address(address)
-                    .description("Nice!")
+            Coordinate coordinate = Coordinate.builder()
                     .latitude(22.00)
                     .longitude(32.00)
                     .build();
+
+            Location location = Location.builder()
+                    .address(address)
+                    .description("Nice!")
+                    .coordinate(coordinate)
+                    .build();
+//            coordinate.setLocation(location);
+//            locationRepository.save(location);
+
+            coordinateRepository.save(coordinate);
 
             Accommodation accommodation = Accommodation.builder()
                     .description("Nice!444négy")
