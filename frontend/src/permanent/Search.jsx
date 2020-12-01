@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import "./Search.scss";
 import "react-date-range/dist/styles.css";
 import "react-date-range/dist/theme/default.css";
-import { DateRangePicker } from "react-date-range";
+import { DateRange, DateRangePicker } from "react-date-range";
 
 function Search() {
     const [startDate, setStartDate] = useState(new Date());
@@ -21,9 +21,14 @@ function Search() {
 
     return (
         <div className="search">
-            <DateRangePicker
+            <DateRange
                 ranges={[selectionRange]}
                 onChange={handleSelect}
+                months={2}
+                rangeColors={["rgb(240,242,247)"]}
+                moveRangeOnFirstSelection={false}
+                editableDateInputs={true}
+                direction="horizontal"
             />
         </div>
     );

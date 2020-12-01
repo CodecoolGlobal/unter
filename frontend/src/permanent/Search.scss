@@ -1,7 +1,18 @@
 .search {
     position: absolute;
     top: 8.2vh;
-    left: 50%;
-    transform: translateX(-25%);
-    width: 100vh;
+    left: 5%;
+    transform: translateX(-10%);
+}
+.rdrCalendarWrapper.rdrDateRangeWrapper {
+    border-radius: 30px !important;
+    display: flex !important;
+}
+
+.rdrDateDisplayWrapper {
+    border-radius: 30px !important;
+}
+
+.rdrDayNumber span {
+    color: black !important;
 }
