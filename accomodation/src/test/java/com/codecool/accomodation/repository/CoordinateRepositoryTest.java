@@ -44,4 +44,95 @@ public class CoordinateRepositoryTest {
         List<Coordinate> coordinates = coordinateRepository.findAll();
         assertThat(coordinates).hasSize(originalDataSize + 1);
     }
+
+    @Test
+    public void test_coordinateLongitudeShouldBeNotNull_ThrowsException() {
+        Coordinate coordinate = Coordinate.builder()
+            .latitude(45.45)
+            .build();
+
+        assertThrows(DataIntegrityViolationException.class, () ->
+            coordinateRepository.saveAndFlush(coordinate));
+    }
+
+    @Test
+    public void test_coordinateLatitudeShouldBeNotNull_ThrowsException() {
+        Coordinate coordinate = Coordinate.builder()
+            .longitude(45.45)
+            .build();
+
+        assertThrows(DataIntegrityViolationException.class, () ->
+            coordinateRepository.saveAndFlush(coordinate));
+    }
+
+    @Test
+    public void test_findAllWithinCoordinatesExistingValue_positiveAndAllValuesOut() {
+        Double startLongitude = 9.0;
+        Double endLongitude = 12.10;
+        Double startLatitude = 9.0;
+        Double endLatitude = 12.10;
+
+        Coordinate coordinate1 = Coordinate.builder()
+                    .latitude(10.00)
+                    .longitude(10.00)
+                    .build();
+
+        Coordinate coordinate2 = Coordinate.builder()
+                    .latitude(12.00)
+                    .longitude(12.00)
+                    .build();
+
+        Coordinate coordinate3 = Coordinate.builder()
+                    .latitude(2.23)
+                    .longitude(2.42)
+                    .build();
+
+        coordinateRepository.saveAll(Arrays.asList(coordinate1, coordinate2, coordinate3));
+
+        List<Coordinate> coordinates = coordinateRepository.getAllByLongitudeBetweenAndLatitudeBetween(
+            startLongitude,
+            endLongitude,
+            startLatitude,
+            endLatitude
+        );
+
+        assertThat(coordinates).contains(coordinate1);
+        assertThat(coordinates).contains(coordinate2);
+        assertThat(coordinates).doesNotContain(coordinate3);
+    }
+
+    @Test
+    public void test_findAllWithinCoordinatesExistingValue_negativeValuesAndValueBetween() {
+        Double startLongitude = 9.0;
+        Double endLongitude = 12.10;
+        Double startLatitude = -9.0;
+        Double endLatitude = 12.10;
+
+        Coordinate coordinate1 = Coordinate.builder()
+                .latitude(10.00)
+                .longitude(10.00)
+                .build();
+
+        Coordinate coordinate2 = Coordinate.builder()
+                .latitude(12.00)
+                .longitude(12.00)
+                .build();
+
+        Coordinate coordinate3 = Coordinate.builder()
+                .latitude(2.23)
+                .longitude(2.42)
+                .build();
+
+        coordinateRepository.saveAll(Arrays.asList(coordinate1, coordinate2, coordinate3));
+        List<Coordinate> coordinates = coordinateRepository.getAllByLongitudeBetweenAndLatitudeBetween(
+            startLongitude,
+            endLongitude,
+            startLatitude,
+            endLatitude
+        );
+
+        assertThat(coordinates).contains(coordinate1);
+        assertThat(coordinates).contains(coordinate2);
+        assertThat(coordinates).doesNotContain(coordinate3);
+    }
 }
