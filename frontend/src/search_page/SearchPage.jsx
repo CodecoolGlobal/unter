@@ -3,6 +3,7 @@ import "./SearchPage.scss";
 import { Button } from "@material-ui/core";
 import SearchResult from "./SearchResult";
 import GoogleMapReact from "google-map-react";
+import MediaQuery from "react-responsive";
 
 function SearchPage() {
     const defaultProps = {
@@ -88,7 +89,7 @@ function SearchPage() {
                     total="£650 total"
                 />
             </div>
-
+            <MediaQuery minDeviceWidth={1224}>
             <div className="map">
                 <GoogleMapReact
                     bootstrapURLKeys={{
@@ -98,6 +99,7 @@ function SearchPage() {
                     defaultZoom={defaultProps.zoom}
                 ></GoogleMapReact>
             </div>
+            </MediaQuery>
         </div>
     );
 }

@@ -35,3 +35,20 @@
 .searchPage {
     display: flex;
 }
+
+@media(max-width: 1224px){
+    .searchResults{
+        flex: 1;
+    }
+}
+
+@media(max-width:414px){
+    .searchResult{
+        position: relative;
+        flex-direction: column;
+    }
+    .searchPage__info{
+
+        align-self: center;
+    }
+}

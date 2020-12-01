@@ -216,3 +216,17 @@ label {
         transform: translate(-50%, -50%);
     }
 }
+
+
+@media(max-width:414px){
+    .headerLogo, .header__right{
+        display: none;
+    }
+    .header{
+        justify-content: center;
+    }
+    .home__section{
+        display: flex;
+        flex-direction: column;
+    }
+}

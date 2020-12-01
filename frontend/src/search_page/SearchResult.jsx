@@ -1,5 +1,6 @@
 import { FavoriteBorder, StarBorder } from "@material-ui/icons";
 import React from "react";
+import MediaQuery from "react-responsive";
 import "./SearchResult.scss";
 
 function SearchResult({
@@ -13,6 +14,29 @@ function SearchResult({
 }) {
     return (
         <div className="searchResult">
+            <MediaQuery maxDeviceWidth={414}>
+            <img src={img} alt="" />
+            <FavoriteBorder className="searchResult__heart" />
+            <div className="searchResult__info">
+                <div className="searchResult__infoTop">
+                    <p>{location}</p>
+                    <h3>{title}</h3>
+                </div>
+                <div className="searchResult__infoBottom">
+                    <div className="searchResult__stars">
+                        <StarBorder className="searchResult__star" />
+                        <p>
+                            <strong>{star}</strong>
+                        </p>
+                    </div>
+                    {/* <div className="searchResult__price">
+                        <h2>{price}</h2>
+                        <p>{total}</p>
+                    </div> */}
+                </div>
+            </div>
+            </MediaQuery>
+            <MediaQuery minDeviceWidth={415}>
             <img src={img} alt="" />
             <FavoriteBorder className="searchResult__heart" />
             <div className="searchResult__info">
@@ -35,6 +59,7 @@ function SearchResult({
                     </div>
                 </div>
             </div>
+            </MediaQuery>
         </div>
     );
 }
