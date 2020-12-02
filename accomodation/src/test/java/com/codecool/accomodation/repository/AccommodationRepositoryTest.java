@@ -1,9 +1,7 @@
 package com.codecool.accomodation.repository;
 
-import com.codecool.accomodation.model.entity.Accommodation;
-import com.codecool.accomodation.model.entity.Address;
-import com.codecool.accomodation.model.entity.Coordinate;
-import com.codecool.accomodation.model.entity.Location;
+import com.codecool.accomodation.model.entity.*;
+import com.codecool.accomodation.model.entity.types.RoomType;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -30,6 +28,9 @@ public class AccommodationRepositoryTest {
 
     @Autowired
     private LocationRepository locationRepository;
+
+    @Autowired
+    private RoomRepository roomRepository;
 
     @Test
     public void smokeTest() {
