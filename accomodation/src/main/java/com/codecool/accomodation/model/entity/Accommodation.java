@@ -27,7 +27,7 @@ public class Accommodation {
     private String description;
 
     @OneToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
-    @JoinColumn(name = "location_id")
+    @JoinColumn(name = "location_id", nullable = false)
     @ToString.Exclude
     @JsonManagedReference
     private Location location;
@@ -38,6 +38,7 @@ public class Accommodation {
     @OneToMany(mappedBy = "accommodation", cascade = CascadeType.ALL)
     @EqualsAndHashCode.Exclude
     @ToString.Exclude
+    @Singular
     private Set<Room> rooms;
 
     @Column(nullable = false)
