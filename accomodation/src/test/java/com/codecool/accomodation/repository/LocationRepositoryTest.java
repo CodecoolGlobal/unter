@@ -27,6 +27,12 @@ public class LocationRepositoryTest {
     @Autowired
     private LocationRepository repository;
 
+    @Autowired
+    private AddressRepository addressRepository;
+
+    @Autowired
+    private CoordinateRepository coordinateRepository;
+
     @Test
     public void smokeTest() {
         assertThat(repository).isNotNull();
