@@ -180,4 +180,40 @@ public class AccommodationRepositoryTest {
             .hasSize(originalDataSize + 1)
             .allMatch(location1 -> location.getId() > 0L);
     }
+
+    @Test
+    public void test_roomIsPersistedWithAccommodation_HasSizeIncreasesWithOne() {
+        List<Room> originalData = roomRepository.findAll();
+        Integer originalDataSize = originalData.size();
+
+        Room room = Room.builder()
+            .type(RoomType.BEDROOM)
+            .build();
+
+        Address address = Address.builder()
+            .city("Budapest")
+            .street("Érc utca")
+            .houseNumber(3)
+            .zipCode("1032")
+            .build();
+
+        Location location = Location.builder()
+            .coordinate(Coordinate.builder()
+                .latitude(22.22)
+                .longitude(23.23)
+                .build())
+            .address(address)
+            .build();
+
+        Accommodation accommodation = Accommodation.builder()
+            .name("accommodation test")
+            .maxNumberOfGuests(4)
+            .room(room)
+            .location(location)
+            .build();
+
+        accommodationRepository.save(accommodation);
+        List<Room> rooms = roomRepository.findAll();
+        assertThat(rooms).hasSize(originalDataSize + 1);
+    }
 }
