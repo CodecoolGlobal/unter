@@ -1,5 +1,6 @@
 package com.codecool.accomodation.repository;
 
+import com.codecool.accomodation.model.entity.Address;
 import com.codecool.accomodation.model.entity.Coordinate;
 import com.codecool.accomodation.model.entity.Location;
 import org.junit.jupiter.api.Test;
