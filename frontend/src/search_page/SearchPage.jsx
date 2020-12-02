@@ -1,22 +1,30 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import "./SearchPage.scss";
 import { Button } from "@material-ui/core";
 import SearchResult from "./SearchResult";
 import GoogleMapReact from "google-map-react";
 import MediaQuery from "react-responsive";
+import queryString from "query-string";
 
 function SearchPage() {
+    const [city, setCity] = useState({});
+
     const defaultProps = {
         center: { lat: 59.95, lng: 30.33 },
         zoom: 11,
     };
+
+    useEffect(() => {
+        let parsed = queryString.parse(window.location.search);
+        setCity(parsed.city);
+    }, []);
 
     return (
         <div className="searchPage">
             <div className="searchResults">
                 <div className="searchPage__info">
                     <p>62 stays 26 august to 30 august 2 guest</p>
-                    <h1>Stays nearby</h1>
+                    <h1>Stays in {city}</h1>
                     <Button variant="outlined">Cancellation Flexibility</Button>
                     <Button variant="outlined">Type of place</Button>
                     <Button variant="outlined">Price</Button>
@@ -90,15 +98,15 @@ function SearchPage() {
                 />
             </div>
             <MediaQuery minDeviceWidth={1224}>
-            <div className="map">
-                <GoogleMapReact
-                    bootstrapURLKeys={{
-                        key: "",
-                    }}
-                    defaultCenter={defaultProps.center}
-                    defaultZoom={defaultProps.zoom}
-                ></GoogleMapReact>
-            </div>
+                <div className="map">
+                    <GoogleMapReact
+                        bootstrapURLKeys={{
+                            key: "",
+                        }}
+                        defaultCenter={defaultProps.center}
+                        defaultZoom={defaultProps.zoom}
+                    ></GoogleMapReact>
+                </div>
             </MediaQuery>
         </div>
     );
