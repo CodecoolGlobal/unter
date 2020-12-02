@@ -39,15 +39,23 @@ public class LocationRepositoryTest {
     }
 
     @Test
-    public void test_saveNewLocation_hasSizeOne() {
+    public void test_saveNewLocation_hasSizeIncreasesWithOne() {
         List<Location> originalData = repository.findAll();
         Integer originalDataSize = originalData.size();
+
+        Address address = Address.builder()
+            .city("Budapest")
+            .street("Érc utca")
+            .houseNumber(3)
+            .zipCode("1032")
+            .build();
 
         Location location = Location.builder()
                 .coordinate(Coordinate.builder()
                     .longitude(24.24)
                     .latitude(42.42)
                     .build())
+                .address(address)
                 .build();
 
         repository.saveAndFlush(location);
@@ -60,11 +68,26 @@ public class LocationRepositoryTest {
         List<Location> originalData = repository.findAll();
         Integer originalDataSize = originalData.size();
 
+        Address address = Address.builder()
+            .city("Budapest")
+            .street("Érc utca")
+            .houseNumber(3)
+            .zipCode("1032")
+            .build();
+
+        Address address2 = Address.builder()
+            .city("Budapest")
+            .street("Viador utca")
+            .houseNumber(3)
+            .zipCode("1034")
+            .build();
+
         Location location1 = Location.builder()
                 .coordinate(Coordinate.builder()
                     .latitude(23.23)
                     .longitude(42.42)
                     .build())
+                .address(address)
                 .build();
 
         Location location2 = Location.builder()
@@ -72,6 +95,7 @@ public class LocationRepositoryTest {
                     .longitude(11.2)
                     .latitude(45.45)
                     .build())
+                .address(address2)
                 .build();
 
         List<Location> newLocations = Arrays.asList(location1, location2);
@@ -83,10 +107,81 @@ public class LocationRepositoryTest {
 
     @Test
     public void test_locationCoordinateShouldBeNotNull_ThrowsException() {
+        Address address = Address.builder()
+            .city("Budapest")
+            .street("Érc utca")
+            .houseNumber(3)
+            .zipCode("1032")
+            .build();
+
         Location location = Location.builder()
+                .address(address)
                 .build();
 
         assertThrows(DataIntegrityViolationException.class, () ->
                 repository.saveAndFlush(location));
+    }
+
+    @Test
+    public void test_locationAddressShouldBeNotNull_ThrowsException() {
+        Location location1 = Location.builder()
+            .coordinate(Coordinate.builder()
+                .latitude(23.23)
+                .longitude(42.42)
+                .build())
+            .build();
+
+        assertThrows(DataIntegrityViolationException.class, () ->
+            repository.saveAndFlush(location1));
+    }
+
+    @Test
+    public void test_addressPersistedWithLocation_hasSizeIncreasesWithOne() {
+        List<Address> originalData = addressRepository.findAll();
+        Integer originalDataSize = originalData.size();
+
+        Address address = Address.builder()
+            .city("Budapest")
+            .street("Érc utca")
+            .houseNumber(3)
+            .zipCode("1032")
+            .build();
+
+        Location location = Location.builder()
+            .address(address)
+            .coordinate(Coordinate.builder()
+                .longitude(23.23)
+                .latitude(45.45)
+                .build())
+            .build();
+
+        repository.save(location);
+        List<Address> addresses = addressRepository.findAll();
+        assertThat(addresses).hasSize(originalDataSize + 1);
+    }
+
+    @Test
+    public void test_coordinatePersistedWithLocation_hasSizeIncreasesWithOne() {
+        List<Coordinate> originalData = coordinateRepository.findAll();
+        Integer originalDataSize = originalData.size();
+
+        Address address = Address.builder()
+            .city("Budapest")
+            .street("Érc utca")
+            .houseNumber(3)
+            .zipCode("1032")
+            .build();
+
+        Location location = Location.builder()
+            .address(address)
+            .coordinate(Coordinate.builder()
+                .longitude(23.23)
+                .latitude(45.45)
+                .build())
+            .build();
+
+        repository.save(location);
+        List<Coordinate> coordinates = coordinateRepository.findAll();
+        assertThat(coordinates).hasSize(originalDataSize + 1);
     }
 }
