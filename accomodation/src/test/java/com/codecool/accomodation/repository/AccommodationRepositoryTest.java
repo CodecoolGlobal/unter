@@ -81,20 +81,39 @@ public class AccommodationRepositoryTest {
         List<Accommodation> originalData = accommodationRepository.findAll();
         Integer originalDataSize = originalData.size();
 
-        Accommodation accommodation1 = Accommodation.builder()
-                .name("One")
-                .maxNumberOfGuests(10)
-                .build();
-        Accommodation accommodation2 = Accommodation.builder()
-                .name("Two")
-                .maxNumberOfGuests(12)
-                .build();
-        List<Accommodation> newAccomodations = Arrays.asList(accommodation1, accommodation2);
+        Address address = Address.builder()
+            .city("Budapest")
+            .street("Érc utca")
+            .houseNumber(3)
+            .zipCode("1032")
+            .build();
 
-        accommodationRepository.saveAll(newAccomodations);
+        Location location = Location.builder()
+            .coordinate(Coordinate.builder()
+                .latitude(22.22)
+                .longitude(34.34)
+                .build())
+            .address(address)
+            .build();
+
+        Accommodation accommodation1 = Accommodation.builder()
+            .name("One")
+            .location(location)
+            .maxNumberOfGuests(10)
+            .build();
+
+        Accommodation accommodation2 = Accommodation.builder()
+            .name("Two")
+            .location(location)
+            .maxNumberOfGuests(12)
+            .build();
+
+        List<Accommodation> newAccommodations = Arrays.asList(accommodation1, accommodation2);
+
+        accommodationRepository.saveAll(newAccommodations);
         List<Accommodation> accommodations = accommodationRepository.findAll();
 
-        assertThat(accommodations).hasSize(originalDataSize + newAccomodations.size());
+        assertThat(accommodations).hasSize(originalDataSize + newAccommodations.size());
     }
 
     @Test
@@ -109,6 +128,16 @@ public class AccommodationRepositoryTest {
 
     @Test
     public void test_accommodationNumberOfGuestsShouldBeNotNull_ThrowsException() {
+        Accommodation accommodation = Accommodation.builder()
+            .name("Your dream holiday house")
+            .build();
+
+        assertThrows(DataIntegrityViolationException.class,
+            () -> accommodationRepository.save(accommodation));
+    }
+
+    @Test
+    public void test_accommodationLocationShouldBeNotNull_ThrowsException() {
         Accommodation accommodation = Accommodation.builder()
             .name("Your dream holiday house")
             .build();
