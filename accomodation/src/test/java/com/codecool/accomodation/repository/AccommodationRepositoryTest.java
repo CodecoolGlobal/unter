@@ -151,11 +151,19 @@ public class AccommodationRepositoryTest {
         List<Location> originalData = locationRepository.findAll();
         Integer originalDataSize = originalData.size();
 
+        Address address = Address.builder()
+            .city("Budapest")
+            .street("Érc utca")
+            .houseNumber(3)
+            .zipCode("1032")
+            .build();
+
         Location location = Location.builder()
             .coordinate(Coordinate.builder()
                 .latitude(22.22)
                 .longitude(23.23)
                 .build())
+            .address(address)
             .build();
 
         Accommodation accommodation = Accommodation.builder()
