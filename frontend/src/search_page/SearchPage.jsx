@@ -5,9 +5,11 @@ import SearchResult from "./SearchResult";
 import GoogleMapReact from "google-map-react";
 import MediaQuery from "react-responsive";
 import queryString from "query-string";
+import {useHistory} from "react-router-dom";
 
 function SearchPage() {
-    const [city, setCity] = useState({});
+    const [city, setCity] = useState();
+    const history = useHistory();
 
     const defaultProps = {
         center: { lat: 59.95, lng: 30.33 },
@@ -40,6 +42,7 @@ function SearchPage() {
                     star={4.73}
                     price="£30 / night"
                     total="£117 total"
+                    onClick= {()=>{history.push(`/accomodation/${2}`)}}
                 />
 
                 <SearchResult

@@ -8,6 +8,7 @@
     background-color: white;
     z-index: 100;
     width: 100%;
+    box-shadow: 0 0.5px 5px rgba(0, 0, 0, 0.2)
 }
 
 .header__title {
@@ -224,9 +225,5 @@ label {
     }
     .header{
         justify-content: center;
-    }
-    .home__section{
-        display: flex;
-        flex-direction: column;
     }
 }
