@@ -30,7 +30,7 @@ public class AccommodationDB implements AccommodationDAO {
                 .description(accommodationDTO.getDescription())
                 .location(accommodationDTO.getLocation())
                 .type((accommodationDTO.getType()))
-                .maxNumberOfGuests(accommodationDTO.getMaxNumberOfGuest())
+                .maxNumberOfGuests(accommodationDTO.getMaxNumberOfGuests())
                 .rooms(accommodationDTO.getRooms())
                 .build();
 
@@ -54,7 +54,7 @@ public class AccommodationDB implements AccommodationDAO {
 
         toEdit.setName(accommodationDTO.getName());
         toEdit.setDescription(accommodationDTO.getDescription());
-        toEdit.setMaxNumberOfGuests(accommodationDTO.getMaxNumberOfGuest());
+        toEdit.setMaxNumberOfGuests(accommodationDTO.getMaxNumberOfGuests());
         toEdit.setRooms(accommodationDTO.getRooms());
 
         repository.save(toEdit);

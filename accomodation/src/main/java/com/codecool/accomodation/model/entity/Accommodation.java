@@ -26,6 +26,11 @@ public class Accommodation {
     @Column
     private String description;
 
+    private String pictureUrl;
+
+    @Column(nullable = false)
+    private Integer maxNumberOfGuests;
+
     @OneToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     @JoinColumn(name = "location_id")
     @ToString.Exclude
@@ -40,7 +45,5 @@ public class Accommodation {
     @ToString.Exclude
     private Set<Room> rooms;
 
-    @Column(nullable = false)
-    private Integer maxNumberOfGuests;
 
 }
