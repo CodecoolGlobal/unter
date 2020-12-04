@@ -34,4 +34,6 @@ public class SearchService {
         }
         return creator.turnInputListToDTO(allAccommodationsInRadius);
     }
+
+
 }
