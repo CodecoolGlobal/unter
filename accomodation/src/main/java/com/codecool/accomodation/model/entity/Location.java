@@ -25,7 +25,6 @@ public class Location {
 
     @OneToOne(mappedBy = "location")
     @ToString.Exclude
-    @JsonBackReference
     private Accommodation accommodation;
 
     @OneToOne(cascade = CascadeType.ALL)

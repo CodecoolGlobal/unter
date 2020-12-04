@@ -4,8 +4,10 @@ import com.codecool.accomodation.model.DTO.AccommodationDTO;
 import com.codecool.accomodation.model.entity.Accommodation;
 import com.codecool.accomodation.service.DAO.AccommodationDAO;
 import lombok.RequiredArgsConstructor;
+import org.apache.http.HttpStatus;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @Service

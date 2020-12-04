@@ -1,23 +1,24 @@
 package com.codecool.accomodation.controller;
+
 import com.codecool.accomodation.model.DTO.AccommodationDTO;
 import com.codecool.accomodation.model.entity.Accommodation;
 import com.codecool.accomodation.service.AccommodationService;
 import lombok.AllArgsConstructor;
 import lombok.NoArgsConstructor;
+import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
 @RestController
-@NoArgsConstructor
-@AllArgsConstructor
+@RequiredArgsConstructor
 public class AccommodationController {
 
-    private AccommodationService service;
+    private final AccommodationService service;
 
     @GetMapping("/get-all/{hostId}")
     public List<Accommodation> getAllAccommodation(@PathVariable(name = "hostId") String hostId) {
-        return  service.getAllAccommodation(hostId);
+        return service.getAllAccommodation(hostId);
     }
 
     @PostMapping("/new-accommodation")
@@ -31,7 +32,7 @@ public class AccommodationController {
     }
 
     @PutMapping("/update-accommodation/{accommodationId}")
-    public void updateAccommodation(@PathVariable(name = "accommodationId")String accommodationId, @RequestBody AccommodationDTO accommodationDTO) {
+    public void updateAccommodation(@PathVariable(name = "accommodationId") String accommodationId, @RequestBody AccommodationDTO accommodationDTO) {
         service.updateAccommodation(accommodationId, accommodationDTO);
     }
 }

@@ -1,6 +1,8 @@
 package com.codecool.accomodation.model.entity;
 
 import com.codecool.accomodation.model.entity.types.AccommodationType;
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 import lombok.*;
 import javax.persistence.*;
@@ -34,7 +36,7 @@ public class Accommodation {
     @OneToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     @JoinColumn(name = "location_id")
     @ToString.Exclude
-    @JsonManagedReference
+    @JsonIgnore
     private Location location;
 
     @Enumerated(EnumType.STRING)
@@ -43,6 +45,7 @@ public class Accommodation {
     @OneToMany(mappedBy = "accommodation", cascade = CascadeType.ALL)
     @EqualsAndHashCode.Exclude
     @ToString.Exclude
+    @JsonBackReference
     private Set<Room> rooms;
 
 
