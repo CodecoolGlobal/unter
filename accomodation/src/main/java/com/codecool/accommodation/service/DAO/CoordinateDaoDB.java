@@ -15,7 +15,6 @@ import java.util.List;
 public class CoordinateDaoDB implements CoordinateDAO {
     private final CoordinateRepository repository;
 
-
     @Override
     public List<Coordinate> getAllByDistanceFromCoordinate(CoordinateDTO coordinate, Double distance) {
         return repository.getAllByLongitudeBetweenAndLatitudeBetween(
