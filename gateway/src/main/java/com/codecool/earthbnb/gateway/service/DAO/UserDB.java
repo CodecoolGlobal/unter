@@ -3,7 +3,7 @@ package com.codecool.earthbnb.gateway.service.DAO;
 import com.codecool.earthbnb.gateway.model.DTO.PublicUserDTO;
 import com.codecool.earthbnb.gateway.model.DTO.UserDTO;
 import com.codecool.earthbnb.gateway.model.Response;
-import com.codecool.earthbnb.gateway.model.entity.User;
+import com.codecool.earthbnb.gateway.model.entity.UserEntity;
 import com.codecool.earthbnb.gateway.repository.UserRepository;
 import com.codecool.earthbnb.gateway.security.JwtTokenServices;
 import com.codecool.earthbnb.gateway.service.validation.ValidatorService;
@@ -32,7 +32,7 @@ public class UserDB implements UserDAO {
 
     @Override
     public PublicUserDTO getPublicUserDataByUserId(Long userId) {
-        User user = userRepository.findDistinctById(userId);
+        UserEntity user = userRepository.findDistinctById(userId);
 
         if(user == null) return null;
 
@@ -47,7 +47,7 @@ public class UserDB implements UserDAO {
     @Override
     public PublicUserDTO getLoggedInUserData(HttpServletRequest request) {
         String username = jwtTokenServices.getUsernameFromToken(request);
-        User user = userRepository.findDistinctByUsername(username);
+        UserEntity user = userRepository.findDistinctByUsername(username);
         if(user != null){
             return PublicUserDTO.builder()
                     .firstName(user.getFirstName())
@@ -73,7 +73,7 @@ public class UserDB implements UserDAO {
             return new Response(false, "Registration failed due to invalid credentials");
 
 
-        User userEntity = User.builder()
+        UserEntity userEntity = UserEntity.builder()
                 .email(userDTO.getEmail())
                 .password(passwordEncoder.encode(userDTO.getPassword()))
                 .username(userDTO.getUsername())
