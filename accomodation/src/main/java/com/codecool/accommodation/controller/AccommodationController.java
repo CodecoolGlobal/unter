@@ -3,17 +3,15 @@ import com.codecool.accommodation.model.DTO.AccommodationDTO;
 import com.codecool.accommodation.model.entity.Accommodation;
 import com.codecool.accommodation.service.AccommodationService;
 import lombok.RequiredArgsConstructor;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
 @RestController
-@NoArgsConstructor
-@AllArgsConstructor
+@RequiredArgsConstructor
 public class AccommodationController {
 
-    private AccommodationService service;
+    private final AccommodationService service;
 
     @GetMapping("/get-all/{hostId}")
     public List<Accommodation> getAllAccommodation(@PathVariable(name = "hostId") String hostId) {
