@@ -14,12 +14,12 @@ import java.util.List;
 
 @RestController
 @RequiredArgsConstructor
-//@RequestMapping("/a")
+@RequestMapping("/acc")
 public class AccommodationController {
 
     private final AccommodationService service;
 
-    @GetMapping("/get-all/{hostId}")
+    @GetMapping("/{hostId}")
     public List<Accommodation> getAllAccommodation(@PathVariable(name = "hostId") String hostId, HttpServletResponse response) {
         List<Accommodation> accommodations = service.getAllAccommodation(hostId);
 
@@ -34,12 +34,12 @@ public class AccommodationController {
         return accommodations;
     }
 
-    @PostMapping("/new-accommodation")
+    @PostMapping("/new")
     public void saveNewAccommodation(@RequestBody AccommodationDTO accommodationDTO) {
         service.saveNewAccommodation(accommodationDTO);
     }
 
-    @DeleteMapping("/delete-accommodation/{accommodationId}")
+    @DeleteMapping("/{accommodationId}")
     public void deleteAccommodation(@PathVariable(name = "accommodationId") String accommodationId, HttpServletResponse response) {
         if(accommodationId == null){
             response.setStatus(401);
@@ -52,7 +52,7 @@ public class AccommodationController {
         service.deleteAccommodation(accommodationId);
     }
 
-    @PutMapping("/update-accommodation/{accommodationId}")
+    @PutMapping("/{accommodationId}")
     public void updateAccommodation(@PathVariable(name = "accommodationId") String accommodationId, @RequestBody AccommodationDTO accommodationDTO) {
         service.updateAccommodation(accommodationId, accommodationDTO);
     }
