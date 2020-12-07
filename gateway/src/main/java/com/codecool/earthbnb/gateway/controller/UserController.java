@@ -35,11 +35,8 @@ public class UserController {
             } else{
                 return userDTO;
             }
-
-
-
-
     }
+
 
     @GetMapping(value = "/get-user-data", produces = MediaType.APPLICATION_JSON_VALUE)
     public PublicUserDTO getLoggedInUserData(HttpServletRequest request, HttpServletResponse response){

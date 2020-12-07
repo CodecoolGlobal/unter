@@ -1,6 +1,6 @@
 package com.codecool.earthbnb.gateway;
 
-import com.codecool.earthbnb.gateway.model.entity.User;
+import com.codecool.earthbnb.gateway.model.entity.UserEntity;
 import com.codecool.earthbnb.gateway.repository.UserRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.boot.CommandLineRunner;
@@ -29,22 +29,21 @@ public class GatewayApplication{
         SpringApplication.run(GatewayApplication.class, args);
     }
 
-    @Bean
-    @Profile("production")
-    public CommandLineRunner init() {
-        return args -> {
-            User userEntity = User.builder()
-                    .email("alma@alma.com")
-                    .password(passwordEncoder.encode("P@ssw0rd"))
-                    .username("alma")
-                    .firstName("Alma")
-                    .lastName("Piros")
-                    .registrationDate(LocalDateTime.now())
-                    .roles(Collections.singletonList("ROLE_USER"))
-                    .build();
-            userRepository.save(userEntity);
-
-        };
-
-    }
+//    @Bean
+//    @Profile("production")
+//    public CommandLineRunner init() {
+//        return args -> {
+//            UserEntity userEntity = UserEntity.builder()
+//                    .email("alma@alma.com")
+//                    .password(passwordEncoder.encode("P@ssw0rd"))
+//                    .username("alma")
+//                    .firstName("Alma")
+//                    .lastName("Piros")
+//                    .registrationDate(LocalDateTime.now())
+//                    .roles(Collections.singletonList("ROLE_USER"))
+//                    .build();
+//            userRepository.save(userEntity);
+//
+//        };
+//    }
 }
