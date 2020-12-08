@@ -84,4 +84,112 @@ public class AccommodationControllerTest {
 
         verify(service, times(1)).getAllAccommodation(hostId);
     }
+
+    @Test
+    public void test_nonExistingEndpoint_ShouldNotWork() throws Exception {
+        mockMvc.perform(MockMvcRequestBuilders
+            .get("/dummy"))
+            .andDo(print())
+            .andExpect(status().isNotFound());
+    }
+
+    // TODO
+    @Test
+    public void test_findAccommodationsByNonExistingId_ShouldNotBeFound() throws Exception {
+//        List<Accommodation> accommodations = new ArrayList<>();
+//        doReturn(null).when(service).getAllAccommodation("6");
+
+        mockMvc
+            .perform(MockMvcRequestBuilders
+                .get("/get-all/{hostId}", 6))
+            .andDo(print())
+            .andExpect(status().is4xxClientError());
+    }
+
+    @Test
+    public void test_saveNewAccommodationEndpoint_ShouldRunAndSave() throws Exception {
+        Address address = Address.builder()
+            .houseNumber(15)
+            .street("Test Street")
+            .city("Test City")
+            .zipCode("test zip code")
+            .build();
+
+        Location location = Location.builder()
+            .coordinate(Coordinate.builder()
+                .latitude(35.45)
+                .longitude(23.23)
+                .build())
+            .address(address)
+            .build();
+
+        AccommodationDTO accommodation = AccommodationDTO.builder()
+            .host(Host.builder()
+                .id(1L)
+                .email("testytest@test.com")
+                .phone("666")
+                .build())
+            .maxNumberOfGuest(5)
+            .name("Test Accommodation5")
+            .location(location)
+            .build();
+
+        mockMvc
+            .perform(MockMvcRequestBuilders
+                .post("/new-accommodation")
+                .contentType(MediaType.APPLICATION_JSON)
+                .content(asJsonString(accommodation)))
+            .andDo(print())
+            .andExpect(status().is2xxSuccessful());
+
+        verify(service, times(1)).saveNewAccommodation(any(AccommodationDTO.class));
+    }
+
+    @Test
+    public void test_updateAccommodation_ShouldSaveUpdates() {
+        Address address = Address.builder()
+            .houseNumber(15)
+            .street("Test Street")
+            .city("Test City")
+            .zipCode("test zip code")
+            .build();
+
+        Location location = Location.builder()
+            .coordinate(Coordinate.builder()
+                .latitude(35.45)
+                .longitude(23.23)
+                .build())
+            .address(address)
+            .build();
+
+        Accommodation accommodation = Accommodation.builder()
+            .host(Host.builder()
+                .id(1L)
+                .email("testytest@test.com")
+                .phone("666")
+                .build())
+            .maxNumberOfGuests(5)
+            .name("Test Accommodation5")
+            .location(location)
+            .build();
+
+        Accommodation accommodation2 = Accommodation.builder()
+            .host(Host.builder()
+                .id(1L)
+                .email("testytest@test.com")
+                .phone("666")
+                .build())
+            .maxNumberOfGuests(5)
+            .name("Test Accommodation5")
+            .location(location)
+            .build();
+    }
+
+    public static String asJsonString(final Object obj) {
+        try {
+            return new ObjectMapper().writeValueAsString(obj);
+        } catch (Exception e) {
+            throw new RuntimeException(e);
+        }
+    }
 }
