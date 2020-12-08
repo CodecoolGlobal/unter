@@ -4,11 +4,13 @@ import com.codecool.accommodation.model.entity.Host;
 import com.codecool.accommodation.model.entity.Location;
 import com.codecool.accommodation.model.entity.Room;
 import com.codecool.accommodation.model.entity.types.AccommodationType;
+import lombok.Builder;
 import lombok.Data;
 
 import java.util.Set;
 
 @Data
+@Builder
 public class AccommodationDTO {
 
     private Host host;
