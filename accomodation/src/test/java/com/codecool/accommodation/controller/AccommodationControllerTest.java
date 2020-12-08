@@ -33,96 +33,9 @@ public class AccommodationControllerTest {
     @MockBean
     private AccommodationService service;
 
-    private List<Accommodation> accommodations;
-
-    @BeforeEach
-    void setUp() {
-        accommodations = new ArrayList<>();
-
-        Address address1 = Address.builder()
-            .houseNumber(2)
-            .street("Érc utca")
-            .city("Budapest")
-            .zipCode("1032")
-            .build();
-
-        Address address2 = Address.builder()
-            .houseNumber(15)
-            .street("Viador utca")
-            .city("Budapest")
-            .zipCode("1034")
-            .build();
-
-        Address address3 = Address.builder()
-            .houseNumber(22)
-            .street("Hegedűs Gyula utca")
-            .city("Budapest")
-            .zipCode("1136")
-            .build();
-
-        Location location1 = Location.builder()
-            .coordinate(Coordinate.builder()
-                .latitude(45.45)
-                .longitude(23.23)
-                .build())
-            .address(address1)
-            .build();
-
-        Location location2 = Location.builder()
-            .coordinate(Coordinate.builder()
-                .latitude(45.55)
-                .longitude(23.23)
-                .build())
-            .address(address2)
-            .build();
-
-        Location location3 = Location.builder()
-            .coordinate(Coordinate.builder()
-                .latitude(35.45)
-                .longitude(23.23)
-                .build())
-            .address(address3)
-            .build();
-
-        Accommodation accommodation1 = Accommodation.builder()
-                .id(1L)
-                .host(Host.builder()
-                    .id(1L)
-                    .email("test@test.com")
-                    .phone("666")
-                    .build())
-                .name("Accommodation1")
-                .maxNumberOfGuests(10)
-                .location(location1)
-                .build();
-
-        Accommodation accommodation2 = Accommodation.builder()
-                .id(2L)
-                .host(Host.builder()
-                    .id(2L)
-                    .email("test2@test.com")
-                    .phone("777")
-                    .build())
-                .name("Accommodation2")
-                .location(location2)
-                .maxNumberOfGuests(5)
-                .build();
-
-        Accommodation accommodation3 = Accommodation.builder()
-                .id(3L)
-                .host(Host.builder()
-                    .id(3L)
-                    .email("test3@test.com")
-                    .phone("888")
-                    .build())
-                .name("Accommodation3")
-                .location(location3)
-                .maxNumberOfGuests(2)
-                .build();
-
-        accommodations.add(accommodation1);
-        accommodations.add(accommodation2);
-        accommodations.add(accommodation3);
+    @Test // do we need this, if it's mocked?
+    public void smokeTest() {
+        assertThat(service).isNotNull();
     }
 
     @Test
