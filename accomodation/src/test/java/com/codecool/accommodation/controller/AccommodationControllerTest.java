@@ -40,6 +40,36 @@ public class AccommodationControllerTest {
 
     @Test
     public void test_getAllAccommodationEndpoint_ShouldRunAndGetArrayFromService() throws Exception {
+        Address address1 = Address.builder()
+            .houseNumber(2)
+            .street("Érc utca")
+            .city("Budapest")
+            .zipCode("1032")
+            .build();
+
+        Location location1 = Location.builder()
+            .coordinate(Coordinate.builder()
+                .latitude(45.45)
+                .longitude(23.23)
+                .build())
+            .address(address1)
+            .build();
+
+        Accommodation accommodation1 = Accommodation.builder()
+            .id(1L)
+            .host(Host.builder()
+                .id(1L)
+                .email("test@test.com")
+                .phone("666")
+                .build())
+            .name("Accommodation1")
+            .maxNumberOfGuests(10)
+            .location(location1)
+            .build();
+
+        List<Accommodation> accommodations = new ArrayList<>();
+        accommodations.add(accommodation1);
+
         String hostId = "1";
         when(service.getAllAccommodation(hostId)).thenReturn(accommodations);
 
