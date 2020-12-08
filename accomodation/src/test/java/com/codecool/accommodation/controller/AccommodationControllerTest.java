@@ -73,8 +73,10 @@ public class AccommodationControllerTest {
         String hostId = "1";
         when(service.getAllAccommodation(hostId)).thenReturn(accommodations);
 
-        mockMvc.perform(MockMvcRequestBuilders
-            .get("/get-all/{hostId}", 1))
+        mockMvc
+            .perform(MockMvcRequestBuilders
+                .get("/get-all/{hostId}", 1)
+                .accept(MediaType.APPLICATION_JSON))
             .andDo(print())
             .andExpect(status().isOk())
             .andExpect(MockMvcResultMatchers.jsonPath("$[0].id").value(1))
