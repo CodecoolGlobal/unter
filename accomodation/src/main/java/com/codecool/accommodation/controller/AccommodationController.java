@@ -1,4 +1,5 @@
 package com.codecool.accommodation.controller;
+
 import com.codecool.accommodation.model.DTO.AccommodationDTO;
 import com.codecool.accommodation.model.entity.Accommodation;
 import com.codecool.accommodation.service.AccommodationService;
