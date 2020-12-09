@@ -23,23 +23,23 @@ public class AccommodationDB implements AccommodationDAO {
     }
 
     @Override
-    public List<Accommodation> findAllByHost(Long hostId) {
+    public List<Accommodation> findAllByHostId(Long hostId) {
         return repository.findAccommodationsByHostId(hostId);
     }
 
     @Override
     public void saveNewAccommodation(AccommodationDTO accommodationDTO) {
         Accommodation accommodation = Accommodation.builder()
-                .host(accommodationDTO.getHost())
+                .hostId(accommodationDTO.getHostId())
                 .name(accommodationDTO.getName())
                 .description(accommodationDTO.getDescription())
                 .location(accommodationDTO.getLocation())
                 .type((accommodationDTO.getType()))
-                .maxNumberOfGuests(accommodationDTO.getMaxNumberOfGuests())
+                .maxNumberOfGuests(accommodationDTO.getMaxNumberOfGuest())
                 .rooms(accommodationDTO.getRooms())
                 .build();
 
-        repository.save(accommodation);
+        repository.saveAndFlush(accommodation);
     }
 
     @Override
@@ -59,9 +59,14 @@ public class AccommodationDB implements AccommodationDAO {
 
         toEdit.setName(accommodationDTO.getName());
         toEdit.setDescription(accommodationDTO.getDescription());
-        toEdit.setMaxNumberOfGuests(accommodationDTO.getMaxNumberOfGuests());
+        toEdit.setMaxNumberOfGuests(accommodationDTO.getMaxNumberOfGuest());
         toEdit.setRooms(accommodationDTO.getRooms());
 
         repository.save(toEdit);
+    }
+
+    @Override
+    public boolean isExisted(Long accommodationId) {
+        return repository.existsById(accommodationId);
     }
 }

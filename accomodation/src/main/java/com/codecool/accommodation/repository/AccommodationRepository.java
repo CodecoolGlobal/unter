@@ -9,7 +9,6 @@ import java.util.List;
 @Repository
 public interface AccommodationRepository extends JpaRepository<Accommodation, Long> {
 
-    List<Accommodation> findAll();
     List<Accommodation> findAccommodationsByHostId(Long hostId);
     void deleteAccommodationById(Long accommodationId);
 }

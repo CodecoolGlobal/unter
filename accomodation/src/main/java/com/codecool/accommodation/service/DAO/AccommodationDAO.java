@@ -8,9 +8,10 @@ import java.util.List;
 public interface AccommodationDAO {
 
     List<Accommodation> findAll();
-    List<Accommodation> findAllByHost(Long userId);
+    List<Accommodation> findAllByHostId(Long hostId);
     void saveNewAccommodation(AccommodationDTO accommodationDTO);
     void deleteAccommodation(Long accommodationId);
     Accommodation findAccommodationById(Long accommodationId);
     void updateAccommodation(Long accommodationId, AccommodationDTO accommodationDTO);
+    boolean isExisted(Long accommodationId);
 }

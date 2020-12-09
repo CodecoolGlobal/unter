@@ -1,10 +1,8 @@
 package com.codecool.accommodation.model.entity;
 
 import com.codecool.accommodation.model.entity.types.AccommodationType;
-import com.codecool.accomodation.model.entity.types.AccommodationType;
 import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.fasterxml.jackson.annotation.JsonManagedReference;
 import lombok.*;
 import javax.persistence.*;
 import java.util.Set;
@@ -20,8 +18,8 @@ public class Accommodation {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
 
-    @ManyToOne
-    private Host host;
+    @Column(nullable = false)
+    private Long hostId;
 
     @Column(nullable = false)
     private String name;
@@ -49,8 +47,5 @@ public class Accommodation {
     @Singular
     @JsonBackReference
     private Set<Room> rooms;
-
-    @Column(nullable = false)
-    private Integer maxNumberOfGuests;
 
 }

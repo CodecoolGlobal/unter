@@ -58,22 +58,14 @@ public class AccommodationControllerTest {
 
         testAccommodation = Accommodation.builder()
             .id(1L)
-            .host(Host.builder()
-                .id(1L)
-                .email("test@test.com")
-                .phone("test")
-                .build())
+            .hostId(1L)
             .name("Test")
             .maxNumberOfGuests(10)
             .location(testLocation)
             .build();
 
         testAccommodationDTO = AccommodationDTO.builder()
-            .host(Host.builder()
-                .id(1L)
-                .email("test@test.com")
-                .phone("test")
-                .build())
+            .hostId(1L)
             .name("Test")
             .maxNumberOfGuest(10)
             .location(testLocation)
@@ -90,12 +82,12 @@ public class AccommodationControllerTest {
         List<Accommodation> accommodations = new ArrayList<>();
         accommodations.add(testAccommodation);
 
-        String hostId = "1";
+        Long hostId = 1L;
         when(service.getAllAccommodation(hostId)).thenReturn(accommodations);
 
         mockMvc
             .perform(MockMvcRequestBuilders
-                .get("/get-all/{hostId}", 1L)
+                .get("/get-all/{hostId}", hostId)
                 .accept(MediaType.APPLICATION_JSON))
             .andDo(print())
             .andExpect(status().isOk())
@@ -156,7 +148,7 @@ public class AccommodationControllerTest {
             .andExpect(status().isOk())
             .andDo(print());
 
-        verify(service, times(1)).deleteAccommodation("1");
+        verify(service, times(1)).deleteAccommodation(1L);
     }
 
     @Test

@@ -5,15 +5,11 @@ import com.codecool.accommodation.model.entity.Accommodation;
 import com.codecool.accommodation.service.DAO.AccommodationDAO;
 import lombok.RequiredArgsConstructor;
 import org.apache.commons.lang.NullArgumentException;
-import org.apache.http.HttpResponse;
-import org.apache.http.HttpStatus;
+import com.codecool.accommodation.model.Response;
+import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.stereotype.Service;
-
-import javax.validation.constraints.Null;
-import java.io.IOException;
-import java.util.ArrayList;
 import java.util.List;
-import java.util.zip.DataFormatException;
+import java.util.NoSuchElementException;
 
 @Service
 @RequiredArgsConstructor
@@ -21,29 +17,36 @@ public class AccommodationService {
 
     private final AccommodationDAO dao;
 
-    public List<Accommodation> getAllAccommodation(String hostId) {
-        if (hostId == null)
-            return null;
-        return dao.findAllByHost(Long.parseLong(hostId));
+    public List<Accommodation> getAllAccommodation(Long hostId) {
+        return dao.findAllByHostId(hostId);
     }
 
-    public void saveNewAccommodation(AccommodationDTO accommodationDTO) throws NullArgumentException {
+    public Response saveNewAccommodation(AccommodationDTO accommodationDTO) {
         try {
-            dao.saveNewAccommodation(accommodationDTO);
-            if (accommodationDTO.getMaxNumberOfGuests() == null || accommodationDTO.getName() == null) {
-                throw new NullArgumentException("Field cannot be null!!!");
+            if (accommodationDTO.getHostId() != null ||
+                accommodationDTO.getName() != null ||
+                accommodationDTO.getMaxNumberOfGuest() != null) {
+
+                dao.saveNewAccommodation(accommodationDTO);
+                return new Response(true, "SUCCESS");
+
+            } else {
+                return new Response(false, "FAIL");
             }
-        } catch (NullArgumentException exception) {
+        } catch (DataIntegrityViolationException exception) {
             exception.printStackTrace();
+            return new Response(false, "FAIL");
         }
     }
 
-    public void deleteAccommodation(String accommodationId) throws NullPointerException {
-        try{
-            dao.deleteAccommodation(Long.parseLong(accommodationId));
-        }catch (NullPointerException exception){
+    public boolean deleteAccommodation(Long accommodationId) {
+        try {
+            dao.deleteAccommodation(accommodationId);
+        } catch (NoSuchElementException exception) {
             exception.printStackTrace();
+            return true;
         }
+        return dao.isExisted(accommodationId);
     }
 
     public void updateAccommodation(String accommodationId, AccommodationDTO accommodationDTO) {
@@ -56,5 +59,9 @@ public class AccommodationService {
 
     public List<Accommodation> findAll() {
         return dao.findAll();
+    }
+
+    public Accommodation findAccommodationById(Long accommodationId) {
+        return dao.findAccommodationById(accommodationId);
     }
 }

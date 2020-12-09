@@ -1,6 +1,7 @@
 package com.codecool.accommodation.controller;
 
 import com.codecool.accommodation.model.DTO.AccommodationDTO;
+import com.codecool.accommodation.model.Response;
 import com.codecool.accommodation.model.entity.Accommodation;
 import com.codecool.accommodation.service.AccommodationService;
 import lombok.RequiredArgsConstructor;
@@ -9,6 +10,7 @@ import org.springframework.web.bind.annotation.*;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.util.List;
+import java.util.NoSuchElementException;
 
 @RestController
 @RequiredArgsConstructor
@@ -22,13 +24,13 @@ public class AccommodationController {
     }
 
     @GetMapping("/{hostId}")
-    public List<Accommodation> getAllAccommodationByHost(@PathVariable(name = "hostId") String hostId, HttpServletResponse response) {
+    public List<Accommodation> getAllAccommodationByHost(@PathVariable(name = "hostId") Long hostId, HttpServletResponse response) {
         List<Accommodation> accommodations = service.getAllAccommodation(hostId);
 
         if (accommodations == null) {
             response.setStatus(401);
             try {
-                response.getWriter().println("Host id cannot be null!!!");
+                response.getWriter().println("Invalid host id.");
             } catch (IOException exception) {
                 exception.printStackTrace();
             }
@@ -42,16 +44,11 @@ public class AccommodationController {
     }
 
     @DeleteMapping("/{accommodationId}")
-    public void deleteAccommodation(@PathVariable(name = "accommodationId") String accommodationId, HttpServletResponse response) {
-        if(accommodationId == null){
+    public void deleteAccommodation(@PathVariable(name = "accommodationId") Long accommodationId, HttpServletResponse response) {
+        boolean notDeleted = service.deleteAccommodation(accommodationId);
+        if (notDeleted) {
             response.setStatus(401);
-            try {
-                response.getWriter().println("Id cannot be null!!");
-            } catch (IOException exception) {
-                exception.printStackTrace();
-            }
         }
-        service.deleteAccommodation(accommodationId);
     }
 
     @PutMapping("/{accommodationId}")

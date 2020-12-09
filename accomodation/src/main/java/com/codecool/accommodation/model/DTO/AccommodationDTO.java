@@ -1,6 +1,5 @@
 package com.codecool.accommodation.model.DTO;
 
-import com.codecool.accommodation.model.entity.Host;
 import com.codecool.accommodation.model.entity.Location;
 import com.codecool.accommodation.model.entity.Room;
 import com.codecool.accommodation.model.entity.types.AccommodationType;
@@ -13,7 +12,7 @@ import java.util.Set;
 @Builder
 public class AccommodationDTO {
 
-    private Host host;
+    private Long hostId;
     private String name;
     private String description;
     private Location location;
