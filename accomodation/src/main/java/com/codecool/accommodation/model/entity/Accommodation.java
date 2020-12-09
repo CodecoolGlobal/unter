@@ -47,5 +47,4 @@ public class Accommodation {
     @Singular
     @JsonBackReference
     private Set<Room> rooms;
-
 }
