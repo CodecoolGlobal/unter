@@ -5,6 +5,9 @@ import com.codecool.accommodation.model.entity.Address;
 import com.codecool.accommodation.model.entity.Coordinate;
 import com.codecool.accommodation.model.entity.Location;
 import com.codecool.accommodation.repository.AccommodationRepository;
+import com.codecool.accomodation.model.entity.*;
+import com.codecool.accomodation.repository.AccommodationRepository;
+import com.codecool.accomodation.repository.HostRepository;
 import lombok.RequiredArgsConstructor;
 import org.modelmapper.ModelMapper;
 import org.springframework.boot.CommandLineRunner;
@@ -20,6 +23,7 @@ import org.springframework.test.context.ActiveProfiles;
 @RequiredArgsConstructor
 public class AccommodationApplication {
     private final AccommodationRepository repository;
+    private final HostRepository hr;
 
     public static void main(String[] args) {
         SpringApplication.run(AccommodationApplication.class, args);
@@ -51,14 +55,24 @@ public class AccommodationApplication {
                     .coordinate(coordinate)
                     .build();
 
+            Host host = Host.builder()
+                    .phone("dsfsaf")
+                    .email("afsf")
+                    .build();
+            hr.save(host);
+
             Accommodation accommodation = Accommodation.builder()
                     .description("Nice!444négy")
                     .location(location)
                     .maxNumberOfGuests(4000)
                     .name("Házikó")
+                    .host(host)
                     .build();
+
+
 
             repository.save(accommodation);
         };
     }
+
 }

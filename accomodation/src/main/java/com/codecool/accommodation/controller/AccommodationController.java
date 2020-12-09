@@ -6,6 +6,8 @@ import com.codecool.accommodation.service.AccommodationService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
 
+import javax.servlet.http.HttpServletResponse;
+import java.io.IOException;
 import java.util.List;
 
 @RestController
@@ -14,23 +16,46 @@ public class AccommodationController {
 
     private final AccommodationService service;
 
-    @GetMapping("/get-all/{hostId}")
-    public List<Accommodation> getAllAccommodation(@PathVariable(name = "hostId") String hostId) {
-        return  service.getAllAccommodation(hostId);
+    @GetMapping("")
+    public List<Accommodation> getAll(){
+        return service.findAll();
     }
 
-    @PostMapping("/new-accommodation")
+    @GetMapping("/{hostId}")
+    public List<Accommodation> getAllAccommodationByHost(@PathVariable(name = "hostId") String hostId, HttpServletResponse response) {
+        List<Accommodation> accommodations = service.getAllAccommodation(hostId);
+
+        if (accommodations == null) {
+            response.setStatus(401);
+            try {
+                response.getWriter().println("Host id cannot be null!!!");
+            } catch (IOException exception) {
+                exception.printStackTrace();
+            }
+        }
+        return accommodations;
+    }
+
+    @PostMapping("/new")
     public void saveNewAccommodation(@RequestBody AccommodationDTO accommodationDTO) {
         service.saveNewAccommodation(accommodationDTO);
     }
 
-    @DeleteMapping("/delete-accommodation/{accommodationId}")
-    public void deleteAccommodation(@PathVariable(name = "accommodationId") String accommodationId) {
+    @DeleteMapping("/{accommodationId}")
+    public void deleteAccommodation(@PathVariable(name = "accommodationId") String accommodationId, HttpServletResponse response) {
+        if(accommodationId == null){
+            response.setStatus(401);
+            try {
+                response.getWriter().println("Id cannot be null!!");
+            } catch (IOException exception) {
+                exception.printStackTrace();
+            }
+        }
         service.deleteAccommodation(accommodationId);
     }
 
-    @PutMapping("/update-accommodation/{accommodationId}")
-    public void updateAccommodation(@PathVariable(name = "accommodationId")String accommodationId, @RequestBody AccommodationDTO accommodationDTO) {
+    @PutMapping("/{accommodationId}")
+    public void updateAccommodation(@PathVariable(name = "accommodationId") String accommodationId, @RequestBody AccommodationDTO accommodationDTO) {
         service.updateAccommodation(accommodationId, accommodationDTO);
     }
 
