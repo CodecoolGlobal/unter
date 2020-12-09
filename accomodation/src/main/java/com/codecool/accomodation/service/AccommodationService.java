@@ -53,4 +53,8 @@ public class AccommodationService {
             exception.printStackTrace();
         }
     }
+
+    public List<Accommodation> findAll() {
+        return dao.findAll();
+    }
 }

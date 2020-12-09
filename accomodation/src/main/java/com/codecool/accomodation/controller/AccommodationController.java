@@ -19,8 +19,13 @@ public class AccommodationController {
 
     private final AccommodationService service;
 
+    @GetMapping("")
+    public List<Accommodation> getAll(){
+        return service.findAll();
+    }
+
     @GetMapping("/{hostId}")
-    public List<Accommodation> getAllAccommodation(@PathVariable(name = "hostId") String hostId, HttpServletResponse response) {
+    public List<Accommodation> getAllAccommodationByHost(@PathVariable(name = "hostId") String hostId, HttpServletResponse response) {
         List<Accommodation> accommodations = service.getAllAccommodation(hostId);
 
         if (accommodations == null) {

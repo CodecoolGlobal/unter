@@ -24,12 +24,10 @@ public class AccommodationDTO {
 
     private Coordinate coordinates;
 
-
     private AccommodationType type;
-    private Host host;
+
     private Location location;
     private Set<Room> rooms;
-
 
    /* @PostLoad
     private void load() {

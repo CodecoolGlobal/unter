@@ -18,6 +18,11 @@ public class AccommodationDB implements AccommodationDAO {
     private final AccommodationRepository repository;
 
     @Override
+    public List<Accommodation> findAll() {
+        return repository.findAll();
+    }
+
+    @Override
     public List<Accommodation> findAllByHost(Long hostId) {
         return repository.findAccommodationsByHostId(hostId);
     }
