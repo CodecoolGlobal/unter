@@ -124,40 +124,14 @@ public class AccommodationControllerTest {
     }
 
     @Test
-    public void test_saveNewAccommodationEndpoint_ShouldRunAndSave() throws Exception {
-        Address address = Address.builder()
-            .houseNumber(15)
-            .street("Test Street")
-            .city("Test City")
-            .zipCode("test zip code")
-            .build();
-
-        Location location = Location.builder()
-            .coordinate(Coordinate.builder()
-                .latitude(35.45)
-                .longitude(23.23)
-                .build())
-            .address(address)
-            .build();
-
-        AccommodationDTO accommodation = AccommodationDTO.builder()
-            .host(Host.builder()
-                .id(1L)
-                .email("testytest@test.com")
-                .phone("666")
-                .build())
-            .maxNumberOfGuest(5)
-            .name("Test Accommodation5")
-            .location(location)
-            .build();
-
+    public void test_saveNewAccommodationEndpoint_StatusIsOk() throws Exception {
         mockMvc
             .perform(MockMvcRequestBuilders
                 .post("/new-accommodation")
                 .contentType(MediaType.APPLICATION_JSON)
-                .content(asJsonString(accommodation)))
-            .andDo(print())
-            .andExpect(status().is2xxSuccessful());
+                .content(asJsonString(testAccommodationDTO)))
+            .andExpect(status().isOk())
+            .andDo(print());
 
         verify(service, times(1)).saveNewAccommodation(any(AccommodationDTO.class));
     }
