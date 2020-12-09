@@ -116,14 +116,11 @@ public class AccommodationControllerTest {
     // TODO
     @Test
     public void test_findAccommodationsByNonExistingId_ShouldNotBeFound() throws Exception {
-//        List<Accommodation> accommodations = new ArrayList<>();
-//        doReturn(null).when(service).getAllAccommodation("6");
-
         mockMvc
             .perform(MockMvcRequestBuilders
-                .get("/get-all/{hostId}", 6))
+                .get("/get-all/{hostId}", 6L))
             .andDo(print())
-            .andExpect(status().is4xxClientError());
+            .andExpect(status().isNotFound());
     }
 
     @Test
