@@ -43,30 +43,42 @@ public class AccommodationControllerTest {
     public void setUp() {
         Address testAddress = Address.builder()
             .houseNumber(2)
-            .street("Érc utca")
-            .city("Budapest")
-            .zipCode("1032")
+            .street("Test street")
+            .city("Test City")
+            .zipCode("test")
             .build();
 
-        Location location1 = Location.builder()
+        Location testLocation = Location.builder()
             .coordinate(Coordinate.builder()
                 .latitude(45.45)
                 .longitude(23.23)
                 .build())
-            .address(address1)
+            .address(testAddress)
             .build();
 
-        Accommodation accommodation1 = Accommodation.builder()
+        testAccommodation = Accommodation.builder()
             .id(1L)
             .host(Host.builder()
                 .id(1L)
                 .email("test@test.com")
-                .phone("666")
+                .phone("test")
                 .build())
-            .name("Accommodation1")
+            .name("Test")
             .maxNumberOfGuests(10)
-            .location(location1)
+            .location(testLocation)
             .build();
+
+        testAccommodationDTO = AccommodationDTO.builder()
+            .host(Host.builder()
+                .id(1L)
+                .email("test@test.com")
+                .phone("test")
+                .build())
+            .name("Test")
+            .maxNumberOfGuest(10)
+            .location(testLocation)
+            .build();
+    }
 
         List<Accommodation> accommodations = new ArrayList<>();
         accommodations.add(accommodation1);
