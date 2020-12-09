@@ -137,13 +137,16 @@ public class AccommodationControllerTest {
     }
 
     @Test
-    public void test_updateAccommodation_ShouldSaveUpdates() {
-        Address address = Address.builder()
-            .houseNumber(15)
-            .street("Test Street")
-            .city("Test City")
-            .zipCode("test zip code")
-            .build();
+    public void test_updateAccommodationEndpoint_StatusIsOk() throws Exception {
+        Long testId = 1L;
+        mockMvc
+            .perform(MockMvcRequestBuilders
+                .put("/update-accommodation/{accommodationId}", testId)
+                .contentType(MediaType.APPLICATION_JSON)
+                .content(asJsonString(testAccommodation)))
+            .andExpect(status().isOk())
+            .andDo(print());
+    }
 
         Location location = Location.builder()
             .coordinate(Coordinate.builder()
