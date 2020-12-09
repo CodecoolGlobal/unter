@@ -148,24 +148,16 @@ public class AccommodationControllerTest {
             .andDo(print());
     }
 
-        Location location = Location.builder()
-            .coordinate(Coordinate.builder()
-                .latitude(35.45)
-                .longitude(23.23)
-                .build())
-            .address(address)
-            .build();
+    @Test
+    public void test_deleteAccommodationByIdEndpoint_StatusIsOk() throws Exception {
+        mockMvc
+            .perform(MockMvcRequestBuilders
+                .delete("/delete-accommodation/{accommodationId}", 1L))
+            .andExpect(status().isOk())
+            .andDo(print());
 
-        Accommodation accommodation = Accommodation.builder()
-            .host(Host.builder()
-                .id(1L)
-                .email("testytest@test.com")
-                .phone("666")
-                .build())
-            .maxNumberOfGuests(5)
-            .name("Test Accommodation5")
-            .location(location)
-            .build();
+        verify(service, times(1)).deleteAccommodation("1");
+    }
 
         Accommodation accommodation2 = Accommodation.builder()
             .host(Host.builder()
