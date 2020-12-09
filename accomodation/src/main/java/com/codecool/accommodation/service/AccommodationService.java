@@ -18,6 +18,10 @@ public class AccommodationService {
         return dao.findAllByHost(Long.parseLong(hostId));
     }
 
+    public Accommodation findAccommodationById(Long id) {
+        return dao.findAccommodationById(id);
+    }
+
     public void saveNewAccommodation(AccommodationDTO accommodationDTO) {
         dao.saveNewAccommodation(accommodationDTO);
     }
