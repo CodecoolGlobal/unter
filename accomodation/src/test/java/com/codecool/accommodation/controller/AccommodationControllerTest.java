@@ -35,14 +35,13 @@ public class AccommodationControllerTest {
     @MockBean
     private AccommodationService service;
 
-    @Test // do we need this, if it's mocked?
-    public void smokeTest() {
-        assertThat(service).isNotNull();
-    }
+    private Accommodation testAccommodation;
 
-    @Test
-    public void test_getAllAccommodationEndpoint_ShouldRunAndGetArrayFromService() throws Exception {
-        Address address1 = Address.builder()
+    private AccommodationDTO testAccommodationDTO;
+
+    @BeforeEach
+    public void setUp() {
+        Address testAddress = Address.builder()
             .houseNumber(2)
             .street("Érc utca")
             .city("Budapest")
