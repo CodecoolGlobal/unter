@@ -159,16 +159,18 @@ public class AccommodationControllerTest {
         verify(service, times(1)).deleteAccommodation("1");
     }
 
-        Accommodation accommodation2 = Accommodation.builder()
-            .host(Host.builder()
-                .id(1L)
-                .email("testytest@test.com")
-                .phone("666")
-                .build())
-            .maxNumberOfGuests(5)
-            .name("Test Accommodation5")
-            .location(location)
-            .build();
+    @Test
+    public void test_findAccommodationById_ShouldBeFound() throws Exception {
+        Long testId = 1L;
+        when(service.findAccommodationById(testId)).thenReturn(testAccommodation);
+
+        mockMvc
+            .perform(MockMvcRequestBuilders
+                .get("/get-accommodation/{accommodationId}", testId))
+            .andExpect(content().contentType(MediaType.APPLICATION_JSON))
+            .andExpect(jsonPath("$.id").value(testId))
+            .andExpect(jsonPath("$.name").value("Test"))
+            .andDo(print());
     }
 
     public static String asJsonString(final Object obj) {
