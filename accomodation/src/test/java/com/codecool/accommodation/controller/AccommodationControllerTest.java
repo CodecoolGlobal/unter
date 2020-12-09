@@ -80,15 +80,22 @@ public class AccommodationControllerTest {
             .build();
     }
 
+    @Test // do we need this, if it's mocked?
+    public void smokeTest() {
+        assertThat(service).isNotNull();
+    }
+
+    @Test
+    public void test_getAllAccommodationEndpoint_ShouldRunAndGetArrayFromService() throws Exception {
         List<Accommodation> accommodations = new ArrayList<>();
-        accommodations.add(accommodation1);
+        accommodations.add(testAccommodation);
 
         String hostId = "1";
         when(service.getAllAccommodation(hostId)).thenReturn(accommodations);
 
         mockMvc
             .perform(MockMvcRequestBuilders
-                .get("/get-all/{hostId}", 1)
+                .get("/get-all/{hostId}", 1L)
                 .accept(MediaType.APPLICATION_JSON))
             .andDo(print())
             .andExpect(status().isOk())
