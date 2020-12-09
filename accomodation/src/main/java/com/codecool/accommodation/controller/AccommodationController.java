@@ -33,4 +33,9 @@ public class AccommodationController {
     public void updateAccommodation(@PathVariable(name = "accommodationId")String accommodationId, @RequestBody AccommodationDTO accommodationDTO) {
         service.updateAccommodation(accommodationId, accommodationDTO);
     }
+
+    @GetMapping("/get-accommodation/{accommodationId}")
+    public Accommodation getAccommodationById(@PathVariable(name = "accommodationId")Long accommodationId) {
+        return service.findAccommodationById(accommodationId);
+    }
 }
