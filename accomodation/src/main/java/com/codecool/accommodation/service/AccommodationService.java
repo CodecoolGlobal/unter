@@ -45,13 +45,18 @@ public class AccommodationService {
     }
 
     public boolean deleteAccommodation(Long accommodationId) {
-        try {
-            accommodationDAO.deleteAccommodation(accommodationId);
-        } catch (NoSuchElementException exception) {
-            exception.printStackTrace();
+        if(accommodationDAO.isExisted(accommodationId)){
+            try {
+                accommodationDAO.deleteAccommodation(accommodationId);
+            } catch (NoSuchElementException exception) {
+                exception.printStackTrace();
+                return true;
+            }
+            return accommodationDAO.isExisted(accommodationId);
+        } else{
             return true;
         }
-        return accommodationDAO.isExisted(accommodationId);
+
     }
 
     public void updateAccommodation(String accommodationId, AccommodationDTO accommodationDTO) {
@@ -67,6 +72,7 @@ public class AccommodationService {
     }
 
     public Accommodation findAccommodationById(Long accommodationId) {
+
         return accommodationDAO.findAccommodationById(accommodationId);
     }
 }

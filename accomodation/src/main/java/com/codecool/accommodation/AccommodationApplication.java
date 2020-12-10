@@ -3,7 +3,6 @@ package com.codecool.accommodation;
 import com.codecool.accommodation.model.entity.Accommodation;
 import com.codecool.accommodation.model.entity.Address;
 import com.codecool.accommodation.model.entity.Coordinate;
-import com.codecool.accommodation.model.entity.Location;
 import com.codecool.accommodation.repository.AccommodationRepository;
 import lombok.RequiredArgsConstructor;
 import org.modelmapper.ModelMapper;
@@ -45,15 +44,15 @@ public class AccommodationApplication {
                     .longitude(32.00)
                     .build();
 
-            Location location = Location.builder()
-                    //.address(address)
-                    .description("Nice!")
-                    .coordinate(coordinate)
-                    .build();
+//            Location location = Location.builder()
+//                    //.address(address)
+//                    .description("Nice!")
+//                    .coordinate(coordinate)
+//                    .build();
 
             Accommodation accommodation = Accommodation.builder()
                     .description("Nice!444négy")
-                    .location(location)
+                   // .location(location)
                     .maxNumberOfGuests(4000)
                     .name("Házikó")
                     .hostId(1L)

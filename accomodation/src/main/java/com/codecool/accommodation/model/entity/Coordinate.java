@@ -22,11 +22,16 @@ public class Coordinate {
     @Column(nullable = false)
     private Double longitude;
 
-    @OneToOne
+    @OneToOne(mappedBy = "coordinate")
     @ToString.Exclude
     @EqualsAndHashCode.Exclude
-    @JsonBackReference
-    private Location location;
+    private Accommodation accommodation;
+
+//    @OneToOne
+//    @ToString.Exclude
+//    @EqualsAndHashCode.Exclude
+//    @JsonBackReference
+//    private Location location;
 
     public Coordinate(Double longitude, Double latitude){
         this.latitude = latitude;

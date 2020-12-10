@@ -34,12 +34,20 @@ public class Accommodation {
     @Column(nullable = false)
     private Integer maxNumberOfGuests;
 
+//    @OneToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+//    @JoinColumn(name = "location_id")
+////    @JoinColumn(name = "location_id", nullable = false)
+//    @ToString.Exclude
+//    @JsonIgnore
+//    private Location location;
+
+
     @OneToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
-    @JoinColumn(name = "location_id")
-//    @JoinColumn(name = "location_id", nullable = false)
+    @JoinColumn(name = "coordinate_id")
     @ToString.Exclude
+   // @EqualsAndHashCode.Exclude
     @JsonIgnore
-    private Location location;
+    private Coordinate coordinate;
 
     @Enumerated(EnumType.STRING)
     private AccommodationType type;
@@ -54,6 +62,8 @@ public class Accommodation {
     @OneToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "address_id")
     @JsonManagedReference
+    @EqualsAndHashCode.Exclude
+    @ToString.Exclude
     private Address address;
 
     public void createRooms(){

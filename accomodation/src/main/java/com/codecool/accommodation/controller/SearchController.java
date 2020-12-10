@@ -19,12 +19,12 @@ public class SearchController {
      * TODO: rewrite to return wrapper class with List<SimpleSearchResultDTO> within it
      * TODO: make coordinates a separate class! Coordinates should always go together.
      */
-    @GetMapping
-    public DTOWrapper simpleSearch(
-            @RequestParam Double longitude,
-            @RequestParam Double latitude,
-            @RequestParam Double radius
-    ) {
-        return searchService.getAllAccommodationInRadius(new CoordinateDTO(latitude, longitude), radius);
-    }
+//    @GetMapping
+//    public DTOWrapper simpleSearch(
+//            @RequestParam Double longitude,
+//            @RequestParam Double latitude,
+//            @RequestParam Double radius
+//    ) {
+//        return searchService.getAllAccommodationInRadius(new CoordinateDTO(latitude, longitude), radius);
+//    }
 }

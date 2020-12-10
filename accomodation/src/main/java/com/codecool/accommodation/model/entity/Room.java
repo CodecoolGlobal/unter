@@ -4,8 +4,11 @@ import com.codecool.accommodation.model.entity.types.BedType;
 import com.codecool.accommodation.model.entity.types.RoomType;
 import com.fasterxml.jackson.annotation.JsonBackReference;
 import lombok.*;
+import org.hibernate.annotations.MapKeyType;
 
 import javax.persistence.*;
+import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 @Data
@@ -21,20 +24,21 @@ public class Room {
 
     private RoomType type;
 
-//    @ElementCollection
-//    @CollectionTable(name = "bed_quantity",
-//        joinColumns = { @JoinColumn(name = "room_id") })
-//    @MapKeyEnumerated(EnumType.STRING)
-//    @JsonBackReference
-//    private Map<BedType, Integer> beds;
+    @ElementCollection(fetch = FetchType.LAZY)
+    @CollectionTable(name = "bed_quantity",
+        joinColumns = { @JoinColumn(name = "room_id") })
+    @MapKeyEnumerated(EnumType.ORDINAL)
+    @MapKeyClass(BedType.class)
+    @JsonBackReference
+    private Map<BedType, Integer> beds;
 
     @ManyToOne
     private Accommodation accommodation;
 
     public Room(RoomType type) {
-
         this.type = type;
     }
+
 
     public void setAccommodation(Accommodation accommodation) {
         this.accommodation= accommodation;

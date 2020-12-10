@@ -38,7 +38,7 @@ public class AccommodationController {
         return accommodations;
     }
 
-    @PostMapping("/new")
+    @PostMapping("")
     public void saveNewAccommodation(@RequestBody AccommodationDTO accommodationDTO) {
         service.saveNewAccommodation(accommodationDTO);
     }

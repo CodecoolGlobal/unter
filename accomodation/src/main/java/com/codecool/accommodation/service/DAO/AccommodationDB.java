@@ -6,6 +6,7 @@ import com.codecool.accommodation.model.entity.*;
 import com.codecool.accommodation.repository.AccommodationRepository;
 import lombok.Data;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.Transaction;
@@ -20,6 +21,7 @@ import java.util.Set;
 @Component
 @Data
 @RequiredArgsConstructor
+@Slf4j
 public class AccommodationDB implements AccommodationDAO {
 
     private final AccommodationRepository repository;
@@ -27,10 +29,6 @@ public class AccommodationDB implements AccommodationDAO {
     @PersistenceContext
     private EntityManager entityManager;
 
-//    @PersistenceContext
-//    private EntityManagerFactory entityManagerFactory;
-
-  //  SessionFactory sessionFactory = entityManager.unwrap(SessionFactory.class);
 
     @Override
     public List<Accommodation> findAll() {
@@ -46,8 +44,10 @@ public class AccommodationDB implements AccommodationDAO {
     @Override
     public void saveNewAccommodation(AccommodationDTO accommodationDTO) {
 
+        Coordinate coordinate = new Coordinate(accommodationDTO.getCoordinate().getLongitude(), accommodationDTO.getCoordinate().getLatitude());
+
         Address address = accommodationDTO.getAddress();
-        Location location = accommodationDTO.getLocation();
+        //Location location = accommodationDTO.getLocation();
 
         Accommodation accommodation2 = new Accommodation();
         accommodation2.setDescription(accommodationDTO.getDescription());
@@ -56,7 +56,8 @@ public class AccommodationDB implements AccommodationDAO {
         accommodation2.setName(accommodationDTO.getName());
         accommodation2.setType(accommodationDTO.getType());
         accommodation2.setAddress(address);
-        accommodation2.setLocation(location);
+        accommodation2.setCoordinate(coordinate);
+        //accommodation2.setLocation(location);
 
 
         Session session = entityManager.unwrap(Session.class);
@@ -68,12 +69,14 @@ public class AccommodationDB implements AccommodationDAO {
             }
             Room newRoom = new Room(room.getType());
             newRoom.setAccommodation(accommodation2);
+            newRoom.setBeds(room.getBeds());
+
             session.save(newRoom);
             accommodation2.getRooms().add(newRoom);
         }
 
-        Coordinate coordinate = new Coordinate(location.getCoordinate().getLongitude(), location.getCoordinate().getLatitude());
-        coordinate.setLocation(location);
+
+        //coordinate.setLocation(location);
 
 
         session.save(accommodation2);
@@ -83,26 +86,29 @@ public class AccommodationDB implements AccommodationDAO {
     }
 
     @Override
+    @Transactional
     public void deleteAccommodation(Long accommodationId) {
         repository.deleteAccommodationById(accommodationId);
     }
 
     @Override
     public Accommodation findAccommodationById(Long accommodationId) {
-        return repository.findById(accommodationId)
-                .orElseThrow(() -> new NoSuchElementException("No accommodation was found"));
+
+        return repository.findById(accommodationId).get();
     }
 
     @Override
+    @Transactional
     public void updateAccommodation(Long accommodationId, AccommodationDTO accommodationDTO) {
         Accommodation toEdit = findAccommodationById(accommodationId);
 
         toEdit.setName(accommodationDTO.getName());
         toEdit.setDescription(accommodationDTO.getDescription());
         toEdit.setMaxNumberOfGuests(accommodationDTO.getMaxNumberOfGuest());
-        //toEdit.setRooms(accommodationDTO.getRooms());
 
+        //toEdit.setRooms(accommodationDTO.getRooms());
         repository.save(toEdit);
+
     }
 
     @Override
