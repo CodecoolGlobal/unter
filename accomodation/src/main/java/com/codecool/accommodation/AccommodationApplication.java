@@ -46,7 +46,7 @@ public class AccommodationApplication {
                     .build();
 
             Location location = Location.builder()
-                    .address(address)
+                    //.address(address)
                     .description("Nice!")
                     .coordinate(coordinate)
                     .build();
@@ -57,6 +57,7 @@ public class AccommodationApplication {
                     .maxNumberOfGuests(4000)
                     .name("Házikó")
                     .hostId(1L)
+                    .address(address)
                     .build();
 
             repository.save(accommodation);

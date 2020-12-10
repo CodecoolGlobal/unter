@@ -2,18 +2,16 @@ package com.codecool.accommodation.service.DAO;
 
 import com.codecool.accommodation.model.DTO.AccommodationDTO;
 import com.codecool.accommodation.model.DTO.RoomDTO;
-import com.codecool.accommodation.model.entity.Accommodation;
-import com.codecool.accommodation.model.entity.Location;
-import com.codecool.accommodation.model.entity.Room;
+import com.codecool.accommodation.model.entity.*;
 import com.codecool.accommodation.repository.AccommodationRepository;
 import lombok.Data;
 import lombok.RequiredArgsConstructor;
+import org.hibernate.Session;
+import org.hibernate.SessionFactory;
+import org.hibernate.Transaction;
 import org.springframework.stereotype.Component;
 
-import javax.persistence.EntityManager;
-import javax.persistence.EntityTransaction;
-import javax.persistence.FlushModeType;
-import javax.persistence.PersistenceContext;
+import javax.persistence.*;
 import javax.transaction.Transactional;
 import java.util.List;
 import java.util.NoSuchElementException;
@@ -29,6 +27,11 @@ public class AccommodationDB implements AccommodationDAO {
     @PersistenceContext
     private EntityManager entityManager;
 
+//    @PersistenceContext
+//    private EntityManagerFactory entityManagerFactory;
+
+  //  SessionFactory sessionFactory = entityManager.unwrap(SessionFactory.class);
+
     @Override
     public List<Accommodation> findAll() {
         return repository.findAll();
@@ -39,9 +42,12 @@ public class AccommodationDB implements AccommodationDAO {
         return repository.findAccommodationsByHostId(hostId);
     }
 
-    @Transactional
+    //@Transactional
     @Override
     public void saveNewAccommodation(AccommodationDTO accommodationDTO) {
+
+        Address address = accommodationDTO.getAddress();
+        Location location = accommodationDTO.getLocation();
 
         Accommodation accommodation2 = new Accommodation();
         accommodation2.setDescription(accommodationDTO.getDescription());
@@ -49,43 +55,31 @@ public class AccommodationDB implements AccommodationDAO {
         accommodation2.setMaxNumberOfGuests(accommodationDTO.getMaxNumberOfGuest());
         accommodation2.setName(accommodationDTO.getName());
         accommodation2.setType(accommodationDTO.getType());
+        accommodation2.setAddress(address);
+        accommodation2.setLocation(location);
 
-        long counter = 1;
-        for(RoomDTO room : accommodationDTO.getRooms()){
+
+        Session session = entityManager.unwrap(Session.class);
+        Transaction tx = session.beginTransaction();
+
+        for(Room room : accommodationDTO.getRooms()){
             if(accommodation2.getRooms()== null){
                 accommodation2.createRooms();
             }
-            Room newRoom = new Room(counter, room.getType());
+            Room newRoom = new Room(room.getType());
             newRoom.setAccommodation(accommodation2);
+            session.save(newRoom);
             accommodation2.getRooms().add(newRoom);
-            //accommodation2.getRooms().add(new Room(counter, room.getType()));
-            counter = counter +1;
         }
 
+        Coordinate coordinate = new Coordinate(location.getCoordinate().getLongitude(), location.getCoordinate().getLatitude());
+        coordinate.setLocation(location);
 
 
-
-//        accommodation2.setLocation(new Location());
-        entityManager.setFlushMode(FlushModeType.COMMIT);
-
-        entityManager.persist(accommodation2);
-
-
-
-//        Accommodation accommodation = Accommodation.builder()
-//                .hostId(accommodationDTO.getHostId())
-//                .name(accommodationDTO.getName())
-//                .description(accommodationDTO.getDescription())
-//                //.location(accommodationDTO.getLocation())
-//                .type((accommodationDTO.getType()))
-//                .maxNumberOfGuests(accommodationDTO.getMaxNumberOfGuest())
-//                //.rooms(accommodationDTO.getRooms())
-//                .build();
-//
-//
-//
-//
-//        repository.saveAndFlush(accommodation);
+        session.save(accommodation2);
+        session.save(address);
+        tx.commit();
+        session.close();
     }
 
     @Override

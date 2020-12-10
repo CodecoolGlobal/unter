@@ -1,5 +1,6 @@
 package com.codecool.accommodation.model.DTO;
 
+import com.codecool.accommodation.model.entity.Address;
 import com.codecool.accommodation.model.entity.Location;
 import com.codecool.accommodation.model.entity.Room;
 import com.codecool.accommodation.model.entity.types.AccommodationType;
@@ -15,9 +16,10 @@ public class AccommodationDTO {
     private Long hostId;
     private String name;
     private String description;
-   // private Location location;
+    private Location location;
     private AccommodationType type;
     private Integer maxNumberOfGuest;
-    private Set<RoomDTO> rooms;
+    private Set<Room> rooms;
+    private Address address;
 
 }

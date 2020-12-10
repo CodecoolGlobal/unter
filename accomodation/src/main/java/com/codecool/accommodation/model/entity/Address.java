@@ -1,6 +1,7 @@
 package com.codecool.accommodation.model.entity;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -33,5 +34,11 @@ public class Address {
 
     @OneToOne(mappedBy = "address")
     @JsonBackReference
-    private Location location;
+    private Accommodation accommodation;
+
+    private Address(Integer houseNumber, String street, String city, String zipCode){
+        this.houseNumber = houseNumber;
+    }
+
+
 }

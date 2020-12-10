@@ -27,8 +27,5 @@ public class Location {
     @ToString.Exclude
     private Accommodation accommodation;
 
-    @OneToOne(cascade = CascadeType.ALL)
-    @JoinColumn(name = "address_id", nullable = false)
-    @JsonManagedReference
-    private Address address;
+
 }

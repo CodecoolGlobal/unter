@@ -16,6 +16,7 @@ import java.util.Map;
 public class Room {
 
     @Id
+    @GeneratedValue
     private Long id;
 
     private RoomType type;
@@ -30,8 +31,8 @@ public class Room {
     @ManyToOne
     private Accommodation accommodation;
 
-    public Room(Long i, RoomType type) {
-        this.id = i;
+    public Room(RoomType type) {
+
         this.type = type;
     }
 
