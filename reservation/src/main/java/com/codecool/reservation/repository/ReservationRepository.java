@@ -12,5 +12,5 @@ public interface ReservationRepository  extends JpaRepository<Reservation, Long>
     List<Reservation> findReservationsByAccommodationId(Long accommodationId);
     List<Reservation> findReservationsByAccommodationIdAndStartDateGreaterThanEqual(Long accommodationId, LocalDate startDate);
     List<Reservation> findAllReservationsByGuestId(Long guestId);
-    void deleteReservationById(Long reservationId);
+    void deleteById(Long reservationId);
 }

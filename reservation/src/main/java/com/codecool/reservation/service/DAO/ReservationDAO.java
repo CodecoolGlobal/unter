@@ -9,11 +9,11 @@ import java.util.List;
 public interface ReservationDAO {
 
     List<Reservation> findAll();
+    Reservation findReservationById(Long reservationId);
     List<Reservation> findAllByAccommodationId(Long accommodationId);
     List<Reservation> findAllByAccommodationIdFromNow(Long accommodationId);
     List<Reservation> findAllByGuestId(Long guestId);
     void saveNewReservation(ReservationDTO reservationDTO);
     void deleteReservation(Long reservationId);
-    Reservation findReservationById(Long reservationId);
     void updateReservation(Long reservationId, LocalDate startDate, LocalDate endDate);
 }
