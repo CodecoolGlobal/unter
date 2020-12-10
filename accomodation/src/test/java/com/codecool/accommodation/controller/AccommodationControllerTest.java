@@ -68,7 +68,7 @@ public class AccommodationControllerTest {
             .hostId(1L)
             .name("Test")
             .maxNumberOfGuest(10)
-            .location(testLocation)
+            //.location(testLocation)
             .build();
     }
 

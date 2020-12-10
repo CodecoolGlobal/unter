@@ -5,6 +5,7 @@ import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.*;
 import javax.persistence.*;
+import java.util.HashSet;
 import java.util.Set;
 
 @Data
@@ -33,7 +34,8 @@ public class Accommodation {
     private Integer maxNumberOfGuests;
 
     @OneToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
-    @JoinColumn(name = "location_id", nullable = false)
+    @JoinColumn(name = "location_id")
+//    @JoinColumn(name = "location_id", nullable = false)
     @ToString.Exclude
     @JsonIgnore
     private Location location;
@@ -47,4 +49,8 @@ public class Accommodation {
     @Singular
     @JsonBackReference
     private Set<Room> rooms;
+
+    public void createRooms(){
+        this.rooms = new HashSet<>();
+    }
 }

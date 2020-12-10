@@ -15,9 +15,9 @@ public class AccommodationDTO {
     private Long hostId;
     private String name;
     private String description;
-    private Location location;
+   // private Location location;
     private AccommodationType type;
     private Integer maxNumberOfGuest;
-    private Set<Room> rooms;
+    private Set<RoomDTO> rooms;
 
 }

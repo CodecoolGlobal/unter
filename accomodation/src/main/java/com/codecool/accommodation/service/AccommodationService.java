@@ -1,8 +1,10 @@
 package com.codecool.accommodation.service;
 
 import com.codecool.accommodation.model.DTO.AccommodationDTO;
+import com.codecool.accommodation.model.DTO.RoomDTO;
 import com.codecool.accommodation.model.entity.Accommodation;
 import com.codecool.accommodation.service.DAO.AccommodationDAO;
+import com.codecool.accommodation.service.DAO.RoomDAO;
 import lombok.RequiredArgsConstructor;
 import org.apache.commons.lang.NullArgumentException;
 import com.codecool.accommodation.model.Response;
@@ -15,10 +17,11 @@ import java.util.NoSuchElementException;
 @RequiredArgsConstructor
 public class AccommodationService {
 
-    private final AccommodationDAO dao;
+    private final AccommodationDAO accommodationDAO;
+    private final RoomDAO roomDAO;
 
     public List<Accommodation> getAllAccommodation(Long hostId) {
-        return dao.findAllByHostId(hostId);
+        return accommodationDAO.findAllByHostId(hostId);
     }
 
     public Response saveNewAccommodation(AccommodationDTO accommodationDTO) {
@@ -27,7 +30,9 @@ public class AccommodationService {
                 accommodationDTO.getName() != null ||
                 accommodationDTO.getMaxNumberOfGuest() != null) {
 
-                dao.saveNewAccommodation(accommodationDTO);
+                accommodationDAO.saveNewAccommodation(accommodationDTO);
+
+
                 return new Response(true, "SUCCESS");
 
             } else {
@@ -41,27 +46,27 @@ public class AccommodationService {
 
     public boolean deleteAccommodation(Long accommodationId) {
         try {
-            dao.deleteAccommodation(accommodationId);
+            accommodationDAO.deleteAccommodation(accommodationId);
         } catch (NoSuchElementException exception) {
             exception.printStackTrace();
             return true;
         }
-        return dao.isExisted(accommodationId);
+        return accommodationDAO.isExisted(accommodationId);
     }
 
     public void updateAccommodation(String accommodationId, AccommodationDTO accommodationDTO) {
         try {
-            dao.updateAccommodation(Long.parseLong(accommodationId), accommodationDTO);
+            accommodationDAO.updateAccommodation(Long.parseLong(accommodationId), accommodationDTO);
         } catch (NullArgumentException exception) {
             exception.printStackTrace();
         }
     }
 
     public List<Accommodation> findAll() {
-        return dao.findAll();
+        return accommodationDAO.findAll();
     }
 
     public Accommodation findAccommodationById(Long accommodationId) {
-        return dao.findAccommodationById(accommodationId);
+        return accommodationDAO.findAccommodationById(accommodationId);
     }
 }
