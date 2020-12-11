@@ -3,6 +3,7 @@ import './AccommodationPage.scss'
 import { StarBorder } from "@material-ui/icons";
 import AccommodationCalendar from './AccommodationCalendar'
 import GoogleMapReact from "google-map-react";
+import { Button } from '@material-ui/core';
 
 
 
@@ -76,7 +77,31 @@ function AccomodationPage() {
                     </div>
                 </div>  
                 <div className="payment__side">
-
+                    <div className="paymentCard">
+                        <div className="card__title">
+                            <h3>ez egy káryta</h3>
+                            <StarBorder className="searchResult__star" />
+                        </div>
+                        <div className="card__input">
+                            <div className="chooseDate">
+                                <label className="startDate">
+                                    Start date
+                                <input type="text" className="startDate__input" ></input>
+                                </label>
+                                <label className="endDate">
+                                End date
+                                <input type="text" className="endDate__input"></input>
+                                </label>
+                            </div>
+                            <div className="pickGuests">
+                            <label className="guest__label">
+                                Guests
+                                <input type="text" className="guest__input"></input>
+                                </label>
+                            </div>
+                        </div>
+                        <Button className="rentButton">Rent</Button>
+                    </div>
                 </div>
             </div>
             <div className="accomodation__map">

@@ -45,13 +45,18 @@
         }
     }
     .secondaryPicture{
+        .firstBlock .secondBlock{
+            display: flex;
+            flex-direction: column;
+            // margin-right: 0.2vw;
+        }
         display: flex;
         flex: 0.5;
         img{
             height: 22.5vh;
-            width: 20vw;
+            width: 15vw;
             border-radius: 16px;
-            padding-left: 0.5vw;
+            padding-left: 0.1vw;
         }
     }
 }
@@ -60,6 +65,7 @@
     .accommodation__side{
         display: flex;
         flex-direction: column;
+        flex: 0.5;
         .host__info{
             border-bottom: 1px solid lightgray;
             margin-bottom: 2vh;
@@ -97,4 +103,39 @@
     flex: 1;
     width: 100%;
     height: 500px;
+}
+.paymentCard{
+    display: flex;
+    flex-direction: column;
+    flex: 0.5;
+    position: sticky;
+    top: 10vh;
+    margin-bottom: 1vh;
+    .card__title{
+        display: flex;
+        justify-content: space-between;
+        padding: 1vh;
+    }
+    .card__input{
+        display: flex;
+        flex-direction: column;
+        border: 1.5px solid lightgray;
+        border-radius: 8px;
+        .chooseDate{
+            display: flex;
+            .startDate{
+                border-right: 1.5px solid lightgray;
+            }
+        }
+        .pickGuests{
+            border-top: 1.5px solid lightgray;
+        }
+    }
+    .rentButton{
+      background-image:radial-gradient(circle at center center, rgb(255, 56, 92) 0%, rgb(230, 30, 77) 27.5%, rgb(227, 28, 95) 40%, rgb(215, 4, 102) 57.5%, rgb(189, 30, 89) 75%, rgb(189, 30, 89) 100%) !important;
+      color: white !important;
+      font-size: 500;
+      font-weight: bold;
+      text-transform: none;
+    }
 }

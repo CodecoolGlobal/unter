@@ -10,7 +10,6 @@ import { HeaderContext } from "../context/HeaderCloseContext";
 import { Link } from "react-router-dom";
 
 function Header() {
-    // const [open, setOpen] = useState(false);
     const [show, setShow] = useContext(HeaderContext);
 
     return (
