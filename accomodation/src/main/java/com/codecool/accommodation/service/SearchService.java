@@ -1,16 +1,7 @@
 package com.codecool.accommodation.service;
 
-import com.codecool.accommodation.model.DTO.CoordinateDTO;
-import com.codecool.accommodation.model.DTO.DTOWrapper;
-import com.codecool.accommodation.model.entity.Accommodation;
-import com.codecool.accommodation.model.entity.Coordinate;
-import com.codecool.accommodation.service.DAO.CoordinateDAO;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
-
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
 
 @Service
 @RequiredArgsConstructor

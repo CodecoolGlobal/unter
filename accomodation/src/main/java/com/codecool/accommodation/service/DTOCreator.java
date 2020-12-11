@@ -1,7 +1,7 @@
 package com.codecool.accommodation.service;
 
 import com.codecool.accommodation.model.DTO.AccommodationDTO;
-import com.codecool.accommodation.model.DTO.DTOWrapper;
+import com.codecool.accommodation.model.wrapper.AccommodationDTOWrapper;
 import com.codecool.accommodation.model.entity.Accommodation;
 import lombok.RequiredArgsConstructor;
 import org.modelmapper.ModelMapper;
@@ -18,8 +18,8 @@ public class DTOCreator {
     private final ModelMapper modelMapper;
 
 
-    public DTOWrapper turnInputListToDTO(List<Accommodation> accommodations) {
-        return new DTOWrapper(
+    public AccommodationDTOWrapper turnInputListToDTO(List<Accommodation> accommodations) {
+        return new AccommodationDTOWrapper(
                 accommodations
                         .stream()
                         .map(this::converter)

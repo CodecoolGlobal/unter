@@ -1,5 +1,6 @@
-package com.codecool.accommodation.model.DTO;
+package com.codecool.accommodation.model.wrapper;
 
+import com.codecool.accommodation.model.DTO.AccommodationDTO;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 
@@ -7,7 +8,7 @@ import java.util.List;
 
 @Data
 @AllArgsConstructor
-public class DTOWrapper {
+public class AccommodationDTOWrapper {
 
     private List<AccommodationDTO> accommodationDTOS;
 }
