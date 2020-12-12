@@ -44,19 +44,13 @@ public class AccommodationApplication {
                     .longitude(32.00)
                     .build();
 
-//            Location location = Location.builder()
-//                    //.address(address)
-//                    .description("Nice!")
-//                    .coordinate(coordinate)
-//                    .build();
-
             Accommodation accommodation = Accommodation.builder()
                     .description("Nice!444négy")
-                   // .location(location)
                     .maxNumberOfGuests(4000)
                     .name("Házikó")
                     .hostId(1L)
                     .address(address)
+                    .coordinate(coordinate)
                     .build();
 
             repository.save(accommodation);
