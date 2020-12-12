@@ -23,19 +23,3 @@ public class NewAccommodationDTO {
     private Address address;
 
 }
-/*
-Wrapper (List<AccomodationDTO>) {
-id:id,
-accommodation_name:accommodation_name
-pictures:folder_url,
-capacity:guest_number,
-number_of_rooms:number_of_rooms,
-number_of_beds:number_of_beds,
-number_of_bathrooms:number_of_bathrooms,
-coordinates:
-  {
-    latitude:latitude_coordinate,
-    longitude:longitude_coordinate
-  }
-}
- */

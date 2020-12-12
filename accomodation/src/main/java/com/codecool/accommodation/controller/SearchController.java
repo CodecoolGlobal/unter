@@ -16,7 +16,7 @@ public class SearchController {
      * TODO: make coordinates a separate class! Coordinates should always go together.
      */
 //    @GetMapping
-//    public DTOWrapper simpleSearch(
+//    public AccommodationDTOWrapper simpleSearch(
 //            @RequestParam Double longitude,
 //            @RequestParam Double latitude,
 //            @RequestParam Double radius
