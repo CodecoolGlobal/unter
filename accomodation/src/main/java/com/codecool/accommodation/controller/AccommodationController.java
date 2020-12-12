@@ -16,7 +16,7 @@ public class AccommodationController {
 
     private final AccommodationService service;
 
-    @GetMapping("")
+    @GetMapping
     public List<Accommodation> getAll(){
         return service.findAll();
     }
@@ -36,7 +36,7 @@ public class AccommodationController {
         return accommodations;
     }
 
-    @PostMapping("")
+    @PostMapping
     public void saveNewAccommodation(@RequestBody NewAccommodationDTO newAccommodationDTO) {
         service.saveNewAccommodation(newAccommodationDTO);
     }
