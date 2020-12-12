@@ -2,10 +2,10 @@ import React, { useContext } from "react";
 import "./Header.scss";
 import SearchIcon from "@material-ui/icons/Search";
 import LanguageIcon from "@material-ui/icons/Language";
-import ExpandMoreIcon from "@material-ui/icons/ExpandMore";
 import { Avatar, Button } from "@material-ui/core";
 import SearchBar from "./SearchBar";
 import { HeaderContext } from "../context/HeaderCloseContext";
+import Login from "./Login";
 
 import { Link } from "react-router-dom";
 
@@ -40,8 +40,7 @@ function Header() {
             <div className="header__right">
                 <p>Become a host</p>
                 <LanguageIcon />
-                <ExpandMoreIcon />
-                <Avatar />
+                <Login/>
             </div>
         </div>
     );

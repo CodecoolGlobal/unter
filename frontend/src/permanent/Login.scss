@@ -1,0 +1,85 @@
+@import "../scss/mixins.scss";
+
+
+
+.login{
+    .avatar__button{
+        display: flex;
+        align-items: center;
+        border: 0.5px solid lightgrey;
+        border-radius:10rem;
+        outline: none;
+    }
+}
+
+
+
+.login__modal{
+    position: absolute;
+    @include flex__center;
+    justify-content: space-around;
+    flex-direction: column;
+    height: 40vh;
+    width: 30vw;
+    top:50%;
+    left:50%;
+    transform: translate(-50%,-50%);
+    border: none;
+    background-color: white;
+    outline: none;
+    border-radius: 12px;
+    .login__body{
+        border: 1px solid black;
+        border-radius: 5px;
+        .float-label {
+            display: flex;
+            flex-direction: column;
+            position: relative;
+
+           .Active{
+            transform: translate(0, -2.7vh) scale(0.75);
+           }
+            input{
+                height: 6vh;
+                width: 25vw;
+                  }
+            label {
+                position: absolute;
+                left: 0;
+                top:50%;
+                transform: translateY(-50%);
+                font-size: 16px;
+                font-family: Arial, Helvetica, sans-serif;
+                color: #999;
+                pointer-events: none;
+                transform-origin: top left;
+                transition: all 0.2s ease-out;
+                }
+            }
+            .float-label:focus-within label{
+                transform: translate(0, -2.7vh) scale(0.75);
+
+            }
+          }
+             
+        #email{
+            border-bottom: 1px solid black;
+        }
+        svg{
+            position: absolute;
+            left:0.5vw;
+            top: 2vh;
+            cursor: pointer;
+        }
+        button{
+            background-image: radial-gradient(circle at center center, rgb(255, 56, 92) 0%, rgb(230, 30, 77) 27.5%, rgb(227, 28, 95) 40%, rgb(215, 4, 102) 57.5%, rgb(189, 30, 89) 75%, rgb(189, 30, 89) 100%) !important;
+            width: 25vw;
+            height: 5vh;
+            color: white;
+            font-weight:700;
+            font-size: 16px;
+            outline: none;
+            border-radius: 8px;
+            border: none;
+        }
+    }
