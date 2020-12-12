@@ -43,6 +43,10 @@ public class DTOCreator {
     }
 
     private AccommodationDTO convertToAccommodationDTO(Accommodation accommodation) {
+        CoordinateDTO coordinateDTO = (accommodation.getCoordinate() == null)
+                ? new CoordinateDTO(null, null)
+                : new CoordinateDTO(accommodation.getCoordinate().getLatitude(), accommodation.getCoordinate().getLongitude());
+
         return AccommodationDTO.builder()
                 .id(accommodation.getId())
                 .accommodationName(accommodation.getName())
@@ -52,7 +56,7 @@ public class DTOCreator {
                 .numberOfRooms(accommodation.getRooms().size())
 //                .numberOfBeds() // TODO: implement calculate number of beds
 //                .numberOfBathrooms() // TODO: implement caclulate number of bathrooms
-                .coordinates(new CoordinateDTO(accommodation.getCoordinate().getLatitude(), accommodation.getCoordinate().getLongitude()))
+                .coordinates(coordinateDTO)
                 .build();
 
     }
