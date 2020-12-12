@@ -1,7 +1,6 @@
 package com.codecool.accommodation.controller;
 
-import com.codecool.accommodation.model.DTO.AccommodationDTO;
-import com.codecool.accommodation.model.Response;
+import com.codecool.accommodation.model.DTO.NewAccommodationDTO;
 import com.codecool.accommodation.model.entity.Accommodation;
 import com.codecool.accommodation.service.AccommodationService;
 import lombok.RequiredArgsConstructor;
@@ -10,7 +9,6 @@ import org.springframework.web.bind.annotation.*;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.util.List;
-import java.util.NoSuchElementException;
 
 @RestController
 @RequiredArgsConstructor
@@ -39,8 +37,8 @@ public class AccommodationController {
     }
 
     @PostMapping("")
-    public void saveNewAccommodation(@RequestBody AccommodationDTO accommodationDTO) {
-        service.saveNewAccommodation(accommodationDTO);
+    public void saveNewAccommodation(@RequestBody NewAccommodationDTO newAccommodationDTO) {
+        service.saveNewAccommodation(newAccommodationDTO);
     }
 
     @DeleteMapping("/{accommodationId}")
@@ -52,8 +50,8 @@ public class AccommodationController {
     }
 
     @PutMapping("/{accommodationId}")
-    public void updateAccommodation(@PathVariable(name = "accommodationId") String accommodationId, @RequestBody AccommodationDTO accommodationDTO) {
-        service.updateAccommodation(accommodationId, accommodationDTO);
+    public void updateAccommodation(@PathVariable(name = "accommodationId") String accommodationId, @RequestBody NewAccommodationDTO newAccommodationDTO) {
+        service.updateAccommodation(accommodationId, newAccommodationDTO);
     }
 
     @GetMapping("/get-accommodation/{accommodationId}")

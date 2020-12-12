@@ -1,6 +1,6 @@
 package com.codecool.accommodation.service;
 
-import com.codecool.accommodation.model.DTO.AccommodationDTO;
+import com.codecool.accommodation.model.DTO.NewAccommodationDTO;
 import com.codecool.accommodation.model.wrapper.AccommodationDTOWrapper;
 import com.codecool.accommodation.model.entity.Accommodation;
 import lombok.RequiredArgsConstructor;
@@ -26,9 +26,9 @@ public class DTOCreator {
                         .collect(Collectors.toList()));
     }
 
-    private AccommodationDTO converter(Accommodation accommodation) {
+    private NewAccommodationDTO converter(Accommodation accommodation) {
         modelMapper.getConfiguration()
                 .setMatchingStrategy(MatchingStrategies.LOOSE);
-        return modelMapper.map(accommodation, AccommodationDTO.class);
+        return modelMapper.map(accommodation, NewAccommodationDTO.class);
     }
 }
