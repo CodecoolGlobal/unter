@@ -21,6 +21,10 @@ public class SearchService {
     private final CoordinateDAO coordinateDAO;
 
     public ResponseEntity<?> getAccommodationsInRadius(CoordinateDTO coordinate, Double searchRadius) {
+        searchRadius = searchRadius == null ? 0D : searchRadius;
+        if (coordinate.getLatitude() == null || coordinate.getLongitude() == null)
+            return ResponseEntity.status(400).body("Coordinates cannot be null.");
+
         List<Coordinate> foundCoordinates = coordinateDAO.getAllByDistanceFromCoordinate(coordinate, searchRadius);
         if (foundCoordinates.isEmpty())
             return ResponseEntity.ok(
