@@ -9,5 +9,5 @@ import java.util.List;
 @Data
 @AllArgsConstructor
 public class AccommodationDTOWrapper {
-    private List<AccommodationDTO> AccommodationDTOS;
+    private List<AccommodationDTO> AccommodationDTO;
 }
