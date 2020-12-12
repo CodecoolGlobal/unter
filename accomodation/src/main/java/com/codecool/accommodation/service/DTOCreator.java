@@ -1,6 +1,9 @@
 package com.codecool.accommodation.service;
 
+import com.codecool.accommodation.model.DTO.AccommodationDTO;
+import com.codecool.accommodation.model.DTO.CoordinateDTO;
 import com.codecool.accommodation.model.DTO.NewAccommodationDTO;
+import com.codecool.accommodation.model.wrapper.AccommodationDTOWrapper;
 import com.codecool.accommodation.model.wrapper.NewAccommodationDTOWrapper;
 import com.codecool.accommodation.model.entity.Accommodation;
 import lombok.RequiredArgsConstructor;
@@ -17,18 +20,40 @@ public class DTOCreator {
 
     private final ModelMapper modelMapper;
 
-
-    public NewAccommodationDTOWrapper turnInputListToDTO(List<Accommodation> accommodations) {
+    public NewAccommodationDTOWrapper turnInputListToNewAccommodationDTO(List<Accommodation> accommodations) {
         return new NewAccommodationDTOWrapper(
                 accommodations
                         .stream()
-                        .map(this::converter)
+                        .map(this::convertToNewAccommodationDTO)
                         .collect(Collectors.toList()));
     }
 
-    private NewAccommodationDTO converter(Accommodation accommodation) {
+    public AccommodationDTOWrapper turnInputListToAccommodationDTO(List<Accommodation> accommodations) {
+        return new AccommodationDTOWrapper(
+                accommodations
+                        .stream()
+                        .map(this::convertToAccommodationDTO)
+                        .collect(Collectors.toList()));
+    }
+
+    private NewAccommodationDTO convertToNewAccommodationDTO(Accommodation accommodation) {
         modelMapper.getConfiguration()
                 .setMatchingStrategy(MatchingStrategies.LOOSE);
         return modelMapper.map(accommodation, NewAccommodationDTO.class);
+    }
+
+    private AccommodationDTO convertToAccommodationDTO(Accommodation accommodation) {
+        return AccommodationDTO.builder()
+                .id(accommodation.getId())
+                .accommodationName(accommodation.getName())
+                .description(accommodation.getDescription())
+                .pictures(accommodation.getPictureUrl())
+//                .capacity() // TODO: implement calculate capacity
+                .numberOfRooms(accommodation.getRooms().size())
+//                .numberOfBeds() // TODO: implement calculate number of beds
+//                .numberOfBathrooms() // TODO: implement caclulate number of bathrooms
+                .coordinates(new CoordinateDTO(accommodation.getCoordinate().getLatitude(), accommodation.getCoordinate().getLongitude()))
+                .build();
+
     }
 }
