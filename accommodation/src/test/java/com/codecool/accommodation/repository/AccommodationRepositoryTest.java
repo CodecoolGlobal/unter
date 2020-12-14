@@ -156,7 +156,7 @@ public class AccommodationRepositoryTest {
             .name("Test")
             .build();
 
-        //test
+        // test
         List<Accommodation> newAccommodations = Arrays.asList(accommodation1, accommodation2);
 
         accommodationRepository.saveAll(newAccommodations);
