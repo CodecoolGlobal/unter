@@ -1,7 +1,6 @@
 package com.codecool.accommodation.service;
 
-import com.codecool.accommodation.model.DTO.AccommodationDTO;
-import com.codecool.accommodation.model.DTO.RoomDTO;
+import com.codecool.accommodation.model.DTO.NewAccommodationDTO;
 import com.codecool.accommodation.model.entity.Accommodation;
 import com.codecool.accommodation.service.DAO.AccommodationDAO;
 import com.codecool.accommodation.service.DAO.RoomDAO;
@@ -24,13 +23,13 @@ public class AccommodationService {
         return accommodationDAO.findAllByHostId(hostId);
     }
 
-    public Response saveNewAccommodation(AccommodationDTO accommodationDTO) {
+    public Response saveNewAccommodation(NewAccommodationDTO newAccommodationDTO) {
         try {
-            if (accommodationDTO.getHostId() != null ||
-                accommodationDTO.getName() != null ||
-                accommodationDTO.getMaxNumberOfGuest() != null) {
+            if (newAccommodationDTO.getHostId() != null ||
+                newAccommodationDTO.getName() != null ||
+                newAccommodationDTO.getMaxNumberOfGuest() != null) {
 
-                accommodationDAO.saveNewAccommodation(accommodationDTO);
+                accommodationDAO.saveNewAccommodation(newAccommodationDTO);
 
 
                 return new Response(true, "SUCCESS");
@@ -59,9 +58,9 @@ public class AccommodationService {
 
     }
 
-    public void updateAccommodation(String accommodationId, AccommodationDTO accommodationDTO) {
+    public void updateAccommodation(String accommodationId, NewAccommodationDTO newAccommodationDTO) {
         try {
-            accommodationDAO.updateAccommodation(Long.parseLong(accommodationId), accommodationDTO);
+            accommodationDAO.updateAccommodation(Long.parseLong(accommodationId), newAccommodationDTO);
         } catch (NullArgumentException exception) {
             exception.printStackTrace();
         }
