@@ -15,27 +15,48 @@ public class AccommodationCreator {
     }
 
     public void initialize() {
-        Address address = Address.builder()
+        NewAccommodation newAccommodation = NewAccommodation.builder()
                 .city("Kazincbarcika")
                 .street("Utca")
                 .zipCode("4444")
                 .houseNumber(12)
-                .build();
-
-        Coordinate coordinate = Coordinate.builder()
                 .latitude(22.00)
                 .longitude(32.00)
-                .build();
-
-        Accommodation accommodation = Accommodation.builder()
                 .description("Nice!444négy")
                 .maxNumberOfGuests(4000)
                 .name("Házikó")
+                .picture(null)
                 .hostId(1L)
-                .address(address)
-                .coordinate(coordinate)
                 .build();
 
+        Accommodation accommodation = createAccommodation(newAccommodation);
         repository.save(accommodation);
+    }
+
+
+    private Accommodation createAccommodation(NewAccommodation newAccommodation) {
+        Address address = Address.builder()
+                .city(newAccommodation.getCity())
+                .street(newAccommodation.getStreet())
+                .zipCode(newAccommodation.getZipCode())
+                .houseNumber(newAccommodation.getHouseNumber())
+                .build();
+
+        Coordinate coordinate = Coordinate.builder()
+                .latitude(newAccommodation.getLatitude())
+                .longitude(newAccommodation.getLongitude())
+                .build();
+
+        Accommodation accommodation = Accommodation.builder()
+                .description(newAccommodation.getDescription())
+                .maxNumberOfGuests(newAccommodation.getMaxNumberOfGuests())
+                .name(newAccommodation.getName())
+                .hostId(newAccommodation.getHostId())
+                .address(address)
+                .coordinate(coordinate)
+                .pictureUrl(newAccommodation.getPicture())
+                .build();
+
+        return accommodation;
     }
 }
