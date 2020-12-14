@@ -1,22 +1,18 @@
 package com.codecool.accommodation.service.DAO;
 
-import com.codecool.accommodation.model.DTO.AccommodationDTO;
-import com.codecool.accommodation.model.DTO.RoomDTO;
+import com.codecool.accommodation.model.DTO.NewAccommodationDTO;
 import com.codecool.accommodation.model.entity.*;
 import com.codecool.accommodation.repository.AccommodationRepository;
 import lombok.Data;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.hibernate.Session;
-import org.hibernate.SessionFactory;
 import org.hibernate.Transaction;
 import org.springframework.stereotype.Component;
 
 import javax.persistence.*;
 import javax.transaction.Transactional;
 import java.util.List;
-import java.util.NoSuchElementException;
-import java.util.Set;
 
 @Component
 @Data
@@ -42,19 +38,19 @@ public class AccommodationDB implements AccommodationDAO {
 
     //@Transactional
     @Override
-    public void saveNewAccommodation(AccommodationDTO accommodationDTO) {
+    public void saveNewAccommodation(NewAccommodationDTO newAccommodationDTO) {
 
-        Coordinate coordinate = new Coordinate(accommodationDTO.getCoordinate().getLongitude(), accommodationDTO.getCoordinate().getLatitude());
+        Coordinate coordinate = new Coordinate(newAccommodationDTO.getCoordinate().getLongitude(), newAccommodationDTO.getCoordinate().getLatitude());
 
-        Address address = accommodationDTO.getAddress();
+        Address address = newAccommodationDTO.getAddress();
         //Location location = accommodationDTO.getLocation();
 
         Accommodation accommodation2 = new Accommodation();
-        accommodation2.setDescription(accommodationDTO.getDescription());
-        accommodation2.setHostId(accommodationDTO.getHostId());
-        accommodation2.setMaxNumberOfGuests(accommodationDTO.getMaxNumberOfGuest());
-        accommodation2.setName(accommodationDTO.getName());
-        accommodation2.setType(accommodationDTO.getType());
+        accommodation2.setDescription(newAccommodationDTO.getDescription());
+        accommodation2.setHostId(newAccommodationDTO.getHostId());
+        accommodation2.setMaxNumberOfGuests(newAccommodationDTO.getMaxNumberOfGuest());
+        accommodation2.setName(newAccommodationDTO.getName());
+        accommodation2.setType(newAccommodationDTO.getType());
         accommodation2.setAddress(address);
         accommodation2.setCoordinate(coordinate);
         //accommodation2.setLocation(location);
@@ -63,7 +59,7 @@ public class AccommodationDB implements AccommodationDAO {
         Session session = entityManager.unwrap(Session.class);
         Transaction tx = session.beginTransaction();
 
-        for(Room room : accommodationDTO.getRooms()){
+        for(Room room : newAccommodationDTO.getRooms()){
             if(accommodation2.getRooms()== null){
                 accommodation2.createRooms();
             }
@@ -99,12 +95,12 @@ public class AccommodationDB implements AccommodationDAO {
 
     @Override
     @Transactional
-    public void updateAccommodation(Long accommodationId, AccommodationDTO accommodationDTO) {
+    public void updateAccommodation(Long accommodationId, NewAccommodationDTO newAccommodationDTO) {
         Accommodation toEdit = findAccommodationById(accommodationId);
 
-        toEdit.setName(accommodationDTO.getName());
-        toEdit.setDescription(accommodationDTO.getDescription());
-        toEdit.setMaxNumberOfGuests(accommodationDTO.getMaxNumberOfGuest());
+        toEdit.setName(newAccommodationDTO.getName());
+        toEdit.setDescription(newAccommodationDTO.getDescription());
+        toEdit.setMaxNumberOfGuests(newAccommodationDTO.getMaxNumberOfGuest());
 
         //toEdit.setRooms(accommodationDTO.getRooms());
         repository.save(toEdit);

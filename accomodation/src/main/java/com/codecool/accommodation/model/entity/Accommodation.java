@@ -5,6 +5,8 @@ import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 import lombok.*;
+import org.hibernate.annotations.Type;
+
 import javax.persistence.*;
 import java.util.HashSet;
 import java.util.Set;
@@ -29,6 +31,8 @@ public class Accommodation {
     @Column
     private String description;
 
+    @Lob
+    @Type(type = "org.hibernate.type.TextType")
     private String pictureUrl;
 
     @Column(nullable = false)

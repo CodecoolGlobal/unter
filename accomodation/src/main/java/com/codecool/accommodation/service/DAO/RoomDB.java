@@ -1,6 +1,6 @@
 package com.codecool.accommodation.service.DAO;
 
-import com.codecool.accommodation.model.DTO.AccommodationDTO;
+import com.codecool.accommodation.model.DTO.NewAccommodationDTO;
 import com.codecool.accommodation.model.DTO.RoomDTO;
 import com.codecool.accommodation.model.entity.Accommodation;
 import com.codecool.accommodation.model.entity.Room;
@@ -29,7 +29,7 @@ public class RoomDB implements RoomDAO{
     }
 
     @Override
-    public void saveNewRoom(RoomDTO roomDTO, AccommodationDTO accommodationDTO) {
+    public void saveNewRoom(RoomDTO roomDTO, NewAccommodationDTO newAccommodationDTO) {
 
     }
 }

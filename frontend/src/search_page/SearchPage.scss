@@ -1,0 +1,37 @@
+.searchPage__info {
+    padding: 20px;
+
+    p {
+        margin-bottom: 10px;
+        font-size: 14px;
+    }
+
+    h1 {
+        margin-bottom: 30px;
+    }
+
+    button {
+        border-radius: 30px;
+        text-transform: inherit;
+        margin: 5px;
+    }
+}
+
+.searchResults {
+    display: flex;
+    flex-direction: column;
+    flex: 0.5;
+}
+.map {
+    position: fixed;
+    display: flex;
+    right: 0;
+    height: 95%;
+    width: 50%;
+    flex: 0.5;
+    align-self: flex-start;
+}
+
+.searchPage {
+    display: flex;
+}

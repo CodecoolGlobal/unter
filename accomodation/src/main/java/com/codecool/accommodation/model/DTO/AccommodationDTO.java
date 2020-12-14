@@ -1,25 +1,28 @@
 package com.codecool.accommodation.model.DTO;
 
-import com.codecool.accommodation.model.entity.Address;
-import com.codecool.accommodation.model.entity.Coordinate;
-import com.codecool.accommodation.model.entity.Room;
-import com.codecool.accommodation.model.entity.types.AccommodationType;
+import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
-
-import java.util.Set;
+import lombok.NoArgsConstructor;
 
 @Data
 @Builder
+@NoArgsConstructor
+@AllArgsConstructor
 public class AccommodationDTO {
-
-    private Long hostId;
-    private String name;
+    private Long id;
+    private String accommodationName;
     private String description;
-    private Coordinate coordinate;
-    private AccommodationType type;
-    private Integer maxNumberOfGuest;
-    private Set<Room> rooms;
-    private Address address;
+    private String pictures;
+    private Integer capacity;
+    private Integer numberOfRooms;
+    private Integer numberOfBeds;
+    private Integer numberOfBathrooms;
+    private CoordinateDTO coordinates;
 
+    // TODO: implement these fields later
+//    private Long hostId;
+//    private AccommodationType type;
+//    private Set<Room> rooms;
+//    private Address address;
 }
