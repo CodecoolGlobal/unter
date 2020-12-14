@@ -8,6 +8,7 @@ import java.util.List;
 
 @Repository
 public interface CoordinateRepository extends JpaRepository<Coordinate, Long> {
+
     List<Coordinate> getAllByLongitudeBetweenAndLatitudeBetween(Double startLongitude,
                                                               Double endLongitude,
                                                               Double startLatitude,

@@ -9,7 +9,7 @@
         <relativePath/> <!-- lookup parent from repository -->
     </parent>
     <groupId>com.codecool</groupId>
-    <artifactId>accomodation</artifactId>
+    <artifactId>accommodation</artifactId>
     <version>0.0.1-SNAPSHOT</version>
     <name>accommodation</name>
     <description>Accommodation Service</description>

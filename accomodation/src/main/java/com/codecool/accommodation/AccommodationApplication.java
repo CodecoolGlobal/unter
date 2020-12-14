@@ -3,6 +3,9 @@ package com.codecool.accommodation;
 import com.codecool.accommodation.model.entity.Accommodation;
 import com.codecool.accommodation.model.entity.Address;
 import com.codecool.accommodation.model.entity.Coordinate;
+import com.codecool.accommodation.model.entity.Room;
+import com.codecool.accommodation.model.entity.types.BedType;
+import com.codecool.accommodation.model.entity.types.RoomType;
 import com.codecool.accommodation.repository.AccommodationRepository;
 import lombok.RequiredArgsConstructor;
 import org.modelmapper.ModelMapper;
@@ -12,6 +15,9 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.cloud.netflix.eureka.EnableEurekaClient;
 import org.springframework.context.annotation.Bean;
 import org.springframework.test.context.ActiveProfiles;
+
+import java.util.HashMap;
+import java.util.Map;
 
 @SpringBootApplication
 @EnableEurekaClient
@@ -33,9 +39,9 @@ public class AccommodationApplication {
     public CommandLineRunner init() {
         return args -> {
             Address address = Address.builder()
-                    .city("Kazincbarcika")
-                    .street("Utca")
-                    .zipCode("4444")
+                    .city("Dummy City")
+                    .street("Dummy Street")
+                    .zipCode("dum-dum")
                     .houseNumber(12)
                     .build();
 
@@ -44,23 +50,25 @@ public class AccommodationApplication {
                     .longitude(32.00)
                     .build();
 
-//            Location location = Location.builder()
-//                    //.address(address)
-//                    .description("Nice!")
-//                    .coordinate(coordinate)
-//                    .build();
+            Map<BedType, Integer> beds = new HashMap<>();
+            beds.put(BedType.KING, 1);
+
+            Room room = Room.builder()
+                .type(RoomType.BEDROOM)
+                .beds(beds)
+                .build();
 
             Accommodation accommodation = Accommodation.builder()
-                    .description("Nice!444négy")
-                   // .location(location)
-                    .maxNumberOfGuests(4000)
-                    .name("Házikó")
                     .hostId(1L)
+                    .description("Dummy description")
+                    .maxNumberOfGuests(6)
+                    .coordinate(coordinate)
+                    .name("Dummy Accommodation")
+                    .room(room)
                     .address(address)
                     .build();
-
+//            room.setAccommodation(accommodation);
             repository.save(accommodation);
         };
     }
-
 }
