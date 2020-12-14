@@ -1,7 +1,5 @@
 import React ,{useState} from 'react';
 import Modal from '@material-ui/core/Modal';
-import { Avatar } from '@material-ui/core';
-import ExpandMoreIcon from "@material-ui/icons/ExpandMore";
 import './Login.scss';
 import CloseIcon from '@material-ui/icons/Close';
 
@@ -9,7 +7,7 @@ export default function SimpleModal() {
   const [open, setOpen] = useState(false);
   const [emailEffect,setEmailEffect] = useState(false);
   const [pswEffect,setPswEffect] = useState(false);
-  const [isActive, setIsActive] = useState(false);
+
   function handleTextChange(target) {
       switch(target.id){
         case "email":
@@ -48,15 +46,15 @@ export default function SimpleModal() {
             </div>
         </div>
         <button className="login__button">Login</button>
+        <h4>Forgot your password?</h4>
+        <h4>Don't have profile? Register!</h4>
     </div>
   );
 
   return (
-    <div className="login">
-      <button type="button" className="avatar__button" onClick={handleOpen}>
-        <ExpandMoreIcon />
-        <Avatar/>
-      </button>
+    <div className="login" >
+      <p onClick={handleOpen}>Login</p>
+      {/* <MenuItem onClick={handleOpen}>Login</MenuItem> */}
       <Modal
         open={open}
         onClose={handleClose}

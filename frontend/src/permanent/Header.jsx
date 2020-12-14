@@ -8,6 +8,7 @@ import { HeaderContext } from "../context/HeaderCloseContext";
 import Login from "./Login";
 
 import { Link } from "react-router-dom";
+import Dropdown from "./Dropdown";
 
 function Header() {
     const [show, setShow] = useContext(HeaderContext);
@@ -40,7 +41,7 @@ function Header() {
             <div className="header__right">
                 <p>Become a host</p>
                 <LanguageIcon />
-                <Login/>
+                <Dropdown/>
             </div>
         </div>
     );
