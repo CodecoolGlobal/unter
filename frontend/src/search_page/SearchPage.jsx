@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState,useContext } from "react";
 import "./SearchPage.scss";
 import { Button } from "@material-ui/core";
 import SearchResult from "./SearchResult";
@@ -6,10 +6,18 @@ import GoogleMapReact from "google-map-react";
 import MediaQuery from "react-responsive";
 import queryString from "query-string";
 import {useHistory} from "react-router-dom";
+import Axios from "axios";
+import { HeaderContext } from "../context/HeaderCloseContext";
+
 
 function SearchPage() {
     const [city, setCity] = useState();
     const history = useHistory();
+    const [isLoading,setIsLoading] = useState(true);
+    const [show, setShow] = useContext(HeaderContext);
+
+
+   
 
     const defaultProps = {
         center: { lat: 59.95, lng: 30.33 },
@@ -17,11 +25,28 @@ function SearchPage() {
     };
 
     useEffect(() => {
+        setIsLoading(true);
         let parsed = queryString.parse(window.location.search);
+        Axios.get(`http://localhost:8762/acc/search?latitude=${parsed.lat}&longitude=${parsed.lng}&radius=1`)
+        .then(function (response) {
+            // handle success
+
+            console.log(response);
+            setIsLoading(false);
+        })
+        .catch(function (error) {
+            // handle error
+            console.log(error);
+            })
+        .then(function () {
+            // always executed
+        });
+        console.log(parsed)
         setCity(parsed.city);
     }, []);
 
     return (
+        <div className={show? "blurry":"" } onClick={() => show? setShow(!show): setShow(show)}>
         <div className="searchPage">
             <div className="searchResults">
                 <div className="searchPage__info">
@@ -111,6 +136,7 @@ function SearchPage() {
                     ></GoogleMapReact>
                 </div>
             </MediaQuery>
+        </div>
         </div>
     );
 }
