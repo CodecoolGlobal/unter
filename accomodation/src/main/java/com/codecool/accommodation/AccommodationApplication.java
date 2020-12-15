@@ -10,7 +10,6 @@ import org.springframework.test.context.ActiveProfiles;
 
 @SpringBootApplication
 @EnableEurekaClient
-@ActiveProfiles("production")
 @RequiredArgsConstructor
 public class AccommodationApplication {
 

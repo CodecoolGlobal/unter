@@ -17,7 +17,6 @@ services:
     restart: always
     networks:
       - airbnb-network
-
   zuul-api-gateway:
     build:
       dockerfile: Dockerfile.dev
@@ -30,12 +29,36 @@ services:
       - PGDATABASE=postgres
       - PGPASSWORD=postgres_password
       - PGPORT=5432
+      - EUREKAAPI=eureka
     ports:
       - "8762:8762"
     restart: always
     depends_on:
       - postgres
       - eureka
+    networks:
+      - airbnb-network
+
+  accommodation:
+    build:
+      dockerfile: Dockerfile.dev
+      context: ./accomodation
+    volumes:
+      - ./gateway/target:/app/app/target
+    environment:
+      - PGUSER=postgres
+      - PGHOST=postgres
+      - PGDATABASE=postgres
+      - PGPASSWORD=postgres_password
+      - PGPORT=5432
+      - EUREKAAPI=eureka
+    ports:
+      - "8081:8081"
+    restart: always
+    depends_on:
+      - postgres
+      - eureka
+      - zuul-api-gateway
     networks:
       - airbnb-network
 #
