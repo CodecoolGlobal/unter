@@ -61,22 +61,18 @@ services:
       - zuul-api-gateway
     networks:
       - airbnb-network
-#
-#  pricing:
-#    build:
-#      dockerfile: Dockerfile.dev
-#      context: ./dotnet/Earthbnb/
+  pricing:
+    build:
+      dockerfile: Dockerfile.dev
+      context: ./dotnet/Earthbnb/
 #    volumes:
-#      - ./dotnet/Earthbnb/PricingService:/app/app/targer
-#    environment:
-#      - PGUSER=postgres
-#      - PGHOST=postgres
-#      - PGDATABASE=postgres
-#      - PGPASSWORD=postgres_password
-#      - PGPORT=5432
-#    restart: always
-#    networks:
-#      - airbnb-network
+#      - ./dotnet/Earthbnb/PricingService:/app/publish
+    restart: always
+    depends_on:
+      - eureka
+      - zuul-api-gateway
+    networks:
+      - airbnb-network
 
 networks:
   airbnb-network:

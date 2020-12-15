@@ -11,13 +11,13 @@ EXPOSE 443
 FROM mcr.microsoft.com/dotnet/sdk:5.0 AS build
 WORKDIR /src
 COPY PricingService .
-#RUN ["ls", "-R"]
+RUN ["ls", "-R"]
 #RUN dotnet restore ./PricingService.csprojs
 #COPY PricingService .
-#WORKDIR /src/PricingService
+WORKDIR /src/PricingService
 RUN dotnet build PricingService.csproj -c Release -o /app/build
 
-FROM build AS publish
+FROM build1 AS publish
 RUN dotnet publish "PricingService.csproj" -c Release -o /app/publish
 
 FROM base AS final
