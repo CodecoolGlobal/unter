@@ -1,6 +1,22 @@
+FROM maven:3.6.3-jdk-11
+WORKDIR /fullstack/eureka
+COPY pom.xml .
+RUN mvn dependency:go-offline -B
+COPY src src
+RUN mvn install -DskipTests
+RUN mkdir -p target/dependency && (cd target/dependency; jar -xf ../*.jar)
+
 FROM openjdk:11.0.4-jre-slim
 VOLUME /tmp
-EXPOSE 8761
-ADD target/*.jar app.jar
-ENV JAVA_OPTS=""
-ENTRYPOINT [ "sh", "-c", "java $JAVA_OPTS -Djava.security.egd=file:/dev/./urandom -jar /app.jar" ]
+ARG DEPENDENCY=/fullstack/eureka/target/dependency
+COPY --from=0 ${DEPENDENCY}/BOOT-INF/lib /app/lib
+COPY --from=0 ${DEPENDENCY}/META-INF /app/META-INF
+COPY --from=0 ${DEPENDENCY}/BOOT-INF/classes /app
+ENTRYPOINT ["java","-cp","app:app/lib/*","com.codecool.eureka.EurekaApplication"]
+
+#FROM openjdk:11.0.4-jre-slim
+#VOLUME /tmp
+#EXPOSE 8761
+#ADD target/*.jar app.jar
+#ENV JAVA_OPTS=""
+#ENTRYPOINT [ "sh", "-c", "java $JAVA_OPTS -Djava.security.egd=file:/dev/./urandom -jar /app.jar" ]
