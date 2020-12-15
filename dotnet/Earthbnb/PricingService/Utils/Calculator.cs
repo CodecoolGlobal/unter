@@ -8,6 +8,11 @@ namespace PricingService.Utils
 {
     public class Calculator
     {
+        internal decimal GetFee(Accommodation accommodation, int daysReserved)
+        {
+            return accommodation.BasePrice * daysReserved;
+        }
+
         internal decimal GetFee(Accommodation accommodation, DateTime checkinDate, int daysReserved)
         {
             decimal fee = 0.00M;

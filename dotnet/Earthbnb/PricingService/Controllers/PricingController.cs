@@ -67,7 +67,7 @@ namespace PricingService.Controllers
 
             if (accommodation.PriceIntervals.Count == 0 || accommodation.PriceIntervals == null)
             {
-                fee = accommodation.BasePrice * daysReserved;
+                fee = _calculator.GetFee(accommodation, daysReserved);
             }
             else
             {
