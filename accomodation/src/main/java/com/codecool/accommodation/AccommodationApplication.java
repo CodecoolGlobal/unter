@@ -9,6 +9,7 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.test.context.ActiveProfiles;
 
 @SpringBootApplication
+@ActiveProfiles("production")
 @EnableEurekaClient
 @RequiredArgsConstructor
 public class AccommodationApplication {
