@@ -11,6 +11,9 @@ namespace PricingService.Data
     public record AccommodationDTO
     {
         public string? AccommodationId { get; set; }
+
+        [Required]
+        public long OuterAccommodationId { get; set; }
         [Required]
         public decimal BasePrice { get; set; }
         [Required]
@@ -23,6 +26,7 @@ namespace PricingService.Data
         {
             var obj = new Accommodation()
             {
+                OuterAccommodationId = OuterAccommodationId,
                 BasePrice = BasePrice,
                 CurrencyISO = CurrencyISO,
             };
@@ -39,7 +43,7 @@ namespace PricingService.Data
         {
             return new AccommodationDTO()
             {
-                AccommodationId = model.AccommodationId,
+                OuterAccommodationId = model.OuterAccommodationId,
                 BasePrice = model.BasePrice,
                 CurrencyISO = model.CurrencyISO,
                 PriceIntervals = model.PriceIntervals
@@ -55,7 +59,7 @@ namespace PricingService.Data
         decimal Price)
     {
         public string? PriceIntervalId { get; set; }
-        public string? AccommodationId { get; set; }
+        public long? AccommodationId { get; set; }
 
 
 
@@ -77,7 +81,7 @@ namespace PricingService.Data
                 model.Price)
             {
                 PriceIntervalId = model.PriceIntervalId,
-                AccommodationId = model.AccommodationId
+                AccommodationId = model.Accommodation.OuterAccommodationId
             };
         }
 
@@ -96,7 +100,7 @@ namespace PricingService.Data
         {
             return new AccommodationDTO()
             {
-                AccommodationId = model.AccommodationId,
+                OuterAccommodationId = model.OuterAccommodationId,
                 BasePrice = model.BasePrice,
                 CurrencyISO = model.CurrencyISO,
                 PriceIntervals = model.PriceIntervals
@@ -105,7 +109,4 @@ namespace PricingService.Data
             };
         }
     }
-
-
-
 }

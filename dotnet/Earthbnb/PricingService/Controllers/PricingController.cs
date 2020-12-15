@@ -43,27 +43,36 @@ namespace PricingService.Controllers
             return accommodationDTOs;
         }
 
+        /// <summary>
+        /// Calculate the reservation fee.
+        /// </summary>
+        /// <param name="accommodationId">Id of the accommodation.</param>
+        /// <param name="startDate">The starting date of reservation.</param>
+        /// <param name="daysReserved">Number of days reserved.</param>
+        /// <returns>Returns a decimal value.</returns>
         [HttpGet("calc/{accommodationId}")]
-        public async Task<ActionResult> Get(string accommodationId, DateTime startDate, int daysReserved)
+        public async Task<ActionResult> Get(long accommodationId, DateTime startDate, int daysReserved)
         {
-            Console.WriteLine(startDate.Kind);
+            //Console.WriteLine(startDate.Kind);
             var accommodation = await _context.Accommodations.Include(a => a.PriceIntervals)
-                .Where(a => a.AccommodationId == accommodationId)
+                .Where(a => a.OuterAccommodationId == accommodationId)
                 .SingleOrDefaultAsync();
+
+            if (accommodation == null)
+            {
+                return BadRequest();
+            }
 
             decimal fee;
 
             if (accommodation.PriceIntervals.Count == 0 || accommodation.PriceIntervals == null)
             {
-                fee = accommodation.BasePrice * daysReserved;
-                return Ok(fee);
+                fee = _calculator.GetFee(accommodation, daysReserved);
             }
             else
             {
                 fee = _calculator.GetFee(accommodation, startDate, daysReserved);
             }
-
-
 
             return Ok(fee);
         }
@@ -93,11 +102,12 @@ namespace PricingService.Controllers
         /// <param name="id">Id of the requested accommodation.</param>
         /// <returns>Accommodation object.</returns>
         [HttpGet("accommodation/{id}")]
-        public async Task<ActionResult<AccommodationDTO>> Get(string id)
+        [ActionName("GetAccommodationById")]
+        public async Task<ActionResult<AccommodationDTO>> Get(long id)
         {
             var result = await _context.Accommodations
                 .Include(a => a.PriceIntervals)
-                .Where(x => x.AccommodationId == id)
+                .Where(x => x.OuterAccommodationId == id)
                 .FirstOrDefaultAsync();
 
             if (result != null)
@@ -110,17 +120,27 @@ namespace PricingService.Controllers
         }
 
         /// <summary>
-        /// Post new accommodation
+        /// Post new accommodation.
         /// </summary>
         /// <param name="accommodation">Data by accommodation objectm</param>
         /// <returns>URL to check new object, and the new object.</returns>
         [HttpPost("accommodation")]
-        public ActionResult Post(AccommodationDTO accommodation)
+        public async Task<ActionResult> Post(AccommodationDTO accommodation)
         {
             if (!ModelState.IsValid)
             {
                 return BadRequest();
             }
+            var existingAccommodation = await _context.Accommodations
+                .Where(acc => acc.OuterAccommodationId == accommodation.OuterAccommodationId)
+                .FirstOrDefaultAsync();
+
+            if (existingAccommodation != null)
+            {
+                return BadRequest("Source already exists.");
+            }
+
+
             var model = accommodation.ConvertToModel();
 
 
@@ -129,8 +149,8 @@ namespace PricingService.Controllers
 
 
             return CreatedAtAction(
-                nameof(Get), // TODO: this produces /feed?id="" url.
-                new { id = model.AccommodationId},
+                "GetAccommodationById", //nameof(Get), // TODO: this produces /feed?id="" url.
+                new { id = model.OuterAccommodationId},
                 accommodation.ConvertFromModel(model)
                 );
         }
@@ -142,7 +162,7 @@ namespace PricingService.Controllers
         /// <param name="interval">Data as interval object.</param>
         /// <returns>The created interval object.</returns>
         [HttpPost("{accommodationId}/interval")]
-        public ActionResult Post([FromRoute]string accommodationId, [FromBody] PriceIntervalDTO interval)
+        public ActionResult Post([FromRoute]long accommodationId, [FromBody] PriceIntervalDTO interval)
         {
             if (!ModelState.IsValid)
             {
@@ -151,7 +171,7 @@ namespace PricingService.Controllers
 
             var requestedAcco = _context.Accommodations
                 .Include(a => a.PriceIntervals)
-                .Where(a => a.AccommodationId == accommodationId)
+                .Where(a => a.OuterAccommodationId == accommodationId)
                 .FirstOrDefault();
 
             if (requestedAcco == null)
@@ -172,10 +192,10 @@ namespace PricingService.Controllers
         /// <param name="accommodationId">Id of the accommodation.</param>
         /// <param name="basePrice">Value of the price.</param>
         [HttpPut("Accommodation/{accommodationId}")]
-        public async Task<ActionResult> Put(string accommodationId, [FromQuery]decimal basePrice)
+        public async Task<ActionResult> Put(long accommodationId, [FromQuery]decimal basePrice)
         {
             var targetAccommodation = _context.Accommodations
-                .Where(a => a.AccommodationId == accommodationId)
+                .Where(a => a.OuterAccommodationId == accommodationId)
                 .FirstOrDefault();
 
             if (targetAccommodation != null)
@@ -197,11 +217,11 @@ namespace PricingService.Controllers
         /// <param name="interval">Interval object data.</param>
         /// <returns>HTTP Response.</returns>
         [HttpPut("{accommodationId}/interval/{intervalId}")]
-        public async Task<ActionResult> Put(string accommodationId, string intervalId, [FromBody] PriceIntervalDTO interval)
+        public async Task<ActionResult> Put(long accommodationId, string intervalId, [FromBody] PriceIntervalDTO interval)
         {
             var targetInterval = await _context.Accommodations
                 .Include(a => a.PriceIntervals)
-                .Where(a => a.AccommodationId == accommodationId)
+                .Where(a => a.OuterAccommodationId == accommodationId)
                 .Select(a => a.PriceIntervals.Where(p => p.PriceIntervalId == intervalId).FirstOrDefault())
                 .FirstOrDefaultAsync();
 
@@ -222,13 +242,15 @@ namespace PricingService.Controllers
         /// </summary>
         /// <param name="accommodationId">Id of the accommodation.</param>
         [HttpDelete("{accommodationId}")]
-        public async Task<ActionResult> Delete(string accommodationId)
+        public async Task<ActionResult> Delete(long accommodationId)
         {
-            var accommodation = await _context.Accommodations.FindAsync(accommodationId);
+            var accommodation = await _context.Accommodations
+                .Where(a => a.OuterAccommodationId == accommodationId)
+                .SingleOrDefaultAsync(); // throws error if there are multiple entry
 
             if (accommodation == null)
             {
-                return BadRequest();
+                return BadRequest("Source not found.");
             }
 
             _context.Accommodations.Remove(accommodation);
@@ -243,16 +265,16 @@ namespace PricingService.Controllers
         /// <param name="accommodationId">Id of accommodation</param>
         /// <returns>HTTP Result</returns>
         [HttpDelete("all/{accommodationId}")]
-        public async Task<ActionResult> DeleteAllIntervals(string accommodationId)
+        public async Task<ActionResult> DeleteAllIntervals(long accommodationId)
         {
             var accommodation = await _context.Accommodations
                 .Include(a => a.PriceIntervals)
-                .Where(a => a.AccommodationId == accommodationId)
+                .Where(a => a.OuterAccommodationId == accommodationId)
                 .SingleOrDefaultAsync();
 
             if (accommodation == null)
             {
-                return BadRequest();
+                return BadRequest("Source not found.");
             }
 
             accommodation.PriceIntervals = null;

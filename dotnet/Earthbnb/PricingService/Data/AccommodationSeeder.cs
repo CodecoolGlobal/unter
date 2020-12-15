@@ -14,6 +14,7 @@ namespace PricingService.Data
             {
                 new Accommodation()
                 {
+                    OuterAccommodationId = 1234,
                     BasePrice = 500,
                     CurrencyISO = "USD",
                     PriceIntervals = new List<PriceInterval>()
@@ -34,6 +35,7 @@ namespace PricingService.Data
                 },
                 new Accommodation()
                 {
+                    OuterAccommodationId = 5678,
                     BasePrice = 5000,
                     CurrencyISO = "HUF",
                     PriceIntervals = new List<PriceInterval>()
@@ -61,6 +63,7 @@ namespace PricingService.Data
                 },
                 new Accommodation()
                 {
+                    OuterAccommodationId = 987456,
                     BasePrice = 8000,
                     CurrencyISO = "HUF",
                     PriceIntervals = new List<PriceInterval>()
