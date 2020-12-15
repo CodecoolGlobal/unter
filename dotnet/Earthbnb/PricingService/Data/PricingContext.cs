@@ -20,6 +20,13 @@ namespace PricingService.Data
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
+            modelBuilder.Entity<Accommodation>()
+                .HasKey(a => a.AccommodationId);
+
+            modelBuilder.Entity<Accommodation>()
+                .HasMany(a => a.PriceIntervals)
+                .WithOne(p => p.Accommodation);
+
             modelBuilder
                 .Entity<Accommodation>()
                 .Property(a => a.AccommodationId)

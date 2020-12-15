@@ -7,6 +7,8 @@ namespace PricingService.Models
     {
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public string AccommodationId { get; set; }
+
+        public long OuterAccommodationId { get; set; }
         public decimal BasePrice { get; set; }
         public string CurrencyISO { get; set; }
         public ICollection<PriceInterval> PriceIntervals { get; set; }
