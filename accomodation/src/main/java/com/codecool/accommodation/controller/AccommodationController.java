@@ -54,7 +54,7 @@ public class AccommodationController {
         service.updateAccommodation(accommodationId, newAccommodationDTO);
     }
 
-    @GetMapping("/get-accommodation/{accommodationId}")
+    @GetMapping("/{accommodationId}")
     public Accommodation getAccommodationById(@PathVariable(name = "accommodationId")Long accommodationId) {
         return service.findAccommodationById(accommodationId);
     }
