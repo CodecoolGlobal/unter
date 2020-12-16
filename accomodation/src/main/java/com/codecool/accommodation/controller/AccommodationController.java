@@ -4,9 +4,11 @@ import com.codecool.accommodation.model.DTO.NewAccommodationDTO;
 import com.codecool.accommodation.model.entity.Accommodation;
 import com.codecool.accommodation.service.AccommodationService;
 import lombok.RequiredArgsConstructor;
+import org.apache.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletResponse;
+import javax.validation.Valid;
 import java.io.IOException;
 import java.util.List;
 
@@ -21,32 +23,20 @@ public class AccommodationController {
         return service.findAll();
     }
 
+    // if there is no accommodations found with that host id, it returns an empty list!
     @GetMapping("/{hostId}")
     public List<Accommodation> getAllAccommodationByHost(@PathVariable(name = "hostId") Long hostId, HttpServletResponse response) {
-        List<Accommodation> accommodations = service.getAllAccommodation(hostId);
-
-        if (accommodations == null) {
-            response.setStatus(401);
-            try {
-                response.getWriter().println("Invalid host id.");
-            } catch (IOException exception) {
-                exception.printStackTrace();
-            }
-        }
-        return accommodations;
+        return service.getAllAccommodation(hostId);
     }
 
     @PostMapping
-    public void saveNewAccommodation(@RequestBody NewAccommodationDTO newAccommodationDTO) {
+    public void saveNewAccommodation(@RequestBody @Valid NewAccommodationDTO newAccommodationDTO) {
         service.saveNewAccommodation(newAccommodationDTO);
     }
 
     @DeleteMapping("/{accommodationId}")
     public void deleteAccommodation(@PathVariable(name = "accommodationId") Long accommodationId, HttpServletResponse response) {
-        boolean notDeleted = service.deleteAccommodation(accommodationId);
-        if (notDeleted) {
-            response.setStatus(401);
-        }
+       service.deleteAccommodation(accommodationId);
     }
 
     @PutMapping("/{accommodationId}")

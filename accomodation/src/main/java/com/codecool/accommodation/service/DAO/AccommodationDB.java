@@ -1,5 +1,6 @@
 package com.codecool.accommodation.service.DAO;
 
+import com.codecool.accommodation.exception.AccommodationNotFoundException;
 import com.codecool.accommodation.model.DTO.NewAccommodationDTO;
 import com.codecool.accommodation.model.entity.*;
 import com.codecool.accommodation.repository.AccommodationRepository;
@@ -33,6 +34,7 @@ public class AccommodationDB implements AccommodationDAO {
 
     @Override
     public List<Accommodation> findAllByHostId(Long hostId) {
+
         return repository.findAccommodationsByHostId(hostId);
     }
 
@@ -90,7 +92,8 @@ public class AccommodationDB implements AccommodationDAO {
     @Override
     public Accommodation findAccommodationById(Long accommodationId) {
 
-        return repository.findById(accommodationId).get();
+        return repository.findById(accommodationId)
+                .orElseThrow(() -> new AccommodationNotFoundException(accommodationId));
     }
 
     @Override
