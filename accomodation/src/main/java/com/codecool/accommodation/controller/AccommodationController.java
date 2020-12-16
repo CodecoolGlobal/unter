@@ -24,7 +24,7 @@ public class AccommodationController {
     }
 
     // if there is no accommodations found with that host id, it returns an empty list!
-    @GetMapping("/{hostId}")
+    @GetMapping("/host/{hostId}")
     public List<Accommodation> getAllAccommodationByHost(@PathVariable(name = "hostId") Long hostId, HttpServletResponse response) {
         return service.getAllAccommodation(hostId);
     }
