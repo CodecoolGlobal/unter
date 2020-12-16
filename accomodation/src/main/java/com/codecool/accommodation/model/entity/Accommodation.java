@@ -12,7 +12,7 @@ import java.util.HashSet;
 import java.util.Set;
 
 @Data
-@NoArgsConstructor
+//@NoArgsConstructor
 @AllArgsConstructor
 @Builder
 @Entity
@@ -47,9 +47,9 @@ public class Accommodation {
 
 
     @OneToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
-    @JoinColumn(name = "coordinate_id")
+    @JoinColumn(name = "coordinate_id", nullable = false)
     @ToString.Exclude
-   // @EqualsAndHashCode.Exclude
+    @EqualsAndHashCode.Exclude
     @JsonIgnore
     private Coordinate coordinate;
 
@@ -64,11 +64,15 @@ public class Accommodation {
     private Set<Room> rooms;
 
     @OneToOne(cascade = CascadeType.ALL)
-    @JoinColumn(name = "address_id")
+    @JoinColumn(name = "address_id", nullable = false)
     @JsonManagedReference
     @EqualsAndHashCode.Exclude
     @ToString.Exclude
     private Address address;
+
+    public Accommodation() {
+
+    }
 
     public void createRooms(){
         this.rooms = new HashSet<>();
