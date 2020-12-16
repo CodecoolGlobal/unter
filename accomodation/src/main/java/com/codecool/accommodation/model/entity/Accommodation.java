@@ -12,7 +12,7 @@ import java.util.HashSet;
 import java.util.Set;
 
 @Data
-@NoArgsConstructor
+//@NoArgsConstructor
 @AllArgsConstructor
 @Builder
 @Entity
@@ -41,6 +41,7 @@ public class Accommodation {
     @OneToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     @JoinColumn(name = "coordinate_id", nullable = false)
     @ToString.Exclude
+    @EqualsAndHashCode.Exclude
     @JsonIgnore
     private Coordinate coordinate;
 
@@ -59,6 +60,10 @@ public class Accommodation {
     @EqualsAndHashCode.Exclude
     @ToString.Exclude
     private Address address;
+
+    public Accommodation() {
+
+    }
 
     public void createRooms(){
         this.rooms = new HashSet<>();
