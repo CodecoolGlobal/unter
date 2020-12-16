@@ -50,6 +50,11 @@
             <optional>true</optional>
         </dependency>
         <dependency>
+            <groupId>net.therore.logback</groupId>
+            <artifactId>therore-logback</artifactId>
+            <version>LATEST</version>
+        </dependency>
+        <dependency>
             <groupId>com.h2database</groupId>
             <artifactId>h2</artifactId>
             <scope>runtime</scope>

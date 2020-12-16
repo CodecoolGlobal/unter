@@ -5,6 +5,7 @@ import com.codecool.reservation.model.DTO.ReservationDTO;
 import com.codecool.reservation.model.entity.Reservation;
 import com.codecool.reservation.service.DAO.ReservationDAO;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -12,6 +13,7 @@ import java.util.NoSuchElementException;
 
 @Service
 @RequiredArgsConstructor
+@Slf4j
 public class ReservationService {
 
     private final ReservationDAO reservationDAO;
@@ -25,7 +27,7 @@ public class ReservationService {
         try {
             reservation = reservationDAO.findReservationById(reservationId);
         } catch (NoSuchElementException exception) {
-            exception.printStackTrace();
+            log.warn(exception.getMessage());
         }
         return reservation;
     }
@@ -42,36 +44,44 @@ public class ReservationService {
         return reservationDAO.findAllByGuestId(guestId);
     }
 
-    public void saveNewReservation(ReservationDTO reservationDTO) {
-        try {
-            if (reservationDTO.getAccommodationId() != null ||
-                    reservationDTO.getGuestId() != null ||
-                    reservationDTO.getStartDate() != null ||
-                    reservationDTO.getEndDate() != null) {
+    public void saveNewReservation(ReservationDTO newReservation) {
+        if (newReservation.getAccommodationId() != null ||
+                newReservation.getGuestId() != null ||
+                newReservation.getStartDate() != null ||
+                newReservation.getEndDate() != null) {
 
-                reservationDAO.saveNewReservation(reservationDTO);
-            } else {
-                throw new NullPointerException();
-            }
-        } catch (NullPointerException exception) {
-            exception.printStackTrace();
+            Reservation reservation = Reservation.builder()
+                    .accommodationId(newReservation.getAccommodationId())
+                    .guestId(newReservation.getGuestId())
+                    .startDate(newReservation.getStartDate())
+                    .endDate(newReservation.getEndDate())
+                    .build();
+            reservationDAO.saveReservation(reservation);
+        } else {
+            log.warn("Required fields of reservationDTO are null.");
         }
+
     }
 
     public void deleteReservation(Long reservationId) {
-        reservationDAO.deleteReservation(reservationId);
+        try {
+            reservationDAO.deleteReservation(reservationId);
+        } catch (NoSuchElementException exception) {
+            log.warn(exception.getMessage());
+        }
     }
 
     public void updateDate(Long reservationId, DateIntervalDTO newDate) {
-        try {
-            if (newDate.getStartDate() != null ||
-                    newDate.getEndDate() != null) {
-                reservationDAO.updateDate(reservationId, newDate.getStartDate(), newDate.getEndDate());
-            } else {
-                throw new NullPointerException();
-            }
-        } catch (NullPointerException exception) {
-            exception.printStackTrace();
+        if (newDate.getStartDate() != null ||
+                newDate.getEndDate() != null) {
+
+            Reservation reservation = reservationDAO.findReservationById(reservationId);
+            reservation.setStartDate(newDate.getStartDate());
+            reservation.setEndDate(newDate.getEndDate());
+
+            reservationDAO.saveReservation(reservation);
+        } else {
+            log.warn("Required fields of newDate are null.");
         }
     }
 }

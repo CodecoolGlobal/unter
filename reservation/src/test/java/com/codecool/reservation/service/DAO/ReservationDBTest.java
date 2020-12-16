@@ -1,16 +1,13 @@
 package com.codecool.reservation.service.DAO;
 
-import com.codecool.reservation.model.DTO.ReservationDTO;
 import com.codecool.reservation.model.entity.Reservation;
 import com.codecool.reservation.repository.ReservationRepository;
+
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import org.junit.jupiter.api.extension.ExtendWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.test.annotation.DirtiesContext;
 import org.springframework.test.context.ActiveProfiles;
-import org.springframework.test.context.junit.jupiter.SpringExtension;
 
 import java.time.LocalDate;
 import java.util.List;
@@ -18,17 +15,15 @@ import java.util.NoSuchElementException;
 
 import static org.junit.jupiter.api.Assertions.*;
 
-@ExtendWith(SpringExtension.class)
 @SpringBootTest
 @ActiveProfiles("test")
-@DirtiesContext(classMode = DirtiesContext.ClassMode.AFTER_EACH_TEST_METHOD)
 public class ReservationDBTest {
 
     @Autowired
     private ReservationRepository repository;
 
     @Autowired
-    private ReservationDB reservationDB = new ReservationDB(repository);
+    private ReservationDB reservationDB;
 
     @BeforeEach
     private void initializeWithSampleData() {
@@ -65,21 +60,26 @@ public class ReservationDBTest {
     }
 
     @Test
+    public void test_findAll_isEmpty() {
+        repository.deleteAll();
+        assertTrue(reservationDB.findAll().isEmpty());
+    }
+
+    @Test
     public void test_findAll_hasSizeThree() {
         assertEquals(3, reservationDB.findAll().size());
     }
 
     @Test
     public void test_findReservationById_ThrowsNoSuchElementException() {
-
         assertThrows(NoSuchElementException.class, () -> reservationDB.findReservationById(10L));
     }
 
     @Test
-    public void test_findAllByAccommodationId_hasId2L() {
+    public void test_findAllByAccommodationId_hasSizeTwo() {
         List<Reservation> reservations = reservationDB.findAllByAccommodationId(1L);
         reservations.forEach(reservation -> assertEquals(1L, reservation.getAccommodationId()));
-        assertEquals(2L, reservations.size());
+        assertEquals(2, reservations.size());
     }
 
     @Test
@@ -100,15 +100,15 @@ public class ReservationDBTest {
     }
 
     @Test
-    public void test_saveNewReservation_increasesSizeWithOne() {
+    public void test_saveReservation_increasesSizeWithOne() {
         int startSizeOfReservations = reservationDB.findAll().size();
-        ReservationDTO reservationDTO = ReservationDTO.builder()
+        Reservation reservation = Reservation.builder()
                 .accommodationId(3L)
                 .guestId(3L)
                 .startDate(LocalDate.of(2020, 1, 1))
                 .endDate(LocalDate.of(2020, 1,10))
                 .build();
-        reservationDB.saveNewReservation(reservationDTO);
+        reservationDB.saveReservation(reservation);
         assertEquals(startSizeOfReservations + 1, reservationDB.findAll().size());
     }
 
@@ -116,15 +116,9 @@ public class ReservationDBTest {
     public void test_deleteReservation_decreasesSizeWithOne() {
         int startSizeOfReservations = reservationDB.findAll().size();
         Long idOfReservation1 = reservationDB.findAllByGuestId(1L).get(0).getId();
-        reservationDB.deleteReservation(1000L);
+        reservationDB.deleteReservation(idOfReservation1);
         assertEquals(startSizeOfReservations - 1, reservationDB.findAll().size());
     }
 
-    @Test
-    public void test_updateReservation_equalsNewDates() {
-        Long idOfReservation1 = reservationDB.findAllByGuestId(1L).get(0).getId();
-        reservationDB.updateDate(idOfReservation1, LocalDate.of(2020, 10, 20), LocalDate.of(2020, 10, 30));
-        assertEquals(LocalDate.of(2020, 10, 20), reservationDB.findReservationById(idOfReservation1).getStartDate());
-        assertEquals(LocalDate.of(2020, 10, 30), reservationDB.findReservationById(idOfReservation1).getEndDate());
-    }
+
 }
