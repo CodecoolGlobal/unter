@@ -8,4 +8,5 @@ import org.springframework.stereotype.Repository;
 public interface AddressRepository extends JpaRepository<Address, Long> {
 
     Address findAddressByAccommodation_Id(Long id);
+    boolean existsAddressByAccommodation_Id(Long id);
 }

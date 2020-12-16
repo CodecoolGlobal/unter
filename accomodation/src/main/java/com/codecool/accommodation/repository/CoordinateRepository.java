@@ -14,4 +14,5 @@ public interface CoordinateRepository extends JpaRepository<Coordinate, Long> {
                                                               Double endLatitude);
 
     Coordinate findCoordinateByAccommodation_Id(Long id);
+    boolean existsCoordinateByAccommodation_Id(Long id);
 }

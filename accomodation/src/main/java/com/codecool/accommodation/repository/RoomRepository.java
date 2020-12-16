@@ -9,4 +9,5 @@ import java.util.Set;
 @Repository
 public interface RoomRepository extends JpaRepository<Room, Long> {
     Set<Room> findRoomByAccommodation_Id(Long id);
+    boolean existsRoomsByAccommodation_Id(Long id);
 }
