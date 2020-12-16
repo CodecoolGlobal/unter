@@ -454,4 +454,52 @@ public class AccommodationRepositoryTest {
         assertThrows(NoSuchElementException.class,
             () -> roomRepository.findRoomByAccommodation_Id(accToDelete.getId()));
     }
+
+    @Test
+    public void test_deleteAllAccommodation_shouldBeEmpty() {
+        // build another accommodation
+        Address address = Address.builder()
+            .city("Test City2")
+            .street("Test street2")
+            .zipCode("test2")
+            .houseNumber(12)
+            .build();
+
+        Coordinate coordinate = Coordinate.builder()
+            .latitude(22.00)
+            .longitude(32.00)
+            .build();
+
+        Map<BedType, Integer> beds = new HashMap<>();
+        beds.put(BedType.KING, 1);
+
+        Room room = Room.builder()
+            .type(RoomType.BEDROOM)
+            .beds(beds)
+            .build();
+
+        Set<Room> rooms = new HashSet<>();
+        rooms.add(room);
+
+        Accommodation testAccommodation2 = Accommodation.builder()
+            .hostId(1L)
+            .rooms(rooms)
+            .description("Test2")
+            .coordinate(coordinate)
+            .address(address)
+            .maxNumberOfGuests(4000)
+            .name("Test2")
+            .build();
+
+        // save accommodations
+        accommodationRepository.saveAll(Arrays.asList(testAccommodation, testAccommodation2));
+
+        // delete all
+        accommodationRepository.deleteAll();
+
+        // test
+        List<Accommodation> accommodations = accommodationRepository.findAll();
+        assertThat(accommodations).isEmpty();
+        assertThat(accommodations).doesNotContain(testAccommodation, testAccommodation2);
+    }
 }
