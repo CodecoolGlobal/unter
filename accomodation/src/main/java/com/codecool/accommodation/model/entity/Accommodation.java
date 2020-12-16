@@ -38,14 +38,6 @@ public class Accommodation {
     @Column(nullable = false)
     private Integer maxNumberOfGuests;
 
-//    @OneToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
-//    @JoinColumn(name = "location_id")
-////    @JoinColumn(name = "location_id", nullable = false)
-//    @ToString.Exclude
-//    @JsonIgnore
-//    private Location location;
-
-
     @OneToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     @JoinColumn(name = "coordinate_id", nullable = false)
     @ToString.Exclude
@@ -59,7 +51,6 @@ public class Accommodation {
     @OneToMany(mappedBy = "accommodation", cascade = CascadeType.ALL)
     @EqualsAndHashCode.Exclude
     @ToString.Exclude
-    @Singular
     @JsonBackReference
     private Set<Room> rooms;
 
