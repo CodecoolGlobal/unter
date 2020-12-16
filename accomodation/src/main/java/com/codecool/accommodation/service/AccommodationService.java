@@ -1,5 +1,6 @@
 package com.codecool.accommodation.service;
 
+import com.codecool.accommodation.exception.NoDataFoundException;
 import com.codecool.accommodation.model.DTO.NewAccommodationDTO;
 import com.codecool.accommodation.model.entity.Accommodation;
 import com.codecool.accommodation.service.DAO.AccommodationDAO;
@@ -20,40 +21,21 @@ public class AccommodationService {
     private final RoomDAO roomDAO;
 
     public List<Accommodation> getAllAccommodation(Long hostId) {
+        if(accommodationDAO.findAllByHostId(hostId) == null){
+            throw new NoDataFoundException();
+        }
         return accommodationDAO.findAllByHostId(hostId);
     }
 
-    public Response saveNewAccommodation(NewAccommodationDTO newAccommodationDTO) {
-        try {
-            if (newAccommodationDTO.getHostId() != null ||
-                newAccommodationDTO.getName() != null ||
-                newAccommodationDTO.getMaxNumberOfGuest() != null) {
-
-                accommodationDAO.saveNewAccommodation(newAccommodationDTO);
-
-
-                return new Response(true, "SUCCESS");
-
-            } else {
-                return new Response(false, "FAIL");
-            }
-        } catch (DataIntegrityViolationException exception) {
-            exception.printStackTrace();
-            return new Response(false, "FAIL");
-        }
+    public void saveNewAccommodation(NewAccommodationDTO newAccommodationDTO) {
+        accommodationDAO.saveNewAccommodation(newAccommodationDTO);
     }
 
-    public boolean deleteAccommodation(Long accommodationId) {
+    public void deleteAccommodation(Long accommodationId) {
         if(accommodationDAO.isExisted(accommodationId)){
-            try {
-                accommodationDAO.deleteAccommodation(accommodationId);
-            } catch (NoSuchElementException exception) {
-                exception.printStackTrace();
-                return true;
-            }
-            return accommodationDAO.isExisted(accommodationId);
+            accommodationDAO.deleteAccommodation(accommodationId);
         } else{
-            return true;
+            throw new NoDataFoundException();
         }
 
     }

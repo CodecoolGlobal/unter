@@ -11,7 +11,7 @@ import javax.persistence.*;
 
 @Data
 @Entity
-@NoArgsConstructor
+//@NoArgsConstructor
 @AllArgsConstructor
 @Builder
 public class Address {
@@ -36,9 +36,13 @@ public class Address {
     @JsonBackReference
     private Accommodation accommodation;
 
-    private Address(Integer houseNumber, String street, String city, String zipCode){
-        this.houseNumber = houseNumber;
+    public Address() {
+
     }
+
+//    private Address(Integer houseNumber, String street, String city, String zipCode){
+//        this.houseNumber = houseNumber;
+//    }
 
 
 }

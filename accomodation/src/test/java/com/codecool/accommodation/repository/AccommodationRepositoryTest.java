@@ -1,43 +1,40 @@
-//package com.codecool.accommodation.repository;
-//
-//import com.codecool.accommodation.model.entity.*;
-//import com.codecool.accommodation.model.entity.types.RoomType;
-//import org.junit.jupiter.api.Test;
-//import org.junit.jupiter.api.extension.ExtendWith;
-//import org.springframework.beans.factory.annotation.Autowired;
-//import org.springframework.boot.test.context.SpringBootTest;
-//import org.springframework.dao.DataIntegrityViolationException;
-//import org.springframework.test.annotation.DirtiesContext;
-//import org.springframework.test.context.ActiveProfiles;
-//import org.springframework.test.context.junit.jupiter.SpringExtension;
-//
-//import java.util.Arrays;
-//import java.util.List;
-//
-//import static org.assertj.core.api.Assertions.assertThat;
-//import static org.junit.jupiter.api.Assertions.assertThrows;
-//
-//@ExtendWith(SpringExtension.class)
-//@SpringBootTest
-//@ActiveProfiles("test")
-//@DirtiesContext(classMode = DirtiesContext.ClassMode.AFTER_EACH_TEST_METHOD)
-//public class AccommodationRepositoryTest {
-//
-//    @Autowired
-//    private AccommodationRepository accommodationRepository;
-//
-//    @Autowired
-//    private LocationRepository locationRepository;
+package com.codecool.accommodation.repository;
+
+import com.codecool.accommodation.model.entity.*;
+import com.codecool.accommodation.model.entity.types.RoomType;
+import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.extension.ExtendWith;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.dao.DataIntegrityViolationException;
+import org.springframework.test.annotation.DirtiesContext;
+import org.springframework.test.context.ActiveProfiles;
+import org.springframework.test.context.junit.jupiter.SpringExtension;
+
+import java.util.Arrays;
+import java.util.List;
+
+import static org.assertj.core.api.Assertions.assertThat;
+import static org.junit.jupiter.api.Assertions.assertThrows;
+
+@ExtendWith(SpringExtension.class)
+@SpringBootTest
+@ActiveProfiles("test")
+@DirtiesContext(classMode = DirtiesContext.ClassMode.AFTER_EACH_TEST_METHOD)
+public class AccommodationRepositoryTest {
+
+    @Autowired
+    private AccommodationRepository accommodationRepository;
+
 //
 //    @Autowired
 //    private RoomRepository roomRepository;
-//
-//    @Test
-//    public void smokeTest() {
-//        assertThat(accommodationRepository).isNotNull();
-//        assertThat(locationRepository).isNotNull();
-//    }
-//
+
+    @Test
+    public void smokeTest() {
+        assertThat(accommodationRepository).isNotNull();
+    }
+
 //    @Test
 //    public void test_saveNewAccommodation_hasSizeOne() {
 //
@@ -216,4 +213,4 @@
 //        List<Room> rooms = roomRepository.findAll();
 //        assertThat(rooms).hasSize(originalDataSize + 1);
 //    }
-//}
+}

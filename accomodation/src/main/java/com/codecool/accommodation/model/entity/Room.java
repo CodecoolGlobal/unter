@@ -12,7 +12,7 @@ import java.util.List;
 import java.util.Map;
 
 @Data
-@NoArgsConstructor
+//@NoArgsConstructor
 @AllArgsConstructor
 @Builder
 @Entity
@@ -37,6 +37,10 @@ public class Room {
 
     public Room(RoomType type) {
         this.type = type;
+    }
+
+    public Room() {
+
     }
 
 
