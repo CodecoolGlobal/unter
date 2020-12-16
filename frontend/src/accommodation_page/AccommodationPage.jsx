@@ -12,6 +12,7 @@ function AccomodationPage() {
         center: { lat: 59.95, lng: 30.33 },
         zoom: 11,
     };
+
     return (
         <div className="accommodation__page">
         <div className="accommodation__pageContainer">
@@ -79,18 +80,18 @@ function AccomodationPage() {
                 <div className="payment__side">
                     <div className="paymentCard">
                         <div className="card__title">
-                            <h3>ez egy káryta</h3>
+                            <h3>Add dates for prices</h3>
                             <StarBorder className="searchResult__star" />
                         </div>
                         <div className="card__input">
                             <div className="chooseDate">
                                 <label className="startDate">
-                                    Start date
-                                <input type="text" className="startDate__input" ></input>
+                                    Check in
+                                <input placeholder="Add date" type="text" className="startDate__input" ></input>
                                 </label>
                                 <label className="endDate">
-                                End date
-                                <input type="text" className="endDate__input"></input>
+                                Check out
+                                <input placeholder="Add date" type="text" className="endDate__input"></input>
                                 </label>
                             </div>
                             <div className="pickGuests">
@@ -100,12 +101,15 @@ function AccomodationPage() {
                                 </label>
                             </div>
                         </div>
+                        <div className="cardFooter">
                         <Button className="rentButton">Rent</Button>
+                        <h5>Enter dates and number of guests to see the total price per night.</h5>    
+                        </div>
                     </div>
                 </div>
             </div>
             <div className="accomodation__map">
-            <GoogleMapReact
+            <GoogleMapReact className="map"
                         bootstrapURLKeys={{
                             key: "",
                         }}

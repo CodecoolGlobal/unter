@@ -8,7 +8,7 @@
 .accommodation__pageContainer{
     display: flex;
     flex-direction: column;
-    width: 70%;
+    width: 55%;
 }
 .title{
     display: flex;
@@ -65,7 +65,7 @@
     .accommodation__side{
         display: flex;
         flex-direction: column;
-        flex: 0.5;
+        width: 60%;
         .host__info{
             border-bottom: 1px solid lightgray;
             margin-bottom: 2vh;
@@ -86,15 +86,23 @@
         }
         .accommodation__description{
             padding-bottom: 5vh;
+            p{
+                font-size: 16px;
+                font-weight: 400;
+            }
         }
         .sleepingPossibilities{
-            
+            border-bottom: 1px solid lightgray;
+
         }
     }
 }
 .calendar__container{
     display: flex;
     flex-direction: column;
+    border-bottom: 1px solid lightgray;
+    margin-bottom: 2vh;
+
 }
 .accomodation__map{
     display: flex;
@@ -103,24 +111,53 @@
     flex: 1;
     width: 100%;
     height: 500px;
+    .location__description{
+        margin-top: 2vh;
+        margin-bottom: 2vh;
+    }
+
+}
+.position__side{
+    position: relative;
 }
 .paymentCard{
     display: flex;
     flex-direction: column;
-    flex: 0.5;
+    align-items: center;
+    padding: 1vw;
+    width:65%;
     position: sticky;
     top: 10vh;
     margin-bottom: 1vh;
+    height: 30vh;
+    border: 0.5px solid lightgrey;
+    border-radius: 16px;
+    box-shadow: rgba(0, 0, 0, 0.12) 0px 6px 16px;
+    margin-left: 5vw;
     .card__title{
         display: flex;
-        justify-content: space-between;
-        padding: 1vh;
+        align-self: flex-start;
+        margin-bottom: 3vh;
+        font-size: 18px;
+        h3{
+            font-weight: 400;
+        }
+    }
+    
+    svg{
+        position: absolute;
+        right: 1vw;
     }
     .card__input{
         display: flex;
         flex-direction: column;
         border: 1.5px solid lightgray;
         border-radius: 8px;
+        margin-bottom: 3vh;
+        width: 100%;
+        input{
+            height: 3vh;
+        }
         .chooseDate{
             display: flex;
             .startDate{
@@ -131,11 +168,22 @@
             border-top: 1.5px solid lightgray;
         }
     }
-    .rentButton{
-      background-image:radial-gradient(circle at center center, rgb(255, 56, 92) 0%, rgb(230, 30, 77) 27.5%, rgb(227, 28, 95) 40%, rgb(215, 4, 102) 57.5%, rgb(189, 30, 89) 75%, rgb(189, 30, 89) 100%) !important;
-      color: white !important;
-      font-size: 500;
-      font-weight: bold;
-      text-transform: none;
+    .cardFooter{
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        button{
+            background-image: radial-gradient(circle at center center, rgb(255, 56, 92) 0%, rgb(230, 30, 77) 27.5%, rgb(227, 28, 95) 40%, rgb(215, 4, 102) 57.5%, rgb(189, 30, 89) 75%, rgb(189, 30, 89) 100%) !important;
+            color: white !important;
+            font-size: 500;
+            width: 100%;
+            border-radius: 8px;
+            font-weight: bold;
+            text-transform: none;
+
+        }
+        h5{
+            width: 100%;
+        }
     }
 }

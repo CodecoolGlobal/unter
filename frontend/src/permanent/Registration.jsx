@@ -84,7 +84,7 @@ function Registration() {
             <button className="register__button">Register</button>
             <h6>Az Airbnb csak tagoknak szóló ajánlatokat, inspirációt, marketing-e-maileket és push-értesítéseket fog küldeni neked. A fiókbeállításoknál vagy közvetlenül a marketingértesítésben is bármikor leállíthatod az ilyen típusú üzenetek fogadását.
 
-</h6>
+            </h6>
         </div>
       );
 
