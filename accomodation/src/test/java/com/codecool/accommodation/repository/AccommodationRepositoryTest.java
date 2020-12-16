@@ -12,8 +12,7 @@ import org.springframework.test.context.ActiveProfiles;
 import java.util.*;
 
 import static org.assertj.core.api.Assertions.assertThat;
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertThrows;
+import static org.junit.jupiter.api.Assertions.*;
 
 @DataJpaTest
 @ActiveProfiles("test")
@@ -404,6 +403,7 @@ public class AccommodationRepositoryTest {
         assertThat(changedCoordinateList).doesNotContain(accToDelete.getCoordinate());
 
         // no coordinates are found by id of deleted accommodation
+        assertFalse(coordinateRepository.existsCoordinateByAccommodation_Id(accToDelete.getId()));
         assertThrows(NoSuchElementException.class,
             () -> coordinateRepository.findCoordinateByAccommodation_Id(accToDelete.getId()));
     }
@@ -427,6 +427,7 @@ public class AccommodationRepositoryTest {
         assertThat(changedAddressList).doesNotContain(accToDelete.getAddress());
 
         // no coordinates are found by id of deleted accommodation
+        assertFalse(addressRepository.existsAddressByAccommodation_Id(accToDelete.getId()));
         assertThrows(NoSuchElementException.class,
             () -> addressRepository.findAddressByAccommodation_Id(accToDelete.getId()));
     }
@@ -449,6 +450,7 @@ public class AccommodationRepositoryTest {
         assertThat(changedRoomList).hasSize(Math.max(0, sizeOfRooms - 1));
 
         // no rooms are found by id of deleted accommodation
+        assertFalse(roomRepository.existsRoomsByAccommodation_Id(accToDelete.getId()));
         assertThrows(NoSuchElementException.class,
             () -> roomRepository.findRoomByAccommodation_Id(accToDelete.getId()));
     }
