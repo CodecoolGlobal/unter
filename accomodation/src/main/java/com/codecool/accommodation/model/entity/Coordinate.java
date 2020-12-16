@@ -6,7 +6,7 @@ import lombok.*;
 import javax.persistence.*;
 
 @Data
-@NoArgsConstructor
+//@NoArgsConstructor
 @AllArgsConstructor
 @Builder
 @Entity
@@ -23,8 +23,8 @@ public class Coordinate {
     private Double longitude;
 
     @OneToOne(mappedBy = "coordinate")
-    @ToString.Exclude
-    @EqualsAndHashCode.Exclude
+//    @ToString.Exclude
+//    @EqualsAndHashCode.Exclude
     private Accommodation accommodation;
 
 //    @OneToOne
@@ -36,5 +36,9 @@ public class Coordinate {
     public Coordinate(Double longitude, Double latitude){
         this.latitude = latitude;
         this.longitude = longitude;
+    }
+
+    public Coordinate() {
+
     }
 }
