@@ -5,6 +5,7 @@ import com.codecool.reservation.model.entity.Reservation;
 import com.codecool.reservation.repository.ReservationRepository;
 import lombok.Data;
 import lombok.RequiredArgsConstructor;
+import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.stereotype.Component;
 
 import java.time.LocalDate;
@@ -24,9 +25,9 @@ public class ReservationDB implements ReservationDAO{
     }
 
     @Override
-    public Reservation findReservationById(Long reservationId) {
+    public Reservation findReservationById(Long reservationId) throws NoSuchElementException {
         return repository.findById(reservationId)
-                .orElseThrow(() -> new NoSuchElementException("No reservation was found"));
+                .orElseThrow(() -> new NoSuchElementException("No reservation was found with this id"));
     }
 
     @Override
@@ -52,22 +53,35 @@ public class ReservationDB implements ReservationDAO{
                 .startDate(reservationDTO.getStartDate())
                 .endDate(reservationDTO.getEndDate())
                 .build();
-        repository.save(reservation);
+        try {
+            repository.save(reservation);
+        } catch (DataIntegrityViolationException exception) {
+                exception.printStackTrace();
+        }
     }
 
     @Override
     public void deleteReservation(Long reservationId) {
-        repository.deleteById(reservationId);
+        try {
+            repository.deleteById(reservationId);
+        } catch (NoSuchElementException exception) {
+            exception.printStackTrace();
+        }
+
     }
 
     @Override
-    public void updateReservation(Long reservationId, LocalDate startDate, LocalDate endDate) {
+    public void updateDate(Long reservationId, LocalDate startDate, LocalDate endDate) {
         Reservation reservation = findReservationById(reservationId);
 
         reservation.setStartDate(startDate);
         reservation.setEndDate(endDate);
 
-        repository.save(reservation);
+        try {
+            repository.save(reservation);
+        } catch (DataIntegrityViolationException exception) {
+            exception.printStackTrace();
+        }
     }
 
 }

@@ -116,15 +116,14 @@ public class ReservationDBTest {
     public void test_deleteReservation_decreasesSizeWithOne() {
         int startSizeOfReservations = reservationDB.findAll().size();
         Long idOfReservation1 = reservationDB.findAllByGuestId(1L).get(0).getId();
-        reservationDB.deleteReservation(idOfReservation1);
+        reservationDB.deleteReservation(1000L);
         assertEquals(startSizeOfReservations - 1, reservationDB.findAll().size());
     }
 
     @Test
     public void test_updateReservation_equalsNewDates() {
-        int startSizeOfReservations = reservationDB.findAll().size();
         Long idOfReservation1 = reservationDB.findAllByGuestId(1L).get(0).getId();
-        reservationDB.updateReservation(idOfReservation1, LocalDate.of(2020, 10, 20), LocalDate.of(2020, 10, 30));
+        reservationDB.updateDate(idOfReservation1, LocalDate.of(2020, 10, 20), LocalDate.of(2020, 10, 30));
         assertEquals(LocalDate.of(2020, 10, 20), reservationDB.findReservationById(idOfReservation1).getStartDate());
         assertEquals(LocalDate.of(2020, 10, 30), reservationDB.findReservationById(idOfReservation1).getEndDate());
     }
