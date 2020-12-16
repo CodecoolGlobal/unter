@@ -33,13 +33,8 @@ public class AccommodationRepositoryTest {
 
     private Accommodation testAccommodation;
 
-    private Integer originalDataSize;
-
     @BeforeEach
     public void setUp() {
-        List<Accommodation> originalData = accommodationRepository.findAll();
-        this.originalDataSize = originalData.size();
-
         Address address = Address.builder()
             .city("Test City")
             .street("Test street")
@@ -94,7 +89,7 @@ public class AccommodationRepositoryTest {
 
         // test if db size increased with one and contains the saved accommodation
         List<Accommodation> accommodations = accommodationRepository.findAll();
-        assertThat(accommodations).hasSize(originalDataSize + 1);
+        assertThat(accommodations).hasSize(1);
         assertThat(accommodations).contains(testAccommodation);
 
         // test if found accommodation's name is the same as the the one's that was saved
@@ -106,7 +101,7 @@ public class AccommodationRepositoryTest {
     }
 
     @Test
-    public void test_findAccommodationById_shouldFind() {
+    public void test_findAccommodationById_shouldBeFound() {
         Long id = accommodationRepository.saveAndFlush(testAccommodation).getId();
         Accommodation found = accommodationRepository.findById(id).get();
 
@@ -159,7 +154,7 @@ public class AccommodationRepositoryTest {
         List<Accommodation> accommodations = accommodationRepository.findAll();
 
         // test
-        assertThat(accommodations).hasSize(originalDataSize + newAccommodations.size());
+        assertThat(accommodations).hasSize(2);
         assertThat(accommodations).contains(testAccommodation, accommodation2);
     }
 
@@ -382,7 +377,7 @@ public class AccommodationRepositoryTest {
 
         // test if accommodation list got increased with one
         List<Accommodation> accommodations = accommodationRepository.findAll();
-        assertThat(accommodations).hasSize(Math.max(0, originalDataSize - 1));
+        assertThat(accommodations).hasSize(0);
         assertThat(accommodations).isEmpty();
 
         // test accommodation was not found by id
@@ -391,49 +386,49 @@ public class AccommodationRepositoryTest {
     }
 
     @Test
-    public void test_coordinatesDeletedWithAccommodation_hasSizeDecreasesWithOne() {
-        // saved accommodation
-        accommodationRepository.saveAndFlush(testAccommodation);
-        Accommodation accToDelete = accommodationRepository.findAll().get(0);
-
+    public void test_coordinatesDeletedWithAccommodation_notFound() {
         // get coordinates, size of list
         List<Coordinate> coordinates = coordinateRepository.findAll();
         int sizeOfCoordinates = coordinates.size();
+
+        // saved accommodation
+        accommodationRepository.saveAndFlush(testAccommodation);
+        Accommodation accToDelete = accommodationRepository.findAll().get(0);
 
         // delete accommodation by id
         accommodationRepository.deleteAccommodationById(accToDelete.getId());
 
         // test if coordinate list doesn't contain the coordinates of the deleted accommodation
         List<Coordinate> changedCoordinateList = coordinateRepository.findAll();
-        assertThat(changedCoordinateList).hasSize(Math.max(0, sizeOfCoordinates - 1));
+        assertThat(changedCoordinateList).hasSize(sizeOfCoordinates - 1);
         assertThat(changedCoordinateList).doesNotContain(accToDelete.getCoordinate());
 
         // no coordinates are found by id of deleted accommodation
-        Coordinate coordinate = coordinateRepository.findCoordinateByAccommodation_Id(accToDelete.getId());
-        assertThat(coordinate).isNull();
+        assertThrows(NoSuchElementException.class,
+            () -> coordinateRepository.findCoordinateByAccommodation_Id(accToDelete.getId()));
     }
 
     @Test
     public void test_addressDeletedWithAccommodation_hasSizeDecreasesWithOne() {
-        // saved accommodation
-        accommodationRepository.saveAndFlush(testAccommodation);
-        Accommodation accToDelete = accommodationRepository.findAll().get(0);
-
         // get addresses, size of list
         List<Address> addresses = addressRepository.findAll();
         int sizeOfAddresses = addresses.size();
+
+        // saved accommodation
+        accommodationRepository.saveAndFlush(testAccommodation);
+        Accommodation accToDelete = accommodationRepository.findAll().get(0);
 
         // delete accommodation by id
         accommodationRepository.deleteAccommodationById(accToDelete.getId());
 
         // test if coordinate list doesn't contain the coordinates of the deleted accommodation
         List<Address> changedAddressList = addressRepository.findAll();
-        assertThat(changedAddressList).hasSize(Math.max(0, sizeOfAddresses - 1));
+        assertThat(changedAddressList).hasSize(sizeOfAddresses - 1);
         assertThat(changedAddressList).doesNotContain(accToDelete.getAddress());
 
         // no coordinates are found by id of deleted accommodation
-        Address address = addressRepository.findAddressByAccommodation_Id(accToDelete.getId());
-        assertThat(address).isNull();
+        assertThrows(NoSuchElementException.class,
+            () -> addressRepository.findAddressByAccommodation_Id(accToDelete.getId()));
     }
 
     @Test
@@ -454,7 +449,7 @@ public class AccommodationRepositoryTest {
         assertThat(changedRoomList).hasSize(Math.max(0, sizeOfRooms - 1));
 
         // no rooms are found by id of deleted accommodation
-        Set<Room> changedRooms = roomRepository.findRoomByAccommodation_Id(accToDelete.getId());
-        assertThat(changedRooms).isEmpty();
+        assertThrows(NoSuchElementException.class,
+            () -> roomRepository.findRoomByAccommodation_Id(accToDelete.getId()));
     }
 }
