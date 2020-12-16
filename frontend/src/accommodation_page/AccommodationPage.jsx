@@ -1,23 +1,47 @@
-import React from 'react'
+import React,{useEffect,useState} from 'react'
 import './AccommodationPage.scss'
 import { StarBorder } from "@material-ui/icons";
 import AccommodationCalendar from './AccommodationCalendar'
 import GoogleMapReact from "google-map-react";
 import { Button } from '@material-ui/core';
+import Axios from 'axios';
 
 
 
 function AccomodationPage() {
+    const [accommodation,setAccommodation] = useState();
+    const [isLoading,setIsLoading] = useState(true);
     const defaultProps = {
         center: { lat: 59.95, lng: 30.33 },
         zoom: 11,
     };
 
+
+    useEffect(() => {
+        Axios.get(`http://localhost:8762/acc/${window.location.href.substring(window.location.href.lastIndexOf('/') + 1)}`)
+        .then(function (response) {
+            console.log(JSON.stringify(response.data) +"plsplaslpasls")
+            setAccommodation(response.data)
+            setIsLoading(false)
+        })
+        .catch(function (error) {
+            // handle error
+            console.log(error);
+        })
+        .then(function () {
+            // always executed
+        });
+        
+    }, [])
+    if(isLoading){return(
+        <div>Loading</div>)
+    }
+    else{
     return (
         <div className="accommodation__page">
         <div className="accommodation__pageContainer">
             <div className="title">
-                    <h2>Stay at this spacious Edwardian House</h2>
+                    <h2>{accommodation.name}</h2>
             </div>
             <div className="rating">
                     <StarBorder className="searchResult__star" />
@@ -26,7 +50,7 @@ function AccomodationPage() {
                         </p>
                         <p>·</p>
                         <p>
-                            Berlin, Németország
+                            {accommodation.address.city}, Németország
                         </p>
             </div>
             <div className="gallery">
@@ -65,14 +89,14 @@ function AccomodationPage() {
                     Allerdings sollen touristische Übernachtungen über die…
                     </p>
                     </div>
-                    <div className="sleepingPossibilities">
+                    {/* <div className="sleepingPossibilities">
                         <h3>
                             Sleeping possibilities
                         </h3>
                         <div>
 
                         </div>
-                    </div>
+                    </div> */}
                     <div className="calendar__container">
                         <AccommodationCalendar/>
                     </div>
@@ -126,6 +150,7 @@ Es sind nur 80 Meter bis zu…</p>
         </div>
         </div>
     )
+                    }
 }
 
 export default AccomodationPage

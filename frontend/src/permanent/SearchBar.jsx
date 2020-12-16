@@ -3,7 +3,7 @@ import Search from "./Search";
 import "./Header.scss";
 import SearchIcon from "@material-ui/icons/Search";
 import axios from "axios";
-import { useHistory } from "react-router-dom";
+import { Link, useHistory } from "react-router-dom";
 
 function SearchBar() {
     const [city, setCity] = useState("");
@@ -52,7 +52,7 @@ function SearchBar() {
                         <SearchIcon
                             onClick={getCoordinates}
                             className="header__searchIcon"
-                        />
+                            />
                     </div>
                 </div>
             </div>

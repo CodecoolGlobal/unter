@@ -16,19 +16,17 @@ function SearchPage() {
     const [isLoading, setIsLoading] = useState(true);
     const [show, setShow] = useContext(HeaderContext);
     const [accommodations, setAccommodations] = useState();
-    var center = {lat:null,lng:null}
+    // var center = {lat:null,lng:null}
+    const [center,setCenter]=useState([]);
     const zoom = 13;
 
     useEffect(() => {
         setIsLoading(true);
         let parsed = queryString.parse(window.location.search);
-            center.lat= Number(parsed.lat)
-            center.lng= Number(parsed.lng)  
         Axios.get(`http://localhost:8762/acc/search?latitude=${parsed.lat}&longitude=${parsed.lng}&radius=1`)
-            .then(function (response) {
-                // handle success
+        .then(function (response) {
+            // handle success
                 setAccommodations(response.data.accommodationDTO);
-                setIsLoading(false);
             })
             .catch(function (error) {
                 // handle error
@@ -37,15 +35,28 @@ function SearchPage() {
             .then(function () {
                 // always executed
             });
-        console.log(center)
-        setCity(parsed.city);
-        setIsLoading(false);
-    }, [center]);
+            console.log(center)
+            setCity(parsed.city);
 
+    }, [window.location.href]);
+
+    useEffect(() => {
+        let parsed = queryString.parse(window.location.search);
+        console.log(parsed)
+        // center.lng= Number(parsed.lng)      
+        // center.lat= Number(parsed.lat)
+        setCenter([{lat:Number(parsed.lat)},{lng:Number(parsed.lng)}])
+        setIsLoading(false);
+
+    }, [window.location.href])
+    
+    
     if(isLoading){
         return<div>Loading</div>
     }
     else{
+        let newCenter = {lat:center[0]["lat"],lng:center[1]["lng"]}
+        console.log(JSON.stringify(newCenter)+"CENTER")
         return (
             <div className={show ? "blurry" : ""} onClick={() => show ? setShow(!show) : setShow(show)}>
                 <div className="searchPage">
@@ -79,16 +90,16 @@ function SearchPage() {
     
                     </div>
                     <MediaQuery minDeviceWidth={1224}>
-        <div className="map">
-            <GoogleMapReact
-                bootstrapURLKeys={{
-                    key: "",
-                }}
-                center={center}
-                defaultZoom={zoom}
-            ></GoogleMapReact>
-        </div>
-    </MediaQuery>)
+                        <div className="map">
+                            <GoogleMapReact
+                                bootstrapURLKeys={{
+                                    key: "",
+                                }}
+                                center={newCenter}
+                                defaultZoom={zoom}
+                            ></GoogleMapReact>
+                        </div>
+                    </MediaQuery>
                 </div>
             </div>
         );
