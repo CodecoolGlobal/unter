@@ -10,15 +10,21 @@ import Axios from "axios";
 import { HeaderContext } from "../context/HeaderCloseContext";
 
 
+
 function SearchPage() {
     const [city, setCity] = useState();
     const history = useHistory();
     const [isLoading, setIsLoading] = useState(true);
     const [show, setShow] = useContext(HeaderContext);
     const [accommodations, setAccommodations] = useState();
-    // var center = {lat:null,lng:null}
     const [center,setCenter]=useState([]);
     const zoom = 13;
+    
+    const handleAccommodationPage = (id) =>{
+        history.push(`/accomodation/${id}`)
+    }
+
+
 
     useEffect(() => {
         setIsLoading(true);
@@ -43,8 +49,7 @@ function SearchPage() {
     useEffect(() => {
         let parsed = queryString.parse(window.location.search);
         console.log(parsed)
-        // center.lng= Number(parsed.lng)      
-        // center.lat= Number(parsed.lat)
+
         setCenter([{lat:Number(parsed.lat)},{lng:Number(parsed.lng)}])
         setIsLoading(false);
 
@@ -73,7 +78,8 @@ function SearchPage() {
     
                         {accommodations != null
                             ? accommodations.map((actual) => {
-                                return < SearchResult
+                                return (<SearchResult
+                                    key={actual.id}
                                     img={actual.pictures}
                                     location="Private room in center of London"
                                     title={actual.accommodationName}
@@ -81,8 +87,8 @@ function SearchPage() {
                                     star={4.73}
                                     price="£30 / night"
                                     total="£117 total"
-                                    onClick={() => { history.push(`/accomodation/${actual.id}`) }}
-                                />
+                                    id={actual.id}
+                                />)
                             })
                             : <div>Loading...</div>
                         }

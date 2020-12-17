@@ -2,6 +2,8 @@ import { FavoriteBorder, StarBorder } from "@material-ui/icons";
 import React from "react";
 import MediaQuery from "react-responsive";
 import "./SearchResult.scss";
+import { useHistory } from "react-router-dom";
+
 
 function SearchResult({
     img,
@@ -11,9 +13,16 @@ function SearchResult({
     star,
     price,
     total,
-}) {
+    id,
+}) 
+
+{
+    const history = useHistory();
     return (
-        <div className="searchResult">
+        <div className="searchResult" onClick={(e)=>{
+            history.push(`/accommodation/${id}`)
+            // console.log(e.metaKey)
+        }}>
             <MediaQuery maxDeviceWidth={414}>
             <img src={img} alt="" />
             <FavoriteBorder className="searchResult__heart" />
@@ -29,10 +38,6 @@ function SearchResult({
                             <strong>{star}</strong>
                         </p>
                     </div>
-                    {/* <div className="searchResult__price">
-                        <h2>{price}</h2>
-                        <p>{total}</p>
-                    </div> */}
                 </div>
             </div>
             </MediaQuery>
