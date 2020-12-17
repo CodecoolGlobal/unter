@@ -15,7 +15,7 @@ public class ReservationController {
 
     private final ReservationService service;
 
-    @GetMapping("")
+    @GetMapping("/")
     public List<Reservation> getAll() {
         return service.getAllReservation();
     }
@@ -40,7 +40,7 @@ public class ReservationController {
         return service.getAllReservationByGuestId(guestId);
     }
 
-    @PostMapping
+    @PostMapping("/")
     public void saveNewReservation(@RequestBody ReservationDTO reservationDTO) {
         service.saveNewReservation(reservationDTO);
     }

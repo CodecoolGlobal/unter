@@ -4,6 +4,7 @@ import com.codecool.reservation.model.DTO.DateIntervalDTO;
 import com.codecool.reservation.model.DTO.ReservationDTO;
 import com.codecool.reservation.model.entity.Reservation;
 import com.codecool.reservation.service.DAO.ReservationDAO;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.Mockito.*;
@@ -27,12 +28,17 @@ public class ReservationServiceTest {
     @InjectMocks
     private ReservationService service;
 
-    private Reservation testReservation = Reservation.builder()
-            .accommodationId(1L)
-            .guestId(1L)
-            .startDate(LocalDate.of(2020, 12, 10))
-            .endDate(LocalDate.of(2020, 12, 20))
-            .build();
+    private Reservation testReservation;
+
+    @BeforeEach
+    public void setUp() {
+        testReservation = Reservation.builder()
+                .accommodationId(1L)
+                .guestId(1L)
+                .startDate(LocalDate.of(2020, 12, 10))
+                .endDate(LocalDate.of(2020, 12, 20))
+                .build();
+    }
 
     @Test
     public void test_getAllReservation_returnsListFromDao() {

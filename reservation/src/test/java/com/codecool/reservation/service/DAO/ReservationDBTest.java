@@ -120,5 +120,20 @@ public class ReservationDBTest {
         assertEquals(startSizeOfReservations - 1, reservationDB.findAll().size());
     }
 
+    @Test
+    public void test_updateDate_equalsNewDates() {
+        Reservation reservation = reservationDB.findAllByGuestId(1L).get(0);
+        Long reservationId = reservation.getId();
+        int sizeOfDB = reservationDB.findAll().size();
+
+        reservation.setStartDate(LocalDate.of(2020, 10, 20));
+        reservation.setEndDate(LocalDate.of(2020, 10, 30));
+        reservationDB.saveReservation(reservation);
+
+        assertEquals(sizeOfDB, reservationDB.findAll().size());
+        assertEquals(LocalDate.of(2020, 10, 20), reservationDB.findReservationById(reservationId).getStartDate());
+        assertEquals(LocalDate.of(2020, 10, 30), reservationDB.findReservationById(reservationId).getEndDate());
+    }
+
 
 }
