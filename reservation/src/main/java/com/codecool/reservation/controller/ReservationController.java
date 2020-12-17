@@ -17,7 +17,7 @@ public class ReservationController {
 
     @GetMapping("")
     public List<Reservation> getAll() {
-        return service.getAll();
+        return service.getAllReservation();
     }
 
     @GetMapping("/reservation/{reservationId}")

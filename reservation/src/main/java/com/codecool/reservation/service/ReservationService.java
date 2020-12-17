@@ -18,7 +18,7 @@ public class ReservationService {
 
     private final ReservationDAO reservationDAO;
 
-    public List<Reservation> getAll() {
+    public List<Reservation> getAllReservation() {
         return reservationDAO.findAll();
     }
 

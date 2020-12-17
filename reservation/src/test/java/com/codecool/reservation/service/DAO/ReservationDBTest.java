@@ -26,7 +26,7 @@ public class ReservationDBTest {
     private ReservationDB reservationDB;
 
     @BeforeEach
-    private void initializeWithSampleData() {
+    private void setUp() {
         repository.deleteAll();
 
         Reservation reservation1 = Reservation.builder()
