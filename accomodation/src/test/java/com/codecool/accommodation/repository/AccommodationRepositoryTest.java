@@ -386,13 +386,13 @@ public class AccommodationRepositoryTest {
 
     @Test
     public void test_coordinatesDeletedWithAccommodation_notFound() {
-        // get coordinates, size of list
-        List<Coordinate> coordinates = coordinateRepository.findAll();
-        int sizeOfCoordinates = coordinates.size();
-
         // saved accommodation
         accommodationRepository.saveAndFlush(testAccommodation);
         Accommodation accToDelete = accommodationRepository.findAll().get(0);
+
+        // get coordinates, size of list
+        List<Coordinate> coordinates = coordinateRepository.findAll();
+        int sizeOfCoordinates = coordinates.size();
 
         // delete accommodation by id
         accommodationRepository.deleteAccommodationById(accToDelete.getId());
@@ -410,13 +410,13 @@ public class AccommodationRepositoryTest {
 
     @Test
     public void test_addressDeletedWithAccommodation_hasSizeDecreasesWithOne() {
-        // get addresses, size of list
-        List<Address> addresses = addressRepository.findAll();
-        int sizeOfAddresses = addresses.size();
-
         // saved accommodation
         accommodationRepository.saveAndFlush(testAccommodation);
         Accommodation accToDelete = accommodationRepository.findAll().get(0);
+
+        // get addresses, size of list
+        List<Address> addresses = addressRepository.findAll();
+        int sizeOfAddresses = addresses.size();
 
         // delete accommodation by id
         accommodationRepository.deleteAccommodationById(accToDelete.getId());
@@ -447,7 +447,7 @@ public class AccommodationRepositoryTest {
 
         // test if room list size is decreased after the deletion
         List<Room> changedRoomList = roomRepository.findAll();
-        assertThat(changedRoomList).hasSize(Math.max(0, sizeOfRooms - 1));
+        assertThat(changedRoomList).hasSize(sizeOfRooms - 1);
 
         // no rooms are found by id of deleted accommodation
         assertFalse(roomRepository.existsRoomsByAccommodation_Id(accToDelete.getId()));
