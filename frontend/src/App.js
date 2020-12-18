@@ -7,12 +7,14 @@ import { Route, BrowserRouter as Router, Switch } from "react-router-dom";
 import SearchPage from "./search_page/SearchPage";
 import { HeaderProvider } from "./context/HeaderCloseContext";
 import AccommodationPage from "./accommodation_page/AccommodationPage";
+import {AccommodationNumberProvider} from "./context/AccommodationNumber";
 
 function App() {
     return (
         <div className="App">
             <Router>
                 <HeaderProvider>
+                    <AccommodationNumberProvider>
                     <Header />
                     <Switch>
                         <Route path="/search">
@@ -25,6 +27,7 @@ function App() {
                             <Home />
                         </Route>
                     </Switch>
+                </AccommodationNumberProvider>
                 </HeaderProvider>
                 <Footer />
             </Router>

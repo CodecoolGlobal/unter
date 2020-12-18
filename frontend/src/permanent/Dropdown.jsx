@@ -19,7 +19,7 @@ export default function Dropdown() {
   };
 
   return (
-    <div>
+    <div className="dropdown">
       <button type="button" className="avatar__button" onClick={handleClick}>
         <ExpandMoreIcon/>
         <Avatar/>

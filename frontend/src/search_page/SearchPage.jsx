@@ -2,37 +2,34 @@ import React, { useEffect, useState, useContext } from "react";
 import "./SearchPage.scss";
 import { Button } from "@material-ui/core";
 import SearchResult from "./SearchResult";
-import GoogleMapReact from "google-map-react";
+// import GoogleMapReact from "google-map-react";
 import MediaQuery from "react-responsive";
 import queryString from "query-string";
-import { useHistory } from "react-router-dom";
 import Axios from "axios";
 import { HeaderContext } from "../context/HeaderCloseContext";
+import {AccommodationNumberContext} from "../context/AccommodationNumber"
+import SimpleMap from '../permanent/SimpleMap'
 
 
 
 function SearchPage() {
     const [city, setCity] = useState();
-    const history = useHistory();
     const [isLoading, setIsLoading] = useState(true);
     const [show, setShow] = useContext(HeaderContext);
-    const [accommodations, setAccommodations] = useState();
+    const [accommodations, setAccommodations] = useContext(AccommodationNumberContext);
     const [center,setCenter]=useState([]);
     const zoom = 13;
     
-    const handleAccommodationPage = (id) =>{
-        history.push(`/accomodation/${id}`)
-    }
-
-
 
     useEffect(() => {
         setIsLoading(true);
         let parsed = queryString.parse(window.location.search);
         Axios.get(`http://localhost:8762/acc/search?latitude=${parsed.lat}&longitude=${parsed.lng}&radius=1`)
-        .then(function (response) {
+        .then( async function (response) {
             // handle success
-                setAccommodations(response.data.accommodationDTO);
+               await setAccommodations(response.data.accommodationDTO);
+                setIsLoading(false);
+
             })
             .catch(function (error) {
                 // handle error
@@ -51,7 +48,7 @@ function SearchPage() {
         console.log(parsed)
 
         setCenter([{lat:Number(parsed.lat)},{lng:Number(parsed.lng)}])
-        setIsLoading(false);
+        setTimeout( console.log(accommodations),5000)
 
     }, [window.location.href])
     
@@ -97,13 +94,10 @@ function SearchPage() {
                     </div>
                     <MediaQuery minDeviceWidth={1224}>
                         <div className="map">
-                            <GoogleMapReact
-                                bootstrapURLKeys={{
-                                    key: "",
-                                }}
+                            <SimpleMap
                                 center={newCenter}
                                 defaultZoom={zoom}
-                            ></GoogleMapReact>
+                            ></SimpleMap>
                         </div>
                     </MediaQuery>
                 </div>

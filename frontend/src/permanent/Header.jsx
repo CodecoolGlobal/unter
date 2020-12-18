@@ -41,7 +41,7 @@ function Header() {
             <div className="header__right">
                 <p>Become a host</p>
                 <LanguageIcon />
-                <Dropdown/>
+                <Dropdown />
             </div>
         </div>
     );
