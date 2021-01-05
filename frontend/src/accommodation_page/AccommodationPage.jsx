@@ -18,7 +18,7 @@ function AccomodationPage() {
 
 
     useEffect(() => {
-        Axios.get(`http://localhost:8762/acc/${window.location.href.substring(window.location.href.lastIndexOf('/') + 1)}`)
+        Axios.get(`http://localhost:8762/acc/accommodation-id/${window.location.href.substring(window.location.href.lastIndexOf('/') + 1)}`)
         .then(function (response) {
             console.log(JSON.stringify(response.data) +"plsplaslpasls")
             setAccommodation(response.data)
