@@ -1,6 +1,11 @@
 package com.codecool.accommodation.repository;
 
+import com.codecool.accommodation.model.entity.Accommodation;
 import com.codecool.accommodation.model.entity.Address;
+import com.codecool.accommodation.model.entity.Coordinate;
+import com.codecool.accommodation.model.entity.Room;
+import com.codecool.accommodation.model.entity.types.BedType;
+import com.codecool.accommodation.model.entity.types.RoomType;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -8,12 +13,10 @@ import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
 import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.test.context.ActiveProfiles;
 
-import java.util.Arrays;
-import java.util.List;
+import java.util.*;
 
 import static org.assertj.core.api.Assertions.assertThat;
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertThrows;
+import static org.junit.jupiter.api.Assertions.*;
 
 @DataJpaTest
 @ActiveProfiles("test")
@@ -21,6 +24,9 @@ public class AddressRepositoryTest {
 
     @Autowired
     private AddressRepository addressRepository;
+
+    @Autowired
+    private AccommodationRepository accommodationRepository;
 
     private Address testAddress;
 
@@ -87,6 +93,59 @@ public class AddressRepositoryTest {
         assertThat(found).isEqualTo(testAddress);
         assertEquals(found.getCity(), testAddress.getCity());
         assertEquals(found.getStreet(), testAddress.getStreet());
+    }
+
+    @Test
+    public void findAddressByAccommodationId_shouldBeFound() {
+        // build full accommodation with Address
+        Address address = Address.builder()
+            .city("Test City")
+            .street("Test street")
+            .zipCode("test")
+            .houseNumber(12)
+            .build();
+
+        Coordinate coordinate = Coordinate.builder()
+            .latitude(22.00)
+            .longitude(32.00)
+            .build();
+
+        Map<BedType, Integer> beds = new HashMap<>();
+        beds.put(BedType.KING, 1);
+
+        Room room = Room.builder()
+            .type(RoomType.BEDROOM)
+            .beds(beds)
+            .build();
+
+        Set<Room> rooms = new HashSet<>();
+        rooms.add(room);
+
+        Accommodation testAccommodation = Accommodation.builder()
+            .hostId(1L)
+            .rooms(rooms)
+            .description("Test")
+            .coordinate(coordinate)
+            .address(address)
+            .maxNumberOfGuests(4000)
+            .name("Test")
+            .build();
+
+        // save accommodation, get accommodation id
+        accommodationRepository.save(testAccommodation);
+        Long accId = accommodationRepository.findAll().get(0).getId();
+
+        // test
+        Address found = addressRepository.findAddressByAccommodation_Id(accId);
+        assertThat(found).isNotNull();
+        assertThat(found).isEqualTo(address);
+        assertEquals(found.getCity(), address.getCity());
+    }
+
+    @Test
+    public void findAddressByNonExistingAccommodationId_throwsException() {
+
+        assertFalse(addressRepository.existsAddressByAccommodation_Id(5L));
     }
 
     @Test

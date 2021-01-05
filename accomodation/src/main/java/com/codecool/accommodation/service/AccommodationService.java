@@ -40,9 +40,9 @@ public class AccommodationService {
 
     }
 
-    public void updateAccommodation(String accommodationId, NewAccommodationDTO newAccommodationDTO) {
+    public void updateAccommodation(Long accommodationId, NewAccommodationDTO newAccommodationDTO) {
         try {
-            accommodationDAO.updateAccommodation(Long.parseLong(accommodationId), newAccommodationDTO);
+            accommodationDAO.updateAccommodation(accommodationId, newAccommodationDTO);
         } catch (NullArgumentException exception) {
             exception.printStackTrace();
         }
