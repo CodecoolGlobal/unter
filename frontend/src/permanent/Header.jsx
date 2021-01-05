@@ -2,15 +2,15 @@ import React, { useContext } from "react";
 import "./Header.scss";
 import SearchIcon from "@material-ui/icons/Search";
 import LanguageIcon from "@material-ui/icons/Language";
-import ExpandMoreIcon from "@material-ui/icons/ExpandMore";
 import { Avatar, Button } from "@material-ui/core";
 import SearchBar from "./SearchBar";
 import { HeaderContext } from "../context/HeaderCloseContext";
+import Login from "./Login";
 
 import { Link } from "react-router-dom";
+import Dropdown from "./Dropdown";
 
 function Header() {
-    // const [open, setOpen] = useState(false);
     const [show, setShow] = useContext(HeaderContext);
 
     return (
@@ -26,7 +26,7 @@ function Header() {
             </div>
             {!show ? (
                 <div className="header__center">
-                    <Button onClick={() => setShow(!show)}>
+                    <Button onClick={() => setShow(!show)} disableRipple={true}>
                         <p className="header__search">Start your search</p>
                         {/* <input type="text" placeholder="Start your search" /> */}
                         <div className="search__logo">
@@ -41,8 +41,7 @@ function Header() {
             <div className="header__right">
                 <p>Become a host</p>
                 <LanguageIcon />
-                <ExpandMoreIcon />
-                <Avatar />
+                <Dropdown />
             </div>
         </div>
     );
