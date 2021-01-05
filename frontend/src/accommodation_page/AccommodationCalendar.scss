@@ -1,0 +1,16 @@
+.calendar {
+    position: relative;
+}
+.rdrCalendarWrapper.rdrDateRangeWrapper {
+    border-radius: 30px !important;
+    display: flex !important;
+}
+
+.rdrDateDisplayWrapper {
+    border-radius: 30px !important;
+}
+
+.rdrDayNumber span {
+    color: black !important;
+}
+

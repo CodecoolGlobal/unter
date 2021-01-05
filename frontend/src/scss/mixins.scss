@@ -1,0 +1,26 @@
+@mixin banner__padding {
+    padding-left: 50px;
+    padding-right: 80px;
+    padding-top: 25vh;
+    padding-bottom: 40px;
+}
+
+@mixin cardInfo__sizing {
+    margin-top: -9px;
+    border-radius: 10px;
+    padding: 20px;
+    padding-top: 20px;
+    border: 1;
+}
+
+@mixin flex__center {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+@mixin flex__alignCenter($justifyContent) {
+    display: flex;
+    align-items: center;
+    justify-content: $justifyContent;
+}

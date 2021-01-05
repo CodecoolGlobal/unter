@@ -1,0 +1,106 @@
+@import "../scss/mixins.scss";
+.register__modal{
+    position: absolute;
+    @include flex__center;
+    justify-content: space-around;
+    flex-direction: column;
+    height: 90vh;
+    width: 30vw;
+    top:50%;
+    left:50%;
+    transform: translate(-50%,-50%);
+    border: none;
+    background-color: white;
+    outline: none;
+    border-radius: 12px;
+    .register__header{
+        width: 100%;
+        display: flex;
+        justify-content: center;
+        border-bottom: 0.1px solid lightgrey;
+        h2{
+            position: relative;
+            left: 37%;
+            margin-bottom: 2vh;
+        }
+    }   
+    .register__body{
+
+        border: none;
+        .nameArea , .birthArea, .emailArea , .pswArea{
+            border: 1px solid grey;
+            border-radius: 5px;
+        }
+        #firstName{
+            border-bottom:1px solid grey; ;
+        }
+        .label {
+            display: flex;
+            flex-direction: column;
+            position: relative;
+
+           .Active{
+            transform: translate(0, -2.7vh) scale(0.75);
+           }
+            input{
+                height: 6vh;
+                width: 25vw;
+                  }
+            label {
+                position: absolute;
+                left: 0;
+                top:50%;
+                transform: translateY(-50%);
+                font-size: 16px;
+                font-family: Arial, Helvetica, sans-serif;
+                color: #999;
+                pointer-events: none;
+                transform-origin: top left;
+                transition: all 0.2s ease-out;
+                }
+            }
+            .label:focus-within label{
+                transform: translate(0, -2.7vh) scale(0.75);
+
+            }
+          }
+             
+        // #email{
+        //     border-bottom: 1px solid black;
+        // }
+        svg{
+            position: absolute;
+            left:0.5vw;
+            top: 2vh;
+            cursor: pointer;
+            width: 22px;
+        }
+        button{
+            background-image: radial-gradient(circle at center center, rgb(255, 56, 92) 0%, rgb(230, 30, 77) 27.5%, rgb(227, 28, 95) 40%, rgb(215, 4, 102) 57.5%, rgb(189, 30, 89) 75%, rgb(189, 30, 89) 100%) !important;
+            width: 25vw;
+            height: 5vh;
+            color: white;
+            font-weight:700;
+            font-size: 16px;
+            outline: none;
+            border-radius: 8px;
+            border: none;
+        }
+        h4{
+            position: relative;
+            display: flex;
+            align-self: flex-start;
+            margin-left: 2.5vw;
+            font-weight: 500;
+            text-decoration: underline;
+        }
+        h5{
+            width: 25vw;
+            margin-top: 0.5vh;
+            margin-bottom: 3vh;
+            font-weight: 400;
+        }
+        h6{
+            width: 25vw;
+        }
+    }
