@@ -28,7 +28,7 @@ public class Accommodation {
     @Column(nullable = false)
     private String name;
 
-    @Column
+    @Column(columnDefinition="text")
     private String description;
 
     @Lob

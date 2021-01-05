@@ -22,7 +22,7 @@ public class AccommodationController {
     public List<Accommodation> getAll(){
         return service.findAll();
     }
-
+  
     // if there is no accommodation found by the given host id, it returns an empty list!
     @GetMapping("/host-id/{hostId}")
     public List<Accommodation> getAllAccommodationByHost(@PathVariable(name = "hostId") Long hostId, HttpServletResponse response) {
@@ -46,6 +46,7 @@ public class AccommodationController {
 
     @GetMapping("/accommodation-id/{accommodationId}")
     public Accommodation getAccommodationById(@PathVariable(name = "accommodationId")Long accommodationId) {
+        System.out.println("cica"+accommodationId);
         return service.findAccommodationById(accommodationId);
     }
 }
