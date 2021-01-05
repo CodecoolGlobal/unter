@@ -112,6 +112,105 @@ public class AccommodationRepositoryTest {
     }
 
     @Test
+    public void test_findAccommodationsByHostId_shouldBeFound() {
+        // build 2 more accommodations with the same hostId but different from test
+        Long testHostId = 2L;
+        Address address2 = Address.builder()
+            .city("Test City2")
+            .street("Test street2")
+            .zipCode("test2")
+            .houseNumber(12)
+            .build();
+
+        Coordinate coordinate2 = Coordinate.builder()
+            .latitude(13.00)
+            .longitude(13.00)
+            .build();
+
+        Map<BedType, Integer> beds2 = new HashMap<>();
+        beds2.put(BedType.KING, 1);
+
+        Room room2 = Room.builder()
+            .type(RoomType.BEDROOM)
+            .beds(beds2)
+            .build();
+
+        Set<Room> rooms2 =new HashSet<>();
+        rooms2.add(room2);
+
+        Accommodation testAccommodation2 = Accommodation.builder()
+            .hostId(testHostId)
+            .rooms(rooms2)
+            .description("Test2")
+            .coordinate(coordinate2)
+            .address(address2)
+            .maxNumberOfGuests(5)
+            .name("Test2")
+            .build();
+
+        Address address3 = Address.builder()
+            .city("Test City3")
+            .street("Test street3")
+            .zipCode("test3")
+            .houseNumber(12)
+            .build();
+
+        Coordinate coordinate3 = Coordinate.builder()
+            .latitude(13.00)
+            .longitude(13.00)
+            .build();
+
+        Map<BedType, Integer> beds3 = new HashMap<>();
+        beds2.put(BedType.KING, 1);
+
+        Room room3 = Room.builder()
+            .type(RoomType.BEDROOM)
+            .beds(beds2)
+            .build();
+
+        Set<Room> rooms3 =new HashSet<>();
+        rooms3.add(room3);
+
+        Accommodation testAccommodation3 = Accommodation.builder()
+            .hostId(testHostId)
+            .rooms(rooms3)
+            .description("Test3")
+            .coordinate(coordinate3)
+            .address(address3)
+            .maxNumberOfGuests(5)
+            .name("Test3")
+            .build();
+
+        // save accommodations
+        accommodationRepository.saveAll(Arrays.asList(testAccommodation, testAccommodation2, testAccommodation3));
+
+        // find accommodations by testHostId
+        List<Accommodation> foundByHostId = accommodationRepository.findAccommodationsByHostId(testHostId);
+
+        // test
+        assertThat(foundByHostId).hasSize(2);
+        assertThat(foundByHostId).contains(testAccommodation2, testAccommodation3);
+        assertThat(foundByHostId).doesNotContain(testAccommodation);
+    }
+
+    @Test
+    public void test_findAccommodationByNonExistingHostId_shouldNotBeFound() {
+        Long testHostId = 5L;
+
+        // save testAccommodation with hostId = 1L
+        accommodationRepository.save(testAccommodation);
+
+        List<Accommodation> found = accommodationRepository.findAccommodationsByHostId(testHostId);
+        System.out.println(found);
+
+        // test
+        List<Accommodation> foundByHostId = accommodationRepository.findAccommodationsByHostId(testHostId);
+        assertThat(foundByHostId).hasSize(0);
+        assertThat(foundByHostId).isEmpty();
+        assertThat(foundByHostId).doesNotContain(testAccommodation);
+    }
+
+    @Test
     public void test_saveSeveralAccommodations_persistAll() {
         // build another accommodation
         Address address2 = Address.builder()
@@ -403,9 +502,9 @@ public class AccommodationRepositoryTest {
         assertThat(changedCoordinateList).doesNotContain(accToDelete.getCoordinate());
 
         // no coordinates are found by id of deleted accommodation
+        Coordinate coordinate = coordinateRepository.findCoordinateByAccommodation_Id(accToDelete.getId());
+        assertThat(coordinate).isNull();
         assertFalse(coordinateRepository.existsCoordinateByAccommodation_Id(accToDelete.getId()));
-        assertThrows(NoSuchElementException.class,
-            () -> coordinateRepository.findCoordinateByAccommodation_Id(accToDelete.getId()));
     }
 
     @Test
@@ -427,9 +526,9 @@ public class AccommodationRepositoryTest {
         assertThat(changedAddressList).doesNotContain(accToDelete.getAddress());
 
         // no coordinates are found by id of deleted accommodation
+        Address address = addressRepository.findAddressByAccommodation_Id(accToDelete.getId());
+        assertThat(address).isNull();
         assertFalse(addressRepository.existsAddressByAccommodation_Id(accToDelete.getId()));
-        assertThrows(NoSuchElementException.class,
-            () -> addressRepository.findAddressByAccommodation_Id(accToDelete.getId()));
     }
 
     @Test
@@ -450,8 +549,56 @@ public class AccommodationRepositoryTest {
         assertThat(changedRoomList).hasSize(sizeOfRooms - 1);
 
         // no rooms are found by id of deleted accommodation
+        Set<Room> roomSet = roomRepository.findRoomByAccommodation_Id(accToDelete.getId());
+        assertThat(roomSet).isEmpty();
         assertFalse(roomRepository.existsRoomsByAccommodation_Id(accToDelete.getId()));
-        assertThrows(NoSuchElementException.class,
-            () -> roomRepository.findRoomByAccommodation_Id(accToDelete.getId()));
+    }
+
+    @Test
+    public void test_deleteAllAccommodation_shouldBeEmpty() {
+        // build another accommodation
+        Address address = Address.builder()
+            .city("Test City2")
+            .street("Test street2")
+            .zipCode("test2")
+            .houseNumber(12)
+            .build();
+
+        Coordinate coordinate = Coordinate.builder()
+            .latitude(22.00)
+            .longitude(32.00)
+            .build();
+
+        Map<BedType, Integer> beds = new HashMap<>();
+        beds.put(BedType.KING, 1);
+
+        Room room = Room.builder()
+            .type(RoomType.BEDROOM)
+            .beds(beds)
+            .build();
+
+        Set<Room> rooms = new HashSet<>();
+        rooms.add(room);
+
+        Accommodation testAccommodation2 = Accommodation.builder()
+            .hostId(1L)
+            .rooms(rooms)
+            .description("Test2")
+            .coordinate(coordinate)
+            .address(address)
+            .maxNumberOfGuests(4000)
+            .name("Test2")
+            .build();
+
+        // save accommodations
+        accommodationRepository.saveAll(Arrays.asList(testAccommodation, testAccommodation2));
+
+        // delete all
+        accommodationRepository.deleteAll();
+
+        // test
+        List<Accommodation> accommodations = accommodationRepository.findAll();
+        assertThat(accommodations).isEmpty();
+        assertThat(accommodations).doesNotContain(testAccommodation, testAccommodation2);
     }
 }
