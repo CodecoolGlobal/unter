@@ -23,8 +23,8 @@ public class AccommodationController {
         return service.findAll();
     }
 
-    // if there is no accommodations found with that host id, it returns an empty list!
-    @GetMapping("/{hostId}")
+    // if there is no accommodation found by the given host id, it returns an empty list!
+    @GetMapping("/host-id/{hostId}")
     public List<Accommodation> getAllAccommodationByHost(@PathVariable(name = "hostId") Long hostId, HttpServletResponse response) {
         return service.getAllAccommodation(hostId);
     }
@@ -34,17 +34,17 @@ public class AccommodationController {
         service.saveNewAccommodation(newAccommodationDTO);
     }
 
-    @DeleteMapping("/{accommodationId}")
+    @DeleteMapping("/accommodation-id/{accommodationId}")
     public void deleteAccommodation(@PathVariable(name = "accommodationId") Long accommodationId, HttpServletResponse response) {
        service.deleteAccommodation(accommodationId);
     }
 
-    @PutMapping("/{accommodationId}")
-    public void updateAccommodation(@PathVariable(name = "accommodationId") String accommodationId, @RequestBody NewAccommodationDTO newAccommodationDTO) {
+    @PutMapping("/accommodation-id/{accommodationId}")
+    public void updateAccommodation(@PathVariable(name = "accommodationId") Long accommodationId, @RequestBody NewAccommodationDTO newAccommodationDTO) {
         service.updateAccommodation(accommodationId, newAccommodationDTO);
     }
 
-    @GetMapping("/{accommodationId}")
+    @GetMapping("/accommodation-id/{accommodationId}")
     public Accommodation getAccommodationById(@PathVariable(name = "accommodationId")Long accommodationId) {
         return service.findAccommodationById(accommodationId);
     }
