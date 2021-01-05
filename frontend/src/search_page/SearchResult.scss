@@ -11,8 +11,10 @@
     }
 
     img {
+        display: flex;
+        flex: 0.4;
         height: 200px;
-        width: 350px;
+        width: 600px  !important;
         border-radius: 10px;
         overflow: hidden;
     }
@@ -20,19 +22,21 @@
 
 .searchResult__info {
     display: flex;
+    flex: 0.6;
     flex-direction: column;
     justify-content: space-between;
     margin-left: 20px;
 }
 
+@media(min-width:415px){
 .searchResult__heart {
     position: absolute;
     top: 20px;
     right: 40px;
 }
+}
 
 .searchResult__infoTop {
-    width: 35%;
 
     h3 {
         font-weight: 300;
@@ -63,4 +67,21 @@
 }
 .searchResults__price > p {
     text-align: right;
+}
+
+@media(max-width:414px){
+    .searchResult__infoTop{
+        width: 100%;
+    }
+    .searchResult__heart {
+        position: absolute;
+        bottom: 20px ;
+        right: 40px ;
+    }
+
+    .searchResult{
+        margin-left: 2vw;
+        padding-left: 2vw;
+    }
+
 }
