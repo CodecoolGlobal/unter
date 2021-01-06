@@ -25,18 +25,18 @@ public class CustomUserDetailsService implements UserDetailsService {
      * Spring will call this code to retrieve a user upon login from the DB.
      */
     @Override
-    public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
+    public UserDetails loadUserByUsername(String email) throws UsernameNotFoundException {
 
-        com.codecool.earthbnb.gateway.model.entity.UserEntity user = userRepository.findByUsername(username)
-                .orElseThrow(() -> new UsernameNotFoundException("Username: " + username + " not found"));
+        com.codecool.earthbnb.gateway.model.entity.UserEntity user = userRepository.findDistinctByEmail(email);
+//                .orElseThrow(() -> new UsernameNotFoundException("Username: " + email + " not found"));
 
 
 
         if (user == null) {
-            throw new UsernameNotFoundException("Username: " + username + " not found");
+            throw new UsernameNotFoundException("Email: " + email + " not found");
         }
 
-        return new User(user.getUsername(), user.getPassword(),
+        return new User(user.getEmail(), user.getPassword(),
                 user.getRoles().stream().map(SimpleGrantedAuthority::new).collect(Collectors.toList()));
     }
 }

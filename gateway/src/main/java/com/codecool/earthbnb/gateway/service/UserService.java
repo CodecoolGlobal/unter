@@ -3,6 +3,7 @@ package com.codecool.earthbnb.gateway.service;
 import com.codecool.earthbnb.gateway.model.DTO.PublicUserDTO;
 import com.codecool.earthbnb.gateway.model.DTO.UserDTO;
 import com.codecool.earthbnb.gateway.model.Response;
+import com.codecool.earthbnb.gateway.model.entity.UserEntity;
 import com.codecool.earthbnb.gateway.service.DAO.UserDAO;
 import lombok.NonNull;
 import lombok.RequiredArgsConstructor;
@@ -16,6 +17,10 @@ import javax.servlet.http.HttpServletRequest;
 public class UserService {
 
     private final UserDAO dao;
+
+    public UserEntity getPublicUserDataByEmail(String email){
+        return dao.getPublicUserDataByEmail(email);
+    }
 
     public PublicUserDTO getPublicUserDataByUserId(Long userId) {
         return dao.getPublicUserDataByUserId(userId);

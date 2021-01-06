@@ -37,7 +37,6 @@ public class Address {
     private Accommodation accommodation;
 
     public Address() {
-
     }
 
 //    private Address(Integer houseNumber, String street, String city, String zipCode){
