@@ -83,7 +83,7 @@ function NewAccommodationLandingPage() {
     newAccommodation["address"] = address;
     setAccommodation(newAccommodation);
     console.log(accommodation);
-    //history.push("/become-a-host/room");
+    history.push("/become-a-host/description");
   };
 
   let details = (
