@@ -46,7 +46,6 @@ public class AccommodationController {
 
     @GetMapping("/accommodation-id/{accommodationId}")
     public Accommodation getAccommodationById(@PathVariable(name = "accommodationId")Long accommodationId) {
-        System.out.println("cica"+accommodationId);
         return service.findAccommodationById(accommodationId);
     }
 }

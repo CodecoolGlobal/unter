@@ -9,6 +9,7 @@ import Axios from "axios";
 import { HeaderContext } from "../context/HeaderCloseContext";
 import {AccommodationNumberContext} from "../context/AccommodationNumber"
 import SimpleMap from '../permanent/SimpleMap'
+import {useLocation} from "react-router-dom";
 
 
 
@@ -19,6 +20,7 @@ function SearchPage() {
     const [accommodations, setAccommodations] = useContext(AccommodationNumberContext);
     const [center,setCenter]=useState([]);
     const zoom = 13;
+    const location = useLocation();
     
 
     useEffect(() => {
@@ -41,16 +43,14 @@ function SearchPage() {
             console.log(center)
             setCity(parsed.city);
 
-    }, [window.location.href]);
+    }, [location]);
 
     useEffect(() => {
         let parsed = queryString.parse(window.location.search);
-        console.log(parsed)
 
         setCenter([{lat:Number(parsed.lat)},{lng:Number(parsed.lng)}])
-        setTimeout( console.log(accommodations),5000)
 
-    }, [window.location.href])
+    }, [location])
     
     
     if(isLoading){
