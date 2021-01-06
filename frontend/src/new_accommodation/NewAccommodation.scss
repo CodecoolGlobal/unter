@@ -1,0 +1,95 @@
+@import "../scss/mixins.scss";
+
+body {
+  background-color: #fafafa;
+}
+
+.container {
+  background-color: white;
+  max-width: 500px;
+  height: 100%;
+  margin-left: auto;
+  margin-right: auto;
+  padding: 30px;
+}
+
+.content {
+  color: #484848;
+  font-size: 16px;
+  text-rendering: optimizelegibility;
+  line-height: 1.375em;
+}
+
+h2 {
+  font-size: 24px;
+  font-weight: bold;
+  margin-bottom: 15px;
+  margin-top: 30px;
+}
+
+h3 {
+  font-size: 14px;
+  color: #767676;
+  margin: 30px 0 6px;
+}
+
+strong {
+  font-size: 14px;
+  margin: 30px 0 6px;
+}
+
+.label {
+  margin-top: 25px;
+}
+
+input,
+.dropdown {
+  @include text__input;
+  @include placeholder {
+    color: #aaaaaa !important;
+  }
+}
+
+.side-by-side {
+  width: 100%;
+  display: table;
+}
+
+.row {
+  display: table-row;
+  min-width: 100%;
+}
+
+.cell-left {
+  display: table-cell;
+  padding: 0 8px 0 0;
+}
+
+.cell-right {
+  display: table-cell;
+  padding: 0 0 0 8px;
+}
+
+.next-button {
+  background-color: #008489;
+  transition: background-color 0.3s;
+  border: none;
+  border-radius: 4px;
+  color: white;
+  padding: 10px 20px;
+  text-align: center;
+  text-decoration: none;
+  font-weight: 600 !important;
+  display: inline-block;
+  font-size: 14px;
+  margin: 12px 2px;
+  cursor: pointer;
+  &:disabled {
+    filter: opacity(30%);
+    cursor: default;
+  }
+  &:focus {
+    outline: none;
+    background-color: #027175;
+  }
+}
