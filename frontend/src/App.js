@@ -10,6 +10,7 @@ import AccommodationPage from "./accommodation_page/AccommodationPage";
 import { AccommodationNumberProvider } from "./context/AccommodationNumber";
 import Location from "./new_accommodation/Location";
 import { NewAccommodationProvider } from "./context/NewAccommodationContext";
+import NewAccommodation from "./new_accommodation/NewAccommodation";
 
 function App() {
   return (
@@ -26,8 +27,8 @@ function App() {
                 <Route path="/accommodation">
                   <AccommodationPage />
                 </Route>
-                <Route path="/become-a-host/location">
-                  <Location />
+                <Route path="/become-a-host">
+                  <NewAccommodation />
                 </Route>
                 <Route path="/">
                   <Home />

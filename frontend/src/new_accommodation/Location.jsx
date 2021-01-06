@@ -155,41 +155,39 @@ function NewAccommodationLandingPage() {
   );
 
   return (
-    <div className="container">
-      <div className="content">
-        <h2>Where’s your place located?</h2>
-        <p>
-          Guests will only get your exact address once they’ve booked a
-          reservation.
-        </p>
+    <React.Fragment>
+      <h2>Where’s your place located?</h2>
+      <p>
+        Guests will only get your exact address once they’ve booked a
+        reservation.
+      </p>
 
-        <div ref={ref}>
-          <input
-            value={value}
-            onChange={(event) => {
-              setValue(event.target.value);
-            }}
-            disabled={!ready}
-            placeholder="Property address"
-          />
-          {status === "OK" && <ul>{renderSuggestions()}</ul>}
-        </div>
-
-        {
-          //value !== "" &&
-          details
-        }
-
-        <button
-          type="button"
-          className="next-button"
-          onClick={handleContinue}
-          disabled={value === ""}
-        >
-          Continue
-        </button>
+      <div ref={ref}>
+        <input
+          value={value}
+          onChange={(event) => {
+            setValue(event.target.value);
+          }}
+          disabled={!ready}
+          placeholder="Property address"
+        />
+        {status === "OK" && <ul>{renderSuggestions()}</ul>}
       </div>
-    </div>
+
+      {
+        //value !== "" &&
+        details
+      }
+
+      <button
+        type="button"
+        className="next-button"
+        onClick={handleContinue}
+        disabled={value === ""}
+      >
+        Continue
+      </button>
+    </React.Fragment>
   );
 }
 
