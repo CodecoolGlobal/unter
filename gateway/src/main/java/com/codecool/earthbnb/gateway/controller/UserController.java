@@ -2,6 +2,7 @@ package com.codecool.earthbnb.gateway.controller;
 
 import com.codecool.earthbnb.gateway.model.DTO.PublicUserDTO;
 import com.codecool.earthbnb.gateway.service.UserService;
+import com.codecool.earthbnb.gateway.service.validation.annotation.ValidLong;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.GetMapping;

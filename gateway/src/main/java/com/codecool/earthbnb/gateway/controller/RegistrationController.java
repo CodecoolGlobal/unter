@@ -7,6 +7,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletResponse;
+import javax.validation.Valid;
 import java.io.IOException;
 
 @RestController
@@ -17,7 +18,7 @@ public class RegistrationController {
     private final UserService userService;
 
     @PostMapping("")
-    public void doRegistration(HttpServletResponse response, @RequestBody UserDTO userDTO) {
+    public void doRegistration(HttpServletResponse response, @RequestBody @Valid UserDTO userDTO) {
 
         Response serviceResponse = userService.register(userDTO);
         if (serviceResponse.isSuccess()) {
