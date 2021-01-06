@@ -4,6 +4,7 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.*;
 
 import javax.persistence.*;
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
@@ -25,9 +26,9 @@ public class UserEntity {
     @Column
     private String lastName;
 
-
-    @Column(unique = true, nullable = false)
-    private String username;
+//
+//    @Column(unique = true, nullable = false)
+//    private String username;
 
     @Column(unique = true, nullable = false)
     private String email;
@@ -37,6 +38,9 @@ public class UserEntity {
 
     @Column
     private LocalDateTime registrationDate;
+
+    @Column
+    private LocalDate birthDate;
 
     @ElementCollection(fetch = FetchType.EAGER)
     @Builder.Default

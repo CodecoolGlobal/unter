@@ -4,6 +4,7 @@ import lombok.Data;
 import lombok.NonNull;
 
 import javax.persistence.Column;
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 
 
@@ -13,9 +14,10 @@ public class UserDTO {
     private Long id;
     private String firstName;
     private String lastName;
-    private String username;
+//    private String username;
     private String email;
     private String password;
     private LocalDateTime registrationDate;
+    private LocalDate birthDate;
 
 }
