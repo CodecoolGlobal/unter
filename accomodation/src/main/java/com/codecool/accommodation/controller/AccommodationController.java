@@ -4,12 +4,10 @@ import com.codecool.accommodation.model.DTO.NewAccommodationDTO;
 import com.codecool.accommodation.model.entity.Accommodation;
 import com.codecool.accommodation.service.AccommodationService;
 import lombok.RequiredArgsConstructor;
-import org.apache.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletResponse;
 import javax.validation.Valid;
-import java.io.IOException;
 import java.util.List;
 
 @RestController
