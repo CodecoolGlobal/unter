@@ -53,9 +53,9 @@ public class UserDB implements UserDAO {
                     .firstName(user.getFirstName())
                     .lastName(user.getLastName())
                     .email(user.getEmail())
+                    .birthDate(user.getBirthDate())
                     .build();
         } else return null;
-
     }
 
     @Override
