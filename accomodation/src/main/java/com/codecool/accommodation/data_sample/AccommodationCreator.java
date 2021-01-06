@@ -6,6 +6,8 @@ import com.codecool.accommodation.model.entity.Coordinate;
 import com.codecool.accommodation.repository.AccommodationRepository;
 import org.springframework.stereotype.Component;
 
+import java.util.Arrays;
+
 @Component
 public class AccommodationCreator {
     private final AccommodationRepository repository;
@@ -79,6 +81,7 @@ public class AccommodationCreator {
                 "Experience true urban living in this design-conscious flat in central (CN). The edited space features midcentury furnishings and colorful accents, lending it a distinctly liveable feel. Take in sweeping city views from the private balcony.",
                 "Have a glass of wine while enjoying Netflix on the comfortable sofa after exploring local culture. Pull the back the curtains after a restful night’s sleep and let light flood into this studio. This central apartment makes excellent use of the space with a calming neutral palette and sleek finished floors alongside thoughtful details."
         };
+
         int[] maxNumbersOfGuests = {
                 1,
                 2,
@@ -88,6 +91,7 @@ public class AccommodationCreator {
                 2,
                 3
         };
+
         String[] names = {
                 "Stay at this spacious Edwardian House",
                 "Independant luxury studio apartment",
@@ -97,15 +101,73 @@ public class AccommodationCreator {
                 "The Blue Room In Budapest",
                 "5 Star Luxury Apartment"
         };
-        String[] pictureUrls = {
-                "https://encrypted-tbn0.gstatic.com/images?q=tbn%3AANd9GcQ_wbPYTxQPMcBh7SPzLFActXnP3uhifeVT_g&usqp=CAU",
-                "https://www.expatkings.com/wp-content/uploads/2018/10/Airbnb-rental-tips.-Hostmaker-1-620x349.jpg",
-                "https://www.smartertravel.com/uploads/2017/07/Untitled-design-8.jpg",
-                "https://cdn.bisnow.net/fit?height=489&type=jpeg&url=https%3A%2F%2Fs3.amazonaws.com%2Fcdn.bisnow.net%2Fcontent%2Fimages%2F2017%2F05%2F59151d0978bbf_https_press_atairbnb_com_app_uploads_2016_12_midtown_4.jpeg&width=717&sign=FeltIPi9cOWA36nVIeDvZxwgtiCZrpUyMRdvyZviTUI",
-                "https://media.cntraveler.com/photos/5a8f258bd363c34048b35aac/master/w_2250,h_1500,c_limit/airbnb-plus-london.jpg",
-                "https://static.trip101.com/paragraph_media/pictures/001/676/061/large/969ae4bb-efd1-4fb9-a4e3-5cb3316dd3c9.jpg?1562227937",
-                "https://image.insider.com/585029a0dd0895bc548b4b8b?width=750&format=jpeg&auto=webp"
+        String[][] pictureUrls = {
+                {
+                        "https://ksassets.timeincuk.net/wp/uploads/sites/56/2017/04/Exterior-IH-April-p62-Powell-920x920.jpg",
+                        "https://ksassets.timeincuk.net/wp/uploads/sites/56/2017/04/Living-room-IH-April-p62-Powell-920x920.jpg",
+                        "https://ksassets.timeincuk.net/wp/uploads/sites/56/2017/04/Sofa-IH-April-p62-Powell-920x920.jpg",
+                        "https://ksassets.timeincuk.net/wp/uploads/sites/56/2017/04/Kitchen-diner-IH-April-p62-Powell-920x920.jpg",
+                        "https://ksassets.timeincuk.net/wp/uploads/sites/56/2017/04/Kitchen-IH-April-p62-Powell-920x920.jpg",
+                        "https://ksassets.timeincuk.net/wp/uploads/sites/56/2017/04/Stairs-IH-April-p62-Powell-920x920.jpg",
+                        "https://ksassets.timeincuk.net/wp/uploads/sites/56/2017/04/Bedroom-IH-April-p62-Powell-920x920.jpg",
+                },
+                {
+                        "https://media.rightmove.co.uk/52k/51411/100883060/51411_12493_IMG_01_0000.jpg",
+                        "https://media.rightmove.co.uk/52k/51411/100883060/51411_12493_IMG_02_0000.jpg",
+                        "https://media.rightmove.co.uk/52k/51411/100883060/51411_12493_IMG_03_0000.jpg",
+                        "https://media.rightmove.co.uk/52k/51411/100883060/51411_12493_IMG_04_0000.jpg",
+                        "https://media.rightmove.co.uk/52k/51411/100883060/51411_12493_IMG_05_0000.jpg",
+                        "https://media.rightmove.co.uk/52k/51411/100883060/51411_12493_IMG_06_0000.jpg",
+                },
+                {
+                        "https://media.rightmove.co.uk/106k/105809/101689583/105809_71-b1-ik_IMG_00_0000.jpeg",
+                        "https://media.rightmove.co.uk/106k/105809/101689583/105809_71-b1-ik_IMG_01_0000.jpeg",
+                        "https://media.rightmove.co.uk/106k/105809/101689583/105809_71-b1-ik_IMG_02_0000.jpeg",
+                        "https://media.rightmove.co.uk/106k/105809/101689583/105809_71-b1-ik_IMG_03_0000.jpeg",
+                        "https://media.rightmove.co.uk/106k/105809/101689583/105809_71-b1-ik_IMG_04_0000.jpeg",
+                },
+                {
+                        "https://media.rightmove.co.uk/103k/102653/99838775/102653_CAM10_1Bed_ShortLet_IMG_08_0000.jpeg",
+                        "https://media.rightmove.co.uk/103k/102653/99838775/102653_CAM10_1Bed_ShortLet_IMG_05_0000.jpeg",
+                        "https://media.rightmove.co.uk/103k/102653/99838775/102653_CAM10_1Bed_ShortLet_IMG_03_0000.jpeg",
+                        "https://media.rightmove.co.uk/103k/102653/99838775/102653_CAM10_1Bed_ShortLet_IMG_09_0000.jpeg",
+                        "https://media.rightmove.co.uk/103k/102653/99838775/102653_CAM10_1Bed_ShortLet_IMG_04_0000.jpeg",
+                        "https://media.rightmove.co.uk/103k/102653/99838775/102653_CAM10_1Bed_ShortLet_IMG_07_0000.jpeg",
+                        "https://media.rightmove.co.uk/103k/102653/99838775/102653_CAM10_1Bed_ShortLet_IMG_06_0000.jpeg",
+                        "https://media.rightmove.co.uk/103k/102653/99838775/102653_CAM10_1Bed_ShortLet_IMG_01_0000.jpeg",
+                        "https://media.rightmove.co.uk/103k/102653/99838775/102653_CAM10_1Bed_ShortLet_IMG_00_0000.jpeg",
+                },
+                {
+                        "https://media.rightmove.co.uk/214k/213929/76185228/213929_4887960_IMG_01_0001.jpg",
+                        "https://media.rightmove.co.uk/214k/213929/76185228/213929_4887960_IMG_02_0001.jpg",
+                        "https://media.rightmove.co.uk/214k/213929/76185228/213929_4887960_IMG_05_0001.jpg",
+                        "https://media.rightmove.co.uk/214k/213929/76185228/213929_4887960_IMG_07_0001.jpg",
+                        "https://media.rightmove.co.uk/214k/213929/76185228/213929_4887960_IMG_08_0001.jpg",
+                        "https://media.rightmove.co.uk/214k/213929/76185228/213929_4887960_IMG_09_0000.jpg",
+                        "https://media.rightmove.co.uk/214k/213929/76185228/213929_4887960_IMG_14_0000.jpg",
+                },
+                {
+
+                        "https://media.rightmove.co.uk/51k/50795/87826444/50795_P4484M3322_IMG_05_0000.jpg",
+                        "https://media.rightmove.co.uk/51k/50795/87826444/50795_P4484M3322_IMG_09_0000.jpg",
+                        "https://media.rightmove.co.uk/51k/50795/87826444/50795_P4484M3322_IMG_08_0000.jpg",
+                        "https://media.rightmove.co.uk/51k/50795/87826444/50795_P4484M3322_IMG_02_0000.jpg",
+                        "https://media.rightmove.co.uk/51k/50795/87826444/50795_P4484M3322_IMG_03_0000.jpg",
+                        "https://media.rightmove.co.uk/51k/50795/87826444/50795_P4484M3322_IMG_04_0000.jpg",
+                },
+                {
+                        "https://media.rightmove.co.uk/217k/216443/101689511/216443_403WS2_IMG_00_0000.jpeg",
+                        "https://media.rightmove.co.uk/217k/216443/101689511/216443_403WS2_IMG_01_0000.jpeg",
+                        "https://media.rightmove.co.uk/217k/216443/101689511/216443_403WS2_IMG_02_0000.jpeg",
+                        "https://media.rightmove.co.uk/217k/216443/101689511/216443_403WS2_IMG_03_0000.jpeg",
+                        "https://media.rightmove.co.uk/217k/216443/101689511/216443_403WS2_IMG_04_0000.jpeg",
+                        "https://media.rightmove.co.uk/217k/216443/101689511/216443_403WS2_IMG_06_0000.jpeg",
+                        "https://media.rightmove.co.uk/217k/216443/101689511/216443_403WS2_IMG_07_0000.jpeg",
+                        "https://media.rightmove.co.uk/217k/216443/101689511/216443_403WS2_IMG_08_0000.jpeg",
+                        "https://media.rightmove.co.uk/217k/216443/101689511/216443_403WS2_IMG_09_0000.jpeg",
+                }
         };
+
         Long[] hostIds = {
                 1L,
                 2L,
@@ -127,7 +189,7 @@ public class AccommodationCreator {
                     .description(descriptions[i])
                     .maxNumberOfGuests(maxNumbersOfGuests[i])
                     .name(names[i])
-                    .picture(pictureUrls[i])
+                    .pictures(Arrays.asList(pictureUrls[i]))
                     .hostId(hostIds[i])
                     .build();
 
@@ -146,7 +208,7 @@ public class AccommodationCreator {
                 .description("Nice!444négy")
                 .maxNumberOfGuests(4000)
                 .name("Házikó")
-                .picture(null)
+                .pictures(null)
                 .hostId(1L)
                 .build();
 
@@ -175,7 +237,7 @@ public class AccommodationCreator {
                 .hostId(newAccommodation.getHostId())
                 .address(address)
                 .coordinate(coordinate)
-                .pictureUrl(newAccommodation.getPicture())
+                .pictures(newAccommodation.getPictures())
                 .build();
 
         return accommodation;

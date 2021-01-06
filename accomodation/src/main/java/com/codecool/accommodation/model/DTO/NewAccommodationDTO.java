@@ -11,6 +11,7 @@ import com.codecool.accommodation.validation.annotation.ValidLong;
 import lombok.Builder;
 import lombok.Data;
 import javax.validation.constraints.NotEmpty;
+import java.util.List;
 import java.util.Set;
 
 @Data
@@ -24,6 +25,8 @@ public class NewAccommodationDTO {
     private String name;
 
     private String description;
+
+    private List<String> pictures;
 
     @ValidCoordinate
     private Coordinate coordinate;
