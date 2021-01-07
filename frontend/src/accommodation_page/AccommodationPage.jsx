@@ -11,6 +11,7 @@ import Axios from 'axios';
 function AccomodationPage() {
     const [accommodation,setAccommodation] = useState();
     const [isLoading,setIsLoading] = useState(true);
+    const [center,setCenter] = useState([])
     const defaultProps = {
         center: { lat: 59.95, lng: 30.33 },
         zoom: 11,
@@ -19,9 +20,10 @@ function AccomodationPage() {
 
     useEffect(() => {
         Axios.get(`http://localhost:8762/acc/accommodation-id/${window.location.href.substring(window.location.href.lastIndexOf('/') + 1)}`)
-        .then(function (response) {
+        .then(async function (response) {
             console.log(JSON.stringify(response.data) +"plsplaslpasls")
             setAccommodation(response.data)
+            await setCenter([{lat:Number(response.data.coordinate.latitude)},{lng:Number(response.data.coordinate.longitude)}])
             setIsLoading(false)
         })
         .catch(function (error) {
@@ -37,6 +39,7 @@ function AccomodationPage() {
         <div>Loading</div>)
     }
     else{
+        let newCenter = {lat:center[0]["lat"],lng:center[1]["lng"]}
     return (
         <div className="accommodation__page">
         <div className="accommodation__pageContainer">
@@ -50,7 +53,7 @@ function AccomodationPage() {
                         </p>
                         <p>·</p>
                         <p>
-                            {accommodation.address.city}, Hungary
+                            {accommodation.address.city}, {accommodation.address.country}
                         </p>
             </div>
             <div className="gallery">
@@ -71,15 +74,15 @@ function AccomodationPage() {
             <div className="scroll__container">
                 <div className="accommodation__side">
                     <div className="host__info">
-                        <h3> Host által által kiadott Teljes lakás</h3>
+                        <h3>{accommodation.name}</h3>
                         <div className="apartman__info">
-                        <h5>3 vendég</h5>
+                        <h5>{accommodation.maxNumberOfGuest} Guest</h5>
                         <h5>·</h5>
-                        <h5>Stúdiólakás</h5>
+                        <h5>Apartment</h5>
                         <h5>·</h5>
-                        <h5> 3 ágy</h5>
+                        <h5> 3 bed</h5>
                         <h5>·</h5>
-                        <h5>1 füdőszoba</h5>
+                        <h5>1 bathroom</h5>
                         </div>
                     </div>
                     <div className="accommodation__description">
@@ -135,7 +138,7 @@ function AccomodationPage() {
                         bootstrapURLKeys={{
                             key: "",
                         }}
-                        center={accommodation.coordinate}
+                        center={newCenter}
                         defaultZoom={defaultProps.zoom}
             ></GoogleMapReact>
             <div className="location__description">

@@ -45,6 +45,7 @@ function Registration() {
     setUser(response.data)
     // store the user in localStorage
     localStorage.setItem('user', response.data)
+    handleClose();
     console.log(response.data)
   };
   

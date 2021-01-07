@@ -19,6 +19,7 @@ export default function SimpleModal() {
   const handleSubmit = async e => {
     e.preventDefault();
     const user = { email, password };
+    console.log(user);
     var response;
     // send the username and password to the server
     try{
