@@ -1,6 +1,7 @@
 package com.codecool.accommodation.controller;
 
 import com.codecool.accommodation.model.DTO.NewAccommodationDTO;
+import com.codecool.accommodation.model.DTO.ResponseAccDTO;
 import com.codecool.accommodation.model.entity.*;
 import com.codecool.accommodation.model.entity.types.AccommodationType;
 import com.codecool.accommodation.model.entity.types.BedType;
@@ -40,6 +41,8 @@ public class AccommodationControllerTest {
     private Accommodation testAccommodation;
 
     private NewAccommodationDTO testNewAccommodationDTO;
+
+    private ResponseAccDTO testResponseAccDTO;
 
     @BeforeEach
     public void setUp() {
@@ -87,6 +90,18 @@ public class AccommodationControllerTest {
             .rooms(rooms)
             .address(address)
             .build();
+
+        testResponseAccDTO= ResponseAccDTO.builder()
+                .id(1L)
+                .hostId(1L)
+                .name("ResponseTest")
+                .description("Test")
+                .coordinate(coordinate)
+                .type(AccommodationType.APARTMENT)
+                .maxNumberOfGuest(3)
+                .rooms(rooms)
+                .address(address)
+                .build();
     }
 
     @Test
@@ -127,15 +142,15 @@ public class AccommodationControllerTest {
 
     @Test
     public void test_findAccommodationById_ShouldBeFound() throws Exception {
-        when(service.findAccommodationById(1L)).thenReturn(testNewAccommodationDTO);
+        when(service.findAccommodationById(1L)).thenReturn(testResponseAccDTO);
 
         mockMvc
             .perform(MockMvcRequestBuilders
                 .get("/accommodation-id/{accommodationId}", 1L)
                 .characterEncoding("utf-8"))
             .andExpect(content().contentType(MediaType.APPLICATION_JSON))
-//            .andExpect(jsonPath("$.id").value(1L))
-            .andExpect(jsonPath("$.name").value("Test"))
+            .andExpect(jsonPath("$.id").value(1L))
+            .andExpect(jsonPath("$.name").value("ResponseTest"))
             .andExpect(jsonPath("$.description").value("Test"))
             .andExpect(status().is2xxSuccessful())
             .andDo(print());

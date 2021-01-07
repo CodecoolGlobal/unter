@@ -46,9 +46,6 @@ public class NewAccommodationDTO {
     @ValidAddress
     private Address address;
 
-    void setCoordinates(Coordinate coordinates){
-        coordinate = coordinates;
-    }
 
 
 }
