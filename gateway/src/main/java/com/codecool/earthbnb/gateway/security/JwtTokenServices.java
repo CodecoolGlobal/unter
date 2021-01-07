@@ -35,9 +35,9 @@ public class JwtTokenServices {
         secretKey = Base64.getEncoder().encodeToString(secretKey.getBytes());
     }
 
-    public String createToken(String username, List<String> roles) {
+    public String createToken(String email, List<String> roles) {
         // Add a custom field to the token
-        Claims claims = Jwts.claims().setSubject(username);
+        Claims claims = Jwts.claims().setSubject(email);
         claims.put(rolesFieldName, roles);
 
         Date now = new Date();
@@ -84,7 +84,7 @@ public class JwtTokenServices {
         return false;
     }
 
-    public String getUsernameFromToken(HttpServletRequest req) {
+    public String getEmailFromToken(HttpServletRequest req) {
         String mycookie = null;
         Cookie[] cookies = req.getCookies();
 

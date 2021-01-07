@@ -8,7 +8,10 @@ import lombok.*;
 import org.hibernate.annotations.Type;
 
 import javax.persistence.*;
+import java.lang.reflect.Array;
+import java.util.ArrayList;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 
 @Data
@@ -31,9 +34,13 @@ public class Accommodation {
     @Column(columnDefinition="text")
     private String description;
 
-    @Lob
+   /* @Lob
     @Type(type = "org.hibernate.type.TextType")
     private String pictureUrl;
+  */
+
+    @ElementCollection
+    private List<String> pictures;
 
     @Column(nullable = false)
     private Integer maxNumberOfGuests;

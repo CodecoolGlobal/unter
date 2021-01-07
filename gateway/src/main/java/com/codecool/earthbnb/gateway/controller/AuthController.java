@@ -1,7 +1,10 @@
 package com.codecool.earthbnb.gateway.controller;
 
 import com.codecool.earthbnb.gateway.model.DTO.LoginDTO;
+import com.codecool.earthbnb.gateway.model.DTO.PublicUserDTO;
+import com.codecool.earthbnb.gateway.model.entity.UserEntity;
 import com.codecool.earthbnb.gateway.security.JwtTokenServices;
+import com.codecool.earthbnb.gateway.service.UserService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpHeaders;
@@ -30,6 +33,8 @@ import java.util.stream.Collectors;
 @Slf4j
 public class AuthController {
 
+    private final UserService userService;
+
     private final AuthenticationManager authenticationManager;
 
     private final JwtTokenServices jwtTokenServices;
@@ -57,15 +62,17 @@ public class AuthController {
     @PostMapping(value = "", produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity login(@RequestBody LoginDTO loginData, HttpServletResponse response) {
         try {
-            String username = loginData.getUsername();
-            Authentication authentication = authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(username, loginData.getPassword()));
+            String email = loginData.getEmail();
+            UserEntity user = userService.getPublicUserDataByEmail(email);
+
+            Authentication authentication = authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(email, loginData.getPassword()));
             List<String> roles = authentication.getAuthorities()
                     .stream()
                     .map(GrantedAuthority::getAuthority)
                     .collect(Collectors.toList());
 
 
-            String token = jwtTokenServices.createToken(username, roles);
+            String token = jwtTokenServices.createToken(email, roles);
             ResponseCookie cookie = ResponseCookie
                     .from("authentication", token)
                     .maxAge(3600)  //1 hr
@@ -73,7 +80,8 @@ public class AuthController {
 
 
             Map<Object, Object> model = new HashMap<>();
-            model.put("username", username);
+            model.put("Name: ", user.getFirstName());
+            model.put("Id: ", user.getId());
             model.put("roles", roles);
 
             return ResponseEntity.ok().header(HttpHeaders.SET_COOKIE, cookie.toString())

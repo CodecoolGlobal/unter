@@ -39,51 +39,56 @@ public class UserDB implements UserDAO {
         return PublicUserDTO.builder()
                 .firstName(user.getFirstName())
                 .lastName(user.getLastName())
-                .username(user.getUsername())
+//                .username(user.getUsername())
                 .email(user.getEmail())
                 .build();
     }
 
     @Override
     public PublicUserDTO getLoggedInUserData(HttpServletRequest request) {
-        String username = jwtTokenServices.getUsernameFromToken(request);
-        UserEntity user = userRepository.findDistinctByUsername(username);
+        String email = jwtTokenServices.getEmailFromToken(request);
+        UserEntity user = userRepository.findDistinctByEmail(email);
         if(user != null){
             return PublicUserDTO.builder()
                     .firstName(user.getFirstName())
                     .lastName(user.getLastName())
-                    .username(user.getUsername())
                     .email(user.getEmail())
+                    .birthDate(user.getBirthDate())
                     .build();
         } else return null;
-
     }
 
     @Override
     public Response register(UserDTO userDTO) {
-        EmailValidator validator = EmailValidator.getInstance();
-
-        if (!validator.isValid(userDTO.getEmail())) return new Response(false, "E-mail format not valid");
-
-        if (userRepository.existsByEmail(userDTO.getEmail()))
-            return new Response(false, "This email is already registered!");
-        if (userRepository.existsByUsername(userDTO.getUsername()))
-            return new Response(false, "This username is already taken!");
-        if (!validatorService.validateRegistration(userDTO, 2, 20,  2, 20))
-            return new Response(false, "Registration failed due to invalid credentials");
-
+//        EmailValidator validator = EmailValidator.getInstance();
+//
+//        if (!validator.isValid(userDTO.getEmail())) return new Response(false, "E-mail format not valid");
+//
+//        if (userRepository.existsByEmail(userDTO.getEmail()))
+//            return new Response(false, "This email is already registered!");
+////        if (userRepository.existsByUsername(userDTO.getUsername()))
+////            return new Response(false, "This username is already taken!");
+//        if (!validatorService.validateRegistration(userDTO, 2, 20,  2, 20))
+//            return new Response(false, "Registration failed due to invalid credentials");
+//
 
         UserEntity userEntity = UserEntity.builder()
                 .email(userDTO.getEmail())
                 .password(passwordEncoder.encode(userDTO.getPassword()))
-                .username(userDTO.getUsername())
                 .firstName(userDTO.getFirstName())
                 .lastName(userDTO.getLastName())
                 .registrationDate(LocalDateTime.now())
                 .roles(Collections.singletonList("ROLE_USER"))
+                .birthDate(userDTO.getBirthDate())
                 .build();
         userRepository.save(userEntity);
         return new Response(true, "success");
+    }
+
+    @Override
+    public UserEntity getPublicUserDataByEmail(String email) {
+        UserEntity user  = userRepository.findDistinctByEmail(email);
+        return user;
     }
 
 }
