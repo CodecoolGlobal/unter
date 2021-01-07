@@ -11,6 +11,7 @@ import java.util.Optional;
 public interface AccommodationRepository extends JpaRepository<Accommodation, Long> {
 
     List<Accommodation> findAccommodationsByHostId(Long hostId);
+   Accommodation findAccommodationById(Long accommodationId);
     void deleteAccommodationById(Long accommodationId);
 
 

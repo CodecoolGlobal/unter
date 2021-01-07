@@ -11,7 +11,7 @@ public interface AccommodationDAO {
     List<Accommodation> findAllByHostId(Long hostId);
     void saveNewAccommodation(NewAccommodationDTO newAccommodationDTO);
     void deleteAccommodation(Long accommodationId);
-    Accommodation findAccommodationById(Long accommodationId);
+    NewAccommodationDTO findAccommodationById(Long accommodationId);
     void updateAccommodation(Long accommodationId, NewAccommodationDTO newAccommodationDTO);
     boolean isExisted(Long accommodationId);
 }

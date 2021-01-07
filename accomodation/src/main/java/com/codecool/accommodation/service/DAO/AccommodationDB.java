@@ -90,16 +90,28 @@ public class AccommodationDB implements AccommodationDAO {
     }
 
     @Override
-    public Accommodation findAccommodationById(Long accommodationId) {
+    public NewAccommodationDTO findAccommodationById(Long accommodationId) {
+        Accommodation accommodation = repository.findById(accommodationId).orElseThrow(()-> new AccommodationNotFoundException(accommodationId));
 
-        return repository.findById(accommodationId)
-                .orElseThrow(() -> new AccommodationNotFoundException(accommodationId));
+        NewAccommodationDTO newAccommodationDTO = NewAccommodationDTO.builder()
+                .address(accommodation.getAddress())
+                .coordinate(accommodation.getCoordinate())
+                .description(accommodation.getDescription())
+                .hostId(accommodation.getHostId())
+                .maxNumberOfGuest(accommodation.getMaxNumberOfGuests())
+                .pictures(accommodation.getPictures())
+                .name(accommodation.getName())
+                .rooms(accommodation.getRooms())
+                .type(accommodation.getType())
+                .build();
+
+        return newAccommodationDTO;
     }
 
     @Override
     @Transactional
     public void updateAccommodation(Long accommodationId, NewAccommodationDTO newAccommodationDTO) {
-        Accommodation toEdit = findAccommodationById(accommodationId);
+        Accommodation toEdit = repository.findAccommodationById(accommodationId);
 
         toEdit.setName(newAccommodationDTO.getName());
         toEdit.setDescription(newAccommodationDTO.getDescription());

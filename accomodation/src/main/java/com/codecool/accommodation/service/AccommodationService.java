@@ -52,7 +52,7 @@ public class AccommodationService {
         return accommodationDAO.findAll();
     }
 
-    public Accommodation findAccommodationById(Long accommodationId) {
+    public NewAccommodationDTO findAccommodationById(Long accommodationId) {
 
         return accommodationDAO.findAccommodationById(accommodationId);
     }

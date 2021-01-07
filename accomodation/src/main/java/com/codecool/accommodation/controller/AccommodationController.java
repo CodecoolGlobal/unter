@@ -43,7 +43,7 @@ public class AccommodationController {
     }
 
     @GetMapping("/accommodation-id/{accommodationId}")
-    public Accommodation getAccommodationById(@PathVariable(name = "accommodationId")Long accommodationId) {
+    public NewAccommodationDTO getAccommodationById(@PathVariable(name = "accommodationId")Long accommodationId) {
         return service.findAccommodationById(accommodationId);
     }
 }
