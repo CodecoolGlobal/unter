@@ -1,10 +1,12 @@
 import React, { useState, useContext } from "react";
 import "./NewAccommodation.scss";
+/*AFTER PLACES API WORKS: 
 import usePlacesAutocomplete, {
   getGeocode,
   getLatLng,
 } from "use-places-autocomplete";
 import useOnclickOutside from "react-cool-onclickoutside";
+*/
 import { NewAccommodationContext } from "../context/NewAccommodationContext";
 import { useHistory } from "react-router-dom";
 import { CountryDropdown } from "react-country-region-selector";
@@ -13,27 +15,21 @@ function NewAccommodationLandingPage() {
   const history = useHistory();
   const [accommodation, setAccommodation] = useContext(NewAccommodationContext);
 
-  const [coordinates, setCoordinates] = useState({});
+  // AFTER PLACES API WORKS: const [coordinates, setCoordinates] = useState({});
   const [country, setCountry] = useState("");
   const [zipCode, setZipCode] = useState("");
   const [city, setCity] = useState("");
   const [street, setStreet] = useState("");
   const [houseNumber, setHouseNumber] = useState("");
 
+  /* AFTER PLACES API WORKS: 
   const {
     ready,
     value,
     suggestions: { status, data },
     setValue,
     clearSuggestions,
-  } = usePlacesAutocomplete({
-    requestOptions: {
-      /* Define search scope here */
-    },
-    debounce: 300,
-  });
-
-  const [aptSuite, setAptSuite] = useState("");
+  } = usePlacesAutocomplete();
 
   const ref = useOnclickOutside(() => {
     clearSuggestions();
@@ -53,6 +49,20 @@ function NewAccommodationLandingPage() {
       });
   };
 
+  const addressWithCoordinates = (
+    <div ref={ref}>
+      <input
+        value={value}
+        onChange={(event) => {
+          setValue(event.target.value);
+        }}
+        disabled={!ready}
+        placeholder="Property address"
+      />
+      {status === "OK" && <ul>{renderSuggestions()}</ul>}
+    </div>
+  );
+
   const renderSuggestions = () =>
     data.map((suggestion) => {
       const {
@@ -66,6 +76,8 @@ function NewAccommodationLandingPage() {
       );
     });
 
+    */
+
   const handleContinue = () => {
     let newAccommodation = accommodation;
     let address = {};
@@ -75,11 +87,7 @@ function NewAccommodationLandingPage() {
     address["city"] = zipCode;
     address["street"] = street;
     address["houseNumber"] = houseNumber;
-
-    //TODO: delete this line after api works
-    setCoordinates({ latitude: 1, longitude: 1 });
-
-    newAccommodation["coordinate"] = coordinates;
+    //AFTER PLACES API WORKS: newAccommodation["coordinate"] = coordinates;
     newAccommodation["address"] = address;
     setAccommodation(newAccommodation);
     history.push("/become-a-host/description");
@@ -141,15 +149,6 @@ function NewAccommodationLandingPage() {
           </div>
         </div>
       </div>
-
-      <div className="label">Apt, suite (optional)</div>
-      <input
-        type="text"
-        value={aptSuite}
-        onChange={(event) => {
-          setAptSuite(event.target.value);
-        }}
-      />
     </React.Fragment>
   );
 
@@ -161,29 +160,18 @@ function NewAccommodationLandingPage() {
         reservation.
       </p>
 
-      <div ref={ref}>
-        <input
-          value={value}
-          onChange={(event) => {
-            setValue(event.target.value);
-          }}
-          disabled={!ready}
-          placeholder="Property address"
-        />
-        {status === "OK" && <ul>{renderSuggestions()}</ul>}
-      </div>
+      {
+        //AFTER PLACES API WORKS:
+        //addressWithCoordinates
+      }
 
       {
+        //AFTER PLACES API WORKS:
         //value !== "" &&
         details
       }
 
-      <button
-        type="button"
-        className="next-button"
-        onClick={handleContinue}
-        disabled={value === ""}
-      >
+      <button type="button" className="next-button" onClick={handleContinue}>
         Continue
       </button>
     </React.Fragment>

@@ -3,6 +3,7 @@ import { Route, Switch } from "react-router-dom";
 import Location from "./Location";
 import Rooms from "./Rooms";
 import Description from "./Description";
+import FinishListing from "./FinishListing";
 
 function NewAccommodation() {
   return (
@@ -17,6 +18,9 @@ function NewAccommodation() {
           </Route>
           <Route path="/become-a-host/rooms">
             <Rooms />
+          </Route>
+          <Route path="/become-a-host/save">
+            <FinishListing />
           </Route>
         </Switch>
       </div>

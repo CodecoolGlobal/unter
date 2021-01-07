@@ -25,7 +25,7 @@ function Description() {
     newAccommodation["type"] = type;
     newAccommodation["hostId"] = 1;
     setAccommodation(newAccommodation);
-    history.push("/become-a-host/room");
+    history.push("/become-a-host/rooms");
   };
 
   return (
@@ -37,8 +37,8 @@ function Description() {
         className="dropdown"
         onChange={(event) => setType(event.target.value)}
       >
-        {propertyTypes.map((type) => (
-          <option>{type}</option>
+        {propertyTypes.map((type, index) => (
+          <option key={index}>{type}</option>
         ))}
       </select>
 

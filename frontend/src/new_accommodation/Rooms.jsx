@@ -17,7 +17,7 @@ function Rooms() {
     newAccommodation["maxNrOfGuests"] = maxNrOfGuests;
     newAccommodation["rooms"] = rooms;
     setAccommodation(newAccommodation);
-    history.push("/");
+    history.push("/become-a-host/save");
   };
 
   return (
@@ -38,14 +38,17 @@ function Rooms() {
               type="button"
               className="circle-button"
               onClick={() => setMaxNrOfGuests(maxNrOfGuests - 1)}
+              disabled={maxNrOfGuests < 1}
             >
               <i className="fas fa-minus" />
             </button>
             {maxNrOfGuests}
+            {maxNrOfGuests > 15 && <span>+</span>}
             <button
               type="button"
               className="circle-button"
               onClick={() => setMaxNrOfGuests(maxNrOfGuests + 1)}
+              disabled={maxNrOfGuests > 15}
             >
               <i className="fas fa-plus" />
             </button>
@@ -62,14 +65,17 @@ function Rooms() {
               type="button"
               className="circle-button"
               onClick={() => setBedrooms(bedrooms - 1)}
+              disabled={bedrooms < 1}
             >
               <i className="fas fa-minus" />
             </button>
             {bedrooms}
+            {bedrooms > 49 && <span>+</span>}
             <button
               type="button"
               className="circle-button"
               onClick={() => setBedrooms(bedrooms + 1)}
+              disabled={bedrooms > 49}
             >
               <i className="fas fa-plus" />
             </button>
@@ -86,14 +92,17 @@ function Rooms() {
               type="button"
               className="circle-button"
               onClick={() => setBeds(beds - 1)}
+              disabled={beds < 1}
             >
               <i className="fas fa-minus" />
             </button>
             {beds}
+            {beds > 49 && <span>+</span>}
             <button
               type="button"
               className="circle-button"
               onClick={() => setBeds(beds + 1)}
+              disabled={beds > 49}
             >
               <i className="fas fa-plus" />
             </button>
@@ -109,14 +118,17 @@ function Rooms() {
               type="button"
               className="circle-button"
               onClick={() => setBathrooms(bathrooms - 1)}
+              disabled={bathrooms < 1}
             >
               <i className="fas fa-minus" />
             </button>
             {bathrooms}
+            {bathrooms > 49 && <span>+</span>}
             <button
               type="button"
               className="circle-button"
               onClick={() => setBathrooms(bathrooms + 1)}
+              disabled={bathrooms > 49}
             >
               <i className="fas fa-plus" />
             </button>
@@ -139,7 +151,7 @@ function Rooms() {
 
           <div className="cell-right" style={{ textAlign: "right" }}>
             <button type="button" className="next-button" onClick={handleNext}>
-              Next
+              Save
             </button>
           </div>
         </div>

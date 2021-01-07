@@ -18,6 +18,7 @@ body {
   font-size: 16px;
   text-rendering: optimizelegibility;
   line-height: 1.375em;
+  min-height: 300px;
 }
 
 h2 {
@@ -128,6 +129,10 @@ textarea,
   font-size: 10px;
   margin: 20px 20px;
   cursor: pointer;
+  &:disabled {
+    filter: opacity(30%);
+    cursor: default;
+  }
   &:focus {
     outline: none;
     color: #027175;
