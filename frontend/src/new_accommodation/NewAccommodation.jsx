@@ -1,7 +1,7 @@
 import React from "react";
 import { Route, Switch } from "react-router-dom";
 import Location from "./Location";
-import Room from "./Room";
+import Rooms from "./Rooms";
 import Description from "./Description";
 
 function NewAccommodation() {
@@ -15,8 +15,8 @@ function NewAccommodation() {
           <Route path="/become-a-host/location">
             <Location />
           </Route>
-          <Route path="/become-a-host/room">
-            <Room />
+          <Route path="/become-a-host/rooms">
+            <Rooms />
           </Route>
         </Switch>
       </div>

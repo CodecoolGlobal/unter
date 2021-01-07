@@ -82,7 +82,6 @@ function NewAccommodationLandingPage() {
     newAccommodation["coordinate"] = coordinates;
     newAccommodation["address"] = address;
     setAccommodation(newAccommodation);
-    console.log(accommodation);
     history.push("/become-a-host/description");
   };
 

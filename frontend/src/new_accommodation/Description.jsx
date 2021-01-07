@@ -23,6 +23,7 @@ function Description() {
     newAccommodation["name"] = title;
     newAccommodation["description"] = desc;
     newAccommodation["type"] = type;
+    newAccommodation["hostId"] = 1;
     setAccommodation(newAccommodation);
     history.push("/become-a-host/room");
   };
@@ -30,8 +31,8 @@ function Description() {
   return (
     <React.Fragment>
       <h2>What kind of place are you listing?</h2>
-      <div className="label">Choose a property type</div>
 
+      <div className="label">Choose a property type</div>
       <select
         className="dropdown"
         onChange={(event) => setType(event.target.value)}
