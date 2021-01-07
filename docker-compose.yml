@@ -43,14 +43,18 @@ services:
       - PGPASSWORD=postgres_password
       - PGPORT=5432
       - EUREKAAPI=eureka
+      - ACCAPI=accommodation
     ports:
       - "8762:8762"
     restart: always
     depends_on:
       - postgres
       - eureka
+      - accommodation
     networks:
       - airbnb-network
+    links:
+      - "eureka:eureka"
   accommodation:
     build:
       dockerfile: Dockerfile.dev
@@ -70,9 +74,11 @@ services:
     depends_on:
       - postgres
       - eureka
-      - zuul-api-gateway
+#      - zuul-api-gateway
     networks:
       - airbnb-network
+    links:
+      - "eureka:eureka"
   pricing:
     build:
       dockerfile: Dockerfile.dev
@@ -90,6 +96,7 @@ services:
       - zuul-api-gateway
     networks:
       - airbnb-network
-
+    links:
+      - "eureka:eureka"
 networks:
   airbnb-network:
