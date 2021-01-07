@@ -17,6 +17,12 @@ function Registration() {
   const [email,setEmail] = useState();
   const [password,setPsw] = useState();
   const [user,setUser] = useState();
+  const [firstNameStyle,setFirstNameStyle] = useState({border: "1px solid grey",
+  borderRadius: "5px"})
+  const [style,setStyle] =useState({border: "1px solid grey",
+  borderRadius: "5px"});
+  const [emailStyle,setEmailStyle] =useState({border: "1px solid grey",
+  borderRadius: "5px"});
 
 
   const handleOpen = () => {
@@ -47,18 +53,40 @@ function Registration() {
         case "firstName":
             target.value=== ''? setFirstNameEffect(false): setFirstNameEffect(true);
             setFirstName(target.value);
+            setFirstNameStyle({border: "1px solid grey",
+            borderRadius: "5px"})
+            if(target.value === ''){
+                setFirstNameStyle({border: "1px solid red",
+                    borderRadius: "5px"})
+            }
             break;
         case "lastName":
             target.value=== ''? setLastNameEffect(false): setLastNameEffect(true);
             setLastName(target.value)
+            setStyle({border: "1px solid grey",
+            borderRadius: "5px"})
+            if(target.value === ''){
+                setStyle({border: "1px solid red",
+                    borderRadius: "5px"})
+            }
             break;
         // case "birthDate":
         //     target.value=== ''? setBirthDateEffect(false): setBirthDateEffect(true);
         //     setBirthDate(target.value)
         //     break;
         case "email":
+            let re = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
             target.value=== ''? setEmailEffect(false): setEmailEffect(true);
             setEmail(target.value)
+            if( re.test(target.value)){
+                setEmailStyle({border: "1px solid grey",
+                borderRadius: "5px"});
+
+            }
+            else{
+                setEmailStyle ({border: "1px solid red",
+                borderRadius: "5px"});
+            }
             break;
         case "psw":
             target.value=== ''? setPswEffect(false): setPswEffect(true);
@@ -77,11 +105,11 @@ function Registration() {
             <div className="register__body">
                 <div className="nameArea">
                     <div className="label">
-                        <input type="text" id="firstName"  onChange={(e) => handleTextChange(e.target)}/>
-                        <label className={ firstNameEffect ? "Active" : ""} htmlFor="firstName">First name</label>
+                        <input style = {firstNameStyle} type="text" id="firstName"  onChange={(e) => handleTextChange(e.target)}/>
+                        <label  className={ firstNameEffect ? "Active" : ""} htmlFor="firstName">First name</label>
                     </div>
                     <div className="label">
-                        <input type="email" id="lastName"  onChange={(e) => handleTextChange(e.target)}/>
+                        <input style={style} type="email" id="lastName"  onChange={(e) => handleTextChange(e.target)}/>
                         <label className={ lastNameEffect ? "Active" : ""} htmlFor="lastName">Last Name</label>
                     </div>
                 </div>
@@ -96,7 +124,7 @@ function Registration() {
                 <h5>A regisztrációhoz legalább 18 évesnek kell lenned. A születésnapodat nem osztjuk meg az Airbnb más felhasználóival.</h5>
                 <div className="emailArea">
                     <div className="label">
-                        <input type="email" id="email"  onChange={(e) => handleTextChange(e.target)}/>
+                        <input style={emailStyle} type="email" id="email"  onChange={(e) => handleTextChange(e.target)}/>
                         <label className={ emailEffect ? "Active" : ""} htmlFor="email">Email</label>
                     </div>
                 </div>

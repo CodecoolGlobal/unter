@@ -9,6 +9,7 @@ import Registration from './Registration';
 
 export default function Dropdown() {
   const [anchorEl, setAnchorEl] = React.useState(null);
+  let content;
 
   const handleClick = (event) => {
     setAnchorEl(event.currentTarget);
@@ -17,9 +18,35 @@ export default function Dropdown() {
   const handleClose = () => {
     setAnchorEl(null);
   };
-
-  return (
+  
+  const logOut =() =>{
+    localStorage.clear()
+    setAnchorEl(null);
+  }
+  
+  if(localStorage.getItem('user')!== null){
+    content=(
     <div className="dropdown">
+    <button type="button" className="avatar__button" onClick={handleClick}>
+      <ExpandMoreIcon/>
+      <Avatar/>
+    </button>
+    <Menu
+      id="simple-menu"
+      anchorEl={anchorEl}
+      style={{top:"5vh", width:"10vw",borderRadius:"16px"}}
+      keepMounted
+      open={Boolean(anchorEl)}
+      onClose={handleClose}
+    >
+      <MenuItem onClick={handleClose}>My account</MenuItem>
+      <MenuItem onClick={logOut}>Log out</MenuItem>
+    </Menu>
+  </div>)
+  }
+  else{
+    content=(
+      <div className="dropdown">
       <button type="button" className="avatar__button" onClick={handleClick}>
         <ExpandMoreIcon/>
         <Avatar/>
@@ -27,6 +54,7 @@ export default function Dropdown() {
       <Menu
         id="simple-menu"
         anchorEl={anchorEl}
+        style={{top:"5vh", width:"10vw",borderRadius:"16px"}}
         keepMounted
         open={Boolean(anchorEl)}
         onClose={handleClose}
@@ -36,5 +64,9 @@ export default function Dropdown() {
         <MenuItem onClick={handleClose}><Registration/></MenuItem>
       </Menu>
     </div>
-  );
+    )
+  }
+
+  return content; 
+
 }

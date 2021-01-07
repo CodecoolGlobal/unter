@@ -3,6 +3,9 @@ import Modal from '@material-ui/core/Modal';
 import './Login.scss';
 import CloseIcon from '@material-ui/icons/Close';
 import Axios from 'axios';
+import Registration from './Registration';
+import {Link} from 'react-router-dom'
+
 
 export default function SimpleModal() {
   const [open, setOpen] = useState(false);
@@ -16,16 +19,25 @@ export default function SimpleModal() {
   const handleSubmit = async e => {
     e.preventDefault();
     const user = { email, password };
+    var response;
     // send the username and password to the server
-    const response = await Axios.post(
+    try{
+       response = 
+      await Axios.post(
       "http://localhost:8762/auth",     
       user
     );
-    // set the state of the user
     setUser(response.data)
     // store the user in localStorage
     localStorage.setItem('user', response.data)
     console.log(response.data)
+    handleClose()
+  }
+    catch(error){
+      alert("Your email or password is incorrect ")
+    }
+    // set the state of the user
+   
   };
   function handleTextChange(target) {
       switch(target.id){
@@ -41,6 +53,11 @@ export default function SimpleModal() {
 
 
   }
+  // const register =() =>{
+  //   return (
+  //     <Registration/>
+  //   )
+  // }
 
   const handleOpen = () => {
     setOpen(true);
@@ -71,7 +88,7 @@ export default function SimpleModal() {
         <h4>Don't have profile? Register!</h4>
     </div>
   );
-
+  
   return (
     <div className="login" >
       <p onClick={handleOpen}>Login</p>
