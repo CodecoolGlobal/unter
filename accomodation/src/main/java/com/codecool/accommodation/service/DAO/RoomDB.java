@@ -18,15 +18,7 @@ public class RoomDB implements RoomDAO{
 
     private RoomRepository roomRepository;
 
-    @Override
-    public void saveNewRoom(RoomDTO roomDTO, Long accommodationId) {
-        Room room = Room.builder()
-                .type(roomDTO.getType())
-                .accommodation(new Accommodation())
-                .build();
-        room.setAccommodation(accommodationDAO.findAccommodationById(accommodationId));
-        roomRepository.save(room);
-    }
+
 
     @Override
     public void saveNewRoom(RoomDTO roomDTO, NewAccommodationDTO newAccommodationDTO) {
