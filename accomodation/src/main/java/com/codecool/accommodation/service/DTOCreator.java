@@ -51,7 +51,7 @@ public class DTOCreator {
                 .id(accommodation.getId())
                 .accommodationName(accommodation.getName())
                 .description(accommodation.getDescription())
-                .pictures(accommodation.getPictureUrl())
+                .pictures(accommodation.getPictures())
                 .capacity(accommodation.getMaxNumberOfGuests()) // TODO: implement calculate capacity
                 .numberOfRooms(accommodation.getRooms().size())
 //                .numberOfBeds() // TODO: implement calculate number of beds
