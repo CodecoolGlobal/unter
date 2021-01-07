@@ -110,6 +110,8 @@ public class AccommodationDB implements AccommodationDAO {
                 .type(accommodation.getType())
                 .build();
 
+        newAccommodationDTO.se
+
         return newAccommodationDTO;
     }
 
