@@ -21,29 +21,27 @@ import java.util.Set;
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
-public class NewAccommodationDTO {
+public class ResponseAccDTO {
 
-    @ValidLong(message = "Host id can't be null")
+    private Long id;
+
     private Long hostId;
 
-    @NotEmpty(message = "Name is required")
     private String name;
 
     private String description;
 
     private List<String> pictures;
 
-    @ValidCoordinate
     private Coordinate coordinate;
 
     private AccommodationType type;
 
-    @ValidInteger(message = "Max num of guests can't be null")
+
     private Integer maxNumberOfGuest;
 
     private Set<Room> rooms;
 
-    @ValidAddress
     private Address address;
 
     void setCoordinates(Coordinate coordinates){

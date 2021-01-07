@@ -9,6 +9,7 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
+import org.modelmapper.ModelMapper;
 import org.springframework.stereotype.Component;
 
 import javax.persistence.*;
@@ -93,6 +94,10 @@ public class AccommodationDB implements AccommodationDAO {
     public NewAccommodationDTO findAccommodationById(Long accommodationId) {
         Accommodation accommodation = repository.findById(accommodationId).orElseThrow(()-> new AccommodationNotFoundException(accommodationId));
 
+//        ModelMapper modelMapper = new ModelMapper();
+//        NewAccommodationDTO newAccommodationDTO = modelMapper.map(accommodation, NewAccommodationDTO.class);
+
+
         NewAccommodationDTO newAccommodationDTO = NewAccommodationDTO.builder()
                 .address(accommodation.getAddress())
                 .coordinate(accommodation.getCoordinate())
@@ -104,6 +109,8 @@ public class AccommodationDB implements AccommodationDAO {
                 .rooms(accommodation.getRooms())
                 .type(accommodation.getType())
                 .build();
+
+        newAccommodationDTO.se
 
         return newAccommodationDTO;
     }
