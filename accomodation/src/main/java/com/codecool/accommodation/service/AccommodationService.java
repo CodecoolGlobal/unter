@@ -2,6 +2,7 @@ package com.codecool.accommodation.service;
 
 import com.codecool.accommodation.exception.NoDataFoundException;
 import com.codecool.accommodation.model.DTO.NewAccommodationDTO;
+import com.codecool.accommodation.model.DTO.ResponseAccDTO;
 import com.codecool.accommodation.model.entity.Accommodation;
 import com.codecool.accommodation.service.DAO.AccommodationDAO;
 import com.codecool.accommodation.service.DAO.RoomDAO;
@@ -52,7 +53,7 @@ public class AccommodationService {
         return accommodationDAO.findAll();
     }
 
-    public NewAccommodationDTO findAccommodationById(Long accommodationId) {
+    public ResponseAccDTO findAccommodationById(Long accommodationId) {
 
         return accommodationDAO.findAccommodationById(accommodationId);
     }

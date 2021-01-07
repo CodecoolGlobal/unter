@@ -1,6 +1,7 @@
 package com.codecool.accommodation.controller;
 
 import com.codecool.accommodation.model.DTO.NewAccommodationDTO;
+import com.codecool.accommodation.model.DTO.ResponseAccDTO;
 import com.codecool.accommodation.model.entity.Accommodation;
 import com.codecool.accommodation.service.AccommodationService;
 import lombok.RequiredArgsConstructor;
@@ -43,7 +44,7 @@ public class AccommodationController {
     }
 
     @GetMapping("/accommodation-id/{accommodationId}")
-    public NewAccommodationDTO getAccommodationById(@PathVariable(name = "accommodationId")Long accommodationId) {
+    public ResponseAccDTO getAccommodationById(@PathVariable(name = "accommodationId")Long accommodationId) {
         return service.findAccommodationById(accommodationId);
     }
 }

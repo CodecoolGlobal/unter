@@ -37,14 +37,13 @@ public class ResponseAccDTO {
 
     private AccommodationType type;
 
-
     private Integer maxNumberOfGuest;
 
     private Set<Room> rooms;
 
     private Address address;
 
-    void setCoordinates(Coordinate coordinates){
+    public void setMyCoordinates(Coordinate coordinates){
         coordinate = coordinates;
     }
 

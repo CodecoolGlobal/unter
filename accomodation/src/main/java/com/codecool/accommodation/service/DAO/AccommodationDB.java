@@ -2,6 +2,7 @@ package com.codecool.accommodation.service.DAO;
 
 import com.codecool.accommodation.exception.AccommodationNotFoundException;
 import com.codecool.accommodation.model.DTO.NewAccommodationDTO;
+import com.codecool.accommodation.model.DTO.ResponseAccDTO;
 import com.codecool.accommodation.model.entity.*;
 import com.codecool.accommodation.repository.AccommodationRepository;
 import lombok.Data;
@@ -91,26 +92,27 @@ public class AccommodationDB implements AccommodationDAO {
     }
 
     @Override
-    public NewAccommodationDTO findAccommodationById(Long accommodationId) {
+    public ResponseAccDTO findAccommodationById(Long accommodationId) {
         Accommodation accommodation = repository.findById(accommodationId).orElseThrow(()-> new AccommodationNotFoundException(accommodationId));
 
 //        ModelMapper modelMapper = new ModelMapper();
 //        NewAccommodationDTO newAccommodationDTO = modelMapper.map(accommodation, NewAccommodationDTO.class);
 
 
-        NewAccommodationDTO newAccommodationDTO = NewAccommodationDTO.builder()
-                .address(accommodation.getAddress())
-                .coordinate(accommodation.getCoordinate())
+        ResponseAccDTO newAccommodationDTO = ResponseAccDTO.builder()
+                .id(accommodation.getId())
                 .description(accommodation.getDescription())
                 .hostId(accommodation.getHostId())
-                .maxNumberOfGuest(accommodation.getMaxNumberOfGuests())
+                .address(accommodation.getAddress())
                 .pictures(accommodation.getPictures())
+                .rooms(accommodation.getRooms())
+                .maxNumberOfGuest(accommodation.getMaxNumberOfGuests())
                 .name(accommodation.getName())
                 .rooms(accommodation.getRooms())
                 .type(accommodation.getType())
                 .build();
 
-        newAccommodationDTO.se
+        newAccommodationDTO.setMyCoordinates(new Coordinate(accommodation.getCoordinate().getLongitude(), accommodation.getCoordinate().getLatitude()));
 
         return newAccommodationDTO;
     }

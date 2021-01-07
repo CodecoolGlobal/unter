@@ -19,6 +19,8 @@ public class AccommodationCreator {
     public void initialize() {
         String[] countries = {"Hungary", "Germany"};
         String[] cities = {"Budapest", "Berlin"};
+        String city = "Budapest";
+        String hunCountry = "Hungary";
         String[] zipCodes = {
             "1137", //Budapest
             "1055",
@@ -222,6 +224,7 @@ public class AccommodationCreator {
         for (int i = 0; i < descriptions.length; i++) {
             NewAccommodation newAccommodation = NewAccommodation.builder()
                     .city(city)
+                    .country(hunCountry)
                     .street(streets[i])
                     .zipCode(zipCodes[i])
                     .houseNumber(houseNumbers[i])
@@ -241,6 +244,7 @@ public class AccommodationCreator {
 
         NewAccommodation newAccommodation = NewAccommodation.builder()
                 .city("Kazincbarcika")
+                .country("Hungary")
                 .street("Utca")
                 .zipCode("4444")
                 .houseNumber(12)
@@ -261,6 +265,7 @@ public class AccommodationCreator {
     private Accommodation createAccommodation(NewAccommodation newAccommodation) {
         Address address = Address.builder()
                 .city(newAccommodation.getCity())
+                .country(newAccommodation.getCountry())
                 .street(newAccommodation.getStreet())
                 .zipCode(newAccommodation.getZipCode())
                 .houseNumber(newAccommodation.getHouseNumber())
