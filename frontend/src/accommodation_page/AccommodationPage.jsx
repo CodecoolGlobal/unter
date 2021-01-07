@@ -50,21 +50,21 @@ function AccomodationPage() {
                         </p>
                         <p>·</p>
                         <p>
-                            {accommodation.address.city}, Németország
+                            {accommodation.address.city}, Hungary
                         </p>
             </div>
             <div className="gallery">
                 <div className="mainPicture">
-                    <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn%3AANd9GcQ_wbPYTxQPMcBh7SPzLFActXnP3uhifeVT_g&usqp=CAU" alt=""/>
+                    <img src={accommodation.pictures[0]} alt=""/>
                 </div>
                 <div className="secondaryPicture">
                     <div className="firstBlock">
-                    <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn%3AANd9GcQ_wbPYTxQPMcBh7SPzLFActXnP3uhifeVT_g&usqp=CAU" alt=""/>
-                    <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn%3AANd9GcQ_wbPYTxQPMcBh7SPzLFActXnP3uhifeVT_g&usqp=CAU" alt=""/>
+                    <img src={accommodation.pictures[1]} alt=""/>
+                    <img src={accommodation.pictures[2]} alt=""/>
                     </div>
                     <div className="secondBlock">
-                    <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn%3AANd9GcQ_wbPYTxQPMcBh7SPzLFActXnP3uhifeVT_g&usqp=CAU" alt=""/>
-                    <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn%3AANd9GcQ_wbPYTxQPMcBh7SPzLFActXnP3uhifeVT_g&usqp=CAU" alt=""/>
+                    <img src={accommodation.pictures[3]} alt=""/>
+                    <img src={accommodation.pictures[4]} alt=""/>
                     </div>
                 </div>
             </div>
@@ -84,9 +84,7 @@ function AccomodationPage() {
                     </div>
                     <div className="accommodation__description">
                     <p>
-                    Das Einzimmer-Studio-Appartement Kalckreuthstraße 7 ist eine kleine, helle Wohnung mit eigenen Bad und Küche im 3.OG mit Aufzug. Vom Appartement aus schaut man auf die kleine ruhige Anliegerstraße mit einigen Antiquitätengeschäften und Galerien.
-                    ACHTUNG: Wegen COVID-19 sind touristische Übernachtungen in Berlin bis zum 22. Dezember 2020 verboten!
-                    Allerdings sollen touristische Übernachtungen über die…
+                   {accommodation.description}
                     </p>
                     </div>
                     {/* <div className="sleepingPossibilities">
@@ -137,14 +135,12 @@ function AccomodationPage() {
                         bootstrapURLKeys={{
                             key: "",
                         }}
-                        defaultCenter={defaultProps.center}
+                        center={accommodation.coordinate}
                         defaultZoom={defaultProps.zoom}
             ></GoogleMapReact>
             <div className="location__description">
-                <h3>Berlin, Németország</h3>
-                <p>Berlin, Németország
-Vom Appartement aus schaut man auf die kleine ruhige Anliegerstraße mit einigen Antiquitätengeschäften. Sie liegt zwischen den U-Bahn-Stationen Wittenberg- und Nollendorfplatz.
-Es sind nur 80 Meter bis zu…</p>
+                <h3>{accommodation.city}</h3>
+                <p>{accommodation.description}</p>
             </div>
             </div>
         </div>

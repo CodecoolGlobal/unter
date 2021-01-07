@@ -113,7 +113,7 @@ function Registration() {
                         <label className={ lastNameEffect ? "Active" : ""} htmlFor="lastName">Last Name</label>
                     </div>
                 </div>
-                    <h5>Gondoskodj róla, hogy egyezzen a hivatalos személyazonosító okmányodon szereplő névvel.
+                    <h5>Make sure it matches the name on your government ID.
 </h5>
                 <div className="birthArea">
                     <div className="label">
@@ -121,14 +121,14 @@ function Registration() {
                         <label className={ birthDateEffect ? "Active" : ""} htmlFor="birthDate">Bith date</label>
                     </div>
                 </div>
-                <h5>A regisztrációhoz legalább 18 évesnek kell lenned. A születésnapodat nem osztjuk meg az Airbnb más felhasználóival.</h5>
+                <h5>To sign up, you need to be at least 18. Your birthday won’t be shared with other people who use Airbnb.</h5>
                 <div className="emailArea">
                     <div className="label">
                         <input style={emailStyle} type="email" id="email"  onChange={(e) => handleTextChange(e.target)}/>
                         <label className={ emailEffect ? "Active" : ""} htmlFor="email">Email</label>
                     </div>
                 </div>
-                <h5>Küldünk majd egy e-mailt az utazás visszaigazolásaival és nyugtáival.
+                <h5>We'll email you trip confirmations and receipts.
 </h5>
                 <div className="pswArea">
                     <div className="label">
@@ -136,10 +136,10 @@ function Registration() {
                         <label  className={ pswEffect ? "Active" : ""} htmlFor="psw">Password</label>
                     </div>
                 </div>
-                <h5>A lenti Elfogadás és folytatás gombra kattintva elfogadom az Airbnb által meghatározott Általános Szerződési Feltételek, Fizetésekre vonatkozó szerződési feltételek, Adatvédelmi Szabályzat és Diszkriminációellenes szabályzat rendelkezéseit.</h5>
+                <h5>By selecting Agree and continue below, I agree to Airbnb’s Terms of Service, Payments Terms of Service, Privacy Policy, and Nondiscrimination Policy.</h5>
             </div>
             <button className="register__button" onClick={handleSubmit}>Register</button>
-            <h6>Az Airbnb csak tagoknak szóló ajánlatokat, inspirációt, marketing-e-maileket és push-értesítéseket fog küldeni neked. A fiókbeállításoknál vagy közvetlenül a marketingértesítésben is bármikor leállíthatod az ilyen típusú üzenetek fogadását.
+            <h6>Airbnb will send you members-only deals, inspiration, marketing emails, and push notifications. You can opt out of receiving these at any time in your account settings or directly from the marketing notification.
 
             </h6>
         </div>

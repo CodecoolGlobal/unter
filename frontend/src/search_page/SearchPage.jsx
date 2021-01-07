@@ -14,7 +14,7 @@ import {useLocation} from "react-router-dom";
 
 
 function SearchPage() {
-    const [city, setCity] = useState();
+    const [city, setCity] = useState("Budapest");
     const [isLoading, setIsLoading] = useState(true);
     const [show, setShow] = useContext(HeaderContext);
     const [accommodations, setAccommodations] = useContext(AccommodationNumberContext);
@@ -77,7 +77,7 @@ function SearchPage() {
                             ? accommodations.map((actual) => {
                                 return (<SearchResult
                                     key={actual.id}
-                                    img={actual.pictures}
+                                    img={actual.pictures[0]}
                                     location="Private room in center of London"
                                     title={actual.accommodationName}
                                     description={actual.description}
