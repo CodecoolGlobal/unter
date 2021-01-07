@@ -17,51 +17,89 @@ public class AccommodationCreator {
     }
 
     public void initialize() {
-        String city = "Budapest";
+        String[] countries = {"Hungary", "Germany"};
+        String[] cities = {"Budapest", "Berlin"};
         String[] zipCodes = {
-                "1137",
-                "1055",
-                "1011",
-                "1066",
-                "1074",
-                "1136",
-                "1014"
+            "1137", //Budapest
+            "1055",
+            "1011",
+            "1066",
+            "1074",
+            "1136",
+            "1014", //Berlin
+            "10409",
+            "13086",
+            "10969",
+            "10117",
+            "10117",
+            "12043",
+            "10315"
+
         };
         String[] streets = {
-                "Szent István krt.",
-                "Nagy Ignác utca",
-                "Arany János utca",
-                "Zichy Jenő utca",
-                "Dob utca",
-                "Tátra utca",
-                "Fortuna köz"
+            "Szent István krt.", // budapest
+            "Nagy Ignác utca",
+            "Arany János utca",
+            "Zichy Jenő utca",
+            "Dob utca",
+            "Tátra utca",
+            "Fortuna köz",
+            "Sültstraße", // berlin
+            "Weissensee",
+            "Rudi-Dutschke-Straße",
+            "Krausenstraße",
+            "Jägerstraße",
+            "Wilhelm-Busch-Straße",
+            "Friedrichsfelde"
         };
         int[] houseNumbers = {
-                6,
-                2,
-                19,
-                19,
-                5,
-                7,
-                2
+            6, //budapest
+            2,
+            19,
+            19,
+            5,
+            7,
+            2, // berlin
+            18,
+            23,
+            26,
+            56,
+            58,
+            13,
+            44
         };
         double[] latitudes = {
-                47.512873,
-                47.508543,
-                47.502229,
-                47.504224,
-                47.496468,
-                47.512924,
-                47.502894
+            47.512873, // budapest
+            47.508543,
+            47.502229,
+            47.504224,
+            47.496468,
+            47.512924,
+            47.502894,
+            52.54789647, // berlin
+            52.54789647,
+            52.55689483,
+            52.50696465,
+            52.50973296,
+            52.514101,
+            52.47734311,
+            52.50447538
         };
         double[] longitudes = {
-                19.049109,
-                19.052279,
-                19.050777,
-                19.056981,
-                19.059277,
-                19.050098,
-                19.031669
+            19.049109, // budapest
+            19.052279,
+            19.050777,
+            19.056981,
+            19.059277,
+            19.050098,
+            19.031669,
+            13.4332532, //berlin
+            13.44114584,
+            13.3914742,
+            13.39504114,
+            13.391039,
+            13.44669535,
+            13.50273241
         };
 //        String[] descriptions = {
 //                "1 guest · 1 bedroom · 1 bed · 1.5 shared bathrooms · Wifi · Kitchen · Free parking · Washing Machine",
@@ -73,13 +111,16 @@ public class AccommodationCreator {
 //                "3 guest · 1 bedroom · 1 bed · 1.5 shared bathrooms · Wifi · Kitchen · Free parking · Washing Machine"
 //        };
         String[] descriptions = {
-                "This is one of Budapest’s most historic and architecturally eclectic neighborhood. You’ll be close to everything in the city centre but far enough to enjoy a relaxing trip. We are both born and raised here so we know all the good spots like the delicious pancakes, vanilla infused orange juice and freshly brewed coffee, down the street at one of our favorite restaurants",
-                "Brand new, very clean, studio apartment with a private bathroom, kitchenette and private work space. The studio is renovated with natural stone floors, high end finishings and closets, throughout the apartment.",
-                "A lovely space to unwind and relax after a busy day whether it is work or play. Awake refreshed and ready for a day exploring the city via this clean, sunny apartment with impressive views. Head out and wander through the nearby farmers’ market and pick up local ingredients to later craft a meal in the fully stocked kitchen.",
-                "This modern, sun-drenched apartment offers a tranquil residential vibe alongside quick, easy access to the downtown areas. Admire the crisp, contemporary decor of the open-plan living space and take in the peaceful surroundings from the cute terrace.",
-                "Indulge in the comfort and tranquility of this contemporary apartment. The space features an open-concept layout, a monochromatic color scheme with stark contrasts, wood surfaces, and tasteful furnishings and decor.",
-                "Experience true urban living in this design-conscious flat in central (CN). The edited space features midcentury furnishings and colorful accents, lending it a distinctly liveable feel. Take in sweeping city views from the private balcony.",
-                "Have a glass of wine while enjoying Netflix on the comfortable sofa after exploring local culture. Pull the back the curtains after a restful night’s sleep and let light flood into this studio. This central apartment makes excellent use of the space with a calming neutral palette and sleek finished floors alongside thoughtful details."
+            //budapest
+            "This is one of Budapest’s most historic and architecturally eclectic neighborhood. You’ll be close to everything in the city centre but far enough to enjoy a relaxing trip. We are both born and raised here so we know all the good spots like the delicious pancakes, vanilla infused orange juice and freshly brewed coffee, down the street at one of our favorite restaurants",
+            "Brand new, very clean, studio apartment with a private bathroom, kitchenette and private work space. The studio is renovated with natural stone floors, high end finishings and closets, throughout the apartment.",
+            "A lovely space to unwind and relax after a busy day whether it is work or play. Awake refreshed and ready for a day exploring the city via this clean, sunny apartment with impressive views. Head out and wander through the nearby farmers’ market and pick up local ingredients to later craft a meal in the fully stocked kitchen.",
+            "This modern, sun-drenched apartment offers a tranquil residential vibe alongside quick, easy access to the downtown areas. Admire the crisp, contemporary decor of the open-plan living space and take in the peaceful surroundings from the cute terrace.",
+            "Indulge in the comfort and tranquility of this contemporary apartment. The space features an open-concept layout, a monochromatic color scheme with stark contrasts, wood surfaces, and tasteful furnishings and decor.",
+            "Experience true urban living in this design-conscious flat in central (CN). The edited space features midcentury furnishings and colorful accents, lending it a distinctly liveable feel. Take in sweeping city views from the private balcony.",
+            "Have a glass of wine while enjoying Netflix on the comfortable sofa after exploring local culture. Pull the back the curtains after a restful night’s sleep and let light flood into this studio. This central apartment makes excellent use of the space with a calming neutral palette and sleek finished floors alongside thoughtful details.",
+            //berlin
+            "Indulge in the comfort and tranquility of this contemporary apartment. The space features an open-concept layout, a monochromatic color scheme with stark contrasts, wood surfaces, and tasteful furnishings and decor.",
         };
 
         int[] maxNumbersOfGuests = {
