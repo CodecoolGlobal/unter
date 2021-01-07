@@ -43,7 +43,6 @@ public class Room {
 
     }
 
-
     public void setAccommodation(Accommodation accommodation) {
         this.accommodation= accommodation;
         accommodation.getRooms().add(this);

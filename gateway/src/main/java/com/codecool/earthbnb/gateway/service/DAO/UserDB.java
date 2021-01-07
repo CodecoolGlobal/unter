@@ -60,17 +60,17 @@ public class UserDB implements UserDAO {
 
     @Override
     public Response register(UserDTO userDTO) {
-        EmailValidator validator = EmailValidator.getInstance();
-
-        if (!validator.isValid(userDTO.getEmail())) return new Response(false, "E-mail format not valid");
-
-        if (userRepository.existsByEmail(userDTO.getEmail()))
-            return new Response(false, "This email is already registered!");
-//        if (userRepository.existsByUsername(userDTO.getUsername()))
-//            return new Response(false, "This username is already taken!");
-        if (!validatorService.validateRegistration(userDTO, 2, 20,  2, 20))
-            return new Response(false, "Registration failed due to invalid credentials");
-
+//        EmailValidator validator = EmailValidator.getInstance();
+//
+//        if (!validator.isValid(userDTO.getEmail())) return new Response(false, "E-mail format not valid");
+//
+//        if (userRepository.existsByEmail(userDTO.getEmail()))
+//            return new Response(false, "This email is already registered!");
+////        if (userRepository.existsByUsername(userDTO.getUsername()))
+////            return new Response(false, "This username is already taken!");
+//        if (!validatorService.validateRegistration(userDTO, 2, 20,  2, 20))
+//            return new Response(false, "Registration failed due to invalid credentials");
+//
 
         UserEntity userEntity = UserEntity.builder()
                 .email(userDTO.getEmail())
