@@ -30,14 +30,17 @@ public class Address {
     private String city;
 
     @Column(nullable = false)
+    private String country;
+
+    @Column(nullable = false)
     private String zipCode;
 
     @OneToOne(mappedBy = "address")
     @JsonBackReference
     private Accommodation accommodation;
 
-    public Address() {
 
+    public Address() {
     }
 
 //    private Address(Integer houseNumber, String street, String city, String zipCode){

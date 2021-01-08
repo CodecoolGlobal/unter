@@ -11,6 +11,7 @@ import Axios from 'axios';
 function AccomodationPage() {
     const [accommodation,setAccommodation] = useState();
     const [isLoading,setIsLoading] = useState(true);
+    const [center,setCenter] = useState([])
     const defaultProps = {
         center: { lat: 59.95, lng: 30.33 },
         zoom: 11,
@@ -19,9 +20,10 @@ function AccomodationPage() {
 
     useEffect(() => {
         Axios.get(`http://localhost:8762/acc/accommodation-id/${window.location.href.substring(window.location.href.lastIndexOf('/') + 1)}`)
-        .then(function (response) {
+        .then(async function (response) {
             console.log(JSON.stringify(response.data) +"plsplaslpasls")
             setAccommodation(response.data)
+            await setCenter([{lat:Number(response.data.coordinate.latitude)},{lng:Number(response.data.coordinate.longitude)}])
             setIsLoading(false)
         })
         .catch(function (error) {
@@ -37,6 +39,7 @@ function AccomodationPage() {
         <div>Loading</div>)
     }
     else{
+        let newCenter = {lat:center[0]["lat"],lng:center[1]["lng"]}
     return (
         <div className="accommodation__page">
         <div className="accommodation__pageContainer">
@@ -50,43 +53,41 @@ function AccomodationPage() {
                         </p>
                         <p>·</p>
                         <p>
-                            {accommodation.address.city}, Németország
+                            {accommodation.address.city}, {accommodation.address.country}
                         </p>
             </div>
             <div className="gallery">
                 <div className="mainPicture">
-                    <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn%3AANd9GcQ_wbPYTxQPMcBh7SPzLFActXnP3uhifeVT_g&usqp=CAU" alt=""/>
+                    <img src={accommodation.pictures[0]} alt=""/>
                 </div>
                 <div className="secondaryPicture">
                     <div className="firstBlock">
-                    <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn%3AANd9GcQ_wbPYTxQPMcBh7SPzLFActXnP3uhifeVT_g&usqp=CAU" alt=""/>
-                    <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn%3AANd9GcQ_wbPYTxQPMcBh7SPzLFActXnP3uhifeVT_g&usqp=CAU" alt=""/>
+                    <img src={accommodation.pictures[1]} alt=""/>
+                    <img src={accommodation.pictures[2]} alt=""/>
                     </div>
                     <div className="secondBlock">
-                    <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn%3AANd9GcQ_wbPYTxQPMcBh7SPzLFActXnP3uhifeVT_g&usqp=CAU" alt=""/>
-                    <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn%3AANd9GcQ_wbPYTxQPMcBh7SPzLFActXnP3uhifeVT_g&usqp=CAU" alt=""/>
+                    <img src={accommodation.pictures[3]} alt=""/>
+                    <img src={accommodation.pictures[4]} alt=""/>
                     </div>
                 </div>
             </div>
             <div className="scroll__container">
                 <div className="accommodation__side">
                     <div className="host__info">
-                        <h3> Host által által kiadott Teljes lakás</h3>
+                        <h3>{accommodation.name}</h3>
                         <div className="apartman__info">
-                        <h5>3 vendég</h5>
+                        <h5>{accommodation.maxNumberOfGuest} Guest</h5>
                         <h5>·</h5>
-                        <h5>Stúdiólakás</h5>
+                        <h5>Apartment</h5>
                         <h5>·</h5>
-                        <h5> 3 ágy</h5>
+                        <h5> 3 bed</h5>
                         <h5>·</h5>
-                        <h5>1 füdőszoba</h5>
+                        <h5>1 bathroom</h5>
                         </div>
                     </div>
                     <div className="accommodation__description">
                     <p>
-                    Das Einzimmer-Studio-Appartement Kalckreuthstraße 7 ist eine kleine, helle Wohnung mit eigenen Bad und Küche im 3.OG mit Aufzug. Vom Appartement aus schaut man auf die kleine ruhige Anliegerstraße mit einigen Antiquitätengeschäften und Galerien.
-                    ACHTUNG: Wegen COVID-19 sind touristische Übernachtungen in Berlin bis zum 22. Dezember 2020 verboten!
-                    Allerdings sollen touristische Übernachtungen über die…
+                   {accommodation.description}
                     </p>
                     </div>
                     {/* <div className="sleepingPossibilities">
@@ -137,14 +138,12 @@ function AccomodationPage() {
                         bootstrapURLKeys={{
                             key: "",
                         }}
-                        defaultCenter={defaultProps.center}
+                        center={newCenter}
                         defaultZoom={defaultProps.zoom}
             ></GoogleMapReact>
             <div className="location__description">
-                <h3>Berlin, Németország</h3>
-                <p>Berlin, Németország
-Vom Appartement aus schaut man auf die kleine ruhige Anliegerstraße mit einigen Antiquitätengeschäften. Sie liegt zwischen den U-Bahn-Stationen Wittenberg- und Nollendorfplatz.
-Es sind nur 80 Meter bis zu…</p>
+                <h3>{accommodation.city}</h3>
+                <p>{accommodation.description}</p>
             </div>
             </div>
         </div>

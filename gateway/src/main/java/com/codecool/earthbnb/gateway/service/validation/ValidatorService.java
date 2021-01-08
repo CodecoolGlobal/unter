@@ -25,9 +25,9 @@ public class ValidatorService {
         boolean validFirstName = validateName(userDTO.getFirstName(), minLengthName, maxLengthName);
         boolean validLastName = validateName(userDTO.getLastName(), minLengthName, maxLengthName);
         boolean validPassword = validatePassword(userDTO.getPassword());
-        boolean validUsername = validateUsername(userDTO.getUsername(), minLengthUsername, maxLengthUsername);
+//        boolean validUsername = validateUsername(userDTO.getUsername(), minLengthUsername, maxLengthUsername);
 
-        return validFirstName && validLastName && validPassword && validUsername;
+        return validFirstName && validLastName && validPassword ;
     }
 
     private boolean isAlpha(String string) {
@@ -40,6 +40,7 @@ public class ValidatorService {
 
     private boolean isValidPasswordSecure(String password) {
 
-        return password.matches("^(?=.*[0-9])(?=.*[a-z])(?=.*[A-Z])(?=.*[@#$%^&+=])(?=\\S+$).{8,20}$");
+        return true;
+//        return password.matches("^(?=.*[0-9])(?=.*[a-z])(?=.*[A-Z])(?=.*[@#$%^&+=])(?=\\S+$).{8,20}$");
     }
 }

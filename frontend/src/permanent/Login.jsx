@@ -2,24 +2,63 @@ import React ,{useState} from 'react';
 import Modal from '@material-ui/core/Modal';
 import './Login.scss';
 import CloseIcon from '@material-ui/icons/Close';
+import Axios from 'axios';
+import Registration from './Registration';
+import {Link} from 'react-router-dom'
+
 
 export default function SimpleModal() {
   const [open, setOpen] = useState(false);
   const [emailEffect,setEmailEffect] = useState(false);
   const [pswEffect,setPswEffect] = useState(false);
+  const [email,setEmail] = useState();
+  const [password,setPsw] = useState();
+  const [user,setUser]=useState();
 
+
+  const handleSubmit = async e => {
+    e.preventDefault();
+    const user = { email, password };
+    console.log(user);
+    var response;
+    // send the username and password to the server
+    try{
+       response = 
+      await Axios.post(
+      "http://localhost:8762/auth",     
+      user
+    );
+    setUser(response.data)
+    // store the user in localStorage
+    localStorage.setItem('user', response.data)
+    console.log(response.data)
+    handleClose()
+  }
+    catch(error){
+      alert("Your email or password is incorrect ")
+    }
+    // set the state of the user
+   
+  };
   function handleTextChange(target) {
       switch(target.id){
         case "email":
             target.value=== ''? setEmailEffect(false): setEmailEffect(true);
+            setEmail(target.value)
             break;
         case "psw":
             target.value=== ''? setPswEffect(false): setPswEffect(true);
+            setPsw(target.value)
             break;
       }
 
 
   }
+  // const register =() =>{
+  //   return (
+  //     <Registration/>
+  //   )
+  // }
 
   const handleOpen = () => {
     setOpen(true);
@@ -41,16 +80,16 @@ export default function SimpleModal() {
             <label className={ emailEffect ? "Active" : ""} htmlFor="email">Email</label>
             </div>
             <div className="float-label">
-            <input type="psw" id="psw"  onChange={(e) => handleTextChange(e.target)}/>
+            <input type="password" id="psw"  onChange={(e) => handleTextChange(e.target)}/>
             <label  className={ pswEffect ? "Active" : ""} htmlFor="psw">Password</label>
             </div>
         </div>
-        <button className="login__button">Login</button>
+        <button className="login__button" onClick={handleSubmit}>Login</button>
         <h4>Forgot your password?</h4>
         <h4>Don't have profile? Register!</h4>
     </div>
   );
-
+  
   return (
     <div className="login" >
       <p onClick={handleOpen}>Login</p>
