@@ -114,6 +114,25 @@ textarea,
   }
 }
 
+.add-button {
+  background-color: white;
+  border: 1px solid lightgray;
+  border-radius: 4px;
+  color: #484848;
+  padding: 10px 20px;
+  text-align: center;
+  text-decoration: none;
+  font-weight: 600 !important;
+  display: inline-block;
+  font-size: 16px;
+  margin: 12px 2px;
+  cursor: pointer;
+  &:focus {
+    outline: none;
+    border: 2px solid black;
+  }
+}
+
 .circle-button {
   background-color: white;
   border: 1px solid #008489;
@@ -127,7 +146,7 @@ textarea,
   font-weight: 600 !important;
   display: inline-block;
   font-size: 10px;
-  margin: 20px 20px;
+  margin: 5px 20px;
   cursor: pointer;
   &:disabled {
     filter: opacity(30%);

@@ -1,6 +1,7 @@
 import React, { useContext, useState } from "react";
 import { NewAccommodationContext } from "../context/NewAccommodationContext";
 import { useHistory } from "react-router-dom";
+import Room from "./Room";
 
 function Rooms() {
   const history = useHistory();
@@ -11,11 +12,20 @@ function Rooms() {
   const [beds, setBeds] = useState(1);
   const [bathrooms, setBathrooms] = useState(1);
 
+  let accommodationWithRoom = accommodation;
+  accommodationWithRoom["rooms"] = {};
+  setAccommodation(accommodationWithRoom);
+
+  let bedroomList = [];
+  if (bedrooms > 0) {
+    for (let i = 0; i < bedrooms; i++) {
+      bedroomList.push(<Room key={i} index={i} type="Bedroom" />);
+    }
+  }
+
   const handleNext = () => {
     let newAccommodation = accommodation;
-    let rooms = { bedroom: bedrooms, bathroom: bathrooms, beds: beds };
     newAccommodation["maxNrOfGuests"] = maxNrOfGuests;
-    newAccommodation["rooms"] = rooms;
     setAccommodation(newAccommodation);
     history.push("/become-a-host/save");
   };
@@ -38,7 +48,7 @@ function Rooms() {
               type="button"
               className="circle-button"
               onClick={() => setMaxNrOfGuests(maxNrOfGuests - 1)}
-              disabled={maxNrOfGuests < 1}
+              disabled={maxNrOfGuests < 2}
             >
               <i className="fas fa-minus" />
             </button>
@@ -55,7 +65,7 @@ function Rooms() {
           </div>
         </div>
 
-        <p>How many bedrooms can guests use?</p>
+        <p style={{ marginTop: "30px" }}>How many bedrooms can guests use?</p>
         <div className="row">
           <div className="cell-left">
             <div className="label">Bedrooms</div>
@@ -81,33 +91,11 @@ function Rooms() {
             </button>
           </div>
         </div>
+      </div>
 
-        <p>How many beds can guests use?</p>
-        <div className="row">
-          <div className="cell-left">
-            <div className="label">Beds</div>
-          </div>
-          <div className="cell-right">
-            <button
-              type="button"
-              className="circle-button"
-              onClick={() => setBeds(beds - 1)}
-              disabled={beds < 1}
-            >
-              <i className="fas fa-minus" />
-            </button>
-            {beds}
-            {beds > 49 && <span>+</span>}
-            <button
-              type="button"
-              className="circle-button"
-              onClick={() => setBeds(beds + 1)}
-              disabled={beds > 49}
-            >
-              <i className="fas fa-plus" />
-            </button>
-          </div>
-        </div>
+      {bedroomList}
+
+      <div className="side-by-side">
         <p>How many bathrooms can guests use?</p>
         <div className="row">
           <div className="cell-left">
