@@ -83,8 +83,8 @@ function NewAccommodationLandingPage() {
     let address = {};
 
     address["country"] = country;
+    address["city"] = city;
     address["zipCode"] = zipCode;
-    address["city"] = zipCode;
     address["street"] = street;
     address["houseNumber"] = houseNumber;
     //AFTER PLACES API WORKS: newAccommodation["coordinate"] = coordinates;
@@ -171,7 +171,20 @@ function NewAccommodationLandingPage() {
         details
       }
 
-      <button type="button" className="next-button" onClick={handleContinue}>
+      <button
+        type="button"
+        className="next-button"
+        onClick={handleContinue}
+        disabled={
+          //AFTER PLACES API WORKS:
+          //value === "" &&
+          country === "" ||
+          city === "" ||
+          zipCode === "" ||
+          street === "" ||
+          houseNumber === ""
+        }
+      >
         Continue
       </button>
     </React.Fragment>

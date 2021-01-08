@@ -9,7 +9,6 @@ function Rooms() {
 
   const [maxNrOfGuests, setMaxNrOfGuests] = useState(1);
   const [bedrooms, setBedrooms] = useState(1);
-  const [beds, setBeds] = useState(1);
   const [bathrooms, setBathrooms] = useState(1);
 
   let accommodationWithRoom = accommodation;
@@ -26,6 +25,13 @@ function Rooms() {
   const handleNext = () => {
     let newAccommodation = accommodation;
     newAccommodation["maxNrOfGuests"] = maxNrOfGuests;
+    let rooms = Object.keys(accommodation.rooms).map(function (id) {
+      return accommodation.rooms[id];
+    });
+    delete newAccommodation["rooms"];
+    let bathroom = [];
+    for (let i = 0; i < bathrooms; i++) bathroom.push({ type: "2" });
+    newAccommodation["rooms"] = { ...rooms, ...bathroom };
     setAccommodation(newAccommodation);
     history.push("/become-a-host/save");
   };
@@ -94,8 +100,9 @@ function Rooms() {
       </div>
 
       {bedroomList}
+      <Room id="1000" type="Common spaces" />
 
-      <div className="side-by-side">
+      <div className="side-by-side" style={{ marginTop: "30px" }}>
         <p>How many bathrooms can guests use?</p>
         <div className="row">
           <div className="cell-left">

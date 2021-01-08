@@ -6,19 +6,27 @@ function Room(props) {
   const [beds, setBeds] = useState({});
   const [numberOfBeds, setNumberOfBeds] = useState(0);
   const [addBedsButton, setAddBedsButton] = useState("Add beds");
-  const id =
-    props.index === undefined
-      ? Math.floor(Math.random() * 2000000) + 1000000
-      : props.index + 1;
+  const id = props.index === undefined ? props.id : props.index + 1;
   const roomTypes = { Bedroom: "1", "Common spaces": "3" };
   const bedTypes = ["Single", "Double", "King", "Couch", "Toddler"];
+
+  const saveRoom = () => {
+    let newAccommodation = accommodation;
+    newAccommodation.rooms[id] = {
+      beds: { ...beds },
+      type: roomTypes[props.type],
+    };
+
+    setAccommodation(newAccommodation);
+  };
 
   const increaseBeds = (bedType) => {
     let added = {};
     added[bedType] = beds[bedType] === undefined ? 1 : beds[bedType] + 1;
     let newBeds = { ...beds, ...added };
-    setBeds(newBeds);
     setNumberOfBeds(numberOfBeds + 1);
+    setBeds(newBeds);
+    saveRoom();
   };
 
   const decreaseBeds = (bedType) => {
@@ -30,8 +38,9 @@ function Room(props) {
       taken[bedType] = beds[bedType] - 1;
       newBeds = { ...beds, ...taken };
     }
-    setBeds(newBeds);
     setNumberOfBeds(numberOfBeds - 1);
+    setBeds(newBeds);
+    saveRoom();
   };
 
   let bedList = bedTypes.map((bedType, index) => {
@@ -72,18 +81,7 @@ function Room(props) {
     if (addBedsButton === "Add beds") {
       setAddBedsButton("Done");
     } else {
-      let newAccommodation = accommodation;
-      if (numberOfBeds === 0 && newAccommodation.rooms[id] !== undefined) {
-        delete newAccommodation.rooms[id];
-      } else if (numberOfBeds !== 0) {
-        newAccommodation.rooms[id] = {
-          beds: { ...beds },
-          type: roomTypes[props.type],
-        };
-      }
-      setAccommodation(newAccommodation);
       setAddBedsButton("Add beds");
-      console.log(accommodation);
     }
   };
 
