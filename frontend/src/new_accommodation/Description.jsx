@@ -22,7 +22,7 @@ function Description() {
     let newAccommodation = accommodation;
     newAccommodation["name"] = title;
     newAccommodation["description"] = desc;
-    newAccommodation["type"] = type;
+    newAccommodation["type"] = type.replace(" ", "_").toUpperCase();
     newAccommodation["hostId"] = 1;
     setAccommodation(newAccommodation);
     history.push("/become-a-host/rooms");

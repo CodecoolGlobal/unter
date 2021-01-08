@@ -1,4 +1,4 @@
-import React, { useState, useContext } from "react";
+import React, { useState, useContext, useEffect } from "react";
 import "./NewAccommodation.scss";
 /*AFTER PLACES API WORKS: 
 import usePlacesAutocomplete, {
@@ -10,6 +10,7 @@ import useOnclickOutside from "react-cool-onclickoutside";
 import { NewAccommodationContext } from "../context/NewAccommodationContext";
 import { useHistory } from "react-router-dom";
 import { CountryDropdown } from "react-country-region-selector";
+import axios from "axios";
 
 function NewAccommodationLandingPage() {
   const history = useHistory();
@@ -21,6 +22,26 @@ function NewAccommodationLandingPage() {
   const [city, setCity] = useState("");
   const [street, setStreet] = useState("");
   const [houseNumber, setHouseNumber] = useState("");
+
+  useEffect(() => {
+    if (city !== "") {
+      axios
+        .get(
+          `http://open.mapquestapi.com/geocoding/v1/address?key=AGLLGoolFA9orBIVXAHGMfGAtq0pvT6e&location=${city}`
+        )
+        .then((response) => {
+          let latitude = response.data.results[0].locations[0].latLng.lat;
+          let longitude = response.data.results[0].locations[0].latLng.lng;
+          let newAccommodation = accommodation;
+          newAccommodation["coordinate"] = {
+            longitude: longitude,
+            latitude: latitude,
+          };
+          setAccommodation(newAccommodation);
+          console.log(accommodation);
+        });
+    }
+  }, [city]);
 
   /* AFTER PLACES API WORKS: 
   const {

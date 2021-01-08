@@ -1,14 +1,10 @@
-import React, { useContext, useEffect } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import { NewAccommodationContext } from "../context/NewAccommodationContext";
 import axios from "axios";
 
 function FinishListing() {
   const [accommodation, setAccommodation] = useContext(NewAccommodationContext);
-  const city =
-    accommodation.address === undefined ||
-    accommodation.address.city === undefined
-      ? ""
-      : accommodation.address.city;
+  const [success, setSuccess] = useState(false);
 
   let content = (
     <React.Fragment>
@@ -17,27 +13,13 @@ function FinishListing() {
   );
 
   useEffect(() => {
-    console.log("it");
-    if (city !== "") {
-      axios
-        .get(
-          `http://open.mapquestapi.com/geocoding/v1/address?key=AGLLGoolFA9orBIVXAHGMfGAtq0pvT6e&location=${city}`
-        )
-        .then((response) => {
-          let latitude = response.data.results[0].locations[0].latLng.lat;
-          let longitude = response.data.results[0].locations[0].latLng.lng;
-          let newAccommodation = accommodation;
-          newAccommodation["coordinate"] = {
-            longitude: longitude,
-            latitude: latitude,
-          };
-          setAccommodation(newAccommodation);
-          console.log(accommodation);
-        });
-    }
-  }, [city]);
+    axios.post(`http://localhost:8081`, accommodation).then((response) => {
+      setSuccess(true);
+      console.log(accommodation);
+    });
+  }, [setSuccess]);
 
-  if (accommodation.coordinate !== undefined) {
+  if (success) {
     content = (
       <React.Fragment>
         <h2>Your accommodation is saved!</h2>

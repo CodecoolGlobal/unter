@@ -1,5 +1,6 @@
 import React, { useState, useContext } from "react";
 import { NewAccommodationContext } from "../context/NewAccommodationContext";
+import toSentenceCaseWithDash from "./toSentenceCaseWithDash";
 
 function Room(props) {
   const [accommodation, setAccommodation] = useContext(NewAccommodationContext);
@@ -8,7 +9,7 @@ function Room(props) {
   const [addBedsButton, setAddBedsButton] = useState("Add beds");
   const id = props.index === undefined ? props.id : props.index + 1;
   const roomTypes = { Bedroom: "1", "Common spaces": "3" };
-  const bedTypes = ["Single", "Double", "King", "Couch", "Toddler"];
+  const bedTypes = ["SINGLE", "DOUBLE", "KING", "COUCH", "TODDLER"];
 
   const saveRoom = () => {
     let newAccommodation = accommodation;
@@ -50,7 +51,7 @@ function Room(props) {
         key={index}
         style={{ fontSize: "14px", fontWeight: "bold" }}
       >
-        <div className="cell-left">{bedType}</div>
+        <div className="cell-left">{toSentenceCaseWithDash(bedType)}</div>
 
         <div className="cell-right">
           <button

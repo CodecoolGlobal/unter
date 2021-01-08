@@ -7,7 +7,7 @@ function Rooms() {
   const history = useHistory();
   const [accommodation, setAccommodation] = useContext(NewAccommodationContext);
 
-  const [maxNrOfGuests, setMaxNrOfGuests] = useState(1);
+  const [maxNrOfGuests, setMaxNrOfGuests] = useState("1");
   const [bedrooms, setBedrooms] = useState(1);
   const [bathrooms, setBathrooms] = useState(1);
 
@@ -24,14 +24,14 @@ function Rooms() {
 
   const handleNext = () => {
     let newAccommodation = accommodation;
-    newAccommodation["maxNrOfGuests"] = maxNrOfGuests;
+    newAccommodation["maxNumberOfGuest"] = maxNrOfGuests;
     let rooms = Object.keys(accommodation.rooms).map(function (id) {
       return accommodation.rooms[id];
     });
     delete newAccommodation["rooms"];
     let bathroom = [];
-    for (let i = 0; i < bathrooms; i++) bathroom.push({ type: "2" });
-    newAccommodation["rooms"] = { ...rooms, ...bathroom };
+    for (let i = 0; i < bathrooms; i++) bathroom.push({ beds: {}, type: "2" });
+    newAccommodation["rooms"] = [...rooms, ...bathroom];
     setAccommodation(newAccommodation);
     history.push("/become-a-host/save");
   };
