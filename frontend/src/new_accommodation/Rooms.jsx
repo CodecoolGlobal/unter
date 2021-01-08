@@ -7,7 +7,7 @@ function Rooms() {
   const history = useHistory();
   const [accommodation, setAccommodation] = useContext(NewAccommodationContext);
 
-  const [maxNrOfGuests, setMaxNrOfGuests] = useState("1");
+  const [maxNrOfGuests, setMaxNrOfGuests] = useState(1);
   const [bedrooms, setBedrooms] = useState(1);
   const [bathrooms, setBathrooms] = useState(1);
 
@@ -24,7 +24,7 @@ function Rooms() {
 
   const handleNext = () => {
     let newAccommodation = accommodation;
-    newAccommodation["maxNumberOfGuest"] = maxNrOfGuests;
+    newAccommodation["maxNumberOfGuest"] = maxNrOfGuests.toString();
     let rooms = Object.keys(accommodation.rooms).map(function (id) {
       return accommodation.rooms[id];
     });
