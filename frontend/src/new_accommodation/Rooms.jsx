@@ -11,9 +11,7 @@ function Rooms() {
   const [bedrooms, setBedrooms] = useState(1);
   const [bathrooms, setBathrooms] = useState(1);
 
-  let accommodationWithRoom = accommodation;
-  accommodationWithRoom["rooms"] = {};
-  setAccommodation(accommodationWithRoom);
+  console.log(accommodation["rooms"]);
 
   let bedroomList = [];
   if (bedrooms > 0) {
@@ -23,17 +21,19 @@ function Rooms() {
   }
 
   const handleNext = () => {
-    let newAccommodation = accommodation;
+    let newAccommodation = { ...accommodation };
     newAccommodation["maxNumberOfGuest"] = maxNrOfGuests.toString();
     let rooms = Object.keys(accommodation.rooms).map(function (id) {
       return accommodation.rooms[id];
     });
     delete newAccommodation["rooms"];
     let bathroom = [];
-    for (let i = 0; i < bathrooms; i++) bathroom.push({ beds: {}, type: "2" });
+    for (let i = 0; i < bathrooms; i++) bathroom.push({ beds: {}, type: "1" });
+    console.log("rooms");
+    console.log(accommodation["rooms"]);
     newAccommodation["rooms"] = [...rooms, ...bathroom];
     setAccommodation(newAccommodation);
-    history.push("/become-a-host/save");
+    //history.push("/become-a-host/save");
   };
 
   return (

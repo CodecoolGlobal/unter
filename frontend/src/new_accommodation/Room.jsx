@@ -8,7 +8,7 @@ function Room(props) {
   const [numberOfBeds, setNumberOfBeds] = useState(0);
   const [addBedsButton, setAddBedsButton] = useState("Add beds");
   const id = props.index === undefined ? props.id : props.index + 1;
-  const roomTypes = { Bedroom: "1", "Common spaces": "3" };
+  const roomTypes = { Bedroom: "0", "Common spaces": "2" };
   const bedTypes = ["SINGLE", "DOUBLE", "KING", "COUCH", "TODDLER"];
 
   const saveRoom = () => {
