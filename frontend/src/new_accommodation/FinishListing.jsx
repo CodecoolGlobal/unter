@@ -13,7 +13,9 @@ function FinishListing() {
   );
 
   useEffect(() => {
-    axios.post(`http://localhost:8081`, accommodation).then((response) => {
+    axios
+        .post(`http://localhost:8762/acc`, accommodation, { withCredentials: true })
+        .then((response) => {
       setSuccess(true);
       console.log(accommodation);
     });
