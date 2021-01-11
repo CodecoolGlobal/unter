@@ -47,4 +47,19 @@ public class AccommodationController {
     public ResponseAccDTO getAccommodationById(@PathVariable(name = "accommodationId")Long accommodationId) {
         return service.findAccommodationById(accommodationId);
     }
+
+    @GetMapping("/accommodation-types")
+    public List<String> getAccommodationTypes() {
+        return service.findAllAccommodationTypes();
+    }
+
+    @GetMapping("/room-types")
+    public List<String> getRoomTypes() {
+        return service.findAllRoomTypes();
+    }
+
+    @GetMapping("/bed-types")
+    public List<String> getBedTypes() {
+        return service.findAllBedTypes();
+    }
 }
