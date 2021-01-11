@@ -173,7 +173,7 @@ public class AddressRepositoryTest {
             .country("Test")
             .city("Test City")
             .street("Test street")
-            // missing house number files
+            // missing house number field
             .zipCode("test zip code")
             .build();
 
