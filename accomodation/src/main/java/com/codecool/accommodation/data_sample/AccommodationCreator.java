@@ -17,8 +17,8 @@ public class AccommodationCreator {
     }
 
     public void initialize() {
-        String[] countries = {"Hungary", "Hungary","Hungary","Hungary","Hungary","Hungary","Hungary", "Germany", "Germany", "Germany", "Germany", "Germany", "Germany", "Germany"};
-        String[] cities = {"Budapest", "Budapest", "Budapest", "Budapest", "Budapest", "Budapest", "Budapest", "Berlin", "Berlin", "Berlin", "Berlin", "Berlin", "Berlin", "Berlin"};
+        String[] countries = {"Hungary", "Germany"};
+        String[] cities = {"Budapest", "Berlin"};
         String[] zipCodes = {
             "1137", //Budapest
             "1055",
@@ -52,21 +52,21 @@ public class AccommodationCreator {
             "Wilhelm-Busch-Straße",
             "Friedrichsfelde"
         };
-        int[] houseNumbers = {
-            6, //budapest
-            2,
-            19,
-            19,
-            5,
-            7,
-            2,
-            18, //Berlin
-            23,
-            26,
-            56,
-            58,
-            13,
-            44
+        String[] houseNumbers = {
+            "6", //budapest
+            "2",
+            "19",
+            "19",
+            "5",
+            "7",
+            "2",
+            "18", //Berlin
+            "23",
+            "26",
+            "56",
+           "58",
+            "13",
+            "44"
         };
         double[] latitudes = {
             47.512873, // budapest
@@ -298,8 +298,8 @@ public class AccommodationCreator {
 
         for (int i = 0; i < descriptions.length; i++) {
             NewAccommodation newAccommodation = NewAccommodation.builder()
-                    .city(cities[i])
-                    .country(countries[i])
+                    .city(i < descriptions.length / 2 ? cities[0] : cities[1])
+                    .country(i < descriptions.length / 2 ? countries[0] : countries[1])
                     .street(streets[i])
                     .zipCode(zipCodes[i])
                     .houseNumber(houseNumbers[i])
@@ -322,7 +322,7 @@ public class AccommodationCreator {
                 .country("Hungary")
                 .street("Utca")
                 .zipCode("4444")
-                .houseNumber(12)
+                .houseNumber("12")
                 .latitude(22.00)
                 .longitude(32.00)
                 .description("Nice!444négy")

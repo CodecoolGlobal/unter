@@ -1,17 +1,14 @@
 package com.codecool.accommodation.model.entity;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
-import com.fasterxml.jackson.annotation.JsonManagedReference;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
-import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
 
 @Data
 @Entity
-//@NoArgsConstructor
 @AllArgsConstructor
 @Builder
 public class Address {
@@ -21,7 +18,7 @@ public class Address {
     private Long id;
 
     @Column(nullable = false)
-    private Integer houseNumber;
+    private String houseNumber;
 
     @Column(nullable = false)
     private String street;
@@ -40,12 +37,5 @@ public class Address {
     private Accommodation accommodation;
 
 
-    public Address() {
-    }
-
-//    private Address(Integer houseNumber, String street, String city, String zipCode){
-//        this.houseNumber = houseNumber;
-//    }
-
-
+    public Address() {}
 }

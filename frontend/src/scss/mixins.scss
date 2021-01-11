@@ -1,26 +1,56 @@
 @mixin banner__padding {
-    padding-left: 50px;
-    padding-right: 80px;
-    padding-top: 25vh;
-    padding-bottom: 40px;
+  padding-left: 50px;
+  padding-right: 80px;
+  padding-top: 25vh;
+  padding-bottom: 40px;
 }
 
 @mixin cardInfo__sizing {
-    margin-top: -9px;
-    border-radius: 10px;
-    padding: 20px;
-    padding-top: 20px;
-    border: 1;
+  margin-top: -9px;
+  border-radius: 10px;
+  padding: 20px;
+  padding-top: 20px;
+  border: 1;
 }
 
 @mixin flex__center {
-    display: flex;
-    align-items: center;
-    justify-content: center;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
 @mixin flex__alignCenter($justifyContent) {
-    display: flex;
-    align-items: center;
-    justify-content: $justifyContent;
+  display: flex;
+  align-items: center;
+  justify-content: $justifyContent;
+}
+
+@mixin placeholder {
+  &::-webkit-input-placeholder {
+    @content;
+  }
+  &:-moz-placeholder {
+    @content;
+  }
+  &::-moz-placeholder {
+    @content;
+  }
+  &:-ms-input-placeholder {
+    @content;
+  }
+}
+
+@mixin text__input {
+  background-color: white !important;
+  box-sizing: border-box;
+  width: 100% !important;
+  border: 1px solid #aaaaaa !important;
+  border-radius: 6px;
+  padding: 25px 10px;
+  margin: 6px 0px 0px;
+  color: black;
+  font-size: 16px;
+  &:focus {
+    border: 2px solid black !important;
+  }
 }
