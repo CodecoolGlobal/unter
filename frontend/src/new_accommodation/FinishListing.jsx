@@ -8,23 +8,25 @@ function FinishListing() {
 
   let content = (
     <React.Fragment>
-      <h2>Saving your listing...</h2>
+      <h2 className="subtitle">Saving your listing...</h2>
     </React.Fragment>
   );
 
   useEffect(() => {
     axios
-        .post(`http://localhost:8762/acc`, accommodation, { withCredentials: true })
-        .then((response) => {
-      setSuccess(true);
-      console.log(accommodation);
-    });
+      .post(`http://localhost:8762/acc`, accommodation, {
+        withCredentials: true,
+      })
+      .then((response) => {
+        setSuccess(true);
+        console.log(accommodation);
+      });
   }, [setSuccess]);
 
   if (success) {
     content = (
       <React.Fragment>
-        <h2>Your accommodation is saved!</h2>
+        <h2 className="subtitle">Your accommodation is saved!</h2>
         <p>
           Create memorable experiences for travelers and earn money to pursue
           the things you love.

@@ -105,7 +105,7 @@ function Room(props) {
             >
               {props.type} {props.index === undefined ? "" : id}
             </div>
-            <h3>{numberOfBeds} beds</h3>
+            <h3 className="field-description">{numberOfBeds} beds</h3>
           </div>
 
           <div className="cell-right" style={{ textAlign: "right" }}>

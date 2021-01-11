@@ -30,11 +30,11 @@ function Description() {
 
   return (
     <React.Fragment>
-      <h2>What kind of place are you listing?</h2>
+      <h2 className="subtitle">What kind of place are you listing?</h2>
 
       <div className="label">Choose a property type</div>
       <select
-        className="dropdown"
+        className="dropdown-form"
         onChange={(event) => setType(event.target.value)}
       >
         {propertyTypes.map((type, index) => (
@@ -44,6 +44,7 @@ function Description() {
 
       <div className="label">Create a title for your listing</div>
       <input
+        className="text-input"
         type="text"
         value={title}
         onChange={(event) => {
@@ -52,11 +53,12 @@ function Description() {
       />
 
       <div className="label">Describe your place to guests</div>
-      <h3>
+      <h3 className="field-description">
         Mention the best features of your space, any special amenities like fast
         WiFi or parking, and what you love about the neighborhood.
       </h3>
       <textarea
+        className="text-input"
         value={desc}
         style={{ height: "200px", paddingTop: "10px" }}
         onChange={(event) => {

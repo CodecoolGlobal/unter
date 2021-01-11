@@ -73,6 +73,7 @@ function NewAccommodationLandingPage() {
   const addressWithCoordinates = (
     <div ref={ref}>
       <input
+      className="text-input"
         value={value}
         onChange={(event) => {
           setValue(event.target.value);
@@ -118,7 +119,7 @@ function NewAccommodationLandingPage() {
     <React.Fragment>
       <div className="label">Country</div>
       <CountryDropdown
-        className="dropdown"
+        className="dropdown-form"
         value={country}
         onChange={(v) => setCountry(v)}
       />
@@ -128,6 +129,7 @@ function NewAccommodationLandingPage() {
           <div className="cell-left">
             <div className="label">City</div>
             <input
+              className="text-input"
               type="text"
               value={city}
               onChange={(event) => {
@@ -138,6 +140,7 @@ function NewAccommodationLandingPage() {
           <div className="cell-right">
             <div className="label">ZIP Code</div>
             <input
+              className="text-input"
               type="text"
               value={zipCode}
               onChange={(event) => {
@@ -151,6 +154,7 @@ function NewAccommodationLandingPage() {
           <div className="cell-left">
             <div className="label">Street</div>
             <input
+              className="text-input"
               type="text"
               value={street}
               onChange={(event) => {
@@ -161,6 +165,7 @@ function NewAccommodationLandingPage() {
           <div className="cell-right">
             <div className="label">House number</div>
             <input
+              className="text-input"
               type="text"
               value={houseNumber}
               onChange={(event) => {
@@ -175,7 +180,7 @@ function NewAccommodationLandingPage() {
 
   return (
     <React.Fragment>
-      <h2>Where’s your place located?</h2>
+      <h2 className="subtitle">Where’s your place located?</h2>
       <p>
         Guests will only get your exact address once they’ve booked a
         reservation.

@@ -38,7 +38,7 @@ function Rooms() {
 
   return (
     <React.Fragment>
-      <h2>How many guests can your place accommodate?</h2>
+      <h2 className="subtitle">How many guests can your place accommodate?</h2>
       <p>
         Check that you have enough beds to accommodate all your guests
         comfortably.
