@@ -7,7 +7,7 @@ import lombok.Data;
 @Builder
 public class AddressDTO {
 
-    private Integer houseNumber;
+    private String houseNumber;
     private String street;
     private String city;
     private String zipCode;
