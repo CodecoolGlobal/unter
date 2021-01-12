@@ -1,5 +1,6 @@
 package com.codecool.earthbnb.gateway.service;
 
+import com.codecool.earthbnb.gateway.exception.UserNotExistsException;
 import com.codecool.earthbnb.gateway.model.DTO.PublicUserDTO;
 import com.codecool.earthbnb.gateway.model.DTO.UserDTO;
 import com.codecool.earthbnb.gateway.model.Response;
@@ -23,14 +24,20 @@ public class UserService {
     }
 
     public PublicUserDTO getPublicUserDataByUserId(Long userId) {
+        if(dao.getPublicUserDataByUserId(userId) == null ){
+            throw new UserNotExistsException();
+        }
         return dao.getPublicUserDataByUserId(userId);
     }
 
     public PublicUserDTO getLoggedInUserData(HttpServletRequest request) {
+        if(dao.getLoggedInUserData(request) == null){
+            throw new UserNotExistsException();
+        }
         return dao.getLoggedInUserData(request);
     }
 
-    public Response register(UserDTO userDTO) {
+    public boolean register(UserDTO userDTO) {
        return dao.register(userDTO);
     }
 }

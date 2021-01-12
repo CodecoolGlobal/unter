@@ -24,9 +24,7 @@ public class JwtTokenFilter extends GenericFilterBean {
 
     @Override
     public void doFilter(ServletRequest req, ServletResponse res, FilterChain filterChain) throws IOException, ServletException {
-        System.out.println("cicaaaaa");
         String token = jwtTokenServices.getTokenFromRequest((HttpServletRequest) req);
-        System.out.println(token);
 
         if (token != null && jwtTokenServices.validateToken(token)) {
             Authentication auth = jwtTokenServices.parseUserFromTokenInfo(token);
@@ -45,12 +43,6 @@ public class JwtTokenFilter extends GenericFilterBean {
         ((HttpServletResponse) res).setHeader("Access-Control-Allow-Methods", "POST, GET, OPTIONS, DELETE");
         ((HttpServletResponse) res).setHeader("Access-Control-Max-Age", "86400");
 
-        System.out.println("All names:");
-        System.out.println(((HttpServletResponse) res).getHeaderNames());
-
-        System.out.println("origin");
-        System.out.println(((HttpServletResponse) res).getHeaders("Access-Control-Allow-Origin"));
-
         response.addHeader("Access-Control-Allow-Headers", "authorization, content-type, xsrf-token");
         if ("OPTIONS".equals(request.getMethod())) {
             response.setStatus(HttpServletResponse.SC_OK);
@@ -58,8 +50,6 @@ public class JwtTokenFilter extends GenericFilterBean {
         } else {
             filterChain.doFilter(req, res);
         }
-
-
 
 //       filterChain.doFilter(req, res);
 

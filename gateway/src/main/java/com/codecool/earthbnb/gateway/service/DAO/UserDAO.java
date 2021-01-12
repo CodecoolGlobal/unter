@@ -12,7 +12,7 @@ public interface UserDAO {
 
     PublicUserDTO getLoggedInUserData(HttpServletRequest request);
 
-    Response register(UserDTO userDTO);
+    boolean register(UserDTO userDTO);
 
 
     UserEntity getPublicUserDataByEmail(String email);

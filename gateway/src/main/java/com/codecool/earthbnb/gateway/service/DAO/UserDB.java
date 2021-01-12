@@ -1,5 +1,6 @@
 package com.codecool.earthbnb.gateway.service.DAO;
 
+import com.codecool.earthbnb.gateway.exception.UserExistsException;
 import com.codecool.earthbnb.gateway.model.DTO.PublicUserDTO;
 import com.codecool.earthbnb.gateway.model.DTO.UserDTO;
 import com.codecool.earthbnb.gateway.model.Response;
@@ -39,7 +40,7 @@ public class UserDB implements UserDAO {
         return PublicUserDTO.builder()
                 .firstName(user.getFirstName())
                 .lastName(user.getLastName())
-//                .username(user.getUsername())
+                .birthDate(user.getBirthDate())
                 .email(user.getEmail())
                 .build();
     }
@@ -59,18 +60,9 @@ public class UserDB implements UserDAO {
     }
 
     @Override
-    public Response register(UserDTO userDTO) {
-//        EmailValidator validator = EmailValidator.getInstance();
-//
-//        if (!validator.isValid(userDTO.getEmail())) return new Response(false, "E-mail format not valid");
-//
-//        if (userRepository.existsByEmail(userDTO.getEmail()))
-//            return new Response(false, "This email is already registered!");
-////        if (userRepository.existsByUsername(userDTO.getUsername()))
-////            return new Response(false, "This username is already taken!");
-//        if (!validatorService.validateRegistration(userDTO, 2, 20,  2, 20))
-//            return new Response(false, "Registration failed due to invalid credentials");
-//
+    public boolean register(UserDTO userDTO) {
+        if (userRepository.existsByEmail(userDTO.getEmail()))
+           throw new UserExistsException();
 
         UserEntity userEntity = UserEntity.builder()
                 .email(userDTO.getEmail())
@@ -82,7 +74,7 @@ public class UserDB implements UserDAO {
                 .birthDate(userDTO.getBirthDate())
                 .build();
         userRepository.save(userEntity);
-        return new Response(true, "success");
+        return true;
     }
 
     @Override
