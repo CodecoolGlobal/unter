@@ -21,6 +21,6 @@ public class SearchController {
             @RequestParam Double latitude,
             @RequestParam(required = false) Double radius
     ) {
-        return searchService.getAccommodationsInRadius(new CoordinateDTO(latitude, longitude), radius);
+        return searchService.getAccommodationIdsInRadius(new CoordinateDTO(latitude, longitude), radius);
     }
 }
