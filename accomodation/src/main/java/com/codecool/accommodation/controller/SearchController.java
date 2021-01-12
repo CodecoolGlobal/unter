@@ -2,6 +2,7 @@ package com.codecool.accommodation.controller;
 
 import com.codecool.accommodation.model.DTO.CoordinateDTO;
 import com.codecool.accommodation.service.SearchService;
+import com.fasterxml.jackson.core.JsonProcessingException;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -20,7 +21,7 @@ public class SearchController {
             @RequestParam Double longitude,
             @RequestParam Double latitude,
             @RequestParam(required = false) Double radius
-    ) {
+    ) throws JsonProcessingException {
         return searchService.getAccommodationIdsInRadius(new CoordinateDTO(latitude, longitude), radius);
     }
 }
