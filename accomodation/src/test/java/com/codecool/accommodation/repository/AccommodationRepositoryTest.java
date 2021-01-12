@@ -203,9 +203,6 @@ public class AccommodationRepositoryTest {
         // save testAccommodation with hostId = 1L
         accommodationRepository.save(testAccommodation);
 
-        List<Accommodation> found = accommodationRepository.findAccommodationsByHostId(testHostId);
-        System.out.println(found);
-
         // test
         List<Accommodation> foundByHostId = accommodationRepository.findAccommodationsByHostId(testHostId);
         assertThat(foundByHostId).hasSize(0);
