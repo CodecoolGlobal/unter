@@ -235,13 +235,7 @@ public class AccommodationCreator {
                 "https://cdn.pixabay.com/photo/2017/02/24/12/24/bathroom-2094733__340.jpg",
                 "https://cdn.pixabay.com/photo/2015/11/27/20/28/florence-1066314__340.jpg"
             },
-            {
-                "https://pixabay.com/photos/bathroom-sink-mirror-apartment-2094716/",
-                "https://cdn.pixabay.com/photo/2015/03/26/09/42/bedroom-690129__340.jpg",
-                "https://pixabay.com/photos/couch-furnitures-indoors-1835923/",
-                "https://cdn.pixabay.com/photo/2017/03/22/17/39/kitchen-2165756__340.jpg",
-                "https://pixabay.com/photos/alley-road-city-historic-center-4054361/"
-            },
+
             {
                 "https://cdn.pixabay.com/photo/2017/03/10/10/07/bathroom-2132342__340.jpg",
                 "https://cdn.pixabay.com/photo/2016/11/19/13/06/bed-1839183__340.jpg",
@@ -276,7 +270,14 @@ public class AccommodationCreator {
                 "https://cdn.pixabay.com/photo/2017/03/19/01/18/living-room-2155353__340.jpg",
                 "https://cdn.pixabay.com/photo/2017/03/25/23/32/kitchen-2174593__340.jpg",
                 "https://cdn.pixabay.com/photo/2014/12/10/14/01/berlin-563101__340.jpg"
-            }
+            },
+                {
+                        "https://pixabay.com/photos/bathroom-sink-mirror-apartment-2094716/",
+                        "https://cdn.pixabay.com/photo/2015/03/26/09/42/bedroom-690129__340.jpg",
+                        "https://pixabay.com/photos/couch-furnitures-indoors-1835923/",
+                        "https://cdn.pixabay.com/photo/2017/03/22/17/39/kitchen-2165756__340.jpg",
+                        "https://pixabay.com/photos/alley-road-city-historic-center-4054361/"
+                }
         };
 
         Long[] hostIds = {

@@ -8,6 +8,7 @@ import SearchPage from "./search_page/SearchPage";
 import { HeaderProvider } from "./context/HeaderCloseContext";
 import AccommodationPage from "./accommodation_page/AccommodationPage";
 import {AccommodationNumberProvider} from "./context/AccommodationNumber";
+import UserPage from "./user_page/UserPage"
 
 function App() {
     return (
@@ -17,6 +18,9 @@ function App() {
                     <AccommodationNumberProvider>
                     <Header />
                     <Switch>
+                        <Route path="/profile">
+                            <UserPage/>
+                        </Route>
                         <Route path="/search">
                             <SearchPage />
                         </Route>
