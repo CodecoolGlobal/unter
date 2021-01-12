@@ -35,9 +35,9 @@ public class JwtTokenServices {
         secretKey = Base64.getEncoder().encodeToString(secretKey.getBytes());
     }
 
-    public String createToken(String username, List<String> roles) {
+    public String createToken(String email, List<String> roles) {
         // Add a custom field to the token
-        Claims claims = Jwts.claims().setSubject(username);
+        Claims claims = Jwts.claims().setSubject(email);
         claims.put(rolesFieldName, roles);
 
         Date now = new Date();
@@ -51,13 +51,13 @@ public class JwtTokenServices {
                 .compact();
     }
 
-    public Optional<Cookie> getTokenCookieFromRequest(HttpServletRequest request) {
-        if (request.getCookies() == null) return Optional.empty();
-        System.out.println("Cookies: " + request.getCookies().toString());
-        return Arrays.stream(request.getCookies())
-                .filter(cookie -> "JWT".equals(cookie.getName()))
-                .findFirst();
-    }
+//    public Optional<Cookie> getTokenCookieFromRequest(HttpServletRequest request) {
+//        if (request.getCookies() == null) return Optional.empty();
+//        System.out.println("Cookies: " + request.getCookies().toString());
+//        return Arrays.stream(request.getCookies())
+//                .filter(cookie -> "JWT".equals(cookie.getName()))
+//                .findFirst();
+//    }
 
     Authentication parseUserFromTokenInfo(String token) throws UsernameNotFoundException {
         Claims body = Jwts.parser().setSigningKey(secretKey).parseClaimsJws(token).getBody();
@@ -70,21 +70,38 @@ public class JwtTokenServices {
         return new UsernamePasswordAuthenticationToken(username, "", authorities);
     }
 
-    public String getTokenFromRequest(HttpServletRequest request) {
-        return getTokenCookieFromRequest(request).map(Cookie::getValue).orElse(null);
+//    public String getTokenFromRequest(HttpServletRequest request) {
+//        return getTokenCookieFromRequest(request).map(Cookie::getValue).orElse(null);
+//    }
+
+    public String getTokenFromRequest(HttpServletRequest req) {
+        String mycookie = null;
+        Cookie[] cookies = req.getCookies();
+        if (cookies != null) {
+            for (Cookie cookie : cookies) {
+                if (cookie.getName().equals("authentication")) {
+                    mycookie = cookie.getValue();
+                    return mycookie;
+                }
+            }
+        }
+
+        return null;
     }
+
+
 
     public boolean validateToken(String token) {
         try {
             Jws<Claims> claims = Jwts.parser().setSigningKey(secretKey).parseClaimsJws(token);
             return claims.getBody().getExpiration().after(new Date());
-        } catch (JwtException | IllegalArgumentException e) {
-            log.debug("JWT token invalid " + e);
+        } catch (IllegalArgumentException e) {
+            throw new JwtException("Token invalid");
         }
-        return false;
+
     }
 
-    public String getUsernameFromToken(HttpServletRequest req) {
+    public String getEmailFromToken(HttpServletRequest req) {
         String mycookie = null;
         Cookie[] cookies = req.getCookies();
 
