@@ -47,10 +47,11 @@ public class AccommodationControllerTest {
     @BeforeEach
     public void setUp() {
         Address address = Address.builder()
+            .country("Test")
             .city("Test City")
             .street("Test street")
             .zipCode("test")
-            .houseNumber(12)
+            .houseNumber("12")
             .build();
 
         Coordinate coordinate = Coordinate.builder()

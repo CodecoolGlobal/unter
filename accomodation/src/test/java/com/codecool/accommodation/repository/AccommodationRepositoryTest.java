@@ -35,10 +35,11 @@ public class AccommodationRepositoryTest {
     @BeforeEach
     public void setUp() {
         Address address = Address.builder()
+            .country("Test")
             .city("Test City")
             .street("Test street")
             .zipCode("test")
-            .houseNumber(12)
+            .houseNumber("12")
             .build();
 
         Coordinate coordinate = Coordinate.builder()
@@ -116,10 +117,11 @@ public class AccommodationRepositoryTest {
         // build 2 more accommodations with the same hostId but different from test
         Long testHostId = 2L;
         Address address2 = Address.builder()
+            .country("Test")
             .city("Test City2")
             .street("Test street2")
             .zipCode("test2")
-            .houseNumber(12)
+            .houseNumber("12")
             .build();
 
         Coordinate coordinate2 = Coordinate.builder()
@@ -149,10 +151,11 @@ public class AccommodationRepositoryTest {
             .build();
 
         Address address3 = Address.builder()
+            .country("Test")
             .city("Test City3")
             .street("Test street3")
             .zipCode("test3")
-            .houseNumber(12)
+            .houseNumber("12")
             .build();
 
         Coordinate coordinate3 = Coordinate.builder()
@@ -214,10 +217,11 @@ public class AccommodationRepositoryTest {
     public void test_saveSeveralAccommodations_persistAll() {
         // build another accommodation
         Address address2 = Address.builder()
+            .country("Test")
             .city("Test City")
             .street("Test street")
             .zipCode("test")
-            .houseNumber(12)
+            .houseNumber("12")
             .build();
 
         Coordinate coordinate2 = Coordinate.builder()
@@ -260,10 +264,11 @@ public class AccommodationRepositoryTest {
     public void test_accommodationNameShouldBeNotNull_throwsException() {
         // build accommodation
         Address address = Address.builder()
+            .country("Test")
             .city("Test City")
             .street("Test street")
             .zipCode("test")
-            .houseNumber(12)
+            .houseNumber("12")
             .build();
 
         Coordinate coordinate = Coordinate.builder()
@@ -290,10 +295,11 @@ public class AccommodationRepositoryTest {
     public void test_accommodationHostIdShouldBeNotNull_throwsException() {
         // build accommodation
         Address address = Address.builder()
+            .country("Test")
             .city("Test City")
             .street("Test street")
             .zipCode("test")
-            .houseNumber(12)
+            .houseNumber("12")
             .build();
 
         Coordinate coordinate = Coordinate.builder()
@@ -320,10 +326,11 @@ public class AccommodationRepositoryTest {
     public void test_accommodationMaxNumberOfGuestsShouldNotBeNull_throwsException() {
         // build accommodation
         Address address = Address.builder()
+            .country("Test")
             .city("Test City")
             .street("Test street")
             .zipCode("test")
-            .houseNumber(12)
+            .houseNumber("12")
             .build();
 
         Coordinate coordinate = Coordinate.builder()
@@ -350,10 +357,11 @@ public class AccommodationRepositoryTest {
     public void test_accommodationCoordinateShouldBeNotNull_throwsException() {
         // build accommodation
         Address address = Address.builder()
+            .country("Test")
             .city("Test City")
             .street("Test street")
             .zipCode("test")
-            .houseNumber(12)
+            .houseNumber("12")
             .build();
 
         Accommodation accommodation = Accommodation.builder()
@@ -558,10 +566,11 @@ public class AccommodationRepositoryTest {
     public void test_deleteAllAccommodation_shouldBeEmpty() {
         // build another accommodation
         Address address = Address.builder()
+            .country("Test country")
             .city("Test City2")
             .street("Test street2")
             .zipCode("test2")
-            .houseNumber(12)
+            .houseNumber("12")
             .build();
 
         Coordinate coordinate = Coordinate.builder()

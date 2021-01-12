@@ -35,8 +35,9 @@ public class AddressRepositoryTest {
         testAddress = Address.builder()
             .city("Test City")
             .street("Test street")
-            .houseNumber(3)
+            .houseNumber("3")
             .zipCode("test zip code")
+            .country("test")
             .build();
     }
 
@@ -68,9 +69,10 @@ public class AddressRepositoryTest {
     public void test_saveSeveralAddresses_persistAll() {
         // build another address
         Address testAddress2 = Address.builder()
+            .country("Test")
             .city("Test City2")
             .street("Test street2")
-            .houseNumber(3)
+            .houseNumber("3")
             .zipCode("test zip code2")
             .build();
 
@@ -99,10 +101,11 @@ public class AddressRepositoryTest {
     public void findAddressByAccommodationId_shouldBeFound() {
         // build full accommodation with Address
         Address address = Address.builder()
+            .country("Test")
             .city("Test City")
             .street("Test street")
             .zipCode("test")
-            .houseNumber(12)
+            .houseNumber("12")
             .build();
 
         Coordinate coordinate = Coordinate.builder()
@@ -149,12 +152,28 @@ public class AddressRepositoryTest {
     }
 
     @Test
+    public void test_addressCountryFieldShouldBeNotNull_throwsException() {
+        // build address
+        Address address = Address.builder()
+            // missing country field
+            .city("Test City2")
+            .street("Test street2")
+            .houseNumber("3")
+            .zipCode("test zip code2")
+            .build();
+
+        assertThrows(DataIntegrityViolationException.class, () ->
+            addressRepository.saveAndFlush(address));
+    }
+
+    @Test
     public void test_addressHouseNumberShouldBeNotNull_throwsException() {
         // build address
         Address address = Address.builder()
+            .country("Test")
             .city("Test City")
             .street("Test street")
-            // missing house number files
+            // missing house number field
             .zipCode("test zip code")
             .build();
 
@@ -166,9 +185,10 @@ public class AddressRepositoryTest {
     public void test_addressCityShouldBeNotNull_throwsException() {
         // build address
         Address address = Address.builder()
+            .country("Test")
             // missing city field
             .street("Test street")
-            .houseNumber(3)
+            .houseNumber("3")
             .zipCode("test zip code")
             .build();
 
@@ -180,9 +200,10 @@ public class AddressRepositoryTest {
     public void test_addressStreetShouldBeNotNull_throwsException() {
         // build address
         Address address = Address.builder()
+            .country("Test")
             .city("Test City")
             // missing street field
-            .houseNumber(3)
+            .houseNumber("3")
             .zipCode("test zip code")
             .build();
 
@@ -194,9 +215,10 @@ public class AddressRepositoryTest {
     public void test_addressZipCodeShouldBeNotNull_throwsException() {
         // build address
         Address address = Address.builder()
+            .country("Test")
             .city("Test City")
             .street("Test street")
-            .houseNumber(3)
+            .houseNumber("3")
             // missing zipCode field
             .build();
 
@@ -245,9 +267,10 @@ public class AddressRepositoryTest {
     public void test_deleteAllAddresses_shouldBeEmpty() {
         // build another address
         Address testAddress2 = Address.builder()
+            .country("Test")
             .city("Test City2")
             .street("Test street2")
-            .houseNumber(3)
+            .houseNumber("3")
             .zipCode("test zip code2")
             .build();
 

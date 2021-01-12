@@ -12,7 +12,7 @@ public class NewAccommodation {
     private String country;
     private String street;
     private String zipCode;
-    private int houseNumber;
+    private String houseNumber;
     private double latitude;
     private double longitude;
     private String description;

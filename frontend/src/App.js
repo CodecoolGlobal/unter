@@ -9,34 +9,42 @@ import { HeaderProvider } from "./context/HeaderCloseContext";
 import AccommodationPage from "./accommodation_page/AccommodationPage";
 import {AccommodationNumberProvider} from "./context/AccommodationNumber";
 import UserPage from "./user_page/UserPage"
+import Location from "./new_accommodation/Location";
+import { NewAccommodationProvider } from "./context/NewAccommodationContext";
+import NewAccommodation from "./new_accommodation/NewAccommodation";
 
 function App() {
-    return (
-        <div className="App">
-            <Router>
-                <HeaderProvider>
-                    <AccommodationNumberProvider>
-                    <Header />
-                    <Switch>
-                        <Route path="/profile">
-                            <UserPage/>
-                        </Route>
-                        <Route path="/search">
-                            <SearchPage />
-                        </Route>
-                        <Route path="/accommodation">
-                            <AccommodationPage/>
-                        </Route>
-                        <Route path="/">
-                            <Home />
-                        </Route>
-                    </Switch>
-                </AccommodationNumberProvider>
-                </HeaderProvider>
-                <Footer />
-            </Router>
-        </div>
-    );
+  return (
+    <div className="App">
+      <Router>
+        <HeaderProvider>
+          <AccommodationNumberProvider>
+            <NewAccommodationProvider>
+              <Header />
+              <Switch>
+                <Route path="/search">
+                  <SearchPage />
+                </Route>
+                  <Route path="/profile">
+                      <UserPage/>
+                  </Route>
+                <Route path="/accommodation">
+                  <AccommodationPage />
+                </Route>
+                <Route path="/become-a-host">
+                  <NewAccommodation />
+                </Route>
+                <Route path="/">
+                  <Home />
+                </Route>
+              </Switch>
+            </NewAccommodationProvider>
+          </AccommodationNumberProvider>
+        </HeaderProvider>
+        <Footer />
+      </Router>
+    </div>
+  );
 }
 
 export default App;

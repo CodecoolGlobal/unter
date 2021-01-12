@@ -35,8 +35,9 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .and()
                 .authorizeRequests()
                 .antMatchers("/**").permitAll()
+                .antMatchers(HttpMethod.POST, "/acc/**").permitAll()
                 .antMatchers(HttpMethod.GET, "/acc/**").permitAll()
-
+                .antMatchers(HttpMethod.OPTIONS, "/acc/**").permitAll()
 //                .anyRequest().denyAll()
                 .and()
                 .addFilterBefore(new JwtTokenFilter(jwtTokenServices), UsernamePasswordAuthenticationFilter.class);
@@ -48,14 +49,15 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
         return super.authenticationManagerBean();
     }
 
+
     @Bean
     CorsConfigurationSource corsConfigurationSource() {
         CorsConfiguration configuration = new CorsConfiguration();
         configuration.addAllowedOrigin("http://localhost:3000"); // TODO: make frontend endpoint an environment variable
         configuration.setAllowCredentials(true);
-        // configuration.setAllowedHeaders(Arrays.asList("Access-Control-Allow-*", "Origin", "Content-type", "Accept", "Authorization"));
+        configuration.setAllowedHeaders(Arrays.asList("Access-Control-Allow-*", "Origin", "Content-type", "Accept", "Authorization"));
         configuration.setAllowedHeaders(Arrays.asList("*"));
-        // configuration.setAllowedMethods(Arrays.asList("GET","POST", "PUT", "DELETE"));
+        configuration.setAllowedMethods(Arrays.asList("GET","POST", "PUT", "DELETE", "OPTIONS"));
         configuration.setAllowedMethods(Arrays.asList("*"));
         UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
         source.registerCorsConfiguration("/**", configuration);

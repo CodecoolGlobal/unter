@@ -4,18 +4,22 @@ import com.codecool.accommodation.exception.AccommodationNotFoundException;
 import com.codecool.accommodation.model.DTO.NewAccommodationDTO;
 import com.codecool.accommodation.model.DTO.ResponseAccDTO;
 import com.codecool.accommodation.model.entity.*;
+import com.codecool.accommodation.model.entity.types.AccommodationType;
+import com.codecool.accommodation.model.entity.types.BedType;
+import com.codecool.accommodation.model.entity.types.RoomType;
 import com.codecool.accommodation.repository.AccommodationRepository;
 import lombok.Data;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
-import org.modelmapper.ModelMapper;
 import org.springframework.stereotype.Component;
 
 import javax.persistence.*;
 import javax.transaction.Transactional;
 import java.util.List;
+import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 @Component
 @Data
@@ -28,7 +32,6 @@ public class AccommodationDB implements AccommodationDAO {
     @PersistenceContext
     private EntityManager entityManager;
 
-
     @Override
     public List<Accommodation> findAll() {
         return repository.findAll();
@@ -40,14 +43,12 @@ public class AccommodationDB implements AccommodationDAO {
         return repository.findAccommodationsByHostId(hostId);
     }
 
-    //@Transactional
     @Override
     public void saveNewAccommodation(NewAccommodationDTO newAccommodationDTO) {
 
         Coordinate coordinate = new Coordinate(newAccommodationDTO.getCoordinate().getLongitude(), newAccommodationDTO.getCoordinate().getLatitude());
 
         Address address = newAccommodationDTO.getAddress();
-        //Location location = accommodationDTO.getLocation();
 
         Accommodation accommodation2 = new Accommodation();
         accommodation2.setDescription(newAccommodationDTO.getDescription());
@@ -57,8 +58,6 @@ public class AccommodationDB implements AccommodationDAO {
         accommodation2.setType(newAccommodationDTO.getType());
         accommodation2.setAddress(address);
         accommodation2.setCoordinate(coordinate);
-        //accommodation2.setLocation(location);
-
 
         Session session = entityManager.unwrap(Session.class);
         Transaction tx = session.beginTransaction();
@@ -75,10 +74,6 @@ public class AccommodationDB implements AccommodationDAO {
             accommodation2.getRooms().add(newRoom);
         }
 
-
-        //coordinate.setLocation(location);
-
-
         session.save(accommodation2);
         session.save(address);
         tx.commit();
@@ -94,10 +89,6 @@ public class AccommodationDB implements AccommodationDAO {
     @Override
     public ResponseAccDTO findAccommodationById(Long accommodationId) {
         Accommodation accommodation = repository.findById(accommodationId).orElseThrow(()-> new AccommodationNotFoundException(accommodationId));
-
-//        ModelMapper modelMapper = new ModelMapper();
-//        NewAccommodationDTO newAccommodationDTO = modelMapper.map(accommodation, NewAccommodationDTO.class);
-
 
         ResponseAccDTO newAccommodationDTO = ResponseAccDTO.builder()
                 .id(accommodation.getId())
@@ -126,7 +117,6 @@ public class AccommodationDB implements AccommodationDAO {
         toEdit.setDescription(newAccommodationDTO.getDescription());
         toEdit.setMaxNumberOfGuests(newAccommodationDTO.getMaxNumberOfGuest());
 
-        //toEdit.setRooms(accommodationDTO.getRooms());
         repository.save(toEdit);
 
     }
@@ -134,5 +124,26 @@ public class AccommodationDB implements AccommodationDAO {
     @Override
     public boolean isExisted(Long accommodationId) {
         return repository.existsById(accommodationId);
+    }
+
+    @Override
+    public List<String> findAllAccommodationTypes() {
+        return Stream.of(AccommodationType.values())
+            .map(AccommodationType::name)
+            .collect(Collectors.toList());
+    }
+
+    @Override
+    public List<String> findAllRoomTypes() {
+        return Stream.of(RoomType.values())
+            .map(RoomType::name)
+            .collect(Collectors.toList());
+    }
+
+    @Override
+    public List<String> findAllBedTypes() {
+        return Stream.of(BedType.values())
+            .map(BedType::name)
+            .collect(Collectors.toList());
     }
 }

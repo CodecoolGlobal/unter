@@ -15,4 +15,7 @@ public interface AccommodationDAO {
     ResponseAccDTO findAccommodationById(Long accommodationId);
     void updateAccommodation(Long accommodationId, NewAccommodationDTO newAccommodationDTO);
     boolean isExisted(Long accommodationId);
+    List<String> findAllAccommodationTypes();
+    List<String> findAllRoomTypes();
+    List<String> findAllBedTypes();
 }
