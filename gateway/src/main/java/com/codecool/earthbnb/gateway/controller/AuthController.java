@@ -43,9 +43,6 @@ public class AuthController {
     @GetMapping("")
     public void authenticate(HttpServletRequest request, HttpServletResponse response) {
         String tokenFromRequest = jwtTokenServices.getTokenFromRequest(request);
-        System.out.println(request.getCookies().length);
-        System.out.println("COOKIES: "+Arrays.toString(Arrays.stream(request.getCookies()).toArray()));
-        System.out.println("TOKEN: "+ tokenFromRequest);
         jwtTokenServices.validateToken(tokenFromRequest);
     }
 

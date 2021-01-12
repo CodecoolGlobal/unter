@@ -93,13 +93,7 @@ public class JwtTokenServices {
 
     public boolean validateToken(String token) {
         try {
-            System.out.println("HELOO");
             Jws<Claims> claims = Jwts.parser().setSigningKey(secretKey).parseClaimsJws(token);
-            System.out.println("SECRET KEY: "+secretKey);
-            System.out.println(claims.getBody());
-//            if(claims.getBody().getExpiration().after(new Date())){
-//                throw new JwtException("JWT token invalid");
-//            }
             return claims.getBody().getExpiration().after(new Date());
         } catch (IllegalArgumentException e) {
             throw new JwtException("Token invalid");

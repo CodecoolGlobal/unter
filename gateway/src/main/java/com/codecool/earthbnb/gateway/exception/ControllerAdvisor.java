@@ -22,17 +22,6 @@ import java.util.stream.Collectors;
 @ControllerAdvice
 public class ControllerAdvisor extends ResponseEntityExceptionHandler {
 
-//    @ExceptionHandler(BadCredentialsException.class)
-//    public ResponseEntity<Object> handleBadCredentials(
-//            BadCredentialsException ex, WebRequest request) {
-//
-//        Map<String, Object> body = new LinkedHashMap<>();
-//        body.put("timestamp", LocalDateTime.now());
-//        body.put("message", "Bad credentials!");
-//
-//        return new ResponseEntity<>(body, HttpStatus.FORBIDDEN);
-//    }
-
     @ExceptionHandler(AuthenticationException.class)
     public ResponseEntity<Object> handleFailedAuth(
             AuthenticationException ex, WebRequest request) {
