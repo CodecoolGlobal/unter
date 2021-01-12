@@ -19,18 +19,6 @@ public class RegistrationController {
 
     @PostMapping("")
     public void doRegistration(HttpServletResponse response, @RequestBody @Valid UserDTO userDTO) {
-
-        Response serviceResponse = userService.register(userDTO);
-        if (serviceResponse.isSuccess()) {
-            response.setStatus(200);
-        } else {
-            response.setStatus(400);
-        }
-        try{
-            response.getWriter().println(serviceResponse.getMessage());
-        } catch (IOException e){
-            e.printStackTrace();
-        }
-
+        userService.register(userDTO);
     }
 }

@@ -22,6 +22,7 @@ import org.springframework.web.bind.annotation.*;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
+import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -42,26 +43,14 @@ public class AuthController {
     @GetMapping("")
     public void authenticate(HttpServletRequest request, HttpServletResponse response) {
         String tokenFromRequest = jwtTokenServices.getTokenFromRequest(request);
-        boolean authenticated = jwtTokenServices.validateToken(tokenFromRequest);
-
-            if (authenticated) {
-                response.setStatus(200);
-
-            } else {
-                response.setStatus(401);
-                try {
-                    response.getWriter().println("user not authenticated");
-                } catch (IOException e){
-                    e.printStackTrace();
-                }
-
-            }
-
+        System.out.println(request.getCookies().length);
+        System.out.println("COOKIES: "+Arrays.toString(Arrays.stream(request.getCookies()).toArray()));
+        System.out.println("TOKEN: "+ tokenFromRequest);
+        jwtTokenServices.validateToken(tokenFromRequest);
     }
 
     @PostMapping(value = "", produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity login(@RequestBody LoginDTO loginData, HttpServletResponse response) {
-        try {
             String email = loginData.getEmail();
             UserEntity user = userService.getPublicUserDataByEmail(email);
 
@@ -80,16 +69,13 @@ public class AuthController {
 
 
             Map<Object, Object> model = new HashMap<>();
-            model.put("Name: ", user.getFirstName());
-            model.put("Id: ", user.getId());
+            model.put("Name", user.getFirstName());
+            model.put("Id", user.getId());
             model.put("roles", roles);
 
             return ResponseEntity.ok().header(HttpHeaders.SET_COOKIE, cookie.toString())
                     .body(model);
-        } catch (AuthenticationException e) {
-            response.setStatus(401);
-            return null;
-        }
+
     }
 
 

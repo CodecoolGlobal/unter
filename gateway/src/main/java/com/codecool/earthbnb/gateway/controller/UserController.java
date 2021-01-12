@@ -24,35 +24,13 @@ public class UserController {
     @GetMapping(value = "/get-user-data/{userId}", produces = MediaType.APPLICATION_JSON_VALUE)
     public PublicUserDTO getUserData(@PathVariable Long userId, HttpServletResponse response) {
         PublicUserDTO userDTO = userService.getPublicUserDataByUserId(userId);
-
-            if(userDTO == null){
-                response.setStatus(401);
-                try {
-                    response.getWriter().println("no user available with this id");
-                } catch (IOException e){
-                    e.printStackTrace();
-                }
-                return null;
-            } else{
-                return userDTO;
-            }
+        return userDTO;
     }
 
 
     @GetMapping(value = "/get-user-data", produces = MediaType.APPLICATION_JSON_VALUE)
     public PublicUserDTO getLoggedInUserData(HttpServletRequest request, HttpServletResponse response){
         PublicUserDTO userDTO = userService.getLoggedInUserData(request);
-
-            if(userDTO == null){
-                response.setStatus(401);
-                try {
-                    response.getWriter().println("no user available");
-                } catch (IOException e){
-                    e.printStackTrace();
-                }
-                return null;
-            } else {
-                return userDTO;
-            }
+        return userDTO;
     }
 }

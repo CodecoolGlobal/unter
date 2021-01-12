@@ -1,8 +1,11 @@
 package com.codecool.earthbnb.gateway.exception;
 
+import io.jsonwebtoken.JwtException;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.authentication.BadCredentialsException;
+import org.springframework.security.core.AuthenticationException;
 import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
@@ -19,6 +22,29 @@ import java.util.stream.Collectors;
 @ControllerAdvice
 public class ControllerAdvisor extends ResponseEntityExceptionHandler {
 
+//    @ExceptionHandler(BadCredentialsException.class)
+//    public ResponseEntity<Object> handleBadCredentials(
+//            BadCredentialsException ex, WebRequest request) {
+//
+//        Map<String, Object> body = new LinkedHashMap<>();
+//        body.put("timestamp", LocalDateTime.now());
+//        body.put("message", "Bad credentials!");
+//
+//        return new ResponseEntity<>(body, HttpStatus.FORBIDDEN);
+//    }
+
+    @ExceptionHandler(AuthenticationException.class)
+    public ResponseEntity<Object> handleFailedAuth(
+            AuthenticationException ex, WebRequest request) {
+
+        Map<String, Object> body = new LinkedHashMap<>();
+        body.put("timestamp", LocalDateTime.now());
+        body.put("message", "Authentication failed");
+
+        return new ResponseEntity<>(body, HttpStatus.FORBIDDEN);
+    }
+
+
     @ExceptionHandler(EmailNotFoundException.class)
     public ResponseEntity<Object> handleEmailNotFoundException(
             EmailNotFoundException ex, WebRequest request) {
@@ -26,6 +52,42 @@ public class ControllerAdvisor extends ResponseEntityExceptionHandler {
         Map<String, Object> body = new LinkedHashMap<>();
         body.put("timestamp", LocalDateTime.now());
         body.put("message", "Email not found");
+
+        return new ResponseEntity<>(body, HttpStatus.NOT_FOUND);
+    }
+
+
+    @ExceptionHandler(JwtException.class)
+    public ResponseEntity<Object> handleInvalidToken(
+            JwtException ex, WebRequest request) {
+
+        Map<String, Object> body = new LinkedHashMap<>();
+        body.put("timestamp", LocalDateTime.now());
+        body.put("message", "Invalid token");
+
+        return new ResponseEntity<>(body, HttpStatus.FORBIDDEN);
+    }
+
+
+
+    @ExceptionHandler(UserNotExistsException.class)
+    public ResponseEntity<Object> handleUserNotExistException(
+            UserNotExistsException ex, WebRequest request) {
+
+        Map<String, Object> body = new LinkedHashMap<>();
+        body.put("timestamp", LocalDateTime.now());
+        body.put("message", "User doesn't exist");
+
+        return new ResponseEntity<>(body, HttpStatus.NOT_FOUND);
+    }
+
+    @ExceptionHandler(UserExistsException.class)
+    public ResponseEntity<Object> handleUserExistException(
+            EmailNotFoundException ex, WebRequest request) {
+
+        Map<String, Object> body = new LinkedHashMap<>();
+        body.put("timestamp", LocalDateTime.now());
+        body.put("message", "User already exists");
 
         return new ResponseEntity<>(body, HttpStatus.NOT_FOUND);
     }

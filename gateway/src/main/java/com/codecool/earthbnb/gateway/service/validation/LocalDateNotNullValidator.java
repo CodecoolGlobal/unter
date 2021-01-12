@@ -11,6 +11,7 @@ public class LocalDateNotNullValidator implements ConstraintValidator<ValidLocal
 
     @Override
     public boolean isValid(LocalDate value, ConstraintValidatorContext context) {
+
         return value != null;
     }
 }
