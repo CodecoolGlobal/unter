@@ -37,6 +37,7 @@ function Registration() {
     const user = { email, password,firstName,lastName,birthDate };
     // send the username and password to the server
     console.log(JSON.stringify(user)+"CICAAAAA")
+    try{
     const response = await Axios.post(
       "http://localhost:8762/reg",
       user
@@ -47,7 +48,11 @@ function Registration() {
     localStorage.setItem('user', response.data)
     handleClose();
     console.log(response.data)
-  };
+  }
+  catch(e){
+      console.log(JSON.stringify(e))
+  }
+};
   
   function handleTextChange(target) {
       switch(target.id){
@@ -71,10 +76,9 @@ function Registration() {
                     borderRadius: "5px"})
             }
             break;
-        // case "birthDate":
-        //     target.value=== ''? setBirthDateEffect(false): setBirthDateEffect(true);
-        //     setBirthDate(target.value)
-        //     break;
+        case "birthDate":
+            setBirthDate(target.value)
+            break;
         case "email":
             let re = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
             target.value=== ''? setEmailEffect(false): setEmailEffect(true);
