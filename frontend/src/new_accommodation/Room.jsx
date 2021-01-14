@@ -1,47 +1,61 @@
 import React, { useState, useContext } from "react";
-import { NewAccommodationContext } from "../context/NewAccommodationContext";
 import toSentenceCaseWithDash from "./toSentenceCaseWithDash";
+import { RoomsContext } from "../context/RoomsContext";
 
 function Room(props) {
-  const [accommodation, setAccommodation] = useContext(NewAccommodationContext);
-  const [beds, setBeds] = useState({});
+  const [bedrooms, setBedrooms, commonSpaces, setCommonSpaces] = useContext(
+    RoomsContext
+  );
   const [numberOfBeds, setNumberOfBeds] = useState(0);
   const [addBedsButton, setAddBedsButton] = useState("Add beds");
-  const id = props.index === undefined ? props.id : props.index + 1;
-  const roomTypes = { Bedroom: "1", "Common spaces": "3" };
+  const id = props.index === undefined ? props.id : props.index;
+  const isBedroom = props.type === "Bedroom";
   const bedTypes = ["SINGLE", "DOUBLE", "KING", "COUCH", "TODDLER"];
 
-  const saveRoom = () => {
-    let newAccommodation = accommodation;
-    newAccommodation.rooms[id] = {
-      beds: { ...beds },
-      type: roomTypes[props.type],
-    };
-
-    setAccommodation(newAccommodation);
+  let defaultBeds = {
+    SINGLE: 0,
+    DOUBLE: 0,
+    KING: 0,
+    COUCH: 0,
+    TODDLER: 0,
   };
 
-  const increaseBeds = (bedType) => {
-    let added = {};
-    added[bedType] = beds[bedType] === undefined ? 1 : beds[bedType] + 1;
-    let newBeds = { ...beds, ...added };
-    setNumberOfBeds(numberOfBeds + 1);
-    setBeds(newBeds);
-    saveRoom();
-  };
+  let beds = defaultBeds;
+  if (isBedroom) {
+    beds =
+      bedrooms !== undefined
+        ? bedrooms[id] !== undefined
+          ? bedrooms[id]
+          : defaultBeds
+        : defaultBeds;
+  } else {
+    beds = commonSpaces !== undefined ? commonSpaces : defaultBeds;
+  }
 
-  const decreaseBeds = (bedType) => {
-    let newBeds = { ...beds };
-    if (beds[bedType] <= 1) {
-      delete newBeds[bedType];
+  const saveBeds = (beds) => {
+    if (isBedroom) {
+      let newBedrooms = { ...bedrooms };
+      newBedrooms[id] = beds;
+      setBedrooms(newBedrooms);
     } else {
-      let taken = {};
-      taken[bedType] = beds[bedType] - 1;
-      newBeds = { ...beds, ...taken };
+      setCommonSpaces(beds);
     }
+  };
+
+  const increaseBeds = (beds, bedType) => {
+    beds = beds === undefined ? defaultBeds : beds;
+    beds[bedType] = !(bedType in beds) ? 1 : beds[bedType] + 1;
+    saveBeds(beds);
+    setNumberOfBeds(numberOfBeds + 1);
+  };
+
+  const decreaseBeds = (beds, bedType) => {
+    beds = beds === undefined ? defaultBeds : beds;
+    if (beds[bedType] > 0) {
+      beds[bedType] = beds[bedType] - 1;
+    }
+    saveBeds(beds);
     setNumberOfBeds(numberOfBeds - 1);
-    setBeds(newBeds);
-    saveRoom();
   };
 
   let bedList = bedTypes.map((bedType, index) => {
@@ -57,19 +71,19 @@ function Room(props) {
           <button
             type="button"
             className="circle-button"
-            onClick={() => decreaseBeds(bedType)}
-            disabled={beds[bedType] === undefined || beds[bedType] < 1}
+            onClick={() => decreaseBeds(beds, bedType)}
+            disabled={beds[bedType] ? beds[bedType] < 1 : true}
           >
             <i className="fas fa-minus" />
           </button>
 
-          {beds[bedType] === undefined ? 0 : beds[bedType]}
+          {beds[bedType] ? beds[bedType] : 0}
 
           <button
             type="button"
             className="circle-button"
-            onClick={() => increaseBeds(bedType)}
-            disabled={beds[bedType] > 4}
+            onClick={() => increaseBeds(beds, bedType)}
+            disabled={beds === undefined ? true : beds[bedType] > 4}
           >
             <i className="fas fa-plus" />
           </button>
@@ -85,6 +99,9 @@ function Room(props) {
       setAddBedsButton("Add beds");
     }
   };
+
+  console.log(bedrooms);
+  console.log(commonSpaces);
 
   return (
     <React.Fragment>

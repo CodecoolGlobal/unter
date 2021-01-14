@@ -1,10 +1,15 @@
 import React, { useContext, useEffect, useState } from "react";
 import { NewAccommodationContext } from "../context/NewAccommodationContext";
 import axios from "axios";
+import { RoomsContext } from "../context/RoomsContext";
 
 function FinishListing() {
   const [accommodation, setAccommodation] = useContext(NewAccommodationContext);
+  const [bedrooms, setBedrooms, commonSpaces, setCommonSpaces] = useContext(
+    RoomsContext
+  );
   const [success, setSuccess] = useState(false);
+  const roomTypes = { Bedroom: "1", "Common spaces": "3" };
 
   let content = (
     <React.Fragment>
