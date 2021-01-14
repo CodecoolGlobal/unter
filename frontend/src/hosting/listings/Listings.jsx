@@ -134,6 +134,7 @@ function Listings() {
     history.push("/");
   }*/
 
+  console.log(localStorage.getItem("id"));
   //const hostId = localStorage.getItem("user").id;
 
   const hostId = 1;
