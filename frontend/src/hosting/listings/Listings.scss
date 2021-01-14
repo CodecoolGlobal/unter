@@ -13,11 +13,31 @@
   padding: 16px 8px !important;
 }
 
+.side-by-side {
+  width: 100%;
+  display: table;
+}
+
+.row {
+  display: table-row;
+  width: 100%;
+}
+
 .listing-image {
   width: 71px !important;
   height: 47px !important;
   overflow: hidden;
 }
+
 .listing-image img {
   width: 100%;
+}
+
+.listing-name {
+  width: 100% !important;
+  height: 47px !important;
+  overflow: hidden;
+  display: table-cell;
+  vertical-align: middle;
+  padding: 0 16px;
 }

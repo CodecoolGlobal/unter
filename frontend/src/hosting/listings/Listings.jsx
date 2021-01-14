@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import PropTypes from "prop-types";
 import { makeStyles } from "@material-ui/core/styles";
 import Table from "@material-ui/core/Table";
@@ -12,6 +12,8 @@ import TableSortLabel from "@material-ui/core/TableSortLabel";
 import Typography from "@material-ui/core/Typography";
 import ActionsButton from "./ActionsButton";
 import "./Listings.scss";
+import axios from "axios";
+import { useHistory } from "react-router-dom";
 
 function descendingComparator(a, b, orderBy) {
   if (b[orderBy] < a[orderBy]) {
@@ -119,6 +121,7 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 function Listings() {
+  const history = useHistory();
   const classes = useStyles();
   const [order, setOrder] = useState("asc");
   const [orderBy, setOrderBy] = useState("calories");
@@ -126,6 +129,23 @@ function Listings() {
   const [page, setPage] = useState(0);
   const [rowsPerPage, setRowsPerPage] = useState(10);
   const [rows, setRows] = useState([]);
+
+  /*if (localStorage.getItem("user") === null) {
+    history.push("/");
+  }*/
+
+  //const hostId = localStorage.getItem("user").id;
+
+  const hostId = 1;
+  useEffect(() => {
+    axios
+      .get(`http://localhost:8762/acc/host-id/${hostId}`, {
+        withCredentials: true,
+      })
+      .then((response) => {
+        setRows(response.data);
+      });
+  }, [setRows]);
 
   const handleRequestSort = (event, property) => {
     const isAsc = orderBy === property && order === "asc";
@@ -181,6 +201,8 @@ function Listings() {
     return noImage;
   };
 
+  const checkIfExist = (value) => (value ? value : `-`);
+
   return (
     <div className={classes.root}>
       <Typography
@@ -226,20 +248,36 @@ function Listings() {
                       className="cell"
                       align="left"
                     >
-                      {imageBox(row)}
-                      {row.name}
+                      <div className="side-by-side">
+                        <div className="row">
+                          <div
+                            style={{
+                              display: "inline-block",
+                              height: "47px !important",
+                              width: "71px",
+                            }}
+                          >
+                            {imageBox(row)}
+                          </div>
+                          <div className="listing-name">
+                            {checkIfExist(row.name)}
+                          </div>
+                        </div>
+                      </div>
                     </TableCell>
                     <TableCell className="cell" align="center">
-                      {row.bedrooms}
+                      {checkIfExist(row.bedrooms)}
                     </TableCell>
                     <TableCell className="cell" align="center">
-                      {row.beds}
+                      {checkIfExist(row.beds)}
                     </TableCell>
                     <TableCell className="cell" align="center">
-                      {row.bathrooms}
+                      {checkIfExist(row.bathrooms)}
                     </TableCell>
                     <TableCell className="cell" align="center">
-                      {row.location}
+                      {row.address.city
+                        ? `${row.address.city}, ${row.address.country}`
+                        : `-`}
                     </TableCell>
                     <TableCell className="cell" align="center">
                       <ActionsButton />
