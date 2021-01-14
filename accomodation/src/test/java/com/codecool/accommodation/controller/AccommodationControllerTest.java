@@ -166,7 +166,7 @@ public class AccommodationControllerTest {
                 .get("/host-id/{hostId}", 5000L)
                 .characterEncoding("utf-8"))
             .andDo(print())
-            .andExpect(status().isOk());
+            .andExpect(status().isNotFound());
     }
 
     @Test
