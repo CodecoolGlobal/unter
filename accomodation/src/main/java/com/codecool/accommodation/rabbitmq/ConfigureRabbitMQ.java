@@ -12,6 +12,7 @@ public class ConfigureRabbitMQ {
 
     public static final String LOCATION_EXCHANGE_NAME = "locationExchange";
     public static final String LOCATION_QUEUE_NAME = "locationQueue";
+    public static final String DATES_QUEUE_NAME = "datesQueue";
 
     @Bean
     Queue createLocationQueue(){

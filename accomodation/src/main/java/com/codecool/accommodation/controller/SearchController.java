@@ -10,6 +10,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+import java.time.LocalDate;
+
 @RestController
 @RequiredArgsConstructor
 @RequestMapping("/search")
@@ -20,8 +22,11 @@ public class SearchController {
     public ResponseEntity<?> simpleSearch(
             @RequestParam Double longitude,
             @RequestParam Double latitude,
-            @RequestParam(required = false) Double radius
-    ) throws JsonProcessingException {
-        return searchService.getAccommodationIdsInRadius(new CoordinateDTO(latitude, longitude), radius);
+            @RequestParam(required = false) Double radius,
+            @RequestParam String startDate,
+            @RequestParam String endDate
+            ) throws JsonProcessingException {
+
+        return searchService.getAccommodationIdsInRadius(new CoordinateDTO(latitude, longitude), radius, LocalDate.parse(startDate), LocalDate.parse(endDate));
     }
 }

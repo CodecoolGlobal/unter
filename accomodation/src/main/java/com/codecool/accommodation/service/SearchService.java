@@ -1,17 +1,22 @@
 package com.codecool.accommodation.service;
 
 import com.codecool.accommodation.model.DTO.CoordinateDTO;
+import com.codecool.accommodation.model.DTO.RabbitMQDTO;
 import com.codecool.accommodation.model.entity.Accommodation;
 import com.codecool.accommodation.model.entity.Coordinate;
 import com.codecool.accommodation.rabbitmq.ConfigureRabbitMQ;
 import com.codecool.accommodation.service.DAO.CoordinateDAO;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.node.ArrayNode;
+import com.fasterxml.jackson.databind.node.ObjectNode;
 import lombok.RequiredArgsConstructor;
+import org.springframework.amqp.rabbit.annotation.RabbitListener;
 import org.springframework.amqp.rabbit.core.RabbitTemplate;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -41,7 +46,7 @@ public class SearchService {
         return ResponseEntity.ok(creator.turnInputListToAccommodationDTO(allAccommodationsInRadius));
     }
 
-    public ResponseEntity<?> getAccommodationIdsInRadius(CoordinateDTO coordinate, Double searchRadius) throws JsonProcessingException {
+    public ResponseEntity<?> getAccommodationIdsInRadius(CoordinateDTO coordinate, Double searchRadius, LocalDate startDate, LocalDate endDate) throws JsonProcessingException {
         searchRadius = searchRadius == null ? DEFAULT_SEARCH_DISTANCE : searchRadius;
         if (coordinate.getLatitude() == null || coordinate.getLongitude() == null)
             return ResponseEntity.status(400).body(NO_COORDINATE_MESSAGE);
@@ -53,10 +58,28 @@ public class SearchService {
                 allAccommodationIdsInRadius.add(actualCoordinate.getAccommodation().getId());
             }
         }
-        var json = objectMapper.writeValueAsString(allAccommodationIdsInRadius);
+//        var json = objectMapper.writeValueAsString(allAccommodationIdsInRadius);
+        ObjectNode object = objectMapper.createObjectNode();
+        ArrayNode ids = objectMapper.createArrayNode();
+        for(long num: allAccommodationIdsInRadius){
+            ids.add(num);
+        }
 
-        rabbitTemplate.convertAndSend(ConfigureRabbitMQ.LOCATION_EXCHANGE_NAME, "location.1", json);
+        object.set("ids", ids);
+
+        object.put("startDate", String.valueOf(startDate));
+        object.put("endDate", String.valueOf(endDate));
+        rabbitTemplate.convertAndSend(ConfigureRabbitMQ.LOCATION_EXCHANGE_NAME, "location.1", objectMapper.writeValueAsString(object));
+
 
         return ResponseEntity.ok(allAccommodationIdsInRadius);
+    }
+
+    @RabbitListener(queues = ConfigureRabbitMQ.DATES_QUEUE_NAME, errorHandler="rabbitRetryHandler")
+    public void listen(String message) throws JsonProcessingException {
+        //RabbitMQDTO ids = objectMapper.readValue(message, RabbitMQDTO.class);
+        System.out.println(message);
+
+        //return ids;
     }
 }

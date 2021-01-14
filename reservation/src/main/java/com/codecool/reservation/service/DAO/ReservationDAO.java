@@ -2,6 +2,7 @@ package com.codecool.reservation.service.DAO;
 
 import com.codecool.reservation.model.entity.Reservation;
 
+import java.time.LocalDate;
 import java.util.List;
 import java.util.NoSuchElementException;
 
@@ -14,4 +15,6 @@ public interface ReservationDAO {
     List<Reservation> findAllByGuestId(Long guestId);
     void saveReservation(Reservation reservation);
     void deleteReservation(Long reservationId) throws NoSuchElementException;
+
+    List<Reservation> checkIfHasReservationBeforeAndAfterDates(Long accommodationId, LocalDate startDate, LocalDate endDate);
 }

@@ -8,6 +8,8 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDate;
+import java.util.Arrays;
 import java.util.List;
 import java.util.NoSuchElementException;
 
@@ -82,6 +84,15 @@ public class ReservationService {
             reservationDAO.saveReservation(reservation);
         } else {
             log.warn("Required fields of newDate are null.");
+        }
+    }
+
+    public boolean checkIfHasReservationBetweenDates(Long accommodationId, LocalDate startDate, LocalDate endDate){
+        List<Reservation> reservations1 = reservationDAO.checkIfHasReservationBeforeAndAfterDates(accommodationId, startDate, endDate);
+        if(reservations1.isEmpty()){
+            return false;
+        } else {
+            return true;
         }
     }
 }

@@ -66,4 +66,10 @@ public class ReservationDB implements ReservationDAO{
         }
     }
 
+
+    @Override
+    public List<Reservation> checkIfHasReservationBeforeAndAfterDates(Long accommodationId, LocalDate startDate, LocalDate endDate) {
+        return repository.findResByDatesAndAccId(accommodationId, startDate, endDate);
+    }
+
 }

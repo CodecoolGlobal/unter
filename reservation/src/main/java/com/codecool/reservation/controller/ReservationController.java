@@ -16,7 +16,7 @@ import java.util.List;
 
 @RestController
 @RequiredArgsConstructor
-@RequestMapping("/res")
+//@RequestMapping("/res")
 public class ReservationController {
 
     private final ReservationService service;
@@ -78,10 +78,16 @@ public class ReservationController {
 //    }
 
 //
-    @RequestMapping(value = "/{reservationId}", method = RequestMethod.DELETE)
+    @RequestMapping(value = "/delete/{reservationId}", method = RequestMethod.DELETE)
     public ResponseEntity updateDate(@PathVariable("reservationId") Long reservationId, @RequestBody DateIntervalDTO newDate) {
         service.updateDate(reservationId, newDate);
         return new ResponseEntity(HttpStatus.ACCEPTED);
+    }
+
+    @PostMapping("/check-res/{accommodationId}")
+    public boolean checkIfHasReservationBetweenDates(@PathVariable("accommodationId") Long accommodationId, @RequestBody ReservationDTO reservationDTO){
+        boolean valami =service.checkIfHasReservationBetweenDates(accommodationId, reservationDTO.getStartDate(), reservationDTO.getEndDate());
+        return valami;
     }
 
 }
