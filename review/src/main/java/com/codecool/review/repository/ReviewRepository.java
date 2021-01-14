@@ -10,4 +10,9 @@ import java.util.List;
 public interface ReviewRepository extends JpaRepository<Review, Long> {
 
     List<Review> findAllByAccommodationId(Long id);
+    List<Review> findAllByGuestId(Long id);
+    void deleteAllByAccommodationId(Long accommodationId);
+    void deleteAllByGuestId(Long guestId);
+    boolean existsByAccommodationId(Long accommodationId);
+    boolean existsByGuestId(Long guestId);
 }
