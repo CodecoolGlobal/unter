@@ -159,7 +159,7 @@ public class AccommodationControllerTest {
         verify(service, times(1)).findAccommodationById(1L);
     }
 
-    @Test //TODO
+    @Test
     public void test_findAccommodationsByNonExistingId_ShouldNotBeFound() throws Exception {
         mockMvc
             .perform(MockMvcRequestBuilders
