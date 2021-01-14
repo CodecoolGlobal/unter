@@ -16,7 +16,7 @@ public class ReviewController {
     private final ReviewService service;
 
     @GetMapping
-    public List<Review> getAll() {
+    public List<ReviewResponseDTO> getAll() {
         return service.findAllReviews();
     }
 
