@@ -1,0 +1,23 @@
+.no-image {
+  background-color: #008489 !important;
+  width: 71px !important;
+  height: 47px !important;
+  color: white;
+  font-size: 25px;
+  text-align: center;
+  display: table-cell;
+  vertical-align: middle;
+}
+
+.cell {
+  padding: 16px 8px !important;
+}
+
+.listing-image {
+  width: 71px !important;
+  height: 47px !important;
+  overflow: hidden;
+}
+.listing-image img {
+  width: 100%;
+}
