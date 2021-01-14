@@ -132,7 +132,7 @@ public class ReviewRepositoryTest {
             .accommodationId(1L)
             // missing guestId field
             .message("Test Review")
-            .rating(10.00)
+            .rating(5.00)
             .build();
 
         // test
@@ -141,7 +141,7 @@ public class ReviewRepositoryTest {
     }
 
     @Test
-    public void test_reviewMessageShouldBeNotBull_throwsException() {
+    public void test_reviewMessageCanBeNull_throwsException() {
         // build review
         Review review = Review.builder()
             .accommodationId(1L)
@@ -150,13 +150,14 @@ public class ReviewRepositoryTest {
             .rating(10.00)
             .build();
 
-        // test
-        assertThrows(DataIntegrityViolationException.class,
-            () -> reviewRepository.saveAndFlush(review));
+        reviewRepository.save(review);
+        List<Review> reviews = reviewRepository.findAll();
+        assertThat(reviews).contains(review);
+        assertThat(reviews).hasSize(1);
     }
 
     @Test
-    public void test_reviewRatingShouldBeNotBull_throwsException() {
+    public void test_reviewRatingShouldBeNotBull_persistProperly() {
         // build review
         Review review = Review.builder()
             .accommodationId(1L)
@@ -230,5 +231,4 @@ public class ReviewRepositoryTest {
         assertThat(reviews).isEmpty();
         assertThat(reviews).doesNotContain(testReview, testReview2);
     }
-
 }
