@@ -14,12 +14,15 @@ public class ReviewService {
 
     private final ReviewDAO reviewDAO;
 
-    public List<Review> findAllReviews() {
+    public List<ReviewResponseDTO> findAllReviews() {
+        if (reviewDAO.findAllReviews().isEmpty()) {
+            throw new NoDataFoundException();
+        }
         return reviewDAO.findAllReviews();
     }
 
-    public List<Review> findAllReviewsByAccommodationId(Long accommodationId) {
-        if (reviewDAO.findAllReviewsByAccommodationId(accommodationId) == null) {
+    public List<ReviewResponseDTO> findAllReviewsByAccommodationId(Long accommodationId) {
+        if (reviewDAO.findAllReviewsByAccommodationId(accommodationId).isEmpty()) {
             throw new NoDataFoundException();
         }
         return reviewDAO.findAllReviewsByAccommodationId(accommodationId);
