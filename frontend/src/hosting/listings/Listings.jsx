@@ -130,12 +130,11 @@ function Listings() {
   const [rowsPerPage, setRowsPerPage] = useState(10);
   const [rows, setRows] = useState([]);
 
-  /*if (localStorage.getItem("user") === null) {
+  /*if (localStorage.getItem("id") === null) {
     history.push("/");
   }*/
 
-  console.log(localStorage.getItem("id"));
-  //const hostId = localStorage.getItem("user").id;
+  //const hostId = localStorage.getItem("id");
 
   const hostId = 1;
   useEffect(() => {
@@ -144,7 +143,7 @@ function Listings() {
         withCredentials: true,
       })
       .then((response) => {
-        setRows(response.data);
+        setRows(response.data.accommodationDTO);
       });
   }, [setRows]);
 
@@ -261,22 +260,22 @@ function Listings() {
                             {imageBox(row)}
                           </div>
                           <div className="listing-name">
-                            {checkIfExist(row.name)}
+                            {checkIfExist(row.accommodationName)}
                           </div>
                         </div>
                       </div>
                     </TableCell>
                     <TableCell className="cell" align="center">
-                      {checkIfExist(row.bedrooms)}
+                      {checkIfExist(row.numberOfRooms)}
                     </TableCell>
                     <TableCell className="cell" align="center">
-                      {checkIfExist(row.beds)}
+                      {checkIfExist(row.numberOfBeds)}
                     </TableCell>
                     <TableCell className="cell" align="center">
-                      {checkIfExist(row.bathrooms)}
+                      {checkIfExist(row.numberOfBathrooms)}
                     </TableCell>
                     <TableCell className="cell" align="center">
-                      {row.address.city
+                      {row.address
                         ? `${row.address.city}, ${row.address.country}`
                         : `-`}
                     </TableCell>

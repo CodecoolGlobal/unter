@@ -49,6 +49,7 @@ public class DTOCreator {
 
         return AccommodationDTO.builder()
                 .id(accommodation.getId())
+                .hostId(accommodation.getHostId())
                 .accommodationName(accommodation.getName())
                 .description(accommodation.getDescription())
                 .pictures(accommodation.getPictures())
@@ -57,6 +58,7 @@ public class DTOCreator {
 //                .numberOfBeds() // TODO: implement calculate number of beds
 //                .numberOfBathrooms() // TODO: implement caclulate number of bathrooms
                 .coordinates(coordinateDTO)
+                .address(accommodation.getAddress())
                 .build();
 
     }
