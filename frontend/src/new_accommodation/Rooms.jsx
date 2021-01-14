@@ -2,37 +2,32 @@ import React, { useContext, useState } from "react";
 import { NewAccommodationContext } from "../context/NewAccommodationContext";
 import { useHistory } from "react-router-dom";
 import Room from "./Room";
+import { RoomsContext } from "../context/RoomsContext";
 
 function Rooms() {
   const history = useHistory();
   const [accommodation, setAccommodation] = useContext(NewAccommodationContext);
-
+  const [
+    bedrooms,
+    setBedrooms,
+    commonSpaces,
+    setCommonSpaces,
+    nrOfBaths,
+    setNrOfBaths,
+  ] = useContext(RoomsContext);
   const [maxNrOfGuests, setMaxNrOfGuests] = useState(1);
-  const [bedrooms, setBedrooms] = useState(1);
-  const [bathrooms, setBathrooms] = useState(1);
-
-  let accommodationWithRoom = accommodation;
-  accommodationWithRoom["rooms"] = {};
-  setAccommodation(accommodationWithRoom);
+  const [nrOfBedrooms, setNrOfBedrooms] = useState(1);
 
   let bedroomList = [];
-  if (bedrooms > 0) {
-    for (let i = 0; i < bedrooms; i++) {
+  if (nrOfBedrooms > 0) {
+    for (let i = 0; i < nrOfBedrooms; i++) {
       bedroomList.push(<Room key={i} index={i} type="Bedroom" />);
     }
   }
 
   const handleNext = () => {
-    let newAccommodation = accommodation;
-    newAccommodation["maxNumberOfGuest"] = maxNrOfGuests.toString();
-    let rooms = Object.keys(accommodation.rooms).map(function (id) {
-      return accommodation.rooms[id];
-    });
-    delete newAccommodation["rooms"];
-    let bathroom = [];
-    for (let i = 0; i < bathrooms; i++) bathroom.push({ beds: {}, type: "2" });
-    newAccommodation["rooms"] = [...rooms, ...bathroom];
-    setAccommodation(newAccommodation);
+    accommodation["maxNumberOfGuest"] = maxNrOfGuests.toString();
+    setAccommodation(accommodation);
     history.push("/become-a-host/save");
   };
 
@@ -80,18 +75,22 @@ function Rooms() {
             <button
               type="button"
               className="circle-button"
-              onClick={() => setBedrooms(bedrooms - 1)}
-              disabled={bedrooms < 1}
+              onClick={() => {
+                setNrOfBedrooms(nrOfBedrooms - 1);
+                delete bedrooms[nrOfBedrooms - 1];
+                setBedrooms(bedrooms);
+              }}
+              disabled={nrOfBedrooms < 1}
             >
               <i className="fas fa-minus" />
             </button>
-            {bedrooms}
-            {bedrooms > 49 && <span>+</span>}
+            {nrOfBedrooms}
+            {nrOfBedrooms > 49 && <span>+</span>}
             <button
               type="button"
               className="circle-button"
-              onClick={() => setBedrooms(bedrooms + 1)}
-              disabled={bedrooms > 49}
+              onClick={() => setNrOfBedrooms(nrOfBedrooms + 1)}
+              disabled={nrOfBedrooms > 49}
             >
               <i className="fas fa-plus" />
             </button>
@@ -112,18 +111,18 @@ function Rooms() {
             <button
               type="button"
               className="circle-button"
-              onClick={() => setBathrooms(bathrooms - 1)}
-              disabled={bathrooms < 1}
+              onClick={() => setNrOfBaths(nrOfBaths - 1)}
+              disabled={nrOfBaths < 1}
             >
               <i className="fas fa-minus" />
             </button>
-            {bathrooms}
-            {bathrooms > 49 && <span>+</span>}
+            {nrOfBaths}
+            {nrOfBaths > 49 && <span>+</span>}
             <button
               type="button"
               className="circle-button"
-              onClick={() => setBathrooms(bathrooms + 1)}
-              disabled={bathrooms > 49}
+              onClick={() => setNrOfBaths(nrOfBaths + 1)}
+              disabled={nrOfBaths > 49}
             >
               <i className="fas fa-plus" />
             </button>

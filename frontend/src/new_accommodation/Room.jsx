@@ -100,9 +100,6 @@ function Room(props) {
     }
   };
 
-  console.log(bedrooms);
-  console.log(commonSpaces);
-
   return (
     <React.Fragment>
       <div
@@ -120,7 +117,7 @@ function Room(props) {
                 marginBottom: "5px",
               }}
             >
-              {props.type} {props.index === undefined ? "" : id}
+              {props.type} {props.index === undefined ? "" : id + 1}
             </div>
             <h3 className="field-description">{numberOfBeds} beds</h3>
           </div>
