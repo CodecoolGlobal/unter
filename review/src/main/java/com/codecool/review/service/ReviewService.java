@@ -1,9 +1,13 @@
 package com.codecool.review.service;
 
 import com.codecool.review.exception.NoDataFoundException;
-import com.codecool.review.model.entity.Review;
+import com.codecool.review.exception.ReviewNotFoundException;
+import com.codecool.review.model.DTO.ReviewRequestDTO;
+import com.codecool.review.model.DTO.ReviewResponseDTO;
+import com.codecool.review.model.DTO.ReviewUpdateDTO;
 import com.codecool.review.service.DAO.ReviewDAO;
 import lombok.RequiredArgsConstructor;
+import org.apache.commons.lang.NullArgumentException;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
