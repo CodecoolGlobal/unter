@@ -34,6 +34,9 @@ public class Accommodation {
     @Column(columnDefinition="text")
     private String description;
 
+    @Column
+    private Double rating;
+
    /* @Lob
     @Type(type = "org.hibernate.type.TextType")
     private String pictureUrl;
