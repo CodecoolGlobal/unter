@@ -200,7 +200,7 @@ public class AccommodationControllerTest {
             .andExpect(status().isOk());
     }
 
-    @Test
+    @Test // todo
     public void test_saveNewAccommodationEndpoint_StatusIsOk() throws Exception {
         mockMvc
             .perform(MockMvcRequestBuilders
