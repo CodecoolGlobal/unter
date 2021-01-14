@@ -29,4 +29,34 @@ public class ReviewController {
     public List<ReviewResponseDTO> getAllReviewByAccommodationId(@PathVariable(name = "accommodationId") Long accommodationId) {
         return service.findAllReviewsByAccommodationId(accommodationId);
     }
+
+    @PostMapping
+    public void saveNewReview(@RequestBody ReviewRequestDTO reviewRequestDTO) {
+        service.saveNewReview(reviewRequestDTO);
+    }
+
+    @GetMapping("/guest-id/{guestId}")
+    public List<ReviewResponseDTO> getAllReviewsByGuestId(@PathVariable(name = "guestId") Long guestId) {
+        return service.findAllReviewsByGuestId(guestId);
+    }
+
+    @PutMapping("/review-id/{reviewId}")
+    public void updateReview(@PathVariable(name = "reviewId") Long reviewId, @RequestBody ReviewUpdateDTO reviewUpdateDTO) {
+        service.updateReview(reviewId, reviewUpdateDTO);
+    }
+
+    @DeleteMapping("/review-id/{reviewId}")
+    public void deleteReviewById(@PathVariable(name = "reviewId") Long reviewId) {
+        service.deleteReviewById(reviewId);
+    }
+
+    @DeleteMapping("/accommodation-id/{accommodationId}")
+    public void deleteAllReviewsByAccommodationId(@PathVariable(name = "accommodationId") Long accommodationId) {
+        service.deleteAllReviewsByAccommodationId(accommodationId);
+    }
+
+    @DeleteMapping("/guest-id/{guestId}")
+    public void deleteAllReviewsByGuestId(@PathVariable(name = "guestId") Long guestId) {
+        service.deleteAllReviewsByGuestId(guestId);
+    }
 }
