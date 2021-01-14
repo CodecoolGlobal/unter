@@ -26,8 +26,26 @@ public class ReviewDB implements ReviewDAO {
     private List<ReviewResponseDTO> reviewResponseDTOList;
 
     @Override
-    public List<Review> findAllReviews() {
-        return repository.findAll();
+    public List<ReviewResponseDTO> findAllReviews() {
+        List<Review> reviews = repository.findAll();
+        reviewResponseDTOList = new ArrayList<>();
+
+        for (Review review : reviews) {
+            ReviewResponseDTO newDTO = ReviewResponseDTO.builder()
+                .id(review.getId())
+                .accommodationId(review.getAccommodationId())
+                .guestId(review.getGuestId())
+                .rating(review.getRating())
+                .message(review.getMessage())
+                .date(review.getDate())
+                .build();
+
+            reviewResponseDTOList.add(newDTO);
+        }
+
+        return reviewResponseDTOList.stream()
+            .filter(review -> review.getMessage() != null)
+            .collect(Collectors.toList());
     }
 
     @Override
