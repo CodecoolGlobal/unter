@@ -6,6 +6,7 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
+import java.time.LocalDate;
 
 @Data
 @NoArgsConstructor
@@ -27,7 +28,10 @@ public class Review {
     @Column(nullable = false)
     private Double rating;
 
-    @Column(nullable = false)
+    @Column
     private String message;
+
+    @Column
+    private LocalDate date;
 
 }
