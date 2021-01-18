@@ -5,6 +5,7 @@ import com.codecool.earthbnb.gateway.model.DTO.PublicUserDTO;
 import com.codecool.earthbnb.gateway.model.DTO.UserDTO;
 import com.codecool.earthbnb.gateway.model.Response;
 import com.codecool.earthbnb.gateway.model.entity.UserEntity;
+import com.codecool.earthbnb.gateway.model.entity.types.Gender;
 import com.codecool.earthbnb.gateway.repository.UserRepository;
 import com.codecool.earthbnb.gateway.security.JwtTokenServices;
 import com.codecool.earthbnb.gateway.service.validation.ValidatorService;
@@ -72,6 +73,7 @@ public class UserDB implements UserDAO {
                 .registrationDate(LocalDateTime.now())
                 .roles(Collections.singletonList("ROLE_USER"))
                 .birthDate(userDTO.getBirthDate())
+                .gender(Gender.NONE)
                 .build();
         userRepository.save(userEntity);
         return true;
