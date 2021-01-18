@@ -6,6 +6,8 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
+import javax.validation.constraints.Max;
+import javax.validation.constraints.Min;
 import java.time.LocalDate;
 
 @Data
@@ -26,6 +28,8 @@ public class Review {
     private Long guestId;
 
     @Column(nullable = false)
+    @Min(value = 1, message = "Rating must be equal or greater than 1")
+    @Max(value = 5, message = "Rating must be equal or less than 5")
     private Double rating;
 
     @Column
