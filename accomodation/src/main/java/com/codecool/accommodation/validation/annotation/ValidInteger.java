@@ -1,6 +1,5 @@
 package com.codecool.accommodation.validation.annotation;
 
-import com.codecool.accommodation.validation.CoordinateNotNullValidator;
 import com.codecool.accommodation.validation.IntNotNullValidator;
 
 import javax.validation.Payload;
