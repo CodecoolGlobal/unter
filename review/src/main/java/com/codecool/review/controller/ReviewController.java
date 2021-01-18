@@ -7,6 +7,7 @@ import com.codecool.review.service.ReviewService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
 
+import javax.validation.Valid;
 import java.util.List;
 
 @RestController
@@ -31,7 +32,7 @@ public class ReviewController {
     }
 
     @PostMapping
-    public void saveNewReview(@RequestBody ReviewRequestDTO reviewRequestDTO) {
+    public void saveNewReview(@RequestBody @Valid ReviewRequestDTO reviewRequestDTO) {
         service.saveNewReview(reviewRequestDTO);
     }
 
@@ -41,7 +42,7 @@ public class ReviewController {
     }
 
     @PutMapping("/review-id/{reviewId}")
-    public void updateReview(@PathVariable(name = "reviewId") Long reviewId, @RequestBody ReviewUpdateDTO reviewUpdateDTO) {
+    public void updateReview(@PathVariable(name = "reviewId") Long reviewId, @RequestBody @Valid ReviewUpdateDTO reviewUpdateDTO) {
         service.updateReview(reviewId, reviewUpdateDTO);
     }
 
