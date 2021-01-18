@@ -8,6 +8,7 @@ import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
 import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.test.context.ActiveProfiles;
 
+import javax.validation.ConstraintViolationException;
 import java.util.Arrays;
 import java.util.List;
 import java.util.NoSuchElementException;
@@ -97,7 +98,7 @@ public class ReviewRepositoryTest {
             .accommodationId(1L)
             .guestId(1L)
             .message("Test Review")
-            .rating(10.00)
+            .rating(5.00)
             .build();
 
         // save reviews and get all from db
@@ -117,7 +118,7 @@ public class ReviewRepositoryTest {
             // missing accommodation id field
             .guestId(1L)
             .message("Test Review")
-            .rating(10.00)
+            .rating(5.00)
             .build();
 
         // test
@@ -147,7 +148,7 @@ public class ReviewRepositoryTest {
             .accommodationId(1L)
             .guestId(1L)
             // missing message field
-            .rating(10.00)
+            .rating(5.00)
             .build();
 
         reviewRepository.save(review);
@@ -217,7 +218,7 @@ public class ReviewRepositoryTest {
             .accommodationId(1L)
             .guestId(1L)
             .message("Test Review")
-            .rating(10.00)
+            .rating(5.00)
             .build();
 
         // save reviews
@@ -230,5 +231,49 @@ public class ReviewRepositoryTest {
         List<Review> reviews = reviewRepository.findAll();
         assertThat(reviews).isEmpty();
         assertThat(reviews).doesNotContain(testReview, testReview2);
+    }
+
+    @Test
+    public void reviewRatingCannotBeLessThanOne_throwsException() {
+        // build another review
+        Review testReview2 = Review.builder()
+            .accommodationId(1L)
+            .guestId(1L)
+            .message("Test Review")
+            .rating(0.00)
+            .build();
+
+        assertThrows(ConstraintViolationException.class,
+            () -> reviewRepository.saveAndFlush(testReview2));
+    }
+
+    @Test
+    public void reviewRatingCannotBeGreaterThanFive_throwsException() {
+        // build another review
+        Review testReview2 = Review.builder()
+            .accommodationId(1L)
+            .guestId(1L)
+            .message("Test Review")
+            .rating(6.00)
+            .build();
+
+        assertThrows(ConstraintViolationException.class,
+            () -> reviewRepository.saveAndFlush(testReview2));
+    }
+
+    @Test
+    public void test_reviewMessageFieldCannotBeLongerThan255_throwsException() {
+        String testMessage = "test more then 255 character. test more then 255 character. test more then 255 character. test more then 255 character. test more then 255 character. test more then 255 character. test more then 255 character. test more then 255 character. test more then 255 character. ";
+
+        // build another review
+        Review testReview2 = Review.builder()
+            .accommodationId(1L)
+            .guestId(1L)
+            .message(testMessage) // length of this text is 270
+            .rating(6.00)
+            .build();
+
+        assertThrows(ConstraintViolationException.class,
+            () -> reviewRepository.saveAndFlush(testReview2));
     }
 }
