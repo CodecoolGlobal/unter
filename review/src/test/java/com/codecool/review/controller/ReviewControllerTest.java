@@ -3,7 +3,6 @@ package com.codecool.review.controller;
 import com.codecool.review.model.DTO.ReviewRequestDTO;
 import com.codecool.review.model.DTO.ReviewResponseDTO;
 import com.codecool.review.model.DTO.ReviewUpdateDTO;
-import com.codecool.review.model.entity.Review;
 import com.codecool.review.service.ReviewService;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.junit.jupiter.api.BeforeEach;
@@ -24,7 +23,6 @@ import static org.assertj.core.api.Assertions.assertThat;
 import static org.mockito.Mockito.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
 
 @WebMvcTest(ReviewController.class)
 @ActiveProfiles("test")
@@ -36,20 +34,12 @@ public class ReviewControllerTest {
     @MockBean
     private ReviewService service;
 
-    private Review testReview;
-
     private ReviewRequestDTO testReviewRequestDTO;
 
     private ReviewResponseDTO testReviewResponseDTO;
 
     @BeforeEach
     public void setUp() {
-        testReview = Review.builder()
-            .accommodationId(1L)
-            .guestId(1L)
-            .rating(1.00)
-            .message("testReview")
-            .build();
 
         testReviewRequestDTO = ReviewRequestDTO.builder()
             .accommodationId(2L)
