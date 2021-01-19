@@ -13,7 +13,7 @@ import Typography from "@material-ui/core/Typography";
 import ActionsButton from "./ActionsButton";
 import "./Listings.scss";
 import axios from "axios";
-import { useHistory } from "react-router-dom";
+import { useHistory, Link } from "react-router-dom";
 
 function descendingComparator(a, b, orderBy) {
   if (b[orderBy] < a[orderBy]) {
@@ -235,7 +235,12 @@ function Listings() {
                             {imageBox(row)}
                           </div>
                           <div className="listing-name">
-                            {checkIfExist(row.accommodationName)}
+                            <Link
+                              className="listing-title"
+                              to={`/accommodation/${row.id}`}
+                            >
+                              {checkIfExist(row.accommodationName)}
+                            </Link>
                           </div>
                         </div>
                       </div>
