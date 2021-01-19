@@ -124,11 +124,11 @@ function Listings() {
   const history = useHistory();
   const classes = useStyles();
   const [order, setOrder] = useState("asc");
-  const [orderBy, setOrderBy] = useState("calories");
-  const [selected, setSelected] = useState([]);
+  const [orderBy, setOrderBy] = useState("name");
   const [page, setPage] = useState(0);
   const [rowsPerPage, setRowsPerPage] = useState(10);
   const [rows, setRows] = useState([]);
+  const [requestDate, setRequestDate] = useState(new Date());
 
   /*if (localStorage.getItem("id") === null) {
     history.push("/");
@@ -145,32 +145,12 @@ function Listings() {
       .then((response) => {
         setRows(response.data.accommodationDTO);
       });
-  }, [setRows]);
+  }, [requestDate]);
 
   const handleRequestSort = (event, property) => {
     const isAsc = orderBy === property && order === "asc";
     setOrder(isAsc ? "desc" : "asc");
     setOrderBy(property);
-  };
-
-  const handleClick = (event, name) => {
-    const selectedIndex = selected.indexOf(name);
-    let newSelected = [];
-
-    if (selectedIndex === -1) {
-      newSelected = newSelected.concat(selected, name);
-    } else if (selectedIndex === 0) {
-      newSelected = newSelected.concat(selected.slice(1));
-    } else if (selectedIndex === selected.length - 1) {
-      newSelected = newSelected.concat(selected.slice(0, -1));
-    } else if (selectedIndex > 0) {
-      newSelected = newSelected.concat(
-        selected.slice(0, selectedIndex),
-        selected.slice(selectedIndex + 1)
-      );
-    }
-
-    setSelected(newSelected);
   };
 
   const handleChangePage = (event, newPage) => {
@@ -235,12 +215,7 @@ function Listings() {
               .slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
               .map((row, index) => {
                 return (
-                  <TableRow
-                    hover
-                    onClick={(event) => handleClick(event, row.id)}
-                    tabIndex={-1}
-                    key={row.id}
-                  >
+                  <TableRow hover tabIndex={-1} key={row.id}>
                     <TableCell
                       component="th"
                       scope="row"
@@ -280,7 +255,10 @@ function Listings() {
                         : `-`}
                     </TableCell>
                     <TableCell className="cell" align="center">
-                      <ActionsButton />
+                      <ActionsButton
+                        setRequestDate={setRequestDate}
+                        accommodationId={row.id}
+                      />
                     </TableCell>
                   </TableRow>
                 );

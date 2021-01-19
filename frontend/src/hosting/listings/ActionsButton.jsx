@@ -1,17 +1,24 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import Button from "@material-ui/core/Button";
 import Menu from "@material-ui/core/Menu";
 import MenuItem from "@material-ui/core/MenuItem";
 import PopupState, { bindTrigger, bindMenu } from "material-ui-popup-state";
+import axios from "axios";
 
-function ActionsButton() {
+function ActionsButton(props) {
   const handleEdit = (close) => {
     //TODO
     close();
   };
 
   const handleDeactivate = (close) => {
-    //TODO
+    axios
+      .delete(
+        `http://localhost:8762/acc/accommodation-id/${props.accommodationId}`
+      )
+      .then((response) => {
+        props.setRequestDate(new Date());
+      });
     close();
   };
 
