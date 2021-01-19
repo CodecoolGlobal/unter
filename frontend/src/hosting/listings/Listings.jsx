@@ -48,7 +48,7 @@ const headCells = [
     disablePadding: true,
     label: "Listing",
   },
-  { id: "bedrooms", numeric: true, disablePadding: false, label: "Bedrooms" },
+  { id: "rooms", numeric: true, disablePadding: false, label: "Rooms" },
   { id: "beds", numeric: true, disablePadding: false, label: "Beds" },
   { id: "bathrooms", numeric: true, disablePadding: false, label: "Baths" },
   { id: "location", numeric: true, disablePadding: false, label: "Location" },
