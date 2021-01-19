@@ -1,5 +1,5 @@
 import React, { useState, useContext } from "react";
-import toSentenceCaseWithDash from "./toSentenceCaseWithDash";
+import toSentenceCase from "./toSentenceCase";
 import { RoomsContext } from "../context/RoomsContext";
 
 function Room(props) {
@@ -68,7 +68,7 @@ function Room(props) {
         key={index}
         style={{ fontSize: "14px", fontWeight: "bold" }}
       >
-        <div className="cell-left">{toSentenceCaseWithDash(bedType)}</div>
+        <div className="cell-left">{toSentenceCase(bedType)}</div>
 
         <div className="cell-right">
           <button

@@ -85,14 +85,37 @@ function FinishListing() {
     newAccommodation["rooms"] = [...newAccommodation["rooms"], ...bedroomList];
   }
 
+  const emptyContext = () => {
+    setAccommodation({});
+    setBedrooms({});
+    setCommonSpaces({});
+    setNrOfBaths(0);
+  };
+
   useEffect(() => {
-    axios
-      .post(`http://localhost:8762/acc`, newAccommodation, {
-        withCredentials: true,
-      })
-      .then((response) => {
-        setSuccess(true);
-      });
+    if ("id" in accommodation) {
+      axios
+        .put(
+          `http://localhost:8762/acc/accommodation-id/${accommodation.id}`,
+          newAccommodation,
+          {
+            withCredentials: true,
+          }
+        )
+        .then((response) => {
+          setSuccess(true);
+          emptyContext();
+        });
+    } else {
+      axios
+        .post(`http://localhost:8762/acc`, newAccommodation, {
+          withCredentials: true,
+        })
+        .then((response) => {
+          setSuccess(true);
+          emptyContext();
+        });
+    }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [setSuccess]);
 

@@ -13,7 +13,7 @@ import Typography from "@material-ui/core/Typography";
 import ActionsButton from "./ActionsButton";
 import "./Listings.scss";
 import axios from "axios";
-import { useHistory, Link } from "react-router-dom";
+import { Link } from "react-router-dom";
 
 function descendingComparator(a, b, orderBy) {
   if (b[orderBy] < a[orderBy]) {
@@ -121,7 +121,6 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 function Listings() {
-  const history = useHistory();
   const classes = useStyles();
   const [order, setOrder] = useState("asc");
   const [orderBy, setOrderBy] = useState("name");

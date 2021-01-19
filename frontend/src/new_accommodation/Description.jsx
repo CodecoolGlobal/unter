@@ -1,10 +1,12 @@
 import React, { useState, useContext } from "react";
 import { useHistory } from "react-router-dom";
 import { NewAccommodationContext } from "../context/NewAccommodationContext";
+import toSentenceCase from "./toSentenceCase";
 
 function Description() {
   const history = useHistory();
   const [accommodation, setAccommodation] = useContext(NewAccommodationContext);
+  let isEditing = accommodation !== undefined && "id" in accommodation;
 
   const propertyTypes = [
     "Apartment",
@@ -14,9 +16,15 @@ function Description() {
     "Unique space",
   ];
 
-  const [title, setTitle] = useState("");
-  const [desc, setDesc] = useState("");
-  const [type, setType] = useState("Apartment");
+  const [title, setTitle] = useState(isEditing ? accommodation.name : "");
+  const [desc, setDesc] = useState(isEditing ? accommodation.description : "");
+  const [type, setType] = useState(
+    isEditing
+      ? accommodation.address.type !== undefined
+        ? toSentenceCase(accommodation.address.type)
+        : "Apartment"
+      : "Apartment"
+  );
 
   const handleNext = () => {
     let newAccommodation = accommodation;

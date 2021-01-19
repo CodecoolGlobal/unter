@@ -15,13 +15,22 @@ import axios from "axios";
 function NewAccommodationLandingPage() {
   const history = useHistory();
   const [accommodation, setAccommodation] = useContext(NewAccommodationContext);
+  let isEditing = accommodation !== undefined && "id" in accommodation;
 
   // AFTER PLACES API WORKS: const [coordinates, setCoordinates] = useState({});
-  const [country, setCountry] = useState("");
-  const [zipCode, setZipCode] = useState("");
-  const [city, setCity] = useState("");
-  const [street, setStreet] = useState("");
-  const [houseNumber, setHouseNumber] = useState("");
+  const [country, setCountry] = useState(
+    isEditing ? accommodation.address.country : ""
+  );
+  const [zipCode, setZipCode] = useState(
+    isEditing ? accommodation.address.zipCode : ""
+  );
+  const [city, setCity] = useState(isEditing ? accommodation.address.city : "");
+  const [street, setStreet] = useState(
+    isEditing ? accommodation.address.street : ""
+  );
+  const [houseNumber, setHouseNumber] = useState(
+    isEditing ? accommodation.address.houseNumber : ""
+  );
 
   useEffect(() => {
     if (city !== "") {
