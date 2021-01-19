@@ -5,14 +5,10 @@ import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 import lombok.*;
-import org.hibernate.annotations.Type;
 
 import javax.persistence.*;
-import java.lang.reflect.Array;
 import java.util.ArrayList;
-import java.util.HashSet;
 import java.util.List;
-import java.util.Set;
 
 @Data
 //@NoArgsConstructor
@@ -59,7 +55,7 @@ public class Accommodation {
     @EqualsAndHashCode.Exclude
     @ToString.Exclude
     @JsonBackReference
-    private Set<Room> rooms;
+    private List<Room> rooms;
 
     @OneToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "address_id", nullable = false)
@@ -73,6 +69,6 @@ public class Accommodation {
     }
 
     public void createRooms(){
-        this.rooms = new HashSet<>();
+        this.rooms = new ArrayList<>();
     }
 }

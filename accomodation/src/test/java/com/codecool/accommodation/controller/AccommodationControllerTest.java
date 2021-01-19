@@ -72,7 +72,7 @@ public class AccommodationControllerTest {
             .beds(beds)
             .build();
 
-        Set<Room> rooms = new HashSet<>();
+        List<Room> rooms = new ArrayList<>();
         rooms.add(room);
 
         testAccommodation = Accommodation.builder()

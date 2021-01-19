@@ -30,5 +30,5 @@ public class AccommodationDTO {
 
     // TODO: implement these fields later
 //    private AccommodationType type;
-//    private Set<Room> rooms;
+//    private List<Room> rooms;
 }
