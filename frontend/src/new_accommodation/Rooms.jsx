@@ -10,7 +10,9 @@ function Rooms() {
   const [
     bedrooms,
     setBedrooms,
+    // eslint-disable-next-line no-unused-vars
     commonSpaces,
+    // eslint-disable-next-line no-unused-vars
     setCommonSpaces,
     nrOfBaths,
     setNrOfBaths,

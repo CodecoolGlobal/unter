@@ -38,7 +38,6 @@ function NewAccommodationLandingPage() {
             latitude: latitude,
           };
           setAccommodation(newAccommodation);
-          console.log(accommodation);
         });
     }
   }, [city]);

@@ -6,7 +6,6 @@ function Room(props) {
   const [bedrooms, setBedrooms, commonSpaces, setCommonSpaces] = useContext(
     RoomsContext
   );
-  const [numberOfBeds, setNumberOfBeds] = useState(0);
   const [addBedsButton, setAddBedsButton] = useState("Add beds");
   const id = props.index === undefined ? props.id : props.index;
   const isBedroom = props.type === "Bedroom";
@@ -31,6 +30,10 @@ function Room(props) {
   } else {
     beds = commonSpaces !== undefined ? commonSpaces : defaultBeds;
   }
+
+  const [numberOfBeds, setNumberOfBeds] = useState(
+    Object.keys(beds).reduce((acc, value) => acc + beds[value], 0)
+  );
 
   const saveBeds = (beds) => {
     if (isBedroom) {
