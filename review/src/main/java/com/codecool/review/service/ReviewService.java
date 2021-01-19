@@ -90,4 +90,12 @@ public class ReviewService {
             exception.printStackTrace();
         }
     }
+
+    public Double getAverageRating(Long accommodationId) {
+        if (reviewDAO.existsByAccommodationId(accommodationId)) {
+            return reviewDAO.getAverageRating(accommodationId);
+        } else {
+            throw new NoDataFoundException();
+        }
+    }
 }

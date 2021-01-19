@@ -60,4 +60,9 @@ public class ReviewController {
     public void deleteAllReviewsByGuestId(@PathVariable(name = "guestId") Long guestId) {
         service.deleteAllReviewsByGuestId(guestId);
     }
+    
+    @GetMapping("/rating-avg/{accommodationId}")
+    public Double getAccommodationAverageRating(@PathVariable(name = "accommodationId") Long accommodationId) {
+        return service.getAverageRating(accommodationId);
+    }
 }

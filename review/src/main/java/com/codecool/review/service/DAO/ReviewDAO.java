@@ -19,4 +19,5 @@ public interface ReviewDAO {
     void deleteAllReviewsByGuestId(Long guestId);
     boolean existsByAccommodationId(Long accommodationId);
     boolean existsByGuestId(Long guestId);
+    Double getAverageRating(Long accommodationId);
 }

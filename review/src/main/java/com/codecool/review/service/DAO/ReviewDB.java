@@ -161,4 +161,14 @@ public class ReviewDB implements ReviewDAO {
     public boolean existsByGuestId(Long guestId) {
         return repository.existsByGuestId(guestId);
     }
+
+    @Override
+    public Double getAverageRating(Long accommodationId) {
+        // find all reviews by acc id
+        List<Review> reviews = repository.findAllByAccommodationId(accommodationId);
+
+        // get average value from rating
+        Double avgRating = reviews.stream().collect(Collectors.averagingDouble(Review::getRating));
+        return Math.round(avgRating * 10.0) / 10.0;
+    }
 }
