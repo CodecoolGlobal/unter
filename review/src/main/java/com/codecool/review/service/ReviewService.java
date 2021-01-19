@@ -33,23 +33,36 @@ public class ReviewService {
     }
 
     public void saveNewReview(ReviewRequestDTO reviewRequestDTO) {
-        reviewDAO.saveNewReview(reviewRequestDTO);
+        try {
+            reviewDAO.saveNewReview(reviewRequestDTO);
+        } catch (NullArgumentException exception) {
+            exception.printStackTrace();
+        }
     }
 
     public ReviewResponseDTO findReviewById(Long reviewId) {
-        return reviewDAO.findReviewById(reviewId);
+        if (reviewDAO.reviewExistsById(reviewId)) {
+            return reviewDAO.findReviewById(reviewId);
+        } else {
+            throw new ReviewNotFoundException(reviewId);
+        }
     }
 
     public List<ReviewResponseDTO> findAllReviewsByGuestId(Long guestId) {
         if (reviewDAO.findAllReviewsByGuestId(guestId).isEmpty()) {
             throw new NoDataFoundException();
+        } else {
+            return reviewDAO.findAllReviewsByGuestId(guestId);
         }
-        return reviewDAO.findAllReviewsByGuestId(guestId);
     }
 
     public void updateReview(Long reviewId, ReviewUpdateDTO reviewUpdateDTO) {
         try {
-            reviewDAO.updateReview(reviewId, reviewUpdateDTO);
+            if (reviewDAO.reviewExistsById(reviewId)) {
+                reviewDAO.updateReview(reviewId, reviewUpdateDTO);
+            } else {
+                throw new ReviewNotFoundException(reviewId);
+            }
         } catch (NullArgumentException exception) {
             exception.printStackTrace();
         }
@@ -95,7 +108,7 @@ public class ReviewService {
         if (reviewDAO.existsByAccommodationId(accommodationId)) {
             return reviewDAO.getAverageRating(accommodationId);
         } else {
-            throw new NoDataFoundException();
+            return null;
         }
     }
 }
