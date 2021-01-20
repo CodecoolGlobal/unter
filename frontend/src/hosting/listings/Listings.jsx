@@ -13,7 +13,7 @@ import Typography from "@material-ui/core/Typography";
 import ActionsButton from "./ActionsButton";
 import "./Listings.scss";
 import axios from "axios";
-import { Link } from "react-router-dom";
+import { Link, useHistory } from "react-router-dom";
 
 function descendingComparator(a, b, orderBy) {
   if (b[orderBy] < a[orderBy]) {
@@ -47,6 +47,12 @@ const headCells = [
     numeric: false,
     disablePadding: true,
     label: "Listing",
+  },
+  {
+    id: "maxNrOfGuests",
+    numeric: true,
+    disablePadding: false,
+    label: "Maximum number of guests",
   },
   { id: "rooms", numeric: true, disablePadding: false, label: "Rooms" },
   { id: "beds", numeric: true, disablePadding: false, label: "Beds" },
@@ -121,6 +127,7 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 function Listings() {
+  const history = useHistory();
   const classes = useStyles();
   const [order, setOrder] = useState("asc");
   const [orderBy, setOrderBy] = useState("name");
@@ -129,13 +136,12 @@ function Listings() {
   const [rows, setRows] = useState([]);
   const [requestDate, setRequestDate] = useState(new Date());
 
-  /*if (localStorage.getItem("id") === null) {
+  if (localStorage.getItem("id") === null) {
     history.push("/");
-  }*/
+  }
 
-  //const hostId = localStorage.getItem("id");
+  const hostId = localStorage.getItem("id");
 
-  const hostId = 1;
   useEffect(() => {
     axios
       .get(`http://localhost:8762/acc/host-id/${hostId}`, {
@@ -243,6 +249,9 @@ function Listings() {
                           </div>
                         </div>
                       </div>
+                    </TableCell>
+                    <TableCell className="cell" align="center">
+                      {checkIfExist(row.capacity)}
                     </TableCell>
                     <TableCell className="cell" align="center">
                       {checkIfExist(row.numberOfRooms)}

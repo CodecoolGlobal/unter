@@ -16,13 +16,19 @@ function Description() {
     "Unique space",
   ];
 
-  const [title, setTitle] = useState(isEditing ? accommodation.name : "");
-  const [desc, setDesc] = useState(isEditing ? accommodation.description : "");
+  const checkSavedDescData = (data) => {
+    return accommodation !== undefined && data in accommodation;
+  };
+
+  const [title, setTitle] = useState(
+    checkSavedDescData("name") ? accommodation.name : ""
+  );
+  const [desc, setDesc] = useState(
+    checkSavedDescData("description") ? accommodation.description : ""
+  );
   const [type, setType] = useState(
-    isEditing
-      ? accommodation.address.type !== undefined
-        ? toSentenceCase(accommodation.address.type)
-        : "Apartment"
+    checkSavedDescData("type")
+      ? toSentenceCase(accommodation.type)
       : "Apartment"
   );
 
@@ -31,7 +37,7 @@ function Description() {
     newAccommodation["name"] = title;
     newAccommodation["description"] = desc;
     newAccommodation["type"] = type.replace(" ", "_").toUpperCase();
-    newAccommodation["hostId"] = 1;
+    newAccommodation["hostId"] = localStorage.getItem("id");
     setAccommodation(newAccommodation);
     history.push("/become-a-host/rooms");
   };

@@ -6,8 +6,10 @@ import Login from "./Login";
 import ExpandMoreIcon from "@material-ui/icons/ExpandMore";
 import { Avatar } from "@material-ui/core";
 import Registration from "./Registration";
+import { useHistory } from "react-router-dom";
 
 export default function Dropdown() {
+  const history = useHistory();
   const [anchorEl, setAnchorEl] = React.useState(null);
   let content;
 
@@ -40,6 +42,13 @@ export default function Dropdown() {
           onClose={handleClose}
         >
           <MenuItem onClick={handleClose}>My account</MenuItem>
+          <MenuItem
+            onClick={() => {
+              history.push("/hosting/listings");
+            }}
+          >
+            Manage listings
+          </MenuItem>
           <MenuItem onClick={logOut}>Log out</MenuItem>
         </Menu>
       </div>

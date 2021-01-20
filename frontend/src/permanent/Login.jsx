@@ -24,7 +24,9 @@ export default function SimpleModal() {
       response = await Axios.post("http://localhost:8762/auth", user);
       setUser(response.data);
       // store the user in localStorage
+      console.log(response.data.Id);
       localStorage.setItem("id", response.data.Id);
+      console.log(localStorage.getItem("id"));
       localStorage.setItem("name", response.data.Name);
       localStorage.setItem("roles", response.data.roles);
       console.log(response.data);

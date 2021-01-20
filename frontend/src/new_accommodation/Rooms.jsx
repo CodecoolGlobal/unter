@@ -17,8 +17,15 @@ function Rooms() {
     nrOfBaths,
     setNrOfBaths,
   ] = useContext(RoomsContext);
-  const [maxNrOfGuests, setMaxNrOfGuests] = useState(1);
-  const [nrOfBedrooms, setNrOfBedrooms] = useState(1);
+  let bedroomCounter = Object.keys(bedrooms).length;
+  const [maxNrOfGuests, setMaxNrOfGuests] = useState(
+    accommodation !== undefined && "maxNrOfGuests" in accommodation
+      ? accommodation.maxNrOfGuests
+      : 1
+  );
+  const [nrOfBedrooms, setNrOfBedrooms] = useState(
+    bedroomCounter > 0 ? bedroomCounter : 1
+  );
 
   let bedroomList = [];
   if (nrOfBedrooms > 0) {
@@ -56,12 +63,12 @@ function Rooms() {
               <i className="fas fa-minus" />
             </button>
             {maxNrOfGuests}
-            {maxNrOfGuests > 15 && <span>+</span>}
+            {maxNrOfGuests > 49 && <span>+</span>}
             <button
               type="button"
               className="circle-button"
               onClick={() => setMaxNrOfGuests(maxNrOfGuests + 1)}
-              disabled={maxNrOfGuests > 15}
+              disabled={maxNrOfGuests > 49}
             >
               <i className="fas fa-plus" />
             </button>
