@@ -33,6 +33,7 @@ public class GatewayApplication{
 
     private final UserRepository userRepository;
 
+
     private final PasswordEncoder passwordEncoder = PasswordEncoderFactories.createDelegatingPasswordEncoder();
 
     public static void main(String[] args) {

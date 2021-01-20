@@ -1,7 +1,6 @@
-class Accommodations{
-    constructor(lng, lat){
-        this.lng = lng;
-        thist.lat = lat;
-    }
-
+class Accommodations {
+  constructor(lng, lat) {
+    this.lng = lng;
+    this.lat = lat;
+  }
 }

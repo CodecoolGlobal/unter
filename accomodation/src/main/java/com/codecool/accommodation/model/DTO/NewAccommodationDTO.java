@@ -15,7 +15,7 @@ import lombok.NoArgsConstructor;
 
 import javax.validation.constraints.NotEmpty;
 import java.util.List;
-import java.util.Set;
+import java.util.List;
 
 @Data
 @Builder
@@ -41,7 +41,7 @@ public class NewAccommodationDTO {
     @ValidInteger(message = "Max num of guests can't be null")
     private Integer maxNumberOfGuest;
 
-    private Set<Room> rooms;
+    private List<Room> rooms;
 
     @ValidAddress
     private Address address;

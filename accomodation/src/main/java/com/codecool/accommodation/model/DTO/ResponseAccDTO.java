@@ -15,7 +15,7 @@ import lombok.NoArgsConstructor;
 
 import javax.validation.constraints.NotEmpty;
 import java.util.List;
-import java.util.Set;
+import java.util.List;
 
 @Data
 @Builder
@@ -39,7 +39,7 @@ public class ResponseAccDTO {
 
     private Integer maxNumberOfGuest;
 
-    private Set<Room> rooms;
+    private List<Room> rooms;
 
     private Address address;
 
