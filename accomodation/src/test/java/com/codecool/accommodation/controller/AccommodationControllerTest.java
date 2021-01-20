@@ -171,14 +171,14 @@ public class AccommodationControllerTest {
         verify(service, times(1)).findAccommodationById(1L);
     }
 
-    @Test //TODO
+    @Test
     public void test_findAccommodationsByNonExistingId_ShouldNotBeFound() throws Exception {
         mockMvc
             .perform(MockMvcRequestBuilders
                 .get("/host-id/{hostId}", 5000L)
                 .characterEncoding("utf-8"))
             .andDo(print())
-            .andExpect(status().isOk());
+            .andExpect(status().isNotFound());
     }
 
     @Test
@@ -213,7 +213,7 @@ public class AccommodationControllerTest {
             .andExpect(status().isOk());
     }
 
-    @Test
+    @Test // todo
     public void test_saveNewAccommodationEndpoint_StatusIsOk() throws Exception {
         mockMvc
             .perform(MockMvcRequestBuilders

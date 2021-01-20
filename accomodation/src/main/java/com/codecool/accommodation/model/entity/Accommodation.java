@@ -30,11 +30,6 @@ public class Accommodation {
     @Column(columnDefinition="text")
     private String description;
 
-   /* @Lob
-    @Type(type = "org.hibernate.type.TextType")
-    private String pictureUrl;
-  */
-
     @ElementCollection
     private List<String> pictures;
 
