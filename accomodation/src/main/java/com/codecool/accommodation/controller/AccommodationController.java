@@ -3,6 +3,7 @@ package com.codecool.accommodation.controller;
 import com.codecool.accommodation.model.DTO.NewAccommodationDTO;
 import com.codecool.accommodation.model.DTO.ResponseAccDTO;
 import com.codecool.accommodation.model.entity.Accommodation;
+import com.codecool.accommodation.model.wrapper.AccommodationDTOWrapper;
 import com.codecool.accommodation.service.AccommodationService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
@@ -24,7 +25,7 @@ public class AccommodationController {
   
     // if there is no accommodation found by the given host id, it returns an empty list!
     @GetMapping("/host-id/{hostId}")
-    public List<Accommodation> getAllAccommodationByHost(@PathVariable(name = "hostId") Long hostId, HttpServletResponse response) {
+    public AccommodationDTOWrapper getAllAccommodationByHost(@PathVariable(name = "hostId") Long hostId, HttpServletResponse response) {
         return service.getAllAccommodation(hostId);
     }
 

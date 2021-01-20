@@ -327,7 +327,7 @@ public class AccommodationCreator {
                 .latitude(22.00)
                 .longitude(32.00)
                 .description("Nice!444négy")
-                .maxNumberOfGuests(4000)
+                .maxNumberOfGuests(50)
                 .name("Házikó")
                 .pictures(null)
                 .hostId(1L)

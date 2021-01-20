@@ -1,5 +1,6 @@
 package com.codecool.accommodation.model.DTO;
 
+import com.codecool.accommodation.model.entity.Address;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -23,10 +24,11 @@ public class AccommodationDTO {
     private Integer numberOfBeds;
     private Integer numberOfBathrooms;
     private CoordinateDTO coordinates;
+    private Long hostId;
+    private Address address;
+
 
     // TODO: implement these fields later
-//    private Long hostId;
 //    private AccommodationType type;
-//    private Set<Room> rooms;
-//    private Address address;
+//    private List<Room> rooms;
 }
