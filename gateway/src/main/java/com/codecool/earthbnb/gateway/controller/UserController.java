@@ -1,14 +1,13 @@
 package com.codecool.earthbnb.gateway.controller;
 
+import com.codecool.earthbnb.gateway.model.DTO.ProfileDTO;
 import com.codecool.earthbnb.gateway.model.DTO.PublicUserDTO;
 import com.codecool.earthbnb.gateway.service.UserService;
 import com.codecool.earthbnb.gateway.service.validation.annotation.ValidLong;
 import lombok.RequiredArgsConstructor;
+import org.springframework.context.annotation.Profile;
 import org.springframework.http.MediaType;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -33,4 +32,10 @@ public class UserController {
         PublicUserDTO userDTO = userService.getLoggedInUserData(request);
         return userDTO;
     }
+
+    @PostMapping("/save-profile-data/{userId}")
+    public void saveProfileData(@PathVariable Long userId, @RequestBody ProfileDTO profileDTO){
+        userService.saveProfileData(userId, profileDTO);
+    }
+
 }
