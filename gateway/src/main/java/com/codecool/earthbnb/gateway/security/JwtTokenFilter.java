@@ -18,9 +18,6 @@ public class JwtTokenFilter extends GenericFilterBean {
 
     private final JwtTokenServices jwtTokenServices;
 
-//    JwtTokenFilter(JwtTokenServices jwtTokenServices) {
-//        this.jwtTokenServices = jwtTokenServices;
-//    }
 
     @Override
     public void doFilter(ServletRequest req, ServletResponse res, FilterChain filterChain) throws IOException, ServletException {

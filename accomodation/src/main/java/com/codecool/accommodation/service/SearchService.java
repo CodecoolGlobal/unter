@@ -5,6 +5,7 @@ import com.codecool.accommodation.model.DTO.RabbitMQDTO;
 import com.codecool.accommodation.model.entity.Accommodation;
 import com.codecool.accommodation.model.entity.Coordinate;
 import com.codecool.accommodation.rabbitmq.ConfigureRabbitMQ;
+import com.codecool.accommodation.repository.AccommodationRepository;
 import com.codecool.accommodation.service.DAO.CoordinateDAO;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -24,12 +25,15 @@ import java.util.List;
 @Service
 @RequiredArgsConstructor
 public class SearchService {
+
+    private static RabbitMQDTO rabbitMessage;
     private final RabbitTemplate rabbitTemplate;
     private final ObjectMapper objectMapper;
     private final DTOCreator creator;
     private final CoordinateDAO coordinateDAO;
     private static final double DEFAULT_SEARCH_DISTANCE = 0D;
     private static final String NO_COORDINATE_MESSAGE = "Coordinates cannot be null.";
+    private final AccommodationRepository repository;
 
     public ResponseEntity<?> getAccommodationsInRadius(CoordinateDTO coordinate, Double searchRadius) {
         searchRadius = searchRadius == null ? DEFAULT_SEARCH_DISTANCE : searchRadius;
@@ -46,11 +50,11 @@ public class SearchService {
         return ResponseEntity.ok(creator.turnInputListToAccommodationDTO(allAccommodationsInRadius));
     }
 
-    public ResponseEntity<?> getAccommodationIdsInRadius(CoordinateDTO coordinate, Double searchRadius, LocalDate startDate, LocalDate endDate) throws JsonProcessingException {
+    public void getAccommodationIdsInRadius(CoordinateDTO coordinate, Double searchRadius, LocalDate startDate, LocalDate endDate) throws JsonProcessingException {
         searchRadius = searchRadius == null ? DEFAULT_SEARCH_DISTANCE : searchRadius;
-        if (coordinate.getLatitude() == null || coordinate.getLongitude() == null)
-            return ResponseEntity.status(400).body(NO_COORDINATE_MESSAGE);
-
+        if (coordinate.getLatitude() == null || coordinate.getLongitude() == null) {
+           // return ResponseEntity.status(400).body(NO_COORDINATE_MESSAGE);
+        }
         List<Long> allAccommodationIdsInRadius = new ArrayList<>();
         List<Coordinate> foundCoordinates = coordinateDAO.getAllByDistanceFromCoordinate(coordinate, searchRadius);
         if (!foundCoordinates.isEmpty()) {
@@ -72,14 +76,36 @@ public class SearchService {
         rabbitTemplate.convertAndSend(ConfigureRabbitMQ.LOCATION_EXCHANGE_NAME, "location.1", objectMapper.writeValueAsString(object));
 
 
-        return ResponseEntity.ok(allAccommodationIdsInRadius);
+
     }
 
     @RabbitListener(queues = ConfigureRabbitMQ.DATES_QUEUE_NAME, errorHandler="rabbitRetryHandler")
     public void listen(String message) throws JsonProcessingException {
-        //RabbitMQDTO ids = objectMapper.readValue(message, RabbitMQDTO.class);
-        System.out.println(message);
+        RabbitMQDTO rabbitList = objectMapper.readValue(message, RabbitMQDTO.class);
 
-        //return ids;
+        assignRabbitMessage(rabbitList);
+
     }
+
+    public void assignRabbitMessage(RabbitMQDTO rabbitList) {
+        rabbitMessage = rabbitList;
+    }
+
+    public RabbitMQDTO getMessage(){
+        return rabbitMessage;
+    }
+
+    public List<Accommodation> getAllAcc(){
+        List<Accommodation> accommodations = new ArrayList<>();
+        if(rabbitMessage != null){
+            for(Long id: rabbitMessage.getIds()){
+                Accommodation accommodation = repository.findAccommodationById(id);
+                accommodations.add(accommodation);
+            }
+        }
+
+        return accommodations;
+    }
+
+
 }
