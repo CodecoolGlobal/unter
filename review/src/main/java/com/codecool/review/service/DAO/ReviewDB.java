@@ -43,9 +43,7 @@ public class ReviewDB implements ReviewDAO {
             reviewResponseDTOList.add(newDTO);
         }
 
-        return reviewResponseDTOList.stream()
-            .filter(review -> review.getMessage() != null)
-            .collect(Collectors.toList());
+        return reviewResponseDTOList;
     }
 
     @Override
@@ -65,9 +63,7 @@ public class ReviewDB implements ReviewDAO {
 
             reviewResponseDTOList.add(newDTO);
         }
-        return reviewResponseDTOList.stream() // list only the ones that have message field
-            .filter(review -> review.getMessage() != null)
-            .collect(Collectors.toList());
+        return reviewResponseDTOList;
     }
 
     @Override
@@ -115,7 +111,7 @@ public class ReviewDB implements ReviewDAO {
 
             reviewResponseDTOList.add(newDTO);
         }
-        return reviewResponseDTOList; // all reviews message null included
+        return reviewResponseDTOList;
     }
 
     @Override
