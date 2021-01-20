@@ -59,7 +59,7 @@ function UserPage() {
     const saveChanges = (changeValue)=>{
       switch (changeValue) {
         case "name":
-            Axios.post(`http://localhost:8762/user/save-profile-data/${user.Id}`,{'fullName':firstName+lastName})
+            Axios.post(`http://localhost:8762/user/save-profile-data/${user.Id}`,{'fullName':firstName+ " "+lastName})
             setNameEffect(!nameEffect);
             break;
         case "email":
