@@ -42,10 +42,6 @@ function Registration() {
       "http://localhost:8762/reg",
       user
     );
-    // set the state of the user
-    setUser(response.data)
-    // store the user in localStorage
-    localStorage.setItem('user', response.data)
     handleClose();
     console.log(response.data)
   }

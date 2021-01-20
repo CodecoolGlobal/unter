@@ -13,6 +13,7 @@ import Location from "./new_accommodation/Location";
 import { NewAccommodationProvider } from "./context/NewAccommodationContext";
 import NewAccommodation from "./new_accommodation/NewAccommodation";
 
+
 function App() {
   return (
     <div className="App">

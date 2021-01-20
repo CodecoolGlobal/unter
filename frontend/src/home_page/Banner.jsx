@@ -14,7 +14,7 @@ function Banner() {
                     just relax.
                 </h5>
                 <Button
-                    onClick={() => history.push("/search?city=Budapest&lat=47.498382&lng=19.040471")}
+                    onClick={() => history.push("/search?city=Budapest&latitude=47.498382&longitude=19.040471&radius=1&page=1")}
                     variant="outlined"
                 >
                     Explore Nearby

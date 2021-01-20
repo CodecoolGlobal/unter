@@ -10,6 +10,7 @@ import { HeaderContext } from "../context/HeaderCloseContext";
 import {AccommodationNumberContext} from "../context/AccommodationNumber"
 import SimpleMap from '../permanent/SimpleMap'
 import {useLocation} from "react-router-dom";
+import PaginationComponent from "./PaginationComponent";
 
 
 
@@ -19,6 +20,8 @@ function SearchPage() {
     const [show, setShow] = useContext(HeaderContext);
     const [accommodations, setAccommodations] = useContext(AccommodationNumberContext);
     const [center,setCenter]=useState([]);
+    const [accommodationPerPage,setAccommodationPerPage] = useState(7);
+    const [currentPage,setCurrentPage] = useState(1);
     const zoom = 13;
     const location = useLocation();
     
@@ -26,10 +29,14 @@ function SearchPage() {
     useEffect(() => {
         setIsLoading(true);
         let parsed = queryString.parse(window.location.search);
-        Axios.get(`http://localhost:8762/acc/search?latitude=${parsed.lat}&longitude=${parsed.lng}&radius=1`)
+        console.log(parsed)
+        Axios.get(`http://localhost:8762/acc/search?latitude=${parsed.latitude}&longitude=${parsed.longitude}&radius=1`)
         .then( async function (response) {
             // handle success
                await setAccommodations(response.data.accommodationDTO);
+            //    console.log(JSON.stringify(parsedPageNumber)+"LÉGYSZI")
+               await setCurrentPage(parsed.page)
+               await console.log(parsed.page)
                 setIsLoading(false);
                 
             })
@@ -37,7 +44,7 @@ function SearchPage() {
                 // handle error
                 console.log(error);
             })
-            .then(function () {
+            .then(async function () {
                 // always executed
             });
             console.log(center)
@@ -48,11 +55,19 @@ function SearchPage() {
     useEffect(() => {
         let parsed = queryString.parse(window.location.search);
 
-        setCenter([{lat:Number(parsed.lat)},{lng:Number(parsed.lng)}])
+        setCenter([{lat:Number(parsed.latitude)},{lng:Number(parsed.longitude)}])
 
     }, [location])
     
-    
+    const indexOfLastAccommodation = currentPage*accommodationPerPage;
+    const indexOfFirstAccomodation=indexOfLastAccommodation -accommodationPerPage;
+    const currentAccommodations = accommodations.slice(indexOfFirstAccomodation,indexOfLastAccommodation);
+    // const paginate = (pageNumber) =>{
+    //     console.log(pageNumber+"PAGENUMBER")
+    //     setCurrentPage(pageNumber)
+    // }
+    console.log(currentPage+"CURRENTPAGE")
+
     if(isLoading){
         return<div>Loading</div>
     }
@@ -73,8 +88,8 @@ function SearchPage() {
                             <Button variant="outlined">More filters</Button>
                         </div>
     
-                        {accommodations != null
-                            ? accommodations.map((actual) => {
+                        {currentAccommodations != null
+                            ? currentAccommodations.map((actual) => {
                                 return (<SearchResult
                                     key={actual.id}
                                     img={actual.pictures[0]}
@@ -90,7 +105,7 @@ function SearchPage() {
                             : <div>Loading...</div>
                         }
     
-    
+                    <PaginationComponent  postPerPage={accommodationPerPage} totalPosts={accommodations.length} ></PaginationComponent>
                     </div>
                     <MediaQuery minDeviceWidth={1224}>
                         <div className="map">
@@ -98,6 +113,7 @@ function SearchPage() {
                                 center={newCenter}
                                 defaultZoom={zoom}
                             ></SimpleMap>
+                            
                         </div>
                     </MediaQuery>
                 </div>

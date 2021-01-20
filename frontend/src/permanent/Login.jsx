@@ -29,13 +29,14 @@ export default function SimpleModal() {
       user
     );
     setUser(response.data)
-    // store the user in localStorage
-    localStorage.setItem('user', response.data)
-    console.log(response.data)
+    console.log(user)
+    // let localUser = JSON.parse(response.data)
+    localStorage.setItem('user',JSON.stringify(response.data))
+    // console.log(localUser)
     handleClose()
   }
     catch(error){
-      alert("Your email or password is incorrect ")
+      alert("Your email or password is incorrect "+error)
     }
     // set the state of the user
    
