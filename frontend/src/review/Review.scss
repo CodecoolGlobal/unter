@@ -1,7 +1,31 @@
-.undefined .react-stars {
-    overflow: visible !important;
+.panel {
+  border: 1px solid #dce0e0;
+  background-color: white;
+  margin: 24px 0 0;
 }
 
-.undefined .react-stars span{
-    overflow:visible !important;
+.panel-header {
+  padding: 12px 20px;
+  font-size: 16px;
+  border-bottom: 1px solid #dce0e0;
+  background-color: #edefed;
+}
+
+.panel-body {
+  background-color: white;
+  padding: 0 20px;
+}
+
+.review-list li {
+  width: 100%;
+  border-bottom: 1px solid #dce0e0;
+  padding: 30px 0;
+}
+
+.review-list {
+  list-style-type: none;
+}
+
+.review-list li:last-child {
+  border: none;
 }

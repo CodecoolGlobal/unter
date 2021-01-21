@@ -1,5 +1,5 @@
 import "./App.scss";
-import React from "react";
+import React, { useState } from "react";
 import Home from "./home_page/Home";
 import Header from "./permanent/Header";
 import Footer from "./permanent/Footer";
@@ -12,6 +12,7 @@ import Location from "./new_accommodation/Location";
 import { NewAccommodationProvider } from "./context/NewAccommodationContext";
 import NewAccommodation from "./new_accommodation/NewAccommodation";
 import NewReview from "./review/NewReview";
+import Reviews from "./review/Reviews";
 
 function App() {
   return (
@@ -30,6 +31,9 @@ function App() {
                 </Route>
                 <Route path="/become-a-host">
                   <NewAccommodation />
+                </Route>
+                <Route path="/reviews">
+                  <Reviews />
                 </Route>
                 <Route path="/write-review">
                   <NewReview />
