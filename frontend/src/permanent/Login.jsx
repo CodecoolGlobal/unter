@@ -20,21 +20,24 @@ export default function SimpleModal() {
     console.log(user);
     var response;
     // send the username and password to the server
-    try {
-      response = await Axios.post("http://localhost:8762/auth", user);
-      setUser(response.data);
-      // store the user in localStorage
-      console.log(response.data.Id);
-      localStorage.setItem("id", response.data.Id);
-      console.log(localStorage.getItem("id"));
-      localStorage.setItem("name", response.data.Name);
-      localStorage.setItem("roles", response.data.roles);
-      console.log(response.data);
-      handleClose();
-    } catch (error) {
-      alert("Your email or password is incorrect ");
+    try{
+       response = 
+      await Axios.post(
+      "http://localhost:8762/auth",     
+      user
+    );
+    setUser(response.data)
+    console.log(response.data)
+    // let localUser = JSON.parse(response.data)
+    localStorage.setItem('user',JSON.stringify(response.data))
+    // console.log(localUser)
+    handleClose()
+  }
+    catch(error){
+      alert("Your email or password is incorrect "+error)
     }
     // set the state of the user
+   
   };
   function handleTextChange(target) {
     switch (target.id) {
@@ -48,11 +51,7 @@ export default function SimpleModal() {
         break;
     }
   }
-  // const register =() =>{
-  //   return (
-  //     <Registration/>
-  //   )
-  // }
+ 
 
   const handleOpen = () => {
     setOpen(true);

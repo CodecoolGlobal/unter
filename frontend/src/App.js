@@ -18,6 +18,7 @@ import Hosting from "./hosting/Hosting";
 import Rooms from "./new_accommodation/Rooms";
 import { RoomsProvider } from "./context/RoomsContext";
 
+
 function App() {
   return (
     <div className="App">

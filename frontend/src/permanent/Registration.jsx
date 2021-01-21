@@ -58,6 +58,66 @@ function Registration() {
       console.log(JSON.stringify(e));
     }
   };
+    console.log(JSON.stringify(user)+"CICAAAAA")
+    try{
+    const response = await Axios.post(
+      "http://localhost:8762/reg",
+      user
+    );
+    // set the state of the user
+    handleClose();
+    console.log(response.data)
+  }
+  catch(e){
+      console.log(JSON.stringify(e))
+  }
+};
+  
+  function handleTextChange(target) {
+      switch(target.id){
+        case "firstName":
+            target.value=== ''? setFirstNameEffect(false): setFirstNameEffect(true);
+            setFirstName(target.value);
+            setFirstNameStyle({border: "1px solid grey",
+            borderRadius: "5px"})
+            if(target.value === ''){
+                setFirstNameStyle({border: "1px solid red",
+                    borderRadius: "5px"})
+            }
+            break;
+        case "lastName":
+            target.value=== ''? setLastNameEffect(false): setLastNameEffect(true);
+            setLastName(target.value)
+            setStyle({border: "1px solid grey",
+            borderRadius: "5px"})
+            if(target.value === ''){
+                setStyle({border: "1px solid red",
+                    borderRadius: "5px"})
+            }
+            break;
+        case "birthDate":
+            setBirthDate(target.value)
+            break;
+        case "email":
+            let re = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+            target.value=== ''? setEmailEffect(false): setEmailEffect(true);
+            setEmail(target.value)
+            if( re.test(target.value)){
+                setEmailStyle({border: "1px solid grey",
+                borderRadius: "5px"});
+
+            }
+            else{
+                setEmailStyle ({border: "1px solid red",
+                borderRadius: "5px"});
+            }
+            break;
+        case "psw":
+            target.value=== ''? setPswEffect(false): setPswEffect(true);
+            setPsw(target.value)
+            break;
+      }
+    }
 
   function handleTextChange(target) {
     switch (target.id) {

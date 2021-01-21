@@ -30,7 +30,7 @@ function SearchBar() {
             let longitude = response.data.results[0].locations[0].latLng.lng;
             setShow(false);
             // setSearchURL=`/search?city=${city}&lat=${latitude}&lng=${longitude}`
-            history.push(`/search?city=${city}&lat=${latitude}&lng=${longitude}`);
+            history.push(`/search?city=${city}&latitude=${latitude}&longitude=${longitude}&page=${1}`);
         }
     }
         const onEnter = async (e) => {
@@ -49,7 +49,7 @@ function SearchBar() {
                     let longitude = response.data.results[0].locations[0].latLng.lng;
                     setShow(false);
                     // setSearchURL=`/search?city=${city}&lat=${latitude}&lng=${longitude}`
-                    history.push(`/search?city=${city}&lat=${latitude}&lng=${longitude}`);
+                    history.push(`/search?city=${city}&latitude=${latitude}&longitude=${longitude}&page=${1}`);
                 }
             }
     };

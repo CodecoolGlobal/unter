@@ -11,13 +11,13 @@ function SimpleMap ({
 {
     const [accommodations,setAccommodations] = useContext(AccommodationNumberContext)
     return (
-        <GoogleMapReact
+        // <div className="googleMap" >
+        <GoogleMapReact 
           bootstrapURLKeys={{ key: '' }}
           center={center}
           defaultZoom={defaultZoom}
         >
             {accommodations.map((accommodation) => {
-                console.log(accommodation.coordinates.latitude+"ACCOMODATION")
                 return(
                 <Marker
                 key={accommodation.id}
@@ -27,6 +27,8 @@ function SimpleMap ({
                 />)
             })}
         </GoogleMapReact>
+        // </div>
+        
     );
 }
 
