@@ -3,10 +3,12 @@ import Avatar from "@material-ui/core/Avatar";
 import StarRatings from "react-star-ratings";
 import noImage from "./no-image.jpg";
 import axios from "axios";
+import ActionsButton from "./ActionsButton";
 import { Link } from "react-router-dom";
 
 function Review({ review }) {
   const [accommodation, setAccommodation] = useState(null);
+  const [requestDate, setRequestDate] = useState(new Date());
 
   let content = (
     <div style={{ height: "100px", width: "100%", background: "lightgrey" }} />
@@ -20,7 +22,7 @@ function Review({ review }) {
       .then((response) => {
         setAccommodation(response.data);
       });
-  }, [setAccommodation]);
+  }, [requestDate]);
 
   if (accommodation !== null) {
     content = (
@@ -62,6 +64,12 @@ function Review({ review }) {
               <p style={{ margin: "10px 0" }}>{review.message}</p>
 
               <p style={{ fontSize: "14px", color: "#aaa" }}>{review.date}</p>
+            </div>
+            <div
+              className="cell-right"
+              style={{ textAlign: "right", verticalAlign: "bottom" }}
+            >
+              <ActionsButton review={review} setRequestDate={setRequestDate} />
             </div>
           </div>
         </div>

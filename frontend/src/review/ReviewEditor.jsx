@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import { Modal, Fade, makeStyles, Backdrop } from "@material-ui/core";
 import StarRatings from "react-star-ratings";
 import "./Review.scss";
@@ -25,13 +25,17 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-function ReviewEditor({ open, setOpen, accommodationId, redirect }) {
+function ReviewEditor({ open, setOpen, accommodationId, redirect, review }) {
   const history = useHistory();
   const userId = localStorage.getItem("id");
   if (!userId) history.push("/");
   const classes = useStyles();
-  const [message, setMessage] = useState("");
-  const [rating, setRating] = useState(5);
+  const [message, setMessage] = useState(
+    review !== undefined ? review.message : ""
+  );
+  const [rating, setRating] = useState(
+    review !== undefined ? review.rating : 5
+  );
   const meaningOfRating = {
     1: "Terrible",
     2: "Bad",
@@ -45,23 +49,32 @@ function ReviewEditor({ open, setOpen, accommodationId, redirect }) {
   };
 
   const handleSaving = () => {
-    axios
-      .post(
-        `http://localhost:8762/review`,
-        {
-          accommodationId: accommodationId,
-          guestId: userId,
-          rating: rating,
-          message: message,
-        },
-        {
+    let newReview = {
+      accommodationId: accommodationId,
+      guestId: userId,
+      rating: rating,
+      message: message,
+    };
+
+    if (review !== undefined) {
+      axios
+        .put(`http://localhost:8762/review/review-id/${review.id}`, newReview, {
           withCredentials: true,
-        }
-      )
-      .then(() => {
-        handleClose();
-        history.push(redirect);
-      });
+        })
+        .then(() => {
+          handleClose();
+          window.location.reload();
+        });
+    } else {
+      axios
+        .post(`http://localhost:8762/review`, newReview, {
+          withCredentials: true,
+        })
+        .then(() => {
+          handleClose();
+          history.push(redirect);
+        });
+    }
   };
 
   return (
@@ -89,7 +102,6 @@ function ReviewEditor({ open, setOpen, accommodationId, redirect }) {
               starRatedColor="#edb54a"
               starHoverColor="#edb54a"
               starEmptyColor="#dce0e0"
-              autoFocus
               changeRating={(newRating) => {
                 setRating(newRating);
               }}
@@ -101,6 +113,7 @@ function ReviewEditor({ open, setOpen, accommodationId, redirect }) {
             <p>Tell future travelers about what they can expect.</p>
             <textarea
               className="text-input"
+              autoFocus
               value={message}
               style={{ height: "200px", paddingTop: "10px" }}
               onChange={(event) => {
