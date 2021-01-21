@@ -33,6 +33,9 @@ export default function Dropdown() {
     localStorage.clear()
     Axios.get("http://localhost:8762/auth/logout",{withCredentials: true})
     setAnchorEl(null);
+
+    history.push("/");
+  };
   }
 
 
@@ -61,6 +64,19 @@ export default function Dropdown() {
             }}
           >
             Manage listings
+          </MenuItem>
+          <MenuItem
+            onClick={() => {
+              history.push("/reviews");
+            }}
+          >
+            Manage reviews
+          </MenuItem>
+          <MenuItem onClick={logOut}>Log out</MenuItem>
+        </Menu>
+      </div>
+    );
+  } else {
           </MenuItem>:("")
       }
       
