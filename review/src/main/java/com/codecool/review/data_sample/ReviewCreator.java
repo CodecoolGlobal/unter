@@ -18,7 +18,7 @@ public class ReviewCreator {
 
     public void initialize() {
         Long[] accommodationIds = {1L, 4L, 4L, 4L, 7L, 10L, 13L, 16L, 16L};
-        Long[] guestIds = {1L, 1L, 2L, 3L, 5L, 5L, 7L, 8L, 8L};
+        Long[] guestIds = {1L, 1L, 3L, 3L, 5L, 5L, 7L, 9L, 9L};
         Double[] ratings = {1.0, 5.0, 4.0, 5.0, 2.0, 3.0, 5.0, 4.0, 3.0};
         String[] messages = {
             "It was hard to find the address. The sheets were dirty and we found uncleaned dishes in the kitchen. I wouldn't recommend to stay here. Very disappointing.",

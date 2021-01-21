@@ -347,7 +347,6 @@ public class AccommodationCreator {
                 "1084",
                 "1149",
                 "1044"
-
         };
         String[] streets2 = {
                 "Múzeum krt.", // budapest

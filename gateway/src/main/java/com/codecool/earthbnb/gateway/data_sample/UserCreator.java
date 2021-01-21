@@ -168,7 +168,6 @@ public class UserCreator {
 
             repository.saveAndFlush(userEntity);
         }
-
     }
 
     private UserEntity createUserEntity(NewUser newUser) {
@@ -201,5 +200,4 @@ public class UserCreator {
         int x = random.nextInt(Gender.values().length);
         return Gender.values()[x];
     }
-
 }
