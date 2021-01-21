@@ -32,7 +32,7 @@ public class Review {
     @Max(value = 5, message = "Rating must be equal or less than 5")
     private Double rating;
 
-    @Column(columnDefinition = "text", length = 255)
+    @Column(columnDefinition = "text", length = 255, nullable = false)
     private String message;
 
     @Column

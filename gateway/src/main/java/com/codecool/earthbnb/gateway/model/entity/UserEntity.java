@@ -1,7 +1,11 @@
 package com.codecool.earthbnb.gateway.model.entity;
 
+import com.codecool.earthbnb.gateway.model.entity.types.Gender;
+import com.codecool.earthbnb.gateway.service.UserService;
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import lombok.*;
+import org.apache.tomcat.jni.Address;
 
 import javax.persistence.*;
 import java.time.LocalDate;
@@ -26,9 +30,6 @@ public class UserEntity {
     @Column
     private String lastName;
 
-//
-//    @Column(unique = true, nullable = false)
-//    private String username;
 
     @Column(unique = true, nullable = false)
     private String email;
@@ -41,6 +42,19 @@ public class UserEntity {
 
     @Column
     private LocalDate birthDate;
+
+    @Column
+    private String phoneNumber;
+
+    @Column
+    private Gender gender;
+
+    @OneToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "address_id")
+    @JsonManagedReference
+    @EqualsAndHashCode.Exclude
+    @ToString.Exclude
+    private UserAddress address;
 
     @ElementCollection(fetch = FetchType.EAGER)
     @Builder.Default

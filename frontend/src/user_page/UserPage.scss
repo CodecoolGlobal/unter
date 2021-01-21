@@ -1,0 +1,114 @@
+.userPageContainer{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+.pageTitle{
+    display: flex;
+    padding-top: 3vh;
+    padding-bottom: 5vh;
+    align-items: flex-start;
+    width: 60vw;
+}
+
+
+.userPage{
+    display: flex;
+    justify-content: center;
+    padding-top: 5vh;
+    width: 60vw;
+    .personalData{
+        display: flex;
+        flex-direction: column;
+        width: 40vw;
+
+        .settings{
+            display: flex;
+            flex-direction: column;
+            .field{
+                display: flex;
+                justify-content: space-between;
+                border-bottom: 0.1px solid lightgrey;
+                h2{
+                    padding-top: 2vh;
+                    padding-bottom: 1vh;
+                    font-size: 1rem;
+                    font-weight: 600;
+                }
+                p{
+                    padding-bottom: 2vh;
+                }
+                .edit{
+                    h2{
+                        color: #008489 !important;
+                        cursor: pointer;
+                    }
+                }
+                .editNone{
+                    color: #008489 !important;
+                        cursor: pointer;
+                }
+            }
+        }
+    }
+
+
+    .helpInfo{
+        display: flex;
+        flex-direction: column;
+        border: 0.1px solid lightgray;
+        margin-left: 5vh;
+        height: fit-content;
+        justify-content: center;
+        align-items: center;
+        padding: 1vw;
+        width: 20vw;
+        .first{
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            padding-bottom: 5vh;
+            svg{
+                align-self: flex-start;
+            }
+        }
+        h2{
+            align-self: flex-start;
+            padding-bottom: 2vh;
+            padding-top: 1vh;
+        }
+    }
+}
+
+
+
+.editName{
+    display: flex;
+    flex-direction: column;
+    .nameInput{
+        display: flex;
+        label{
+            padding-bottom: 2vh;
+            padding-right: 2vw;
+        }
+        input{
+            margin-top: 1vh;
+            border: 0.1px solid lightgray;
+            height: 3.5vh;
+            border-radius: 4px;
+        }
+    }
+    button{
+        height: 4vh;
+        background-color: #008489;
+        color: white;
+        font-weight: bold;
+        outline: none;
+        border-radius: 4px;
+        border: none;
+        width: 5vw;
+        text-transform: none;
+        margin-bottom: 2vh;
+    }
+}

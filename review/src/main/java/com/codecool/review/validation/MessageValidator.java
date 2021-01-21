@@ -17,6 +17,6 @@ public class MessageValidator implements ConstraintValidator<ValidMessage, Strin
             String regex = "^[a-zA-Z0-9\\s.:,!?()]{1,255}$";
             return message.matches(regex);
         }
-        return true;
+        return false;
     }
 }

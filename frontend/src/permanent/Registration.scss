@@ -27,17 +27,19 @@
     .register__body{
 
         border: none;
-        .nameArea , .birthArea, .emailArea , .pswArea{
-            border: 1px solid grey;
-            border-radius: 5px;
+        .nameArea{
+            #firstName,#lastName{
+                border: none !important
+            }
+
         }
-        #firstName{
-            border-bottom:1px solid grey; ;
-        }
+
         .label {
             display: flex;
             flex-direction: column;
             position: relative;
+            border: 1px solid grey;
+            border-radius: 5px;
 
            .Active{
             transform: translate(0, -2.7vh) scale(0.75);
@@ -65,9 +67,7 @@
             }
           }
              
-        // #email{
-        //     border-bottom: 1px solid black;
-        // }
+
         svg{
             position: absolute;
             left:0.5vw;
@@ -103,4 +103,3 @@
         h6{
             width: 25vw;
         }
-    }

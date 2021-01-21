@@ -1,11 +1,13 @@
 package com.codecool.accommodation.controller;
 
+import com.codecool.accommodation.model.DTO.AccommodationDTO;
 import com.codecool.accommodation.model.DTO.NewAccommodationDTO;
 import com.codecool.accommodation.model.DTO.ResponseAccDTO;
 import com.codecool.accommodation.model.entity.*;
 import com.codecool.accommodation.model.entity.types.AccommodationType;
 import com.codecool.accommodation.model.entity.types.BedType;
 import com.codecool.accommodation.model.entity.types.RoomType;
+import com.codecool.accommodation.model.wrapper.AccommodationDTOWrapper;
 import com.codecool.accommodation.service.AccommodationService;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.junit.jupiter.api.BeforeEach;
@@ -20,6 +22,7 @@ import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 import org.springframework.test.web.servlet.result.MockMvcResultMatchers;
 
 import java.util.*;
+import java.util.stream.Collectors;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.mockito.Mockito.*;
@@ -44,6 +47,8 @@ public class AccommodationControllerTest {
 
     private ResponseAccDTO testResponseAccDTO;
 
+    private AccommodationDTO testAccommodationDTO;
+
     @BeforeEach
     public void setUp() {
         Address address = Address.builder()
@@ -67,7 +72,7 @@ public class AccommodationControllerTest {
             .beds(beds)
             .build();
 
-        Set<Room> rooms = new HashSet<>();
+        List<Room> rooms = new ArrayList<>();
         rooms.add(room);
 
         testAccommodation = Accommodation.builder()
@@ -102,6 +107,13 @@ public class AccommodationControllerTest {
                 .maxNumberOfGuest(3)
                 .rooms(rooms)
                 .address(address)
+                .build();
+
+        testAccommodationDTO = AccommodationDTO.builder()
+                .id(1L)
+                .hostId(1L)
+                .description("Test")
+                .accommodationName("Test")
                 .build();
     }
 
@@ -171,10 +183,11 @@ public class AccommodationControllerTest {
 
     @Test
     public void test_findAccommodationsByHostId_shouldReturnArray() throws Exception {
-        List<Accommodation> accommodations = new ArrayList<>();
-        accommodations.add(testAccommodation);
+        List<AccommodationDTO> accommodations = new ArrayList<>();
+        accommodations.add(testAccommodationDTO);
+        AccommodationDTOWrapper wrapper = new AccommodationDTOWrapper(accommodations);
 
-        when(service.getAllAccommodation(1L)).thenReturn(accommodations);
+        when(service.getAllAccommodation(1L)).thenReturn(wrapper);
 
         mockMvc
             .perform(MockMvcRequestBuilders
@@ -184,7 +197,7 @@ public class AccommodationControllerTest {
             .andDo(print())
             .andExpect(status().isOk())
             .andExpect(MockMvcResultMatchers.jsonPath("$[0].hostId").value(1))
-            .andExpect(MockMvcResultMatchers.jsonPath("[0].maxNumberOfGuests").value(4))
+            .andExpect(MockMvcResultMatchers.jsonPath("[0].accommodationName").value("Test"))
             .andExpect(MockMvcResultMatchers.jsonPath("[0].description").value("Test"));
 
         verify(service, times(1)).getAllAccommodation(1L);

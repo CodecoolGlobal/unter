@@ -16,6 +16,7 @@ import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 import org.springframework.test.web.servlet.result.MockMvcResultMatchers;
 
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -54,6 +55,7 @@ public class ReviewControllerTest {
             .guestId(3L)
             .rating(1.00)
             .message("testReviewResponseDTO")
+            .date(LocalDate.now())
             .build();
     }
 
@@ -200,7 +202,7 @@ public class ReviewControllerTest {
 
         mockMvc
             .perform(MockMvcRequestBuilders
-                .put("/")
+                .post("/")
                 .characterEncoding("utf-8")
                 .accept(MediaType.APPLICATION_JSON)
                 .contentType(MediaType.APPLICATION_JSON)
@@ -220,7 +222,7 @@ public class ReviewControllerTest {
 
         mockMvc
             .perform(MockMvcRequestBuilders
-                .put("/")
+                .post("/")
                 .characterEncoding("utf-8")
                 .accept(MediaType.APPLICATION_JSON)
                 .contentType(MediaType.APPLICATION_JSON)
@@ -240,7 +242,7 @@ public class ReviewControllerTest {
 
         mockMvc
             .perform(MockMvcRequestBuilders
-                .put("/")
+                .post("/")
                 .characterEncoding("utf-8")
                 .accept(MediaType.APPLICATION_JSON)
                 .contentType(MediaType.APPLICATION_JSON)
@@ -290,7 +292,7 @@ public class ReviewControllerTest {
     }
 
     @Test
-    public void test_reviewMessageFieldCanBeNull_statusIsOK() throws Exception {
+    public void test_reviewMessageFieldCannotBeNull_statusIsOK() throws Exception {
         ReviewRequestDTO testReviewRequestDTO2 = ReviewRequestDTO.builder()
             .accommodationId(2L)
             .guestId(2L)
@@ -305,7 +307,7 @@ public class ReviewControllerTest {
                 .accept(MediaType.APPLICATION_JSON)
                 .contentType(MediaType.APPLICATION_JSON)
                 .content(asJsonString(testReviewRequestDTO2)))
-            .andExpect(status().isOk())
+            .andExpect(status().is4xxClientError())
             .andDo(print());
     }
 

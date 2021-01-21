@@ -15,7 +15,7 @@ import java.lang.annotation.*;
 @Retention(RUNTIME)
 public @interface ValidMessage {
 
-    String message() default "Text cannot contain special characters such as ; or <> "; // the error message
+    String message() default "Message is invalid."; // the error message
     Class<?> [] groups() default {};
     Class<? extends Payload>[] payload() default {};
 }

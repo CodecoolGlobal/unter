@@ -14,7 +14,7 @@ import {useLocation} from "react-router-dom";
 
 
 function SearchPage() {
-    const [city, setCity] = useState("Budapest");
+    const [city, setCity] = useState();
     const [isLoading, setIsLoading] = useState(true);
     const [show, setShow] = useContext(HeaderContext);
     const [accommodations, setAccommodations] = useContext(AccommodationNumberContext);
@@ -31,7 +31,7 @@ function SearchPage() {
             // handle success
                await setAccommodations(response.data.accommodationDTO);
                 setIsLoading(false);
-
+                
             })
             .catch(function (error) {
                 // handle error

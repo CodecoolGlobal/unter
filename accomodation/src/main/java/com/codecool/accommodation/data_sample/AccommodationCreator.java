@@ -235,13 +235,7 @@ public class AccommodationCreator {
                 "https://cdn.pixabay.com/photo/2017/02/24/12/24/bathroom-2094733__340.jpg",
                 "https://cdn.pixabay.com/photo/2015/11/27/20/28/florence-1066314__340.jpg"
             },
-            {
-                "https://pixabay.com/photos/bathroom-sink-mirror-apartment-2094716/",
-                "https://cdn.pixabay.com/photo/2015/03/26/09/42/bedroom-690129__340.jpg",
-                "https://pixabay.com/photos/couch-furnitures-indoors-1835923/",
-                "https://cdn.pixabay.com/photo/2017/03/22/17/39/kitchen-2165756__340.jpg",
-                "https://pixabay.com/photos/alley-road-city-historic-center-4054361/"
-            },
+
             {
                 "https://cdn.pixabay.com/photo/2017/03/10/10/07/bathroom-2132342__340.jpg",
                 "https://cdn.pixabay.com/photo/2016/11/19/13/06/bed-1839183__340.jpg",
@@ -276,7 +270,14 @@ public class AccommodationCreator {
                 "https://cdn.pixabay.com/photo/2017/03/19/01/18/living-room-2155353__340.jpg",
                 "https://cdn.pixabay.com/photo/2017/03/25/23/32/kitchen-2174593__340.jpg",
                 "https://cdn.pixabay.com/photo/2014/12/10/14/01/berlin-563101__340.jpg"
-            }
+            },
+                {
+                        "https://pixabay.com/photos/bathroom-sink-mirror-apartment-2094716/",
+                        "https://cdn.pixabay.com/photo/2015/03/26/09/42/bedroom-690129__340.jpg",
+                        "https://pixabay.com/photos/couch-furnitures-indoors-1835923/",
+                        "https://cdn.pixabay.com/photo/2017/03/22/17/39/kitchen-2165756__340.jpg",
+                        "https://pixabay.com/photos/alley-road-city-historic-center-4054361/"
+                }
         };
 
         Long[] hostIds = {
@@ -326,7 +327,7 @@ public class AccommodationCreator {
                 .latitude(22.00)
                 .longitude(32.00)
                 .description("Nice!444négy")
-                .maxNumberOfGuests(4000)
+                .maxNumberOfGuests(50)
                 .name("Házikó")
                 .pictures(null)
                 .hostId(1L)
@@ -334,6 +335,171 @@ public class AccommodationCreator {
 
         Accommodation accommodation = createAccommodation(newAccommodation);
         repository.save(accommodation);
+
+
+        String country = "Hungary";
+        String city = "Budapest";
+        String[] zipCodes2 = {
+                "1136", //Budapest
+                "1035",
+                "1021",
+                "1176",
+                "1084",
+                "1149",
+                "1044"
+
+        };
+        String[] streets2 = {
+                "Múzeum krt.", // budapest
+                "Falk Miksa utca",
+                "Szalay utca",
+                "Magyar utca",
+                "Dohány utca",
+                "Bástya utca",
+                "Fortuna köz"
+        };
+        String[] houseNumbers2 = {
+                "5",
+                "8",
+                "39",
+                "9",
+                "25",
+                "17",
+                "22"
+        };
+        double[] latitudes2 = {
+                47.512873, // budapest
+                47.508543,
+                47.502229,
+                47.504224,
+                47.496468,
+                47.512924,
+                47.502894
+        };
+        double[] longitudes2 = {
+                19.049109, // budapest
+                19.052279,
+                19.050777,
+                19.056981,
+                19.059277,
+                19.050098,
+                19.031669,
+                13.4332532
+        };
+
+        String[] descriptions2 = {
+
+                "Indulge in the comfort and tranquility of this contemporary apartment. The space features an open-concept layout, a monochromatic color scheme with stark contrasts, wood surfaces, and tasteful furnishings and decor.",
+                "Experience true urban living in this design-conscious flat in central (CN). The edited space features midcentury furnishings and colorful accents, lending it a distinctly liveable feel. Take in sweeping city views from the private balcony.",
+                "Have a glass of wine while enjoying Netflix on the comfortable sofa after exploring local culture.",
+                "Modern studio with balcony in the heart of (CN). Save money and time walking to the most famous landmarks. Clean and bright, the studio is recently renovated as you can see in the photos.",
+                "Enter a wonderful home with open living area accented by art. Spread out on the chaise-longue, cook in your own kitchen, sink into the soft bed after seeing.",
+                "We know how important it is to feel comfortable & relaxed when you arrive back from a long day of sightseeing. This idea is what inspired us to build our apartment studio and provide everyone that stays a place to recharge, relax and enjoy...",
+                "Enjoy fresh breakfast each morning as well as delicious snacks throughout your stay."
+        };
+
+        int[] maxNumbersOfGuests2 = {
+                1, // budapest
+                2,
+                4,
+                1,
+                3,
+                2,
+                3
+        };
+
+        String[] names2 = {
+                "Adorable apartment in City Centre of Budapest",
+                "Cute One bedded Room in Budapest",
+                "Double Room in Budapest",
+                "Private Room in Budapest",
+                "Entire apartment in Budapest",
+                "Charming Studio Apt in heart of Budapest",
+                "New Green 2 centrally located in Budapest"
+        };
+
+        String[][] pictureUrls2 = {
+                {
+                        "https://cdn.pixabay.com/photo/2014/08/11/21/40/wall-416062__340.jpg",
+                        "https://cdn.pixabay.com/photo/2014/08/11/21/39/wall-416060__340.jpg",
+                        "https://cdn.pixabay.com/photo/2020/12/16/00/10/home-5835289__340.jpg",
+                        "https://cdn.pixabay.com/photo/2017/02/24/12/24/bathroom-2094733__340.jpg",
+                        "https://cdn.pixabay.com/photo/2015/11/27/20/28/florence-1066314__340.jpg"
+                },
+
+                {
+                        "https://cdn.pixabay.com/photo/2017/03/10/10/07/bathroom-2132342__340.jpg",
+                        "https://cdn.pixabay.com/photo/2016/11/19/13/06/bed-1839183__340.jpg",
+                        "https://cdn.pixabay.com/photo/2017/09/09/18/25/living-room-2732939__340.jpg",
+                        "https://cdn.pixabay.com/photo/2016/12/30/07/59/kitchen-1940174__340.jpg",
+                        "https://cdn.pixabay.com/photo/2016/05/28/21/34/old-town-1422155__340.jpg"
+                },
+                {
+                        "https://cdn.pixabay.com/photo/2016/02/29/11/41/bathroom-1228427__340.jpg",
+                        "https://cdn.pixabay.com/photo/2016/11/18/13/02/bed-1834327__340.jpg",
+                        "https://cdn.pixabay.com/photo/2017/08/02/01/01/living-room-2569325__340.jpg",
+                        "https://cdn.pixabay.com/photo/2017/08/01/12/43/kitchen-2565105__340.jpg",
+                        "https://cdn.pixabay.com/photo/2017/07/05/16/40/home-2475173__340.jpg"
+                },
+                {
+                        "https://cdn.pixabay.com/photo/2018/07/26/10/36/bathroom-3563272__340.jpg",
+                        "https://cdn.pixabay.com/photo/2020/11/24/11/36/bedroom-5772286__340.jpg",
+                        "https://cdn.pixabay.com/photo/2017/03/19/01/43/living-room-2155376__340.jpg",
+                        "https://cdn.pixabay.com/photo/2016/01/31/14/32/architecture-1171462__340.jpg",
+                        "https://cdn.pixabay.com/photo/2016/10/12/13/07/berlin-1734368__340.jpg"
+                },
+                {
+                        "https://cdn.pixabay.com/photo/2016/08/26/15/06/bathroom-1622403__340.jpg",
+                        "https://cdn.pixabay.com/photo/2020/10/18/09/16/bedroom-5664221__340.jpg",
+                        "https://cdn.pixabay.com/photo/2016/08/26/15/06/home-1622401__340.jpg",
+                        "https://cdn.pixabay.com/photo/2016/04/18/08/50/kitchen-1336160__340.jpg",
+                        "https://cdn.pixabay.com/photo/2017/08/29/12/20/germany-2693092__340.jpg"
+                },
+                {
+                        "https://cdn.pixabay.com/photo/2017/02/24/12/24/bathroom-2094735__340.jpg",
+                        "https://cdn.pixabay.com/photo/2016/12/30/07/55/bedroom-1940168__340.jpg",
+                        "https://cdn.pixabay.com/photo/2017/03/19/01/18/living-room-2155353__340.jpg",
+                        "https://cdn.pixabay.com/photo/2017/03/25/23/32/kitchen-2174593__340.jpg",
+                        "https://cdn.pixabay.com/photo/2014/12/10/14/01/berlin-563101__340.jpg"
+                },
+                {
+                        "https://pixabay.com/photos/bathroom-sink-mirror-apartment-2094716/",
+                        "https://cdn.pixabay.com/photo/2015/03/26/09/42/bedroom-690129__340.jpg",
+                        "https://pixabay.com/photos/couch-furnitures-indoors-1835923/",
+                        "https://cdn.pixabay.com/photo/2017/03/22/17/39/kitchen-2165756__340.jpg",
+                        "https://pixabay.com/photos/alley-road-city-historic-center-4054361/"
+                }
+        };
+
+        Long[] hostIds2 = {
+                1L,
+                1L,
+                2L,
+                3L,
+                3L,
+                3L,
+                4L
+        };
+
+        for (int i = 0; i < zipCodes2.length; i++) {
+            NewAccommodation myAccommodation = NewAccommodation.builder()
+                    .city(city)
+                    .country(country)
+                    .street(streets2[i])
+                    .zipCode(zipCodes2[i])
+                    .houseNumber(houseNumbers2[i])
+                    .latitude(latitudes2[i])
+                    .longitude(longitudes2[i])
+                    .description(descriptions2[i])
+                    .maxNumberOfGuests(maxNumbersOfGuests2[i])
+                    .name(names2[i])
+                    .pictures(Arrays.asList(pictureUrls2[i]))
+                    .hostId(hostIds2[i])
+                    .build();
+
+            Accommodation accommodation2 = createAccommodation(myAccommodation);
+            repository.saveAndFlush(accommodation2);
+        }
     }
 
 

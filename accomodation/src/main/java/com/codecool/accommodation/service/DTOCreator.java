@@ -3,6 +3,7 @@ package com.codecool.accommodation.service;
 import com.codecool.accommodation.model.DTO.AccommodationDTO;
 import com.codecool.accommodation.model.DTO.CoordinateDTO;
 import com.codecool.accommodation.model.DTO.NewAccommodationDTO;
+import com.codecool.accommodation.model.entity.types.RoomType;
 import com.codecool.accommodation.model.wrapper.AccommodationDTOWrapper;
 import com.codecool.accommodation.model.wrapper.NewAccommodationDTOWrapper;
 import com.codecool.accommodation.model.entity.Accommodation;
@@ -47,16 +48,24 @@ public class DTOCreator {
                 ? new CoordinateDTO(null, null)
                 : new CoordinateDTO(accommodation.getCoordinate().getLatitude(), accommodation.getCoordinate().getLongitude());
 
+        final int[] numberOfBeds = {0};
+        accommodation.getRooms().forEach((room -> room.getBeds().forEach((k, v) -> numberOfBeds[0] += v)));
+
+        final int[] numberOfBathRooms = {0};
+        accommodation.getRooms().forEach(room -> { if (room.getType().equals(RoomType.BATHROOM)) numberOfBathRooms[0] += 1;});
+
         return AccommodationDTO.builder()
                 .id(accommodation.getId())
+                .hostId(accommodation.getHostId())
                 .accommodationName(accommodation.getName())
                 .description(accommodation.getDescription())
                 .pictures(accommodation.getPictures())
                 .capacity(accommodation.getMaxNumberOfGuests()) // TODO: implement calculate capacity
-                .numberOfRooms(accommodation.getRooms().size())
-//                .numberOfBeds() // TODO: implement calculate number of beds
-//                .numberOfBathrooms() // TODO: implement caclulate number of bathrooms
+                .numberOfRooms(accommodation.getRooms().size() - numberOfBathRooms[0])
+                .numberOfBeds(numberOfBeds[0])
+                .numberOfBathrooms(numberOfBathRooms[0])
                 .coordinates(coordinateDTO)
+                .address(accommodation.getAddress())
                 .build();
 
     }

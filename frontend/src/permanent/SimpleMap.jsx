@@ -17,7 +17,7 @@ function SimpleMap ({
           defaultZoom={defaultZoom}
         >
             {accommodations.map((accommodation) => {
-                {console.log((accommodation.coordinates.latitude)+"ACCOMODATION")}
+                console.log(accommodation.coordinates.latitude+"ACCOMODATION")
                 return(
                 <Marker
                 key={accommodation.id}
