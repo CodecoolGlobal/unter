@@ -14,9 +14,7 @@ function Review({ review }) {
 
   useEffect(() => {
     axios
-      .get(
-        `http://localhost:8762/acc/accommodation-id/${review.accommodationId}`
-      )
+      .get(`http://localhost:8762/acc/accommodation-id/${review.id}`)
       .then((response) => {
         setAccommodation(response.data);
       });

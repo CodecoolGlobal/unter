@@ -20,7 +20,7 @@ const useStyles = makeStyles((theme) => ({
 */
 
 function Reviews() {
-  const userId = 5;
+  const userId = localStorage.getItem("id");
   const [reviews, setReviews] = useState([]);
 
   /* //TODO: write reviews from this page, I have started it:

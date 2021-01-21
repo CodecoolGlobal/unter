@@ -62,6 +62,7 @@
 }
 .scroll__container {
   display: flex;
+  padding: 48px 0;
   .accommodation__side {
     display: flex;
     flex-direction: column;
@@ -99,7 +100,6 @@
 .calendar__container {
   display: flex;
   flex-direction: column;
-  border-bottom: 1px solid lightgray;
   margin-bottom: 2vh;
 }
 .accomodation__map {

@@ -4,10 +4,7 @@ import StarRatings from "react-star-ratings";
 import axios from "axios";
 
 function Review({ review }) {
-  const dummy = {
-    firstName: "Lajos",
-  };
-  const [guest, setGuest] = useState(dummy);
+  const [guest, setGuest] = useState({ firstName: "Lajos" });
 
   let content = (
     <div style={{ height: "100px", width: "100%", background: "lightgrey" }} />

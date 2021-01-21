@@ -8,58 +8,37 @@ import Axios from "axios";
 import ReviewSection from "./ReviewSection";
 
 function AccomodationPage() {
-  //todo: delete this line
-  const dummy = {
-    id: 1,
-    maxNumberOfGuest: "3",
-    name: "Luca",
-    description: "bestest place to stay",
-    pictures: ["https://pbs.twimg.com/media/DoqspY4UwAAh5R-.jpg"],
-    numberOfRooms: "2",
-    numberOfBeds: "2",
-    hostId: "1",
-    type: "1",
-    rooms: [{ beds: { KING: 3 }, type: "1" }],
-    address: {
-      houseNumber: "40",
-      street: "alma utca",
-      city: "Budapest",
-      zipCode: "1337",
-    },
-    coordinate: { longitude: "12.34", latitude: "34.65" },
-  };
-  const [accommodation, setAccommodation] = useState(dummy);
-  //todo: true
-  const [isLoading, setIsLoading] = useState(false);
-  //todo: []
-  const [center, setCenter] = useState([
-    { lat: Number(47.497913) },
-    { lng: Number(19.040236) },
-  ]);
+  const [accommodation, setAccommodation] = useState(null);
+  const [isLoading, setIsLoading] = useState(true);
+  const [center, setCenter] = useState([]);
   const defaultProps = {
     center: { lat: 59.95, lng: 30.33 },
     zoom: 11,
   };
 
-  //todo: make available
-  /*
-    useEffect(() => {
-        Axios.get(`http://localhost:8762/acc/accommodation-id/${window.location.href.substring(window.location.href.lastIndexOf('/') + 1)}`)
-        .then(async function (response) {
-            console.log(JSON.stringify(response.data) +"plsplaslpasls")
-            setAccommodation(response.data)
-            await setCenter([{lat:Number(response.data.coordinate.latitude)},{lng:Number(response.data.coordinate.longitude)}])
-            setIsLoading(false)
-        })
-        .catch(function (error) {
-            // handle error
-            console.log(error);
-        })
-        .then(function () {
-            // always executed
-        });
-        
-    }, [])*/
+  useEffect(() => {
+    Axios.get(
+      `http://localhost:8762/acc/accommodation-id/${window.location.href.substring(
+        window.location.href.lastIndexOf("/") + 1
+      )}`
+    )
+      .then(async function (response) {
+        console.log(JSON.stringify(response.data) + "plsplaslpasls");
+        setAccommodation(response.data);
+        await setCenter([
+          { lat: Number(response.data.coordinate.latitude) },
+          { lng: Number(response.data.coordinate.longitude) },
+        ]);
+        setIsLoading(false);
+      })
+      .catch(function (error) {
+        // handle error
+        console.log(error);
+      })
+      .then(function () {
+        // always executed
+      });
+  }, []);
   if (isLoading) {
     return <div>Loading</div>;
   } else {
