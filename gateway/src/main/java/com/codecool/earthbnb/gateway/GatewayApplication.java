@@ -31,15 +31,9 @@ import java.util.Collections;
 @EnableSwagger2
 public class GatewayApplication{
 
-    private final UserRepository userRepository;
-
-
-    private final PasswordEncoder passwordEncoder = PasswordEncoderFactories.createDelegatingPasswordEncoder();
-
     public static void main(String[] args) {
         SpringApplication.run(GatewayApplication.class, args);
     }
-
 
     @Bean
     public Docket api() {

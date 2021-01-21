@@ -167,4 +167,10 @@ public class ReviewDB implements ReviewDAO {
         Double avgRating = reviews.stream().collect(Collectors.averagingDouble(Review::getRating));
         return Math.round(avgRating * 10.0) / 10.0;
     }
+
+    @Override
+    public Long getSumOfReviews(Long accommodationId) {
+        List<Review> reviews = repository.findAllByAccommodationId(accommodationId);
+        return (long) reviews.size();
+    }
 }

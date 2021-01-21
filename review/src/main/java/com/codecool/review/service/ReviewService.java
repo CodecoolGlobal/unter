@@ -111,4 +111,12 @@ public class ReviewService {
             return null;
         }
     }
+
+    public Long getSumOfReviews(Long accommodationId) {
+        if (reviewDAO.existsByAccommodationId(accommodationId)) {
+            return reviewDAO.getSumOfReviews(accommodationId);
+        } else {
+            throw new NoDataFoundException();
+        }
+    }
 }

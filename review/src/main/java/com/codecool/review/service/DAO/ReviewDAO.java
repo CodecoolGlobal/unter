@@ -20,4 +20,5 @@ public interface ReviewDAO {
     boolean existsByAccommodationId(Long accommodationId);
     boolean existsByGuestId(Long guestId);
     Double getAverageRating(Long accommodationId);
+    Long getSumOfReviews(Long accommodationId);
 }
