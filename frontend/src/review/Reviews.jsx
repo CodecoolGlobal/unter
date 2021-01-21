@@ -18,28 +18,8 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 */
-function Reviews() {
-  const dummyReviews = [
-    {
-      id: 5,
-      accommodationId: 7,
-      guestId: 5,
-      rating: 2.0,
-      message:
-        "The place was a bit far from the center and the bed was uncomfortable. Budapest is nice but many people dont speak English. We were a bit disappointed.",
-      date: "2018-02-02",
-    },
-    {
-      id: 6,
-      accommodationId: 10,
-      guestId: 5,
-      rating: 3.0,
-      message:
-        "We had some issues with the wifi and the bathroom was dirty and got cleaned after we arrived which was a bit weird. But we had fun and the location of the place is very close to everything.",
-      date: "2018-01-30",
-    },
-  ];
 
+function Reviews() {
   const userId = 5;
   const [reviews, setReviews] = useState([]);
 

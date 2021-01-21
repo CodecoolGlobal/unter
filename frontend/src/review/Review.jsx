@@ -42,7 +42,7 @@ function Review({ review }) {
               </p>
 
               <Link
-                className="acc-title"
+                className="black-pink-link"
                 to={`/accommodation/${accommodation.accommodationId}`}
               >
                 <h4>{accommodation.name}</h4>

@@ -1,189 +1,222 @@
 @import "../scss/mixins.scss";
 
-.accommodation__page{
-   @include flex__center;
-    position: relative;
+.accommodation__page {
+  @include flex__center;
+  position: relative;
 }
 
-.accommodation__pageContainer{
+.accommodation__pageContainer {
+  display: flex;
+  flex-direction: column;
+  width: 55%;
+}
+.title {
+  display: flex;
+  width: 100%;
+  justify-content: space-between;
+  padding-top: 1vh;
+  h2 {
+    font-weight: 500;
+  }
+}
+.rating {
+  display: flex;
+  align-items: center;
+  padding-bottom: 2vh;
+  padding-top: 0.6vh;
+  .searchResult__star {
+    color: red;
+  }
+  p {
+    padding-left: 0.3vw;
+  }
+}
+
+.gallery {
+  @include flex__center;
+  padding-bottom: 4vh;
+  .mainPicture {
+    flex: 0.5;
+    padding-right: 0.5vw;
+    img {
+      width: 100%;
+      height: 45vh;
+      border-radius: 10px;
+    }
+  }
+  .secondaryPicture {
+    .firstBlock .secondBlock {
+      display: flex;
+      flex-direction: column;
+      // margin-right: 0.2vw;
+    }
+    display: flex;
+    flex: 0.5;
+    img {
+      height: 22.5vh;
+      width: 15vw;
+      border-radius: 16px;
+      padding-left: 0.1vw;
+    }
+  }
+}
+.scroll__container {
+  display: flex;
+  .accommodation__side {
     display: flex;
     flex-direction: column;
-    width: 55%;
-}
-.title{
-    display: flex;
-    width: 100%;
-    justify-content: space-between;
-    padding-top: 1vh;
-    h2{
+    width: 60%;
+    .host__info {
+      border-bottom: 1px solid lightgray;
+      margin-bottom: 2vh;
+      h3 {
+        font-size: 1.4rem;
         font-weight: 500;
-    }
-}  
-.rating{
+        padding-bottom: 1vh;
+      }
+      .apartman__info {
         display: flex;
-        align-items: center;
         padding-bottom: 2vh;
-        padding-top: 0.6vh;
-        .searchResult__star{
-            color: red;
+        h5 {
+          font-size: 1rem;
+          font-weight: 400;
+          padding-right: 0.2vw;
         }
-        p{
-            padding-left: 0.3vw;
-        }
-   }
-
-.gallery{
-    @include flex__center;
-    padding-bottom:4vh;
-    .mainPicture{
-        flex: 0.5;
-        padding-right: 0.5vw;
-        img{
-            width: 100%;
-            height: 45vh;
-            border-radius: 10px;
-        }
+      }
     }
-    .secondaryPicture{
-        .firstBlock .secondBlock{
-            display: flex;
-            flex-direction: column;
-            // margin-right: 0.2vw;
-        }
-        display: flex;
-        flex: 0.5;
-        img{
-            height: 22.5vh;
-            width: 15vw;
-            border-radius: 16px;
-            padding-left: 0.1vw;
-        }
+    .accommodation__description {
+      padding-bottom: 5vh;
+      p {
+        font-size: 1rem;
+        font-weight: 400;
+      }
     }
+    .sleepingPossibilities {
+      border-bottom: 1px solid lightgray;
+    }
+  }
 }
-.scroll__container{
-    display: flex;
-    .accommodation__side{
-        display: flex;
-        flex-direction: column;
-        width: 60%;
-        .host__info{
-            border-bottom: 1px solid lightgray;
-            margin-bottom: 2vh;
-            h3{
-                font-size: 1.4rem;
-                font-weight: 500;
-                padding-bottom: 1vh;
-            }
-            .apartman__info{
-                display: flex;
-                padding-bottom: 2vh;
-                h5{
-                    font-size: 1rem;
-                    font-weight: 400;
-                    padding-right: 0.2vw;
-                }
-            }
-        }
-        .accommodation__description{
-            padding-bottom: 5vh;
-            p{
-                font-size: 1rem;
-                font-weight: 400;
-            }
-        }
-        .sleepingPossibilities{
-            border-bottom: 1px solid lightgray;
-
-        }
-    }
+.calendar__container {
+  display: flex;
+  flex-direction: column;
+  border-bottom: 1px solid lightgray;
+  margin-bottom: 2vh;
 }
-.calendar__container{
-    display: flex;
-    flex-direction: column;
-    border-bottom: 1px solid lightgray;
+.accomodation__map {
+  display: flex;
+  flex-direction: column;
+  position: relative;
+  flex: 1;
+  width: 100%;
+  height: 500px;
+  .location__description {
+    margin-top: 2vh;
     margin-bottom: 2vh;
-
+  }
 }
-.accomodation__map{
+.position__side {
+  position: relative;
+}
+.paymentCard {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 1vw;
+  width: 65%;
+  position: sticky;
+  top: 10vh;
+  margin-bottom: 1vh;
+  height: 30vh;
+  border: 0.5px solid lightgrey;
+  border-radius: 16px;
+  box-shadow: rgba(0, 0, 0, 0.12) 0px 6px 16px;
+  margin-left: 5vw;
+  .card__title {
+    display: flex;
+    align-self: flex-start;
+    margin-bottom: 3vh;
+    font-size: 1.125rem;
+    h3 {
+      font-weight: 400;
+    }
+  }
+
+  svg {
+    position: absolute;
+    right: 1vw;
+  }
+  .card__input {
     display: flex;
     flex-direction: column;
-    position: relative;
-    flex: 1;
+    border: 1.5px solid lightgray;
+    border-radius: 8px;
+    margin-bottom: 3vh;
     width: 100%;
-    height: 500px;
-    .location__description{
-        margin-top: 2vh;
-        margin-bottom: 2vh;
+    input {
+      height: 3vh;
     }
-
-}
-.position__side{
-    position: relative;
-}
-.paymentCard{
+    .chooseDate {
+      display: flex;
+      .startDate {
+        border-right: 1.5px solid lightgray;
+      }
+    }
+    .pickGuests {
+      border-top: 1.5px solid lightgray;
+    }
+  }
+  .cardFooter {
     display: flex;
     flex-direction: column;
     align-items: center;
-    padding: 1vw;
-    width:65%;
-    position: sticky;
-    top: 10vh;
-    margin-bottom: 1vh;
-    height: 30vh;
-    border: 0.5px solid lightgrey;
-    border-radius: 16px;
-    box-shadow: rgba(0, 0, 0, 0.12) 0px 6px 16px;
-    margin-left: 5vw;
-    .card__title{
-        display: flex;
-        align-self: flex-start;
-        margin-bottom: 3vh;
-        font-size: 1.125rem;
-        h3{
-            font-weight: 400;
-        }
+    button {
+      background-image: radial-gradient(
+        circle at center center,
+        rgb(255, 56, 92) 0%,
+        rgb(230, 30, 77) 27.5%,
+        rgb(227, 28, 95) 40%,
+        rgb(215, 4, 102) 57.5%,
+        rgb(189, 30, 89) 75%,
+        rgb(189, 30, 89) 100%
+      ) !important;
+      color: white !important;
+      font-size: 500;
+      width: 100%;
+      border-radius: 8px;
+      font-weight: bold;
+      text-transform: none;
     }
-    
-    svg{
-        position: absolute;
-        right: 1vw;
+    h5 {
+      width: 100%;
     }
-    .card__input{
-        display: flex;
-        flex-direction: column;
-        border: 1.5px solid lightgray;
-        border-radius: 8px;
-        margin-bottom: 3vh;
-        width: 100%;
-        input{
-            height: 3vh;
-        }
-        .chooseDate{
-            display: flex;
-            .startDate{
-                border-right: 1.5px solid lightgray;
-            }
-        }
-        .pickGuests{
-            border-top: 1.5px solid lightgray;
-        }
-    }
-    .cardFooter{
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-        button{
-            background-image: radial-gradient(circle at center center, rgb(255, 56, 92) 0%, rgb(230, 30, 77) 27.5%, rgb(227, 28, 95) 40%, rgb(215, 4, 102) 57.5%, rgb(189, 30, 89) 75%, rgb(189, 30, 89) 100%) !important;
-            color: white !important;
-            font-size: 500;
-            width: 100%;
-            border-radius: 8px;
-            font-weight: bold;
-            text-transform: none;
+  }
+}
 
-        }
-        h5{
-            width: 100%;
-        }
-    }
+.acc-section {
+  border-top: 1px solid lightgray;
+  padding: 48px 0;
+}
+
+.section-title {
+  font-size: 1.4rem;
+  font-weight: 500;
+  display: block;
+  margin-block-start: 0px;
+  margin-block-end: 0.83em;
+  margin-inline-start: 0px;
+  margin-inline-end: 0px;
+}
+
+.guest-review {
+  width: 41.66%;
+  margin-right: 8.33%;
+  margin-bottom: 40px;
+  display: inline-block;
+}
+
+@media only screen and (max-width: 960px) {
+  .guest-review {
+    width: 100%;
+    margin-right: 0;
+  }
 }
