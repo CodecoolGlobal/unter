@@ -12,6 +12,8 @@ import UserPage from "./user_page/UserPage";
 import Location from "./new_accommodation/Location";
 import { NewAccommodationProvider } from "./context/NewAccommodationContext";
 import NewAccommodation from "./new_accommodation/NewAccommodation";
+import NewReview from "./review/NewReview";
+import Reviews from "./review/Reviews";
 import Hosting from "./hosting/Hosting";
 import Rooms from "./new_accommodation/Rooms";
 import { RoomsProvider } from "./context/RoomsContext";
@@ -40,6 +42,12 @@ function App() {
                   </Route>
                   <Route path="/hosting">
                     <Hosting />
+                  </Route>
+                  <Route path="/reviews">
+                    <Reviews />
+                  </Route>
+                  <Route path="/write-review">
+                    <NewReview />
                   </Route>
                   <Route path="/">
                     <Home />

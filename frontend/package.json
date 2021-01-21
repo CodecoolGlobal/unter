@@ -9,7 +9,7 @@
     "@testing-library/jest-dom": "^5.11.6",
     "@testing-library/react": "^11.2.2",
     "@testing-library/user-event": "^12.2.2",
-    "axios": "^0.21.0",
+    "axios": "^0.21.1",
     "date-fns": "^2.16.1",
     "google-map-react": "^2.1.9",
     "node-sass": "^4.14.1",
@@ -23,6 +23,7 @@
     "react-responsive": "^8.2.0",
     "react-router-dom": "^5.2.0",
     "react-scripts": "4.0.1",
+    "react-star-ratings": "^2.3.0",
     "react-sticky": "^6.0.3",
     "web-vitals": "^0.2.4"
   },
