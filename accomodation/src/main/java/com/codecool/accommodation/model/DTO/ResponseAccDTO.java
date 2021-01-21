@@ -43,6 +43,11 @@ public class ResponseAccDTO {
 
     private Address address;
 
+    private Double rating;
+
+    private List<ReviewResponseDTO> reviews;
+
+
     public void setMyCoordinates(Coordinate coordinates){
         coordinate = coordinates;
     }

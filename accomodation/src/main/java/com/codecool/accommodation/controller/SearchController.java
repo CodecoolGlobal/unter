@@ -2,6 +2,7 @@ package com.codecool.accommodation.controller;
 
 import com.codecool.accommodation.model.DTO.CoordinateDTO;
 import com.codecool.accommodation.model.DTO.RabbitMQDTO;
+import com.codecool.accommodation.model.DTO.ResponseAccDTO;
 import com.codecool.accommodation.model.entity.Accommodation;
 import com.codecool.accommodation.repository.AccommodationRepository;
 import com.codecool.accommodation.service.SearchService;
@@ -28,7 +29,7 @@ public class SearchController {
 
 
     @GetMapping(produces = "application/json;charset=utf8")
-    public List<Accommodation> simpleSearch(
+    public List<ResponseAccDTO> simpleSearch(
             @RequestParam Double longitude,
             @RequestParam Double latitude,
             @RequestParam(required = false) Double radius,
@@ -36,6 +37,7 @@ public class SearchController {
             @RequestParam String endDate
             ) throws JsonProcessingException {
         searchService.getAccommodationIdsInRadius(new CoordinateDTO(latitude, longitude), radius, LocalDate.parse(startDate), LocalDate.parse(endDate));
+        System.out.println(searchService.getAllAcc());
         return searchService.getAllAcc();
     }
 

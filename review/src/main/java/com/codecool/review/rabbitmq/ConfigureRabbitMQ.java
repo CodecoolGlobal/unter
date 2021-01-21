@@ -1,30 +1,51 @@
 package com.codecool.review.rabbitmq;
 
+import org.springframework.amqp.core.*;
 import org.springframework.context.annotation.Bean;
-import org.springframework.amqp.core.Binding;
-import org.springframework.amqp.core.BindingBuilder;
-import org.springframework.amqp.core.Queue;
-import org.springframework.amqp.core.TopicExchange;
+import org.springframework.context.annotation.Configuration;
 
+@Configuration
 public class ConfigureRabbitMQ {
 
-    public static final String LOCATION_EXCHANGE_NAME = "locationExchange";
-    public static final String LOCATION_QUEUE_NAME = "locationQueue";
+    public static final String REVIEW_QUEUE_NAME = "reviewQueue";
+
+    public static final String REVIEW_QUEUE_NAME_2 = "reviewQueue2";
+
+    public static final String DATES_QUEUE_NAME = "datesQueue";
+
+   public static final String REVIEW_EXCHANGE_NAME = "reviewExchange";
+
+    public static final String REVIEW_EXCHANGE_NAME_3 = "reviewExchange3";
+
+
 
     @Bean
-    Queue createLocationQueue(){
-        return new Queue(LOCATION_QUEUE_NAME, false);
+    Queue createReviewQueue(){
+        return new Queue(REVIEW_QUEUE_NAME, false);
     }
 
     @Bean
     TopicExchange exchange(){
-        return new TopicExchange(LOCATION_EXCHANGE_NAME);
+        return new TopicExchange(REVIEW_EXCHANGE_NAME);
     }
 
+//    @Bean
+//    DirectExchange directExchange(){
+//        return new DirectExchange(REVIEW_EXCHANGE_NAME_2);
+//    }
+
     @Bean
-    Binding locationBinding(Queue queue, TopicExchange topicExchange){
-        return BindingBuilder.bind(queue).to(topicExchange).with("location.#");
+    Binding reviewBinding(Queue queue, TopicExchange topicExchange){
+        return BindingBuilder.bind(queue).to(topicExchange).with("review.#");
     }
+
+//    @Bean
+//    Binding review2Binding(Queue queue, DirectExchange directExchange){
+//        return BindingBuilder.bind(queue).to(directExchange).with("singlereview.#");
+//    }
+
+
+
 
 
 }

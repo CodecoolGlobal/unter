@@ -1,7 +1,6 @@
 package com.codecool.accommodation.service;
 
-import com.codecool.accommodation.model.DTO.CoordinateDTO;
-import com.codecool.accommodation.model.DTO.RabbitMQDTO;
+import com.codecool.accommodation.model.DTO.*;
 import com.codecool.accommodation.model.entity.Accommodation;
 import com.codecool.accommodation.model.entity.Coordinate;
 import com.codecool.accommodation.rabbitmq.ConfigureRabbitMQ;
@@ -19,14 +18,13 @@ import org.springframework.stereotype.Service;
 
 import java.time.LocalDate;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 
 @Service
 @RequiredArgsConstructor
 public class SearchService {
 
-    private static RabbitMQDTO rabbitMessage;
+    private static RabbitListDTO rabbitMessage;
     private final RabbitTemplate rabbitTemplate;
     private final ObjectMapper objectMapper;
     private final DTOCreator creator;
@@ -34,6 +32,7 @@ public class SearchService {
     private static final double DEFAULT_SEARCH_DISTANCE = 0D;
     private static final String NO_COORDINATE_MESSAGE = "Coordinates cannot be null.";
     private final AccommodationRepository repository;
+    private final AccommodationService accommodationService;
 
     public ResponseEntity<?> getAccommodationsInRadius(CoordinateDTO coordinate, Double searchRadius) {
         searchRadius = searchRadius == null ? DEFAULT_SEARCH_DISTANCE : searchRadius;
@@ -64,6 +63,7 @@ public class SearchService {
         }
 //        var json = objectMapper.writeValueAsString(allAccommodationIdsInRadius);
         ObjectNode object = objectMapper.createObjectNode();
+
         ArrayNode ids = objectMapper.createArrayNode();
         for(long num: allAccommodationIdsInRadius){
             ids.add(num);
@@ -79,33 +79,43 @@ public class SearchService {
 
     }
 
-    @RabbitListener(queues = ConfigureRabbitMQ.DATES_QUEUE_NAME, errorHandler="rabbitRetryHandler")
-    public void listen(String message) throws JsonProcessingException {
-        RabbitMQDTO rabbitList = objectMapper.readValue(message, RabbitMQDTO.class);
 
+    @RabbitListener(queues = ConfigureRabbitMQ.REVIEW_QUEUE_NAME, errorHandler="rabbitRetryHandler")
+    public void reviewListen(String message) throws JsonProcessingException {
+        RabbitListDTO rabbitList = objectMapper.readValue(message, RabbitListDTO.class);
         assignRabbitMessage(rabbitList);
-
+        System.out.println("HELLOO");
+        System.out.println(rabbitList);
     }
 
-    public void assignRabbitMessage(RabbitMQDTO rabbitList) {
+
+    public void assignRabbitMessage(RabbitListDTO rabbitList) {
         rabbitMessage = rabbitList;
     }
 
-    public RabbitMQDTO getMessage(){
+    public RabbitListDTO getMessage(){
         return rabbitMessage;
     }
 
-    public List<Accommodation> getAllAcc(){
-        List<Accommodation> accommodations = new ArrayList<>();
-        if(rabbitMessage != null){
-            for(Long id: rabbitMessage.getIds()){
-                Accommodation accommodation = repository.findAccommodationById(id);
-                accommodations.add(accommodation);
-            }
-        }
 
-        return accommodations;
+    public List<ResponseAccDTO> getAllAcc() throws JsonProcessingException {
+    List<ResponseAccDTO> accommodations = new ArrayList<>();
+        System.out.println("MESSAGE: "+rabbitMessage);
+    if(rabbitMessage != null){
+        for(RabbitReviewDTO dto: rabbitMessage.getData()){
+            System.out.println(dto);
+            ResponseAccDTO accommodation = accommodationService.findAccById(dto.getAccId());
+
+            System.out.println(dto.getRating());
+            accommodation.setRating(dto.getRating());
+            accommodations.add(accommodation);
+        }
     }
+    return accommodations;
+}
+
+
+
 
 
 }

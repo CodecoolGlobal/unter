@@ -5,6 +5,7 @@ import com.codecool.accommodation.model.DTO.ResponseAccDTO;
 import com.codecool.accommodation.model.entity.Accommodation;
 import com.codecool.accommodation.model.wrapper.AccommodationDTOWrapper;
 import com.codecool.accommodation.service.AccommodationService;
+import com.fasterxml.jackson.core.JsonProcessingException;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
 
@@ -45,7 +46,7 @@ public class AccommodationController {
     }
 
     @GetMapping("/accommodation-id/{accommodationId}")
-    public ResponseAccDTO getAccommodationById(@PathVariable(name = "accommodationId")Long accommodationId) {
+    public ResponseAccDTO getAccommodationById(@PathVariable(name = "accommodationId")Long accommodationId) throws JsonProcessingException {
         return service.findAccommodationById(accommodationId);
     }
 

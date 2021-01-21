@@ -2,6 +2,7 @@ package com.codecool.reservation.service;
 
 import com.codecool.reservation.model.DTO.RabbitMQDTO;
 import com.codecool.reservation.rabbitmq.ConfigureRabbitMQ;
+import com.codecool.reservation.rabbitmq.ConfigureRabbitMQReview;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.node.ArrayNode;
@@ -47,9 +48,9 @@ public class ReceiveMessageHandler {
 
         object.set("ids", ids);
 
-
         //var json = objectMapper.writeValueAsString(idsToSendBack);
         System.out.println(objectMapper.writeValueAsString(object));
+        //rabbitTemplate.convertAndSend(ConfigureRabbitMQReview.REVIEW_EXCHANGE_NAME, "review.1", objectMapper.writeValueAsString(object));
         rabbitTemplate.convertAndSend(ConfigureRabbitMQ.DATES_EXCHANGE_NAME, "dates.1", objectMapper.writeValueAsString(object));
 
     }

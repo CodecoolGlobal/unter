@@ -1,14 +1,10 @@
-package com.codecool.review.model.DTO;
+package com.codecool.accommodation.model.DTO;
 
-import com.codecool.review.validation.annotation.ValidLong;
-import com.codecool.review.validation.annotation.ValidMessage;
-import com.codecool.review.validation.annotation.ValidRating;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-import javax.validation.constraints.NotNull;
 import java.time.LocalDate;
 
 @Data
