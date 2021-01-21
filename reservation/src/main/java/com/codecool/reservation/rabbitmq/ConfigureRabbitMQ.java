@@ -39,19 +39,5 @@ public class ConfigureRabbitMQ {
         return BindingBuilder.bind(queue).to(topicExchange).with("dates.#");
     }
 
-//    @Bean
-//    SimpleMessageListenerContainer container(ConnectionFactory connectionFactory
-//            , MessageListenerAdapter messageListenerAdapter){
-//        SimpleMessageListenerContainer container = new SimpleMessageListenerContainer();
-//        container.setConnectionFactory(connectionFactory);
-//        container.setQueueNames(LOCATION_QUEUE_NAME);
-//        container.setMessageListener(messageListenerAdapter);
-//        return container;
-//    }
-//
-//    @Bean
-//    MessageListenerAdapter listenerAdapter(ReceiveMessageHandler handler){
-//        return new MessageListenerAdapter(handler, "handleLocationMessage");
-//    }
 
 }
