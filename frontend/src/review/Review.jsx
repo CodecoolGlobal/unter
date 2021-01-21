@@ -43,7 +43,7 @@ function Review({ review }) {
 
               <Link
                 className="black-pink-link"
-                to={`/accommodation/${accommodation.accommodationId}`}
+                to={`/accommodation/${accommodation.id}`}
               >
                 <h4>{accommodation.name}</h4>
               </Link>
