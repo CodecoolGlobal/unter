@@ -55,13 +55,15 @@ export default function Dropdown() {
       open={Boolean(anchorEl)}
       onClose={handleClose}
     >
-       <MenuItem
+      {localStorage.getItem('user').roles == 'ROLE_HOST'?  <MenuItem
             onClick={() => {
               history.push("/hosting/listings");
             }}
           >
             Manage listings
-          </MenuItem>
+          </MenuItem>:("")
+      }
+      
       <MenuItem onClick={myAcc}>My account</MenuItem>
       <MenuItem onClick={logOut}>Log out</MenuItem>
     </Menu>
