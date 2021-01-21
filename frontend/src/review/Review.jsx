@@ -2,24 +2,10 @@ import React, { useEffect, useState } from "react";
 import Avatar from "@material-ui/core/Avatar";
 import StarRatings from "react-star-ratings";
 import noImage from "./no-image.jpg";
-import { makeStyles } from "@material-ui/core/styles";
 import axios from "axios";
-
-const useStyles = makeStyles((theme) => ({
-  root: {
-    display: "flex",
-    "& > *": {
-      margin: theme.spacing(1),
-    },
-  },
-  large: {
-    width: theme.spacing(7),
-    height: theme.spacing(7),
-  },
-}));
+import { Link } from "react-router-dom";
 
 function Review({ review }) {
-  const classes = useStyles();
   const [accommodation, setAccommodation] = useState(null);
 
   let content = (
@@ -55,13 +41,18 @@ function Review({ review }) {
                 {accommodation.address.city}, {accommodation.address.country}
               </p>
 
-              <h4>{accommodation.name}</h4>
+              <Link
+                className="acc-title"
+                to={`/accommodation/${accommodation.accommodationId}`}
+              >
+                <h4>{accommodation.name}</h4>
+              </Link>
 
               <StarRatings
                 rating={review.rating}
                 edit="false"
                 starDimension="18px"
-                starSpacing="2px"
+                starSpacing="1px"
                 starRatedColor="#FF385C"
                 starEmptyColor="#dce0e0"
                 numberOfStars={5}
