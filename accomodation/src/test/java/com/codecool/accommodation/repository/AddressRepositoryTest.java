@@ -121,7 +121,7 @@ public class AddressRepositoryTest {
             .beds(beds)
             .build();
 
-        Set<Room> rooms = new HashSet<>();
+        List<Room> rooms = new ArrayList<>();
         rooms.add(room);
 
         Accommodation testAccommodation = Accommodation.builder()

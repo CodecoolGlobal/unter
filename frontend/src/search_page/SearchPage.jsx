@@ -24,6 +24,10 @@ function SearchPage() {
     const [currentPage,setCurrentPage] = useState(1);
     const zoom = 13;
     const location = useLocation();
+
+    const indexOfLastAccommodation = currentPage*accommodationPerPage;
+    const indexOfFirstAccomodation=indexOfLastAccommodation -accommodationPerPage;
+    const currentAccommodations = accommodations.slice(indexOfFirstAccomodation,indexOfLastAccommodation);
     
 
     useEffect(() => {
@@ -59,13 +63,6 @@ function SearchPage() {
 
     }, [location])
     
-    const indexOfLastAccommodation = currentPage*accommodationPerPage;
-    const indexOfFirstAccomodation=indexOfLastAccommodation -accommodationPerPage;
-    const currentAccommodations = accommodations.slice(indexOfFirstAccomodation,indexOfLastAccommodation);
-    // const paginate = (pageNumber) =>{
-    //     console.log(pageNumber+"PAGENUMBER")
-    //     setCurrentPage(pageNumber)
-    // }
     console.log(currentPage+"CURRENTPAGE")
 
     if(isLoading){
@@ -110,6 +107,7 @@ function SearchPage() {
                     <MediaQuery minDeviceWidth={1224}>
                         <div className="map">
                             <SimpleMap
+                            className="gmap"
                                 center={newCenter}
                                 defaultZoom={zoom}
                             ></SimpleMap>

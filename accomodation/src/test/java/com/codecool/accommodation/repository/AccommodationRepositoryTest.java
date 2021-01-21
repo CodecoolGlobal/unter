@@ -55,7 +55,7 @@ public class AccommodationRepositoryTest {
             .beds(beds)
             .build();
 
-        Set<Room> rooms = new HashSet<>();
+        List<Room> rooms = new ArrayList<>();
         rooms.add(room);
 
         testAccommodation = Accommodation.builder()
@@ -137,7 +137,7 @@ public class AccommodationRepositoryTest {
             .beds(beds2)
             .build();
 
-        Set<Room> rooms2 =new HashSet<>();
+        List<Room> rooms2 =new ArrayList<>();
         rooms2.add(room2);
 
         Accommodation testAccommodation2 = Accommodation.builder()
@@ -171,7 +171,7 @@ public class AccommodationRepositoryTest {
             .beds(beds2)
             .build();
 
-        Set<Room> rooms3 =new HashSet<>();
+        List<Room> rooms3 =new ArrayList<>();
         rooms3.add(room3);
 
         Accommodation testAccommodation3 = Accommodation.builder()
@@ -202,9 +202,6 @@ public class AccommodationRepositoryTest {
 
         // save testAccommodation with hostId = 1L
         accommodationRepository.save(testAccommodation);
-
-        List<Accommodation> found = accommodationRepository.findAccommodationsByHostId(testHostId);
-        System.out.println(found);
 
         // test
         List<Accommodation> foundByHostId = accommodationRepository.findAccommodationsByHostId(testHostId);
@@ -237,7 +234,7 @@ public class AccommodationRepositoryTest {
             .beds(beds2)
             .build();
 
-        Set<Room> rooms2 =new HashSet<>();
+        List<Room> rooms2 =new ArrayList<>();
         rooms2.add(room2);
 
         Accommodation accommodation2 = Accommodation.builder()
@@ -557,7 +554,7 @@ public class AccommodationRepositoryTest {
         assertThat(changedRoomList).hasSize(sizeOfRooms - 1);
 
         // no rooms are found by id of deleted accommodation
-        Set<Room> roomSet = roomRepository.findRoomByAccommodation_Id(accToDelete.getId());
+        List<Room> roomSet = roomRepository.findRoomByAccommodation_Id(accToDelete.getId());
         assertThat(roomSet).isEmpty();
         assertFalse(roomRepository.existsRoomsByAccommodation_Id(accToDelete.getId()));
     }
@@ -586,7 +583,7 @@ public class AccommodationRepositoryTest {
             .beds(beds)
             .build();
 
-        Set<Room> rooms = new HashSet<>();
+        List<Room> rooms = new ArrayList<>();
         rooms.add(room);
 
         Accommodation testAccommodation2 = Accommodation.builder()

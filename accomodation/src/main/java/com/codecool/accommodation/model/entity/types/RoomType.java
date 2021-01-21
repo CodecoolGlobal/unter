@@ -4,6 +4,6 @@ public enum RoomType {
 
     BEDROOM,
     BATHROOM,
-    LIVING_ROOM
+    COMMON_SPACES
 
 }

@@ -4,6 +4,7 @@ import com.codecool.accommodation.exception.NoDataFoundException;
 import com.codecool.accommodation.model.DTO.NewAccommodationDTO;
 import com.codecool.accommodation.model.DTO.ResponseAccDTO;
 import com.codecool.accommodation.model.entity.Accommodation;
+import com.codecool.accommodation.model.wrapper.AccommodationDTOWrapper;
 import com.codecool.accommodation.service.DAO.AccommodationDAO;
 import lombok.RequiredArgsConstructor;
 import org.apache.commons.lang.NullArgumentException;
@@ -13,14 +14,14 @@ import java.util.List;
 @Service
 @RequiredArgsConstructor
 public class AccommodationService {
-
+    private final DTOCreator creator;
     private final AccommodationDAO accommodationDAO;
 
-    public List<Accommodation> getAllAccommodation(Long hostId) {
+    public AccommodationDTOWrapper getAllAccommodation(Long hostId) {
         if (accommodationDAO.findAllByHostId(hostId) == null) {
             throw new NoDataFoundException();
         }
-        return accommodationDAO.findAllByHostId(hostId);
+        return creator.turnInputListToAccommodationDTO(accommodationDAO.findAllByHostId(hostId));
     }
 
     public void saveNewAccommodation(NewAccommodationDTO newAccommodationDTO) {

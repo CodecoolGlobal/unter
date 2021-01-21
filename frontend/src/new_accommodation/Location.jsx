@@ -16,12 +16,32 @@ function NewAccommodationLandingPage() {
   const history = useHistory();
   const [accommodation, setAccommodation] = useContext(NewAccommodationContext);
 
+  const checkSavedLocationData = (data) => {
+    return (
+      accommodation !== undefined &&
+      accommodation.address !== undefined &&
+      data in accommodation.address
+    );
+  };
+
   // AFTER PLACES API WORKS: const [coordinates, setCoordinates] = useState({});
-  const [country, setCountry] = useState("");
-  const [zipCode, setZipCode] = useState("");
-  const [city, setCity] = useState("");
-  const [street, setStreet] = useState("");
-  const [houseNumber, setHouseNumber] = useState("");
+  const [country, setCountry] = useState(
+    checkSavedLocationData("country") ? accommodation.address.country : ""
+  );
+  const [zipCode, setZipCode] = useState(
+    checkSavedLocationData("zipCode") ? accommodation.address.zipCode : ""
+  );
+  const [city, setCity] = useState(
+    checkSavedLocationData("city") ? accommodation.address.city : ""
+  );
+  const [street, setStreet] = useState(
+    checkSavedLocationData("street") ? accommodation.address.street : ""
+  );
+  const [houseNumber, setHouseNumber] = useState(
+    checkSavedLocationData("houseNumber")
+      ? accommodation.address.houseNumber
+      : ""
+  );
 
   useEffect(() => {
     if (city !== "") {
@@ -38,7 +58,6 @@ function NewAccommodationLandingPage() {
             latitude: latitude,
           };
           setAccommodation(newAccommodation);
-          console.log(accommodation);
         });
     }
   }, [city]);

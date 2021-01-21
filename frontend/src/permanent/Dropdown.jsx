@@ -6,11 +6,9 @@ import Login from './Login';
 import ExpandMoreIcon from "@material-ui/icons/ExpandMore";
 import { Avatar } from '@material-ui/core';
 import Registration from './Registration';
-import { Link, useHistory } from "react-router-dom";
-import { db } from "../Firebase";
+import {db} from '../Firebase'
+import {useHistory} from 'react-router-dom'
 import Axios from 'axios';
-
-
 
 export default function Dropdown() {
   const [anchorEl, setAnchorEl] = React.useState(null);
@@ -37,7 +35,7 @@ export default function Dropdown() {
     setAnchorEl(null);
   }
 
-  
+
   if(localStorage.getItem('user')!== null){
     db.child('images/IMG_0954-nologo.jpg').getDownloadURL().then((url=>{
       setImg(url);
@@ -47,7 +45,7 @@ export default function Dropdown() {
     <div className="dropdown">
     <button type="button" className="avatar__button" onClick={handleClick}>
       <ExpandMoreIcon/>
-      <img className="profilePicture" src={img} alt=""/>  
+      <img className="profilePicture" src={img} alt=""/>
     </button>
     <Menu
       id="simple-menu"
@@ -57,21 +55,26 @@ export default function Dropdown() {
       open={Boolean(anchorEl)}
       onClose={handleClose}
     >
+       <MenuItem
+            onClick={() => {
+              history.push("/hosting/listings");
+            }}
+          >
+            Manage listings
+          </MenuItem>
       <MenuItem onClick={myAcc}>My account</MenuItem>
       <MenuItem onClick={logOut}>Log out</MenuItem>
     </Menu>
   </div>)
   }
-  else{
-    db.child('images/IMG_0954-nologo.jpg').getDownloadURL().then((url=>{
-      setImg(url);
-    }))
-    console.log(img);
-    content=(
+ 
+
+  else {
+    content = (
       <div className="dropdown">
       <button type="button" className="avatar__button" onClick={handleClick}>
         <ExpandMoreIcon/>
-        <Avatar/> 
+        <Avatar/>
     </button>
       <Menu
         id="simple-menu"

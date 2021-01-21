@@ -2,7 +2,6 @@ package com.codecool.accommodation.validation.annotation;
 
 
 import com.codecool.accommodation.validation.AddressNotNullValidator;
-import com.codecool.accommodation.validation.CoordinateNotNullValidator;
 
 import javax.validation.Payload;
 import java.lang.annotation.Retention;
