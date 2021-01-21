@@ -150,10 +150,12 @@ public class UserCreator {
         roles.add("ROLE_USER");
 
         for (int i = 0; i < firstNames.length ; i++) {
+            UserAddress address = addresses[i];
             NewUser newUser = NewUser.builder()
                 .firstName(firstNames[i])
                 .lastName(lastNames[i])
                 .email(emails[i])
+                .address(address)
                 .password(passwordEncoder.encode("Password123!"))
                 .birthDate(generateBirthDate())
                 .phoneNumber("003698765432")
@@ -161,19 +163,26 @@ public class UserCreator {
                 .roles(roles)
                 .build();
 
-            repository.saveAndFlush(createUserEntity(newUser));
+            UserEntity userEntity = createUserEntity(newUser);
+            address.setUserEntity(userEntity);
+
+            repository.saveAndFlush(userEntity);
         }
 
     }
 
     private UserEntity createUserEntity(NewUser newUser) {
         return UserEntity.builder()
-            .address(newUser.getAddress())
-            .email(newUser.getEmail())
             .firstName(newUser.getFirstName())
+            .lastName(newUser.getLastName())
             .email(newUser.getEmail())
             .password(newUser.getPassword())
             .registrationDate(LocalDateTime.now())
+            .birthDate(newUser.getBirthDate())
+            .phoneNumber(newUser.getPhoneNumber())
+            .gender(newUser.getGender())
+            .address(newUser.getAddress())
+            .roles(newUser.getRoles())
             .build();
     }
 
