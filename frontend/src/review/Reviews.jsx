@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import Avatar from "@material-ui/core/Avatar";
 import Button from "@material-ui/core/Button";
-import { Link } from "react-router-dom";
+import { Link, useHistory } from "react-router-dom";
 import axios from "axios";
 import Review from "./Review";
 /*
@@ -20,7 +20,9 @@ const useStyles = makeStyles((theme) => ({
 */
 
 function Reviews() {
+  const history = useHistory();
   const userId = localStorage.getItem("id");
+  if (!userId) history.push("/");
   const [reviews, setReviews] = useState([]);
 
   /* //TODO: write reviews from this page, I have started it:

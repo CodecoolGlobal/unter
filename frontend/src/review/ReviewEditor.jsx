@@ -27,8 +27,9 @@ const useStyles = makeStyles((theme) => ({
 
 function ReviewEditor({ open, setOpen, accommodationId, redirect }) {
   const history = useHistory();
-  const classes = useStyles();
   const userId = localStorage.getItem("id");
+  if (!userId) history.push("/");
+  const classes = useStyles();
   const [message, setMessage] = useState("");
   const [rating, setRating] = useState(5);
   const meaningOfRating = {

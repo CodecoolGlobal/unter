@@ -24,6 +24,7 @@ export default function Dropdown() {
   const logOut = () => {
     localStorage.clear();
     setAnchorEl(null);
+    history.push("/");
   };
 
   if (localStorage.getItem("id") !== null) {
@@ -48,6 +49,13 @@ export default function Dropdown() {
             }}
           >
             Manage listings
+          </MenuItem>
+          <MenuItem
+            onClick={() => {
+              history.push("/reviews");
+            }}
+          >
+            Manage reviews
           </MenuItem>
           <MenuItem onClick={logOut}>Log out</MenuItem>
         </Menu>
