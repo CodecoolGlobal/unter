@@ -59,9 +59,9 @@ public class UserService {
 
     @Transactional
     public void saveProfileData(Long userId, ProfileDTO profileDTO) {
-        if(profileDTO.getAddress() !=null){
-            userAddressDAO.saveUserAddress(userId, profileDTO.getAddress());
-        }
+//        if(profileDTO.getAddress() !=null){
+//            userAddressDAO.saveUserAddress(userId, profileDTO.getAddress());
+//        }
 
         Map<String, Object> parameterMap = new HashMap<>();
         List<String> setClause = new ArrayList<>();
@@ -69,7 +69,7 @@ public class UserService {
         StringBuilder queryBuilder = new StringBuilder();
         queryBuilder.append("UPDATE UserEntity u SET  ");
 
-        if (!profileDTO.getFullName().isEmpty()){
+        if (profileDTO.getFullName() != null){
             String[] names = profileDTO.getFullName().split(" ");
             setClause.add(" u.firstName =:firstName,");
             parameterMap.put("firstName", names[0]);

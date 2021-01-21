@@ -43,6 +43,10 @@ public class ReservationService {
     }
 
     public List<Reservation> getAllReservationByGuestId(Long guestId) {
+        List<Reservation> allByGuestId = reservationDAO.findAllByGuestId(guestId);
+        for(Reservation reservation: allByGuestId){
+            reservation.
+        }
         return reservationDAO.findAllByGuestId(guestId);
     }
 
