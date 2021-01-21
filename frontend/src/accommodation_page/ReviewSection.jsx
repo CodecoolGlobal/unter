@@ -5,10 +5,10 @@ import axios from "axios";
 import { Button } from "@material-ui/core";
 import ReviewEditor from "../review/ReviewEditor";
 
-function ReviewSection({ accommodationId }) {
+function ReviewSection({ accommodationId, rating }) {
+  const userId = localStorage.getItem("id");
   const [open, setOpen] = React.useState(false);
   const [reviews, setReviews] = useState([]);
-  const [rating, setRating] = useState(5);
 
   useEffect(() => {
     axios
@@ -18,14 +18,6 @@ function ReviewSection({ accommodationId }) {
       });
   }, [setReviews]);
 
-  useEffect(() => {
-    axios
-      .get(`http://localhost:8762/review/rating-avg/${accommodationId}`)
-      .then((response) => {
-        setRating(response.data);
-      });
-  }, [setRating]);
-
   let titleHasReviews = `${rating} (${reviews.length} ${
     reviews.length === 1 ? "review" : "reviews"
   })`;
@@ -33,7 +25,7 @@ function ReviewSection({ accommodationId }) {
   let titleNoReviews = "No reviews (yet)";
 
   let content = (
-    <div style={{ maxWidth: "320px" }}>
+    <div style={{ maxWidth: "320px", marginBottom: "30px" }}>
       We’re here to help your trip go smoothly. Every reservation is covered by{" "}
       <Link
         className="black-pink-link"
@@ -59,6 +51,14 @@ function ReviewSection({ accommodationId }) {
     );
   }
 
+  const writeReviewButton = (
+    <React.Fragment>
+      <Button variant="outlined" color="default" onClick={() => setOpen(true)}>
+        WRITE A REVIEW
+      </Button>
+    </React.Fragment>
+  );
+
   return (
     <div className="acc-section">
       <h3 className="section-title">
@@ -68,9 +68,7 @@ function ReviewSection({ accommodationId }) {
 
       {content}
 
-      <Button variant="outlined" color="default" onClick={() => setOpen(true)}>
-        WRITE A REVIEW
-      </Button>
+      {userId ? writeReviewButton : ""}
 
       <ReviewEditor
         open={open}

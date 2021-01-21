@@ -6,22 +6,31 @@ import GoogleMapReact from "google-map-react";
 import { Button } from "@material-ui/core";
 import Axios from "axios";
 import ReviewSection from "./ReviewSection";
+import axios from "axios";
 
 function AccomodationPage() {
+  const accommodationId = window.location.href.substring(
+    window.location.href.lastIndexOf("/") + 1
+  );
   const [accommodation, setAccommodation] = useState(null);
   const [isLoading, setIsLoading] = useState(true);
   const [center, setCenter] = useState([]);
+  const [rating, setRating] = useState(0);
   const defaultProps = {
     center: { lat: 59.95, lng: 30.33 },
     zoom: 11,
   };
 
   useEffect(() => {
-    Axios.get(
-      `http://localhost:8762/acc/accommodation-id/${window.location.href.substring(
-        window.location.href.lastIndexOf("/") + 1
-      )}`
-    )
+    axios
+      .get(`http://localhost:8762/review/rating-avg/${accommodationId}`)
+      .then((response) => {
+        setRating(response.data);
+      });
+  }, [setRating]);
+
+  useEffect(() => {
+    Axios.get(`http://localhost:8762/acc/accommodation-id/${accommodationId}`)
       .then(async function (response) {
         console.log(JSON.stringify(response.data) + "plsplaslpasls");
         setAccommodation(response.data);
@@ -39,10 +48,19 @@ function AccomodationPage() {
         // always executed
       });
   }, []);
+
   if (isLoading) {
     return <div>Loading</div>;
   } else {
     let newCenter = { lat: center[0]["lat"], lng: center[1]["lng"] };
+
+    let existingRating = (
+      <React.Fragment>
+        <StarBorder className="searchResult__star" />
+        <strong>{` ${rating} · `}</strong>
+      </React.Fragment>
+    );
+
     return (
       <div className="accommodation__page">
         <div className="accommodation__pageContainer">
@@ -50,11 +68,7 @@ function AccomodationPage() {
             <h2>{accommodation.name}</h2>
           </div>
           <div className="rating">
-            <StarBorder className="searchResult__star" />
-            <p>
-              <strong>{4.7}</strong>
-            </p>
-            <p>·</p>
+            {rating > 0 ? existingRating : ""}
             <p>
               {accommodation.address.city}, {accommodation.address.country}
             </p>
@@ -145,7 +159,7 @@ function AccomodationPage() {
               </div>
             </div>
           </div>
-          <ReviewSection accommodationId={accommodation.id} />
+          <ReviewSection accommodationId={accommodationId} rating={rating} />
           <div className="acc-section">
             <h3 className="section-title">Location</h3>
             <div className="accomodation__map">
