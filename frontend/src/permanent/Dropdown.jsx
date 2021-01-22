@@ -36,79 +36,107 @@ export default function Dropdown() {
 
     history.push("/");
   };
-  }
-
 
   if(localStorage.getItem('user')!== null){
     db.child('images/IMG_0954-nologo.jpg').getDownloadURL().then((url=>{
       setImg(url);
     }))
     console.log(img)
+      console.log(localStorage.getItem('roles'))
     content=(
-    <div className="dropdown">
-    <button type="button" className="avatar__button" onClick={handleClick}>
-      <ExpandMoreIcon/>
-      <img className="profilePicture" src={img} alt=""/>
-    </button>
-    <Menu
-      id="simple-menu"
-      anchorEl={anchorEl}
-      style={{top:"5vh", width:"10vw",borderRadius:"16px"}}
-      keepMounted
-      open={Boolean(anchorEl)}
-      onClose={handleClose}
-    >
-      {localStorage.getItem('user').roles == 'ROLE_HOST'?  <MenuItem
-            onClick={() => {
-              history.push("/hosting/listings");
-            }}
+        <div className="dropdown">
+          <button type="button" className="avatar__button" onClick={handleClick}>
+            <ExpandMoreIcon/>
+            <img className="profilePicture" src={img} alt=""/>
+          </button>
+          <Menu
+              id="simple-menu"
+              anchorEl={anchorEl}
+              style={{top:"5vh", width:"10vw",borderRadius:"16px"}}
+              keepMounted
+              open={Boolean(anchorEl)}
+              onClose={handleClose}
           >
-            Manage listings
-          </MenuItem>
-          <MenuItem
-            onClick={() => {
-              history.push("/reviews");
-            }}
-          >
-            Manage reviews
-          </MenuItem>
-          <MenuItem onClick={logOut}>Log out</MenuItem>
-        </Menu>
-      </div>
-    );
-  } else {
-          </MenuItem>:("")
-      }
-      
-      <MenuItem onClick={myAcc}>My account</MenuItem>
-      <MenuItem onClick={logOut}>Log out</MenuItem>
-    </Menu>
-  </div>)
-  }
- 
+            {localStorage.getItem('roles') === "ROLE_USER"? <MenuItem
+                onClick={() => {
+                  history.push("/hosting/listings");
+                }}
+            >
+              Manage listings
+            </MenuItem>:("")}
+            {localStorage.getItem('roles') === "ROLE_USER"?
+                <MenuItem
+                         onClick={() => {
+                           history.push("/reviews");
+                         }}
+                       >
+                         Manage reviews
+                       </MenuItem>:("")
+            }
 
+            <MenuItem onClick={myAcc}>My account</MenuItem>
+            <MenuItem onClick={logOut}>Log out</MenuItem>
+          </Menu>
+        </div>)
+  }
+
+  // if(localStorage.getItem('user')!== null){
+  //   db.child('images/IMG_0954-nologo.jpg').getDownloadURL().then((url=>{
+  //     setImg(url);
+  //   }))
+  //   console.log(img)
+  //   content=(
+  //   <div className="dropdown">
+  //   <button type="button" className="avatar__button" onClick={handleClick}>
+  //     <ExpandMoreIcon/>
+  //     <img className="profilePicture" src={img} alt=""/>
+  //   </button>
+  //   <Menu
+  //     id="simple-menu"
+  //     anchorEl={anchorEl}
+  //     style={{top:"5vh", width:"10vw",borderRadius:"16px"}}
+  //     keepMounted
+  //     open={Boolean(anchorEl)}
+  //     onClose={handleClose}
+  //   >
+  //     {localStorage.getItem('user').roles == 'ROLE_HOST'?  <MenuItem
+  //           onClick={() => {
+  //             history.push("/hosting/listings");
+  //           }}
+  //         >
+  //           Manage listings
+  //         </MenuItem>
+  //         <MenuItem
+  //           onClick={() => {
+  //             history.push("/reviews");
+  //           }}
+  //         >
+  //           Manage reviews
+  //         </MenuItem>
+  //         <MenuItem onClick={logOut}>Log out</MenuItem>
+  //       </Menu>
+  //     </div>
+  //   );
   else {
     content = (
-      <div className="dropdown">
-      <button type="button" className="avatar__button" onClick={handleClick}>
-        <ExpandMoreIcon/>
-        <Avatar/>
-    </button>
-      <Menu
-        id="simple-menu"
-        anchorEl={anchorEl}
-        style={{top:"5vh", width:"10vw",borderRadius:"16px"}}
-        keepMounted
-        open={Boolean(anchorEl)}
-        onClose={handleClose}
-      >
-        <MenuItem onClick={handleClose}><Login/></MenuItem>
-        <MenuItem onClick={handleClose}><Registration/></MenuItem>
-      </Menu>
-    </div>
-    )
-  }
-
+        <div className="dropdown">
+          <button type="button" className="avatar__button" onClick={handleClick}>
+            <ExpandMoreIcon/>
+            <Avatar/>
+          </button>
+          <Menu
+              id="simple-menu"
+              anchorEl={anchorEl}
+              style={{top:"5vh", width:"10vw",borderRadius:"16px"}}
+              keepMounted
+              open={Boolean(anchorEl)}
+              onClose={handleClose}
+          >
+            <MenuItem onClick={handleClose}><Login/></MenuItem>
+            <MenuItem onClick={handleClose}><Registration/></MenuItem>
+          </Menu>
+        </div>
+    )}
   return content; 
 
 }

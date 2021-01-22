@@ -37,42 +37,66 @@ function Registration() {
   const handleClose = () => {
     setOpen(false);
   };
-  const handleSubmit = async (e) => {
-    e.preventDefault();
-    const user = { email, password, firstName, lastName, birthDate };
-    // send the username and password to the server
+  // const handleSubmit = async (e) => {
+  //   e.preventDefault();
+  //   const user = { email, password, firstName, lastName, birthDate };
+  //   // send the username and password to the server
+  //
+  //   console.log(JSON.stringify(user) + "CICAAAAA");
+  //   try {
+  //     const response = await Axios.post("http://localhost:8762/reg", user);
+  //     // set the state of the user
+  //     setUser(response.data);
+  //     // store the user in localStorage
+  //     localStorage.setItem("user", response.data);
+  //     localStorage.setItem("id", response.data.Id);
+  //     localStorage.setItem("name", response.data.Name);
+  //     localStorage.setItem("roles", response.data.roles);
+  //     handleClose();
+  //     console.log(response.data);
+  //   } catch (e) {
+  //     console.log(JSON.stringify(e));
+  //   }
+  // };
+  //   console.log(JSON.stringify(user)+"CICAAAAA")
+  //   try{
+  //   const response =  Axios.post(
+  //     "http://localhost:8762/reg",
+  //     user
+  //   );
+  //   // set the state of the user
+  //   handleClose();
+  //   console.log(response.data)
+  // }
+  // catch(e){
+  //     console.log(JSON.stringify(e))
+  // }
+    const handleSubmit = async (e) => {
+        e.preventDefault();
+        const user = { email, password, firstName, lastName, birthDate };
+        // send the username and password to the server
 
-    console.log(JSON.stringify(user) + "CICAAAAA");
-    try {
-      const response = await Axios.post("http://localhost:8762/reg", user);
-      // set the state of the user
-      setUser(response.data);
-      // store the user in localStorage
-      localStorage.setItem("user", response.data);
-      localStorage.setItem("id", response.data.Id);
-      localStorage.setItem("name", response.data.Name);
-      localStorage.setItem("roles", response.data.roles);
-      handleClose();
-      console.log(response.data);
-    } catch (e) {
-      console.log(JSON.stringify(e));
-    }
-  };
-    console.log(JSON.stringify(user)+"CICAAAAA")
-    try{
-    const response = await Axios.post(
-      "http://localhost:8762/reg",
-      user
-    );
-    // set the state of the user
-    handleClose();
-    console.log(response.data)
-  }
-  catch(e){
-      console.log(JSON.stringify(e))
-  }
-};
-  
+        console.log(JSON.stringify(user)+"CICAAAAA")
+        try{
+            const response = await Axios.post(
+                "http://localhost:8762/reg",
+                user
+            );
+            // set the state of the user
+            setUser(response.data);
+                // store the user in localStorage
+                localStorage.setItem("user", response.data);
+                localStorage.setItem("id", response.data.Id);
+                localStorage.setItem("name", response.data.Name);
+                localStorage.setItem("roles", response.data.roles);
+            handleClose();
+            console.log(response.data)
+        }
+        catch(e){
+            console.log(JSON.stringify(e))
+        }
+    };
+
   function handleTextChange(target) {
       switch(target.id){
         case "firstName":
@@ -119,48 +143,48 @@ function Registration() {
       }
     }
 
-  function handleTextChange(target) {
-    switch (target.id) {
-      case "firstName":
-        target.value === ""
-          ? setFirstNameEffect(false)
-          : setFirstNameEffect(true);
-        setFirstName(target.value);
-        setFirstNameStyle({ border: "1px solid grey", borderRadius: "5px" });
-        if (target.value === "") {
-          setFirstNameStyle({ border: "1px solid red", borderRadius: "5px" });
-        }
-        break;
-      case "lastName":
-        target.value === ""
-          ? setLastNameEffect(false)
-          : setLastNameEffect(true);
-        setLastName(target.value);
-        setStyle({ border: "1px solid grey", borderRadius: "5px" });
-        if (target.value === "") {
-          setStyle({ border: "1px solid red", borderRadius: "5px" });
-        }
-        break;
-      case "birthDate":
-        setBirthDate(target.value);
-        break;
-      case "email":
-        let re = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
-        target.value === "" ? setEmailEffect(false) : setEmailEffect(true);
-        setEmail(target.value);
-        if (re.test(target.value)) {
-          setEmailStyle({ border: "1px solid grey", borderRadius: "5px" });
-        } else {
-          setEmailStyle({ border: "1px solid red", borderRadius: "5px" });
-        }
-        break;
-      case "psw":
-        target.value === "" ? setPswEffect(false) : setPswEffect(true);
-        setPsw(target.value);
-        break;
-      default:
-    }
-  }
+  // function handleTextChange(target) {
+  //   switch (target.id) {
+  //     case "firstName":
+  //       target.value === ""
+  //         ? setFirstNameEffect(false)
+  //         : setFirstNameEffect(true);
+  //       setFirstName(target.value);
+  //       setFirstNameStyle({ border: "1px solid grey", borderRadius: "5px" });
+  //       if (target.value === "") {
+  //         setFirstNameStyle({ border: "1px solid red", borderRadius: "5px" });
+  //       }
+  //       break;
+  //     case "lastName":
+  //       target.value === ""
+  //         ? setLastNameEffect(false)
+  //         : setLastNameEffect(true);
+  //       setLastName(target.value);
+  //       setStyle({ border: "1px solid grey", borderRadius: "5px" });
+  //       if (target.value === "") {
+  //         setStyle({ border: "1px solid red", borderRadius: "5px" });
+  //       }
+  //       break;
+  //     case "birthDate":
+  //       setBirthDate(target.value);
+  //       break;
+  //     case "email":
+  //       let re = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+  //       target.value === "" ? setEmailEffect(false) : setEmailEffect(true);
+  //       setEmail(target.value);
+  //       if (re.test(target.value)) {
+  //         setEmailStyle({ border: "1px solid grey", borderRadius: "5px" });
+  //       } else {
+  //         setEmailStyle({ border: "1px solid red", borderRadius: "5px" });
+  //       }
+  //       break;
+  //     case "psw":
+  //       target.value === "" ? setPswEffect(false) : setPswEffect(true);
+  //       setPsw(target.value);
+  //       break;
+  //     default:
+  //   }
+  // }
 
   const body = (
     <div className="register__modal">

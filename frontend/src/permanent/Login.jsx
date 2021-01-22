@@ -29,7 +29,10 @@ export default function SimpleModal() {
     setUser(response.data)
     console.log(response.data)
     // let localUser = JSON.parse(response.data)
-    localStorage.setItem('user',JSON.stringify(response.data))
+      localStorage.setItem("user", response.data);
+      localStorage.setItem("id", response.data.Id);
+      localStorage.setItem("name", response.data.Name);
+      localStorage.setItem("roles", response.data.roles);
     // console.log(localUser)
     handleClose()
   }

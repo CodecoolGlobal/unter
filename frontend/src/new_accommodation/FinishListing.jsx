@@ -107,6 +107,9 @@ function FinishListing() {
           emptyContext();
         });
     } else {
+      console.log()
+      newAccommodation.hostId = localStorage.getItem('id')
+      console.log(`${JSON.stringify(newAccommodation)}HALI`)
       axios
         .post(`http://localhost:8762/acc`, newAccommodation, {
           withCredentials: true,
