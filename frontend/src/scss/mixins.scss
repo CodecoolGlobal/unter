@@ -54,3 +54,11 @@
     border: 2px solid black !important;
   }
 }
+
+@mixin undecorated__link($color, $hover) {
+  text-decoration: none !important;
+  color: $color !important;
+  &:hover {
+    color: $hover !important;
+  }
+}

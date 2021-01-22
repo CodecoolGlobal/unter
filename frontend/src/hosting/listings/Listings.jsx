@@ -136,7 +136,7 @@ function Listings() {
   const [rows, setRows] = useState([]);
   const [requestDate, setRequestDate] = useState(new Date());
 
-  if (localStorage.getItem("id") === null) {
+  if (localStorage.getItem("id") === undefined) {
     history.push("/");
   }
 

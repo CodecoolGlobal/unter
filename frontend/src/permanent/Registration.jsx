@@ -42,6 +42,22 @@ function Registration() {
     const user = { email, password, firstName, lastName, birthDate };
     // send the username and password to the server
 
+    console.log(JSON.stringify(user) + "CICAAAAA");
+    try {
+      const response = await Axios.post("http://localhost:8762/reg", user);
+      // set the state of the user
+      setUser(response.data);
+      // store the user in localStorage
+      localStorage.setItem("user", response.data);
+      localStorage.setItem("id", response.data.Id);
+      localStorage.setItem("name", response.data.Name);
+      localStorage.setItem("roles", response.data.roles);
+      handleClose();
+      console.log(response.data);
+    } catch (e) {
+      console.log(JSON.stringify(e));
+    }
+  };
     console.log(JSON.stringify(user)+"CICAAAAA")
     try{
     const response = await Axios.post(
@@ -142,8 +158,10 @@ function Registration() {
         target.value === "" ? setPswEffect(false) : setPswEffect(true);
         setPsw(target.value);
         break;
+      default:
     }
   }
+
   const body = (
     <div className="register__modal">
       <div className="register__header">
